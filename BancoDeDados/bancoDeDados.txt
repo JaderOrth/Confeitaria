@@ -1,1 +1,269 @@
-teste
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema confeitaria
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema confeitaria
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `confeitaria` DEFAULT CHARACTER SET utf8 ;
+USE `confeitaria` ;
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`uf`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`uf` (
+  `iduf` INT NOT NULL,
+  `descricao` VARCHAR(255) NOT NULL,
+  `sigla_uf` VARCHAR(2) NOT NULL,
+  PRIMARY KEY (`iduf`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`municipio`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`municipio` (
+  `idmunicipio` INT NOT NULL,
+  `descricao` VARCHAR(255) NOT NULL,
+  `iduf` INT NOT NULL,
+  PRIMARY KEY (`idmunicipio`),
+  INDEX `fk_municipio_uf1_idx` (`iduf` ASC),
+  CONSTRAINT `fk_municipio_uf1`
+    FOREIGN KEY (`iduf`)
+    REFERENCES `confeitaria`.`uf` (`iduf`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`bairro`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`bairro` (
+  `idbairro` INT NOT NULL,
+  `descricao` VARCHAR(255) NOT NULL,
+  `idmunicipio` INT NOT NULL,
+  PRIMARY KEY (`idbairro`),
+  INDEX `fk_bairro_municipio1_idx` (`idmunicipio` ASC),
+  CONSTRAINT `fk_bairro_municipio1`
+    FOREIGN KEY (`idmunicipio`)
+    REFERENCES `confeitaria`.`municipio` (`idmunicipio`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`cliente` (
+  `idcliente` INT NOT NULL,
+  `endereco` VARCHAR(100) NOT NULL,
+  `numero` VARCHAR(10) NOT NULL COMMENT 'Número da residencia ou empresa',
+  `complemento` VARCHAR(45) NULL COMMENT 'Tipo: Casa, empresa, prédio, apartamento...',
+  `observacao` VARCHAR(255) NOT NULL,
+  `cpf_cnpj` FLOAT NULL,
+  `telefone` VARCHAR(50) NULL,
+  `celular` VARCHAR(50) NULL COMMENT 'OBS: Telefone ou o celular - um deles precisa ser obrigatório.',
+  `idbairro` INT NOT NULL,
+  PRIMARY KEY (`idcliente`),
+  INDEX `fk_cliente_bairro1_idx` (`idbairro` ASC),
+  CONSTRAINT `fk_cliente_bairro1`
+    FOREIGN KEY (`idbairro`)
+    REFERENCES `confeitaria`.`bairro` (`idbairro`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`categorias`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`categorias` (
+  `idcategorias` INT NOT NULL,
+  `descricao` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`idcategorias`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`sabores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`sabores` (
+  `idsabores` INT NOT NULL,
+  `descricao` VARCHAR(255) NOT NULL,
+  `ingredientes` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`idsabores`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`unidade_medida`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`unidade_medida` (
+  `idunidade_medida` INT NOT NULL,
+  `descricao` VARCHAR(255) NOT NULL,
+  `sigla` VARCHAR(2) NOT NULL,
+  `permite_decimal` CHAR(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`idunidade_medida`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`produtos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`produtos` (
+  `idprodutos` INT NOT NULL,
+  `descricao` VARCHAR(255) NOT NULL,
+  `preco` DOUBLE(8,2) NOT NULL,
+  `sabor` CHAR(1) NULL DEFAULT 'N',
+  `idunidade_medida` INT NOT NULL,
+  `idcategorias` INT NOT NULL,
+  PRIMARY KEY (`idprodutos`),
+  INDEX `fk_produtos_unidade_medida1_idx` (`idunidade_medida` ASC),
+  INDEX `fk_produtos_categorias1_idx` (`idcategorias` ASC),
+  CONSTRAINT `fk_produtos_unidade_medida1`
+    FOREIGN KEY (`idunidade_medida`)
+    REFERENCES `confeitaria`.`unidade_medida` (`idunidade_medida`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_produtos_categorias1`
+    FOREIGN KEY (`idcategorias`)
+    REFERENCES `confeitaria`.`categorias` (`idcategorias`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`usuario` (
+  `idusuario` INT NOT NULL,
+  `usuario` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idusuario`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`pedido` (
+  `idpedido` INT NOT NULL,
+  `data_pedido` DATE NOT NULL,
+  `datahora_entrega` DATETIME NOT NULL,
+  `observacao` VARCHAR(255) NULL,
+  `total_pedido` DOUBLE(8,2) NOT NULL,
+  `idcliente` INT NOT NULL,
+  `entrega_endereco` VARCHAR(255) NOT NULL,
+  `entrega_numero` VARCHAR(10) NOT NULL,
+  `entrega_complemento` VARCHAR(45) NULL,
+  `idbairro` INT NOT NULL,
+  `responsavel_pedido` VARCHAR(100) NOT NULL,
+  `idusuario` INT NOT NULL,
+  PRIMARY KEY (`idpedido`),
+  INDEX `fk_pedido_cliente1_idx` (`idcliente` ASC),
+  INDEX `fk_pedido_bairro1_idx` (`idbairro` ASC),
+  INDEX `fk_pedido_usuario1_idx` (`idusuario` ASC),
+  CONSTRAINT `fk_pedido_cliente1`
+    FOREIGN KEY (`idcliente`)
+    REFERENCES `confeitaria`.`cliente` (`idcliente`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pedido_bairro1`
+    FOREIGN KEY (`idbairro`)
+    REFERENCES `confeitaria`.`bairro` (`idbairro`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pedido_usuario1`
+    FOREIGN KEY (`idusuario`)
+    REFERENCES `confeitaria`.`usuario` (`idusuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`itens_pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`itens_pedido` (
+  `iditens_pedido` INT NOT NULL,
+  `pedido_idpedido` INT NOT NULL,
+  `idprodutos` INT NOT NULL,
+  `quantidade` FLOAT NOT NULL,
+  `itens_pedidocol` VARCHAR(45) NULL,
+  `observacao` VARCHAR(255) NULL,
+  `valor_total` DOUBLE(8,2) NOT NULL,
+  PRIMARY KEY (`iditens_pedido`),
+  INDEX `fk_itens_pedido_pedido1_idx` (`pedido_idpedido` ASC),
+  INDEX `fk_itens_pedido_produtos1_idx` (`idprodutos` ASC),
+  CONSTRAINT `fk_itens_pedido_pedido1`
+    FOREIGN KEY (`pedido_idpedido`)
+    REFERENCES `confeitaria`.`pedido` (`idpedido`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_itens_pedido_produtos1`
+    FOREIGN KEY (`idprodutos`)
+    REFERENCES `confeitaria`.`produtos` (`idprodutos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`sabores_produto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`sabores_produto` (
+  `idprodutos` INT NOT NULL,
+  `idsabores` INT NOT NULL,
+  `idsabores_produto` INT NOT NULL,
+  INDEX `fk_sabores_produto_produtos1_idx` (`idprodutos` ASC),
+  INDEX `fk_sabores_produto_sabores1_idx` (`idsabores` ASC),
+  PRIMARY KEY (`idsabores_produto`),
+  CONSTRAINT `fk_sabores_produto_produtos1`
+    FOREIGN KEY (`idprodutos`)
+    REFERENCES `confeitaria`.`produtos` (`idprodutos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_sabores_produto_sabores1`
+    FOREIGN KEY (`idsabores`)
+    REFERENCES `confeitaria`.`sabores` (`idsabores`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `confeitaria`.`itemPedido_sabores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `confeitaria`.`itemPedido_sabores` (
+  `iditens_pedido` INT NOT NULL,
+  `idsabores` INT NOT NULL,
+  `id_itemPedido_sabores` INT NOT NULL,
+  INDEX `fk_itemPedido_sabores_itens_pedido1_idx` (`iditens_pedido` ASC),
+  INDEX `fk_itemPedido_sabores_sabores1_idx` (`idsabores` ASC),
+  PRIMARY KEY (`id_itemPedido_sabores`),
+  UNIQUE INDEX `idx_saboritem` (`idsabores` ASC, `iditens_pedido` ASC),
+  CONSTRAINT `fk_itemPedido_sabores_itens_pedido1`
+    FOREIGN KEY (`iditens_pedido`)
+    REFERENCES `confeitaria`.`itens_pedido` (`iditens_pedido`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_itemPedido_sabores_sabores1`
+    FOREIGN KEY (`idsabores`)
+    REFERENCES `confeitaria`.`sabores` (`idsabores`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
