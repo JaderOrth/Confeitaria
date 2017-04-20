@@ -9,15 +9,9 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema confeitaria
+-- Table `uf`
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `confeitaria` DEFAULT CHARACTER SET utf8 ;
-USE `confeitaria` ;
-
--- -----------------------------------------------------
--- Table `confeitaria`.`uf`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`uf` (
+CREATE TABLE IF NOT EXISTS `uf` (
   `iduf` INT NOT NULL,
   `descricao` VARCHAR(255) NOT NULL,
   `sigla_uf` VARCHAR(2) NOT NULL,
@@ -26,9 +20,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`municipio`
+-- Table `municipio`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`municipio` (
+CREATE TABLE IF NOT EXISTS `municipio` (
   `idmunicipio` INT NOT NULL,
   `descricao` VARCHAR(255) NOT NULL,
   `iduf` INT NOT NULL,
@@ -36,16 +30,16 @@ CREATE TABLE IF NOT EXISTS `confeitaria`.`municipio` (
   INDEX `fk_municipio_uf1_idx` (`iduf` ASC),
   CONSTRAINT `fk_municipio_uf1`
     FOREIGN KEY (`iduf`)
-    REFERENCES `confeitaria`.`uf` (`iduf`)
+    REFERENCES `uf` (`iduf`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`bairro`
+-- Table `bairro`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`bairro` (
+CREATE TABLE IF NOT EXISTS `bairro` (
   `idbairro` INT NOT NULL,
   `descricao` VARCHAR(255) NOT NULL,
   `idmunicipio` INT NOT NULL,
@@ -53,16 +47,16 @@ CREATE TABLE IF NOT EXISTS `confeitaria`.`bairro` (
   INDEX `fk_bairro_municipio1_idx` (`idmunicipio` ASC),
   CONSTRAINT `fk_bairro_municipio1`
     FOREIGN KEY (`idmunicipio`)
-    REFERENCES `confeitaria`.`municipio` (`idmunicipio`)
+    REFERENCES `municipio` (`idmunicipio`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`cliente`
+-- Table `cliente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`cliente` (
+CREATE TABLE IF NOT EXISTS `cliente` (
   `idcliente` INT NOT NULL,
   `endereco` VARCHAR(100) NOT NULL,
   `numero` VARCHAR(10) NOT NULL COMMENT 'Número da residencia ou empresa',
@@ -76,16 +70,16 @@ CREATE TABLE IF NOT EXISTS `confeitaria`.`cliente` (
   INDEX `fk_cliente_bairro1_idx` (`idbairro` ASC),
   CONSTRAINT `fk_cliente_bairro1`
     FOREIGN KEY (`idbairro`)
-    REFERENCES `confeitaria`.`bairro` (`idbairro`)
+    REFERENCES `bairro` (`idbairro`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`categorias`
+-- Table `categorias`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`categorias` (
+CREATE TABLE IF NOT EXISTS `categorias` (
   `idcategorias` INT NOT NULL,
   `descricao` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idcategorias`))
@@ -93,9 +87,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`sabores`
+-- Table `sabores`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`sabores` (
+CREATE TABLE IF NOT EXISTS `sabores` (
   `idsabores` INT NOT NULL,
   `descricao` VARCHAR(255) NOT NULL,
   `ingredientes` VARCHAR(255) NOT NULL,
@@ -104,9 +98,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`unidade_medida`
+-- Table `unidade_medida`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`unidade_medida` (
+CREATE TABLE IF NOT EXISTS `unidade_medida` (
   `idunidade_medida` INT NOT NULL,
   `descricao` VARCHAR(255) NOT NULL,
   `sigla` VARCHAR(2) NOT NULL,
@@ -116,9 +110,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`produtos`
+-- Table `produtos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`produtos` (
+CREATE TABLE IF NOT EXISTS `produtos` (
   `idprodutos` INT NOT NULL,
   `descricao` VARCHAR(255) NOT NULL,
   `preco` DOUBLE(8,2) NOT NULL,
@@ -130,21 +124,21 @@ CREATE TABLE IF NOT EXISTS `confeitaria`.`produtos` (
   INDEX `fk_produtos_categorias1_idx` (`idcategorias` ASC),
   CONSTRAINT `fk_produtos_unidade_medida1`
     FOREIGN KEY (`idunidade_medida`)
-    REFERENCES `confeitaria`.`unidade_medida` (`idunidade_medida`)
+    REFERENCES `unidade_medida` (`idunidade_medida`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_produtos_categorias1`
     FOREIGN KEY (`idcategorias`)
-    REFERENCES `confeitaria`.`categorias` (`idcategorias`)
+    REFERENCES `categorias` (`idcategorias`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`usuario`
+-- Table `usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`usuario` (
+CREATE TABLE IF NOT EXISTS `usuario` (
   `idusuario` INT NOT NULL,
   `usuario` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(45) NOT NULL,
@@ -153,9 +147,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`pedido`
+-- Table `pedido`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`pedido` (
+CREATE TABLE IF NOT EXISTS `pedido` (
   `idpedido` INT NOT NULL,
   `data_pedido` DATE NOT NULL,
   `datahora_entrega` DATETIME NOT NULL,
@@ -174,26 +168,26 @@ CREATE TABLE IF NOT EXISTS `confeitaria`.`pedido` (
   INDEX `fk_pedido_usuario1_idx` (`idusuario` ASC),
   CONSTRAINT `fk_pedido_cliente1`
     FOREIGN KEY (`idcliente`)
-    REFERENCES `confeitaria`.`cliente` (`idcliente`)
+    REFERENCES `cliente` (`idcliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_bairro1`
     FOREIGN KEY (`idbairro`)
-    REFERENCES `confeitaria`.`bairro` (`idbairro`)
+    REFERENCES `bairro` (`idbairro`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_usuario1`
     FOREIGN KEY (`idusuario`)
-    REFERENCES `confeitaria`.`usuario` (`idusuario`)
+    REFERENCES `usuario` (`idusuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`itens_pedido`
+-- Table `itens_pedido`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`itens_pedido` (
+CREATE TABLE IF NOT EXISTS `itens_pedido` (
   `iditens_pedido` INT NOT NULL,
   `pedido_idpedido` INT NOT NULL,
   `idprodutos` INT NOT NULL,
@@ -206,59 +200,58 @@ CREATE TABLE IF NOT EXISTS `confeitaria`.`itens_pedido` (
   INDEX `fk_itens_pedido_produtos1_idx` (`idprodutos` ASC),
   CONSTRAINT `fk_itens_pedido_pedido1`
     FOREIGN KEY (`pedido_idpedido`)
-    REFERENCES `confeitaria`.`pedido` (`idpedido`)
+    REFERENCES `pedido` (`idpedido`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_itens_pedido_produtos1`
     FOREIGN KEY (`idprodutos`)
-    REFERENCES `confeitaria`.`produtos` (`idprodutos`)
+    REFERENCES `produtos` (`idprodutos`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`sabores_produto`
+-- Table `sabores_produto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`sabores_produto` (
+CREATE TABLE IF NOT EXISTS `sabores_produto` (
   `idprodutos` INT NOT NULL,
   `idsabores` INT NOT NULL,
-  `idsabores_produto` INT NOT NULL,
+  `id` INT NOT NULL,
   INDEX `fk_sabores_produto_produtos1_idx` (`idprodutos` ASC),
   INDEX `fk_sabores_produto_sabores1_idx` (`idsabores` ASC),
-  PRIMARY KEY (`idsabores_produto`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_sabores_produto_produtos1`
     FOREIGN KEY (`idprodutos`)
-    REFERENCES `confeitaria`.`produtos` (`idprodutos`)
+    REFERENCES `produtos` (`idprodutos`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_sabores_produto_sabores1`
     FOREIGN KEY (`idsabores`)
-    REFERENCES `confeitaria`.`sabores` (`idsabores`)
+    REFERENCES `sabores` (`idsabores`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `confeitaria`.`itemPedido_sabores`
+-- Table `itemPedido_sabores`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `confeitaria`.`itemPedido_sabores` (
+CREATE TABLE IF NOT EXISTS `itemPedido_sabores` (
   `iditens_pedido` INT NOT NULL,
   `idsabores` INT NOT NULL,
-  `id_itemPedido_sabores` INT NOT NULL,
+  `id` INT NOT NULL,
   INDEX `fk_itemPedido_sabores_itens_pedido1_idx` (`iditens_pedido` ASC),
   INDEX `fk_itemPedido_sabores_sabores1_idx` (`idsabores` ASC),
-  PRIMARY KEY (`id_itemPedido_sabores`),
-  UNIQUE INDEX `idx_saboritem` (`idsabores` ASC, `iditens_pedido` ASC),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_itemPedido_sabores_itens_pedido1`
     FOREIGN KEY (`iditens_pedido`)
-    REFERENCES `confeitaria`.`itens_pedido` (`iditens_pedido`)
+    REFERENCES `itens_pedido` (`iditens_pedido`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_itemPedido_sabores_sabores1`
     FOREIGN KEY (`idsabores`)
-    REFERENCES `confeitaria`.`sabores` (`idsabores`)
+    REFERENCES `sabores` (`idsabores`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
