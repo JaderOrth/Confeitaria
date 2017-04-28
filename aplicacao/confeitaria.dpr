@@ -6,7 +6,12 @@ uses
   uCadastroBase in 'uCadastroBase.pas' {frmCadastroBase},
   uListagemBase in 'uListagemBase.pas' {frmListagemBase},
   uClassConexao in 'uClassConexao.pas',
-  uClassConexaoSingleton in 'uClassConexaoSingleton.pas';
+  uClassConexaoSingleton in 'uClassConexaoSingleton.pas',
+  uEstado in 'uEstado.pas' {frmEstado},
+  uEstadoControler in 'uEstadoControler.pas',
+  uEstadoModel in 'uEstadoModel.pas',
+  uEstadoCadastro in 'uEstadoCadastro.pas' {frmEstadoCadastro},
+  uEstadoDTO in 'uEstadoDTO.pas';
 
 {$R *.res}
 

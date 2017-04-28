@@ -32,7 +32,7 @@ object frmCadastroBase: TfrmCadastroBase
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    object SpeedButton1: TSpeedButton
+    object btnSalvar: TSpeedButton
       Left = 2
       Top = 72
       Width = 99
@@ -146,7 +146,7 @@ object frmCadastroBase: TfrmCadastroBase
       ShowHint = True
       ExplicitLeft = 6
     end
-    object SpeedButton2: TSpeedButton
+    object btnEditar: TSpeedButton
       Left = 2
       Top = 142
       Width = 99
@@ -264,7 +264,7 @@ object frmCadastroBase: TfrmCadastroBase
       ShowHint = True
       ExplicitLeft = 6
     end
-    object SpeedButton3: TSpeedButton
+    object btnExcluir: TSpeedButton
       Left = 2
       Top = 212
       Width = 99
@@ -378,7 +378,7 @@ object frmCadastroBase: TfrmCadastroBase
       ShowHint = True
       ExplicitLeft = 6
     end
-    object SpeedButton4: TSpeedButton
+    object btnSair: TSpeedButton
       Left = 2
       Top = 282
       Width = 99
@@ -490,9 +490,10 @@ object frmCadastroBase: TfrmCadastroBase
       Layout = blGlyphTop
       ParentShowHint = False
       ShowHint = True
+      OnClick = btnSairClick
       ExplicitLeft = 6
     end
-    object SpeedButton5: TSpeedButton
+    object btnNovo: TSpeedButton
       Left = 2
       Top = 2
       Width = 99

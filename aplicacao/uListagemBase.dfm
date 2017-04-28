@@ -120,7 +120,7 @@ object frmListagemBase: TfrmListagemBase
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    object SpeedButton1: TSpeedButton
+    object btnAjuda: TSpeedButton
       Left = 92
       Top = 2
       Width = 45
@@ -233,7 +233,7 @@ object frmListagemBase: TfrmListagemBase
       ExplicitLeft = 98
       ExplicitTop = -2
     end
-    object SpeedButton2: TSpeedButton
+    object btnEditar: TSpeedButton
       Left = 47
       Top = 2
       Width = 45
@@ -349,7 +349,7 @@ object frmListagemBase: TfrmListagemBase
       ShowHint = True
       ExplicitLeft = 42
     end
-    object SpeedButton3: TSpeedButton
+    object btnNovo: TSpeedButton
       Left = 2
       Top = 2
       Width = 45
@@ -460,7 +460,7 @@ object frmListagemBase: TfrmListagemBase
       ParentShowHint = False
       ShowHint = True
     end
-    object SpeedButton4: TSpeedButton
+    object btnSair: TSpeedButton
       Left = 137
       Top = 2
       Width = 45
@@ -570,6 +570,7 @@ object frmListagemBase: TfrmListagemBase
         DFE4C2DFE4C2DFE4C2DFE4C2DFE4C0DEE4B9D4E0FFFFFFFFFFFF}
       ParentShowHint = False
       ShowHint = True
+      OnClick = btnSairClick
     end
   end
   object DBGrid1: TDBGrid

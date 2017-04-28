@@ -10,10 +10,9 @@ type
   TfrmListagemBase = class(TForm)
     Panel1: TPanel;
     Panel2: TPanel;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
-    SpeedButton4: TSpeedButton;
+    btnEditar: TSpeedButton;
+    btnNovo: TSpeedButton;
+    btnSair: TSpeedButton;
     edtPesquisa: TEdit;
     Panel3: TPanel;
     btnPesquisa: TBitBtn;
@@ -22,8 +21,10 @@ type
     Label1: TLabel;
     RadioButton2: TRadioButton;
     StatusBar1: TStatusBar;
+    btnAjuda: TSpeedButton;
     procedure edtPesquisaKeyPress(Sender: TObject; var Key: Char);
     procedure btnPesquisaClick(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -41,6 +42,11 @@ procedure TfrmListagemBase.btnPesquisaClick(Sender: TObject);
 begin
 //
   DBGrid1.SetFocus;
+end;
+
+procedure TfrmListagemBase.btnSairClick(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TfrmListagemBase.edtPesquisaKeyPress(Sender: TObject; var Key: Char);

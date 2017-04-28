@@ -34,6 +34,7 @@ type
     procedure Sair1Click(Sender: TObject);
     procedure SpeedButton4Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Estado1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -47,7 +48,15 @@ implementation
 
 {$R *.dfm}
 
-uses uListagemBase, uCadastroBase;
+uses uEstado;
+
+procedure TfrmPrincipal.Estado1Click(Sender: TObject);
+begin
+  if (not(Assigned(frmEstado))) then
+    frmEstado := TfrmEstado.Create(Application);
+
+  frmEstado.ShowModal;
+end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin

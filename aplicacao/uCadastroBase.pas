@@ -10,12 +10,13 @@ type
   TfrmCadastroBase = class(TForm)
     StatusBar1: TStatusBar;
     Panel1: TPanel;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
-    SpeedButton4: TSpeedButton;
-    SpeedButton5: TSpeedButton;
+    btnSalvar: TSpeedButton;
+    btnEditar: TSpeedButton;
+    btnExcluir: TSpeedButton;
+    btnSair: TSpeedButton;
+    btnNovo: TSpeedButton;
     Panel3: TPanel;
+    procedure btnSairClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,5 +29,10 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadastroBase.btnSairClick(Sender: TObject);
+begin
+  Close;
+end;
 
 end.

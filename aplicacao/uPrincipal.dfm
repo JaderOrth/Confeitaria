@@ -517,6 +517,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object Estado1: TMenuItem
         Caption = '&Estado'
+        OnClick = Estado1Click
       end
       object Municpio1: TMenuItem
         Caption = '&Munic'#237'pio'
