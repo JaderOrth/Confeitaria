@@ -1,7 +1,6 @@
 object frmListagemBase: TfrmListagemBase
   Left = 0
   Top = 0
-  ActiveControl = edtPesquisa
   Caption = 'Listagem Base'
   ClientHeight = 477
   ClientWidth = 900
@@ -11,10 +10,8 @@ object frmListagemBase: TfrmListagemBase
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  FormStyle = fsMDIChild
   OldCreateOrder = False
   Position = poMainFormCenter
-  Visible = True
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -27,7 +24,6 @@ object frmListagemBase: TfrmListagemBase
     BevelOuter = bvLowered
     ParentBackground = False
     TabOrder = 0
-    ExplicitHeight = 436
     object Label1: TLabel
       Left = 8
       Top = 51
@@ -595,8 +591,5 @@ object frmListagemBase: TfrmListagemBase
     Width = 900
     Height = 19
     Panels = <>
-    ExplicitLeft = 456
-    ExplicitTop = 248
-    ExplicitWidth = 0
   end
 end

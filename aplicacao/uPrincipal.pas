@@ -4,7 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.Menus, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.Menus, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls,
+  Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls,
+  uClassConexaoSingleton;
 
 type
   TfrmPrincipal = class(TForm)
@@ -22,9 +24,9 @@ type
     Sabores1: TMenuItem;
     Estado1: TMenuItem;
     UnidadedeMedida1: TMenuItem;
-    Panel1: TPanel;
     LargeImages: TImageList;
     SmallImages: TImageList;
+    Panel1: TPanel;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     SpeedButton3: TSpeedButton;
@@ -45,9 +47,20 @@ implementation
 
 {$R *.dfm}
 
+uses uListagemBase, uCadastroBase;
+
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
+  try
+    TConexaoSingleton.GetInstancia;
+  except
+    MessageDlg('Erro ao conectar com o banco de dados.', mtError, [mbOK], 0);
+    Application.Terminate;
+    exit;
+  end;
+
   ReportMemoryLeaksOnShutdown := True;
+
 end;
 
 procedure TfrmPrincipal.Sair1Click(Sender: TObject);

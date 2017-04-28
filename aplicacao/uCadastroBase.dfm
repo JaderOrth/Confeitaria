@@ -10,10 +10,8 @@ object frmCadastroBase: TfrmCadastroBase
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  FormStyle = fsMDIChild
   OldCreateOrder = False
   Position = poMainFormCenter
-  Visible = True
   PixelsPerInch = 96
   TextHeight = 13
   object StatusBar1: TStatusBar
@@ -618,7 +616,5 @@ object frmCadastroBase: TfrmCadastroBase
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 2
-    ExplicitLeft = -4
-    ExplicitTop = -6
   end
 end
