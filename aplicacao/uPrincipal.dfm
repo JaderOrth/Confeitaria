@@ -10,7 +10,6 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  FormStyle = fsMDIForm
   Menu = MainMenu1
   OldCreateOrder = False
   Position = poMainFormCenter
@@ -161,7 +160,7 @@ object frmPrincipal: TfrmPrincipal
         DACCD3DACCD3DACCD3DACCD3DACCD3DACCD3DACCD3DACCD3DACCD3DACCD3DACC
         D3DACCD3DACED5DAF6F7F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
-      ExplicitLeft = -6
+      ExplicitLeft = 8
     end
     object SpeedButton2: TSpeedButton
       Left = 105
@@ -381,7 +380,6 @@ object frmPrincipal: TfrmPrincipal
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFAFCFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
-      ExplicitLeft = 151
     end
     object SpeedButton4: TSpeedButton
       Left = 315
@@ -492,7 +490,6 @@ object frmPrincipal: TfrmPrincipal
         DFE4C2DFE4C2DFE4C2DFE4C2DFE4C0DEE4B9D4E0FFFFFFFFFFFF}
       Layout = blGlyphTop
       OnClick = SpeedButton4Click
-      ExplicitLeft = 321
     end
   end
   object MainMenu1: TMainMenu
