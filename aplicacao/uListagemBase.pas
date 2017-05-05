@@ -16,10 +16,8 @@ type
     edtPesquisa: TEdit;
     Panel3: TPanel;
     btnPesquisa: TBitBtn;
-    DBGrid1: TDBGrid;
-    RadioButton1: TRadioButton;
+    dbGridListagem: TDBGrid;
     Label1: TLabel;
-    RadioButton2: TRadioButton;
     StatusBar1: TStatusBar;
     btnAjuda: TSpeedButton;
     procedure edtPesquisaKeyPress(Sender: TObject; var Key: Char);
@@ -40,8 +38,7 @@ implementation
 
 procedure TfrmListagemBase.btnPesquisaClick(Sender: TObject);
 begin
-//
-  DBGrid1.SetFocus;
+  dbGridListagem.SetFocus;
 end;
 
 procedure TfrmListagemBase.btnSairClick(Sender: TObject);

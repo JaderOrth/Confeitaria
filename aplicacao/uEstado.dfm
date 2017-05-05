@@ -3,11 +3,11 @@ inherited frmEstado: TfrmEstado
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited Panel2: TPanel
     inherited btnEditar: TSpeedButton
       OnClick = btnEditarClick
-      ExplicitLeft = 41
+      ExplicitLeft = 53
       ExplicitTop = 0
     end
     inherited btnNovo: TSpeedButton

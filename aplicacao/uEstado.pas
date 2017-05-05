@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uListagemBase, Data.DB, Vcl.ComCtrls,
   Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls,
-  uEstadoControler, uEstadoDTO;
+  uEstadoController, uEstadoDTO;
 
 type
   TfrmEstado = class(TfrmListagemBase)
@@ -17,7 +17,7 @@ type
   private
     { Private declarations }
     oEstadoDTO: TEstadoDTO;
-    oEstadoControler: TEstadoControler;
+    oEstadoControler: TEstadoController;
   public
     { Public declarations }
   end;
@@ -68,8 +68,7 @@ procedure TfrmEstado.FormCreate(Sender: TObject);
 begin
   inherited;
   oEstadoDTO := TEstadoDTO.Create;
-
-  oEstadoControler := TEstadoControler.Create;
+  oEstadoControler := TEstadoController.Create;
 end;
 
 end.

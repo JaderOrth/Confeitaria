@@ -8,7 +8,7 @@ uses
   uClassConexao in 'uClassConexao.pas',
   uClassConexaoSingleton in 'uClassConexaoSingleton.pas',
   uEstado in 'uEstado.pas' {frmEstado},
-  uEstadoControler in 'uEstadoControler.pas',
+  uEstadoController in 'uEstadoController.pas',
   uEstadoModel in 'uEstadoModel.pas',
   uEstadoCadastro in 'uEstadoCadastro.pas' {frmEstadoCadastro},
   uEstadoDTO in 'uEstadoDTO.pas';

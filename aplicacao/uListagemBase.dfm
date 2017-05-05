@@ -7,13 +7,13 @@ object frmListagemBase: TfrmListagemBase
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
+  Font.Height = -12
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   object Panel1: TPanel
     Left = 0
     Top = 41
@@ -27,15 +27,15 @@ object frmListagemBase: TfrmListagemBase
     object Label1: TLabel
       Left = 8
       Top = 51
-      Width = 65
-      Height = 13
+      Width = 72
+      Height = 14
       Caption = 'Pesquisar por'
     end
     object edtPesquisa: TEdit
       Left = 5
       Top = 25
       Width = 154
-      Height = 21
+      Height = 22
       Cursor = crIBeam
       TabOrder = 0
       OnKeyPress = edtPesquisaKeyPress
@@ -87,26 +87,6 @@ object frmListagemBase: TfrmListagemBase
         B4A8FEFEFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       TabOrder = 2
       OnClick = btnPesquisaClick
-    end
-    object RadioButton1: TRadioButton
-      Left = 20
-      Top = 69
-      Width = 113
-      Height = 17
-      Cursor = crHandPoint
-      Caption = 'RadioButton1'
-      Checked = True
-      TabOrder = 3
-      TabStop = True
-    end
-    object RadioButton2: TRadioButton
-      Left = 20
-      Top = 88
-      Width = 113
-      Height = 17
-      Cursor = crHandPoint
-      Caption = 'RadioButton2'
-      TabOrder = 4
     end
   end
   object Panel2: TPanel
@@ -573,7 +553,7 @@ object frmListagemBase: TfrmListagemBase
       OnClick = btnSairClick
     end
   end
-  object DBGrid1: TDBGrid
+  object dbGridListagem: TDBGrid
     Left = 185
     Top = 41
     Width = 715
@@ -582,7 +562,7 @@ object frmListagemBase: TfrmListagemBase
     TabOrder = 2
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
-    TitleFont.Height = -11
+    TitleFont.Height = -12
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
   end
