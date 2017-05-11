@@ -3,15 +3,15 @@ unit uEstadoModel;
 interface
 
 uses
-  uEstadoDTO, uClassConexaoSingleton, Data.DB,
-  FireDAC.Comp.Client, System.SysUtils, FireDAC.DApt;
+  uEstadoDTO, uClassConexaoSingleton,
+  FireDAC.Comp.Client, System.SysUtils;
 
 type
   TEstadoModel = class
   public
     function BuscarID:Integer;
     function Salvar(const aEstado: TEstadoDTO):Boolean;
-    function Excluir(const aEstado: TEstadoDTO):Boolean;
+
   end;
 implementation
 
@@ -26,7 +26,7 @@ begin
 
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT MAX(iduf) as ID FROM uf');
+    oQuery.Open('SELECT MAX(iduf) as ID FROM estado');
 
     if (not(oQuery.IsEmpty)) then
     begin
@@ -41,27 +41,17 @@ begin
   end;
 end;
 
-function TEstadoModel.Excluir(const aEstado: TEstadoDTO): Boolean;
-var
-  sSql : string;
-begin
-  sSql := 'DELETE FROM uf WHERE iduf = ' +
-          IntToStr(aEstado.ID);
-
-  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
-end;
-
 function TEstadoModel.Salvar(const aEstado: TEstadoDTO): Boolean;
 var
   sSql : string;
 begin
   sSql := 'INSERT INTO uf (iduf, descricao, sigla_uf) ' +
-          'VALUES (' +
-          IntToStr(aEstado.ID)+','+
-          QuotedStr(aEstado.Descricao)+' ,'+
-          QuotedStr(aEstado.UF)+')';
+          'VALUES ('
+          +IntToStr(aEstado.ID)+' ,'+
+          +QuotedStr(aEstado.Descricao)+' ,'+
+          +QuotedStr(aEstado.UF)+')';
 
-  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql)>0;
 end;
 
 end.

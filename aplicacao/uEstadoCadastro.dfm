@@ -8,20 +8,17 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
   TextHeight = 16
   inherited StatusBar1: TStatusBar
     Width = 647
-    ExplicitWidth = 647
   end
   inherited Panel1: TPanel
     Left = 544
-    ExplicitLeft = 544
     inherited btnSalvar: TSpeedButton
       OnClick = btnSalvarClick
-    end
-    inherited btnExcluir: TSpeedButton
-      OnClick = btnExcluirClick
     end
   end
   inherited Panel3: TPanel
     Width = 544
+    ExplicitLeft = -4
+    ExplicitTop = -6
     ExplicitWidth = 544
     object edtID: TLabeledEdit
       Left = 80
@@ -41,7 +38,6 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
       Top = 88
       Width = 425
       Height = 24
-      CharCase = ecUpperCase
       EditLabel.Width = 38
       EditLabel.Height = 16
       EditLabel.Caption = 'Estado'
@@ -53,12 +49,10 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
       Top = 118
       Width = 121
       Height = 24
-      CharCase = ecUpperCase
       EditLabel.Width = 28
       EditLabel.Height = 16
       EditLabel.Caption = 'Sigla'
       LabelPosition = lpLeft
-      MaxLength = 2
       TabOrder = 2
     end
   end

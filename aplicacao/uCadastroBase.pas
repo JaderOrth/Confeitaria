@@ -15,12 +15,10 @@ type
     btnExcluir: TSpeedButton;
     btnSair: TSpeedButton;
     btnNovo: TSpeedButton;
-    panelCadastro: TPanel;
+    Panel3: TPanel;
     procedure btnSairClick(Sender: TObject);
-    procedure btnNovoClick(Sender: TObject);
   private
     { Private declarations }
-    procedure LimparFormulario;
   public
     { Public declarations }
   end;
@@ -32,29 +30,9 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmCadastroBase.btnNovoClick(Sender: TObject);
-begin
-  LimparFormulario;
-  btnNovo.Enabled := False;
-end;
-
 procedure TfrmCadastroBase.btnSairClick(Sender: TObject);
 begin
   Close;
 end;
 
-procedure TfrmCadastroBase.LimparFormulario;
-var
-  iIndiceComponente: Integer;
-begin
-  for iIndiceComponente := 0 to pred(Self.ComponentCount) do
-  begin
-    if (Components[iIndiceComponente] is TLabeledEdit) or
-       (Components[iIndiceComponente] is TEdit) then
-      (Components[iIndiceComponente] as TCustomEdit).Clear;
-
-    if (Components[iIndiceComponente] is TComboBox) then
-      (Components[iIndiceComponente] as TComboBox).ItemIndex := -1;
-  end;
-end;
 end.
