@@ -10,6 +10,7 @@ object frmPrincipal: TfrmPrincipal
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  FormStyle = fsMDIForm
   Menu = MainMenu1
   OldCreateOrder = False
   Position = poMainFormCenter
@@ -257,7 +258,7 @@ object frmPrincipal: TfrmPrincipal
         EBEBEBEBEBECECECF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
       NumGlyphs = 2
-      ExplicitLeft = 8
+      ExplicitLeft = -6
     end
     object SpeedButton2: TSpeedButton
       Left = 105

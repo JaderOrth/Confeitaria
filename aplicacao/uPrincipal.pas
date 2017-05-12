@@ -53,9 +53,8 @@ uses uEstado;
 procedure TfrmPrincipal.Estado1Click(Sender: TObject);
 begin
   if (not(Assigned(frmEstado))) then
-    frmEstado := TfrmEstado.Create(Application);
-
-  frmEstado.ShowModal;
+    frmEstado := TfrmEstado.Create(Self);
+    frmEstado.Show;
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);

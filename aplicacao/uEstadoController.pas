@@ -3,7 +3,7 @@ unit uEstadoController;
 interface
 
 uses
-  System.SysUtils, Vcl.Dialogs, Controls, System.UITypes,
+  System.SysUtils, Vcl.Dialogs, Controls, System.UITypes, FireDAC.Comp.Client, System.Classes,
   uEstadoModel, uEstadoDTO;
 
 type
@@ -13,18 +13,34 @@ type
   public
     function Salvar(const aEstado:TEstadoDTO):Boolean;
     function Excluir(const aEstado:TEstadoDTO):Boolean;
+    function MontarGrid(out aMemTable:TFDMemTable):Boolean;
+
     procedure LimparDTO(aEstado:TEstadoDTO);
+    procedure CriarFormulario(AOwner: TComponent; AidEstado : Integer);
+
     constructor Create;
     destructor Destroy; override;
   end;
 
 implementation
 
+uses
+  uEstadoCadastro;
+
 { TEstadoControler }
 
 constructor TEstadoController.Create;
 begin
   oEstadoModel := TEstadoModel.Create;
+end;
+
+procedure TEstadoController.CriarFormulario(AOwner: TComponent; AidEstado: Integer);
+begin
+  if (not(Assigned(frmEstadoCadastro))) then
+  begin
+    frmEstadoCadastro := TfrmEstadoCadastro.Create(AOwner, 0);
+    frmEstadoCadastro.Show;
+  end;
 end;
 
 destructor TEstadoController.Destroy;
@@ -60,6 +76,11 @@ begin
   aEstado.UF := '';
 end;
 
+function TEstadoController.MontarGrid(out aMemTable: TFDMemTable): Boolean;
+begin
+  oEstadoModel.MontarGrid(aMemTable);
+end;
+
 function TEstadoController.Salvar(const aEstado: TEstadoDTO): Boolean;
 begin
   if Length(Trim(aEstado.Descricao)) >= 4 then
@@ -77,11 +98,11 @@ begin
           end;
     end else
         begin
-          MessageDlg('Preencha a Sigla UF corretamente!', mtError, [mbOK], 0);
+          MessageDlg('Preencha a Sigla da UF corretamente!', mtError, [mbOK], 0);
         end;
   end else
       begin
-        MessageDlg('Preencha a Descrição UF corretamente!', mtError, [mbOK], 0)
+        MessageDlg('Preencha a Descrição da UF corretamente!', mtError, [mbOK], 0)
       end;
 end;
 

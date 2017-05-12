@@ -35,7 +35,6 @@ implementation
 procedure TfrmCadastroBase.btnNovoClick(Sender: TObject);
 begin
   LimparFormulario;
-  btnNovo.Enabled := False;
 end;
 
 procedure TfrmCadastroBase.btnSairClick(Sender: TObject);

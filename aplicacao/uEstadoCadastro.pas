@@ -14,22 +14,27 @@ type
     edtEstado: TLabeledEdit;
     edtSigla: TLabeledEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCreate(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
     oEstadoDTO :  TEstadoDTO;
     oEstadoController : TEstadoController;
   public
     { Public declarations }
+    constructor Create(AOwner: TComponent; AIDEstado: Integer);
   end;
 
 var
   frmEstadoCadastro: TfrmEstadoCadastro;
 
 implementation
+
+uses
+  uEstado;
 
 {$R *.dfm}
 
@@ -59,6 +64,17 @@ begin
   oEstadoController.LimparDTO(oEstadoDTO);
 end;
 
+constructor TfrmEstadoCadastro.Create(AOwner: TComponent; AIDEstado: Integer);
+begin
+  inherited Create(AOwner);
+
+  oEstadoDTO := TEstadoDTO.Create;
+
+  oEstadoDTO.ID := AIDEstado;
+
+  (Owner as TForm).Enabled := False;
+end;
+
 procedure TfrmEstadoCadastro.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
@@ -74,6 +90,8 @@ begin
     FreeAndNil(oEstadoController);
   end;
 
+  (Owner as TForm).Enabled := True;
+
   Action := caFree;
   frmEstadoCadastro := nil;
 end;
@@ -81,8 +99,16 @@ end;
 procedure TfrmEstadoCadastro.FormCreate(Sender: TObject);
 begin
   inherited;
-  oEstadoDTO := TEstadoDTO.Create;
   oEstadoController := TEstadoController.Create;
+end;
+
+procedure TfrmEstadoCadastro.FormShow(Sender: TObject);
+begin
+  inherited;
+  if oEstadoDTO.ID > 0 then
+  begin
+    //////////////////////////////////////////////////////////////////////////
+  end;
 end;
 
 end.

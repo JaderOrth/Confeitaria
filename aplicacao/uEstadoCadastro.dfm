@@ -3,6 +3,7 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
   ClientWidth = 647
   OnClose = FormClose
   OnCreate = FormCreate
+  OnShow = FormShow
   ExplicitWidth = 663
   PixelsPerInch = 96
   TextHeight = 16
@@ -20,7 +21,7 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
       OnClick = btnExcluirClick
     end
   end
-  inherited Panel3: TPanel
+  inherited panelCadastro: TPanel
     Width = 544
     ExplicitWidth = 544
     object edtID: TLabeledEdit
@@ -47,6 +48,7 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
       EditLabel.Caption = 'Estado'
       LabelPosition = lpLeft
       TabOrder = 1
+      TextHint = 'Descri'#231#227'o UF'
     end
     object edtSigla: TLabeledEdit
       Left = 80
@@ -60,6 +62,7 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
       LabelPosition = lpLeft
       MaxLength = 2
       TabOrder = 2
+      TextHint = 'UF'
     end
   end
 end

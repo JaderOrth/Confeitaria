@@ -10,8 +10,10 @@ object frmListagemBase: TfrmListagemBase
   Font.Height = -12
   Font.Name = 'Tahoma'
   Font.Style = []
+  FormStyle = fsMDIChild
   OldCreateOrder = False
   Position = poMainFormCenter
+  Visible = True
   PixelsPerInch = 96
   TextHeight = 14
   object Panel1: TPanel
@@ -553,24 +555,27 @@ object frmListagemBase: TfrmListagemBase
       OnClick = btnSairClick
     end
   end
-  object dbGridListagem: TDBGrid
-    Left = 185
-    Top = 41
-    Width = 715
-    Height = 417
-    Align = alClient
-    TabOrder = 2
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -12
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
-  end
   object StatusBar1: TStatusBar
     Left = 0
     Top = 458
     Width = 900
     Height = 19
     Panels = <>
+  end
+  object src_listagem: TDataSource
+    DataSet = FDMemTable_listagem
+    Left = 483
+    Top = 142
+  end
+  object FDMemTable_listagem: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 483
+    Top = 194
   end
 end

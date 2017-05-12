@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Buttons, Vcl.StdCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TfrmListagemBase = class(TForm)
@@ -16,13 +17,14 @@ type
     edtPesquisa: TEdit;
     Panel3: TPanel;
     btnPesquisa: TBitBtn;
-    dbGridListagem: TDBGrid;
     Label1: TLabel;
     StatusBar1: TStatusBar;
     btnAjuda: TSpeedButton;
+    src_listagem: TDataSource;
+    FDMemTable_listagem: TFDMemTable;
     procedure edtPesquisaKeyPress(Sender: TObject; var Key: Char);
-    procedure btnPesquisaClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
+    procedure btnPesquisaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,7 +40,7 @@ implementation
 
 procedure TfrmListagemBase.btnPesquisaClick(Sender: TObject);
 begin
-  dbGridListagem.SetFocus;
+//
 end;
 
 procedure TfrmListagemBase.btnSairClick(Sender: TObject);

@@ -12,8 +12,24 @@ inherited frmEstado: TfrmEstado
     end
     inherited btnNovo: TSpeedButton
       OnClick = btnNovoClick
-      ExplicitLeft = -4
       ExplicitTop = 0
     end
+  end
+  object dbGridListagem: TDBGrid [3]
+    Left = 185
+    Top = 41
+    Width = 715
+    Height = 417
+    Align = alClient
+    DataSource = src_listagem
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    ReadOnly = True
+    TabOrder = 3
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    OnDblClick = dbGridListagemDblClick
   end
 end

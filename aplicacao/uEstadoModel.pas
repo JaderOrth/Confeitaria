@@ -12,6 +12,7 @@ type
     function BuscarID:Integer;
     function Salvar(const aEstado: TEstadoDTO):Boolean;
     function Excluir(const aEstado: TEstadoDTO):Boolean;
+    function MontarGrid(out aMemTable: TFDMemTable):Boolean;
   end;
 implementation
 
@@ -49,6 +50,29 @@ begin
           IntToStr(aEstado.ID);
 
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+end;
+
+function TEstadoModel.MontarGrid(out aMemTable: TFDMemTable): Boolean;
+var
+  oQuery : TFDQuery;
+begin
+  Result := False;
+  oQuery:=TFDQuery.Create(nil);
+  try
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT iduf ID, descricao Descrição, sigla_uf UF FROM uf');
+
+    if (not(oQuery.IsEmpty)) then
+    begin
+      aMemTable.Data := oQuery.Data;
+      Result := True;
+    end;
+  finally
+    if Assigned(oQuery) then
+    begin
+      FreeAndNil(oQuery);
+    end;
+  end;
 end;
 
 function TEstadoModel.Salvar(const aEstado: TEstadoDTO): Boolean;
