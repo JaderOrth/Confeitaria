@@ -15,6 +15,7 @@ type
     function MontarGrid(aMemTable: TFDMemTable):Boolean;
     function BuscarSelect(var aEstado: TEstadoDTO): Boolean;
     function Update(const aEstado: TEstadoDTO): Boolean;
+    function BuscarUF(const aEstado: TEstadoDTO): Boolean;
 
   end;
 implementation
@@ -67,6 +68,25 @@ begin
   end;
 end;
 
+function TEstadoModel.BuscarUF(const aEstado: TEstadoDTO): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := false;
+  oQuery := TFDQuery.Create(nil);
+  try
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT * FROM uf WHERE sigla_uf = '+ QuotedStr(aEstado.UF));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      Result := True;
+    end;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
+
 function TEstadoModel.Excluir(const aEstado: TEstadoDTO): Boolean;
 var
   sSql : string;
@@ -84,19 +104,19 @@ begin
   Result := False;
   oQuery := TFDQuery.Create(nil);
   try
+    oQuery.Close;
+    aMemTable.Close;
     oQuery.Connection := TConexaoSingleton.GetInstancia;
     oQuery.Open('SELECT iduf ID, descricao Descrição, sigla_uf UF FROM uf');
     aMemTable.Data := oQuery.Data;
 
     if (not(oQuery.IsEmpty)) then
-    begin
       Result := True;
-    end;
+
   finally
     if Assigned(oQuery) then
-    begin
       FreeAndNil(oQuery);
-    end;
+
   end;
 end;
 

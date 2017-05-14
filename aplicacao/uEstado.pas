@@ -18,6 +18,7 @@ type
     procedure dbGridListagemDblClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
     oEstadoDTO: TEstadoDTO;
@@ -52,6 +53,22 @@ begin
   btnEditarClick(Sender);
 end;
 
+procedure TfrmEstado.FormActivate(Sender: TObject);
+begin
+  inherited;
+  oEstadoControler.MontarGrid(FDMemTable_listagem);
+  FDMemTable_listagem.Open;
+
+  oEstadoControler.OrdenarGrid(dbGridListagem);
+  //define os tamanhos de cada coluna da grid
+ { dbGridListagem.Columns[0].Width := 40;
+  dbGridListagem.Columns[0].Title.Alignment := taCenter;
+  dbGridListagem.Columns[1].Width := 260;
+  dbGridListagem.Columns[1].Title.Alignment := taCenter;
+  dbGridListagem.Columns[2].Width := 50;
+  dbGridListagem.Columns[2].Title.Alignment := taCenter; }
+end;
+
 procedure TfrmEstado.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   inherited;
@@ -75,7 +92,7 @@ begin
   oEstadoDTO := TEstadoDTO.Create;
   oEstadoControler := TEstadoController.Create;
 
-  oEstadoControler.MontarGrid(FDMemTable_listagem);
+  {oEstadoControler.MontarGrid(FDMemTable_listagem);
   FDMemTable_listagem.Open;
 
   //define os tamanhos de cada coluna da grid
@@ -84,7 +101,7 @@ begin
   dbGridListagem.Columns[1].Width := 260;
   dbGridListagem.Columns[1].Title.Alignment := taCenter;
   dbGridListagem.Columns[2].Width := 50;
-  dbGridListagem.Columns[2].Title.Alignment := taCenter;
+  dbGridListagem.Columns[2].Title.Alignment := taCenter; }
 end;
 
 end.

@@ -1,5 +1,6 @@
 inherited frmEstado: TfrmEstado
   Caption = 'Listagem dos estados'
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96

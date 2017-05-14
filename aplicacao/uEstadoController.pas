@@ -3,7 +3,8 @@ unit uEstadoController;
 interface
 
 uses
-  System.SysUtils, Vcl.Dialogs, Controls, System.UITypes, FireDAC.Comp.Client, System.Classes,
+  System.SysUtils, Vcl.Dialogs, Controls, System.UITypes, FireDAC.Comp.Client,
+  System.Classes, Vcl.DBGrids,
   uEstadoModel, uEstadoDTO;
 
 type
@@ -18,6 +19,7 @@ type
 
     procedure LimparDTO(aEstado:TEstadoDTO);
     procedure CriarFormulario(AOwner: TComponent; AidEstado : Integer);
+    procedure OrdenarGrid(aGrid: TDBGrid);
 
     constructor Create;
     destructor Destroy; override;
@@ -62,7 +64,8 @@ begin
   Result := False;
   if aEstado.ID > 0 then
   begin
-    if MessageDlg('Deseja excluir este registro?', mtConfirmation, [mbYes,mbNo], 0) = mrYes then
+    if MessageDlg('Deseja excluir este registro?', mtConfirmation,
+      [mbYes,mbNo], 0) = mrYes then
     begin
       if oEstadoModel.Excluir(aEstado) then
       begin
@@ -70,7 +73,8 @@ begin
         Result := True;
       end else
       begin
-        MessageDlg('Ocorreu um erro ao tentar excluir o registro!', mtError, [mbOK], 0);
+        MessageDlg('Ocorreu um erro ao tentar excluir o registro!',
+          mtError, [mbOK], 0);
       end;
     end;
   end;
@@ -93,6 +97,16 @@ begin
     Result := False;
     MessageDlg('Nenhum Estado cadastrado!', mtInformation, [mbYes], 0);
   end;
+end;
+
+procedure TEstadoController.OrdenarGrid(aGrid: TDBGrid);
+begin
+  aGrid.Columns[0].Width := 40;
+  aGrid.Columns[0].Title.Alignment := taCenter;
+  aGrid.Columns[1].Width := 260;
+  aGrid.Columns[1].Title.Alignment := taCenter;
+  aGrid.Columns[2].Width := 50;
+  aGrid.Columns[2].Title.Alignment := taCenter;
 end;
 
 function TEstadoController.Salvar(const aEstado: TEstadoDTO): Boolean;
@@ -145,12 +159,22 @@ begin
     exit;
   end;
 
+  if (aEstado.ID = 0) then
+  begin
+    if(oEstadoModel.BuscarUF(aEstado)) then
+    begin
+      MessageDlg('UF  '+QuotedStr(aEstado.UF)+' já cadastrado!',
+        mtInformation, [mbNo], 0);
+      exit;
+    end;
+  end;
+
   if aEstado.ID > 0 then
   begin
-        if oEstadoModel.Update(aEstado) = false then
-        begin
-          raise Exception.Create('Falha ao alterar o registro!');
-        end;
+    if oEstadoModel.Update(aEstado) = false then
+    begin
+      raise Exception.Create('Falha ao alterar o registro!');
+    end;
   end else
   begin
     aEstado.ID := oEstadoModel.BuscarID;
@@ -159,8 +183,6 @@ begin
       raise Exception.Create('Falha ao inserir o registro!');
     end;
   end;
-
-
 end;
 
 end.
