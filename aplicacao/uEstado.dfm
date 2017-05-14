@@ -5,6 +5,12 @@ inherited frmEstado: TfrmEstado
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 14
+  inherited Panel1: TPanel
+    inherited edtPesquisa: TEdit
+      OnKeyPress = nil
+      OnKeyUp = edtPesquisaKeyUp
+    end
+  end
   inherited Panel2: TPanel
     inherited btnEditar: TSpeedButton
       OnClick = btnEditarClick

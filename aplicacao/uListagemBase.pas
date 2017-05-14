@@ -16,8 +16,6 @@ type
     btnSair: TSpeedButton;
     edtPesquisa: TEdit;
     Panel3: TPanel;
-    btnPesquisa: TBitBtn;
-    Label1: TLabel;
     StatusBar1: TStatusBar;
     btnAjuda: TSpeedButton;
     src_listagem: TDataSource;

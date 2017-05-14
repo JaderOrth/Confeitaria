@@ -16,11 +16,35 @@ type
     function BuscarSelect(var aEstado: TEstadoDTO): Boolean;
     function Update(const aEstado: TEstadoDTO): Boolean;
     function BuscarUF(const aEstado: TEstadoDTO): Boolean;
+    function BuscarGrid(aMemTable: TFDMemTable; aPesquisa: String): Boolean;
 
   end;
 implementation
 
 { TEstadoModel }
+
+function TEstadoModel.BuscarGrid(aMemTable: TFDMemTable;
+  aPesquisa: String): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := false;
+  oQuery := TFDQuery.Create(nil);
+  try
+    oQuery.Close;
+    aMemTable.Close;
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT iduf ID, descricao Descrição, sigla_uf UF FROM'+
+                ' uf WHERE sigla_uf  like ''%'+aPesquisa+'%'' or descricao like ''%'+aPesquisa+'%''');
+    aMemTable.Data := oQuery.Data;
+    if (not(oQuery.IsEmpty)) then
+      Result := True;
+
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
 
 function TEstadoModel.BuscarID: Integer;
 var

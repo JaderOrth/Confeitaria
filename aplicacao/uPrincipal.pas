@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.Menus, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls,
-  Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls,
+  Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
   uClassConexaoSingleton;
 
 type
@@ -35,6 +35,7 @@ type
     procedure btnSairClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Estado1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -48,13 +49,22 @@ implementation
 
 {$R *.dfm}
 
-uses uEstado;
+uses
+  uEstado, uEstadoCadastro;
 
 procedure TfrmPrincipal.Estado1Click(Sender: TObject);
 begin
   if (not(Assigned(frmEstado))) then
     frmEstado := TfrmEstado.Create(self);
     frmEstado.Show;
+end;
+
+procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if (Assigned(frmEstado)) then
+    frmEstado.Close;
+  if (Assigned(frmEstadoCadastro)) then
+    frmEstadoCadastro.Close;
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);

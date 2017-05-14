@@ -8,7 +8,7 @@ uses
   Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  uEstadoController, uEstadoDTO;
+  uEstadoController, uEstadoDTO, Vcl.CheckLst;
 
 type
   TfrmEstado = class(TfrmListagemBase)
@@ -19,6 +19,8 @@ type
     procedure btnNovoClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure edtPesquisaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     oEstadoDTO: TEstadoDTO;
@@ -32,6 +34,9 @@ var
   frmEstado: TfrmEstado;
 
 implementation
+
+//uses
+ // uEstadoCadastro;
 
 {$R *.dfm}
 
@@ -53,20 +58,23 @@ begin
   btnEditarClick(Sender);
 end;
 
+procedure TfrmEstado.edtPesquisaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  inherited;
+  //pesquisa um determinado campo desejado pelo usuário
+  oEstadoControler.BuscarGrid(FDMemTable_listagem, edtPesquisa.Text);
+  oEstadoControler.OrdenarGrid(dbGridListagem);
+  FDMemTable_listagem.Open;
+end;
+
 procedure TfrmEstado.FormActivate(Sender: TObject);
 begin
   inherited;
   oEstadoControler.MontarGrid(FDMemTable_listagem);
-  FDMemTable_listagem.Open;
-
-  oEstadoControler.OrdenarGrid(dbGridListagem);
   //define os tamanhos de cada coluna da grid
- { dbGridListagem.Columns[0].Width := 40;
-  dbGridListagem.Columns[0].Title.Alignment := taCenter;
-  dbGridListagem.Columns[1].Width := 260;
-  dbGridListagem.Columns[1].Title.Alignment := taCenter;
-  dbGridListagem.Columns[2].Width := 50;
-  dbGridListagem.Columns[2].Title.Alignment := taCenter; }
+  oEstadoControler.OrdenarGrid(dbGridListagem);
+  FDMemTable_listagem.Open;
 end;
 
 procedure TfrmEstado.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -90,18 +98,8 @@ procedure TfrmEstado.FormCreate(Sender: TObject);
 begin
   inherited;
   oEstadoDTO := TEstadoDTO.Create;
+
   oEstadoControler := TEstadoController.Create;
-
-  {oEstadoControler.MontarGrid(FDMemTable_listagem);
-  FDMemTable_listagem.Open;
-
-  //define os tamanhos de cada coluna da grid
-  dbGridListagem.Columns[0].Width := 40;
-  dbGridListagem.Columns[0].Title.Alignment := taCenter;
-  dbGridListagem.Columns[1].Width := 260;
-  dbGridListagem.Columns[1].Title.Alignment := taCenter;
-  dbGridListagem.Columns[2].Width := 50;
-  dbGridListagem.Columns[2].Title.Alignment := taCenter; }
 end;
 
 end.
