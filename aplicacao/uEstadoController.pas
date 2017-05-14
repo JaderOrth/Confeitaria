@@ -13,7 +13,8 @@ type
   public
     function Salvar(const aEstado:TEstadoDTO):Boolean;
     function Excluir(const aEstado:TEstadoDTO):Boolean;
-    function MontarGrid(out aMemTable:TFDMemTable):Boolean;
+    function MontarGrid(aMemTable:TFDMemTable):Boolean;
+    function BuscarSelect(var aEstado: TEstadoDTO): Boolean;
 
     procedure LimparDTO(aEstado:TEstadoDTO);
     procedure CriarFormulario(AOwner: TComponent; AidEstado : Integer);
@@ -29,6 +30,12 @@ uses
 
 { TEstadoControler }
 
+function TEstadoController.BuscarSelect(var aEstado: TEstadoDTO): Boolean;
+begin
+  Result := true;
+  oEstadoModel.BuscarSelect(aEstado)
+end;
+
 constructor TEstadoController.Create;
 begin
   oEstadoModel := TEstadoModel.Create;
@@ -38,7 +45,7 @@ procedure TEstadoController.CriarFormulario(AOwner: TComponent; AidEstado: Integ
 begin
   if (not(Assigned(frmEstadoCadastro))) then
   begin
-    frmEstadoCadastro := TfrmEstadoCadastro.Create(AOwner, 0);
+    frmEstadoCadastro := TfrmEstadoCadastro.Create(AOwner, AidEstado);
     frmEstadoCadastro.Show;
   end;
 end;
@@ -76,34 +83,84 @@ begin
   aEstado.UF := '';
 end;
 
-function TEstadoController.MontarGrid(out aMemTable: TFDMemTable): Boolean;
+function TEstadoController.MontarGrid(aMemTable: TFDMemTable): Boolean;
 begin
-  oEstadoModel.MontarGrid(aMemTable);
+  if (oEstadoModel.MontarGrid(aMemTable)) then
+  begin
+    Result := true;
+  end else
+  begin
+    Result := False;
+    MessageDlg('Nenhum Estado cadastrado!', mtInformation, [mbYes], 0);
+  end;
 end;
 
 function TEstadoController.Salvar(const aEstado: TEstadoDTO): Boolean;
 begin
+  {Result := false;
   if Length(Trim(aEstado.Descricao)) >= 4 then
   begin
     if Length(Trim(aEstado.UF)) = 2 then
     begin
-      aEstado.ID := oEstadoModel.BuscarID;
-      if oEstadoModel.Salvar(aEstado) = True then
+      if aEstado.ID > 0 then
       begin
-        MessageDlg('Registro cadastrado com sucesso!', mtInformation, [mbOK], 0);
-        Result := True;
-      end else
-          begin
-            raise Exception.Create('Falha ao inserir o registro');
-          end;
-    end else
+        if oEstadoModel.Update(aEstado) = True then
         begin
-          MessageDlg('Preencha a Sigla da UF corretamente!', mtError, [mbOK], 0);
+          MessageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
+        end else
+        begin
+          raise Exception.Create('Falaha ao alterar o registro!');
+        end;
+      end else
+      begin
+        aEstado.ID := oEstadoModel.BuscarID;
+        if oEstadoModel.Salvar(aEstado) = True then
+        begin
+          MessageDlg('Registro cadastrado com sucesso!', mtInformation, [mbOK], 0);
+          Result := True;
+        end else
+        begin
+          raise Exception.Create('Falha ao inserir o registro!');
+        end;
+      end;
+    end else
+    begin
+      MessageDlg('Preencha a Sigla da UF corretamente!', mtError, [mbOK], 0);
+    end;
+  end else
+  begin
+    MessageDlg('Preencha a Descrição da UF corretamente!', mtError, [mbOK], 0)
+  end; }
+  Result := false;
+
+  if Length(Trim(aEstado.Descricao)) <= 3 then
+  begin
+    MessageDlg('Preencha a Descrição da UF corretamente!', mtError, [mbOK], 0);
+    exit;
+  end;
+
+  if Length(Trim(aEstado.UF)) <> 2 then
+  begin
+    MessageDlg('Preencha a Sigla da UF corretamente!', mtError, [mbOK], 0);
+    exit;
+  end;
+
+  if aEstado.ID > 0 then
+  begin
+        if oEstadoModel.Update(aEstado) = false then
+        begin
+          raise Exception.Create('Falha ao alterar o registro!');
         end;
   end else
-      begin
-        MessageDlg('Preencha a Descrição da UF corretamente!', mtError, [mbOK], 0)
-      end;
+  begin
+    aEstado.ID := oEstadoModel.BuscarID;
+    if oEstadoModel.Salvar(aEstado) = False then
+    begin
+      raise Exception.Create('Falha ao inserir o registro!');
+    end;
+  end;
+
+
 end;
 
 end.

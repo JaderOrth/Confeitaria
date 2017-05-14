@@ -27,12 +27,12 @@ type
     LargeImages: TImageList;
     SmallImages: TImageList;
     Panel1: TPanel;
-    SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
-    SpeedButton4: TSpeedButton;
+    btnPedidos: TSpeedButton;
+    btnProdutos: TSpeedButton;
+    btnClientes: TSpeedButton;
+    btnSair: TSpeedButton;
     procedure Sair1Click(Sender: TObject);
-    procedure SpeedButton4Click(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Estado1Click(Sender: TObject);
   private
@@ -53,7 +53,7 @@ uses uEstado;
 procedure TfrmPrincipal.Estado1Click(Sender: TObject);
 begin
   if (not(Assigned(frmEstado))) then
-    frmEstado := TfrmEstado.Create(Self);
+    frmEstado := TfrmEstado.Create(self);
     frmEstado.Show;
 end;
 
@@ -76,7 +76,7 @@ begin
   Close;
 end;
 
-procedure TfrmPrincipal.SpeedButton4Click(Sender: TObject);
+procedure TfrmPrincipal.btnSairClick(Sender: TObject);
 begin
   Close;
 end;

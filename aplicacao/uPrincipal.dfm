@@ -53,7 +53,7 @@ object frmPrincipal: TfrmPrincipal
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    object SpeedButton1: TSpeedButton
+    object btnPedidos: TSpeedButton
       Left = 0
       Top = 0
       Width = 105
@@ -260,7 +260,7 @@ object frmPrincipal: TfrmPrincipal
       NumGlyphs = 2
       ExplicitLeft = -6
     end
-    object SpeedButton2: TSpeedButton
+    object btnProdutos: TSpeedButton
       Left = 105
       Top = 0
       Width = 105
@@ -467,7 +467,7 @@ object frmPrincipal: TfrmPrincipal
       NumGlyphs = 2
       ExplicitLeft = 99
     end
-    object SpeedButton3: TSpeedButton
+    object btnClientes: TSpeedButton
       Left = 210
       Top = 0
       Width = 105
@@ -698,7 +698,7 @@ object frmPrincipal: TfrmPrincipal
       Layout = blGlyphTop
       NumGlyphs = 2
     end
-    object SpeedButton4: TSpeedButton
+    object btnSair: TSpeedButton
       Left = 315
       Top = 0
       Width = 105
@@ -903,7 +903,7 @@ object frmPrincipal: TfrmPrincipal
         DFDFDFDFDFDFDFDFDFDFDFDFDFDFDEDEDED7D7D7FFFFFFFFFFFF}
       Layout = blGlyphTop
       NumGlyphs = 2
-      OnClick = SpeedButton4Click
+      OnClick = btnSairClick
     end
   end
   object MainMenu1: TMainMenu

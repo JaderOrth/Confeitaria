@@ -19,6 +19,7 @@ type
     procedure btnExcluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btnEditarClick(Sender: TObject);
   private
     { Private declarations }
     oEstadoDTO :  TEstadoDTO;
@@ -37,6 +38,12 @@ uses
   uEstado;
 
 {$R *.dfm}
+
+procedure TfrmEstadoCadastro.btnEditarClick(Sender: TObject);
+begin
+  inherited;
+  btnSalvarClick(self);
+end;
 
 procedure TfrmEstadoCadastro.btnExcluirClick(Sender: TObject);
 begin
@@ -57,9 +64,12 @@ end;
 procedure TfrmEstadoCadastro.btnSalvarClick(Sender: TObject);
 begin
   inherited;
+  oEstadoDTO.ID := StrToIntDef(edtID.Text, 0);
   oEstadoDTO.Descricao := edtEstado.Text;
   oEstadoDTO.UF := edtSigla.Text;
+
   oEstadoController.Salvar(oEstadoDTO);
+
   edtID.Text := IntToStr(oEstadoDTO.ID);
   oEstadoController.LimparDTO(oEstadoDTO);
 end;
@@ -107,7 +117,10 @@ begin
   inherited;
   if oEstadoDTO.ID > 0 then
   begin
-    //////////////////////////////////////////////////////////////////////////
+    oEstadoController.BuscarSelect(oEstadoDTO);
+    edtID.Text := IntToStr(oEstadoDTO.ID);
+    edtEstado.Text := oEstadoDTO.Descricao;
+    edtSigla.Text := oEstadoDTO.UF;
   end;
 end;
 

@@ -17,6 +17,9 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
     inherited btnSalvar: TSpeedButton
       OnClick = btnSalvarClick
     end
+    inherited btnEditar: TSpeedButton
+      OnClick = btnEditarClick
+    end
     inherited btnExcluir: TSpeedButton
       OnClick = btnExcluirClick
     end

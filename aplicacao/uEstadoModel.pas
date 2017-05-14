@@ -12,7 +12,10 @@ type
     function BuscarID:Integer;
     function Salvar(const aEstado: TEstadoDTO):Boolean;
     function Excluir(const aEstado: TEstadoDTO):Boolean;
-    function MontarGrid(out aMemTable: TFDMemTable):Boolean;
+    function MontarGrid(aMemTable: TFDMemTable):Boolean;
+    function BuscarSelect(var aEstado: TEstadoDTO): Boolean;
+    function Update(const aEstado: TEstadoDTO): Boolean;
+
   end;
 implementation
 
@@ -42,6 +45,28 @@ begin
   end;
 end;
 
+function TEstadoModel.BuscarSelect(var aEstado: TEstadoDTO): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := false;
+  oQuery := TFDQuery.Create(nil);
+  try
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT descricao, sigla_uf FROM uf where iduf = '
+                + IntToStr(aEstado.ID));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      aEstado.UF := oQuery.FieldByName('sigla_uf').AsString;
+      aEstado.Descricao := oQuery.FieldByName('descricao').AsString;
+      Result := true;
+    end;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
+
 function TEstadoModel.Excluir(const aEstado: TEstadoDTO): Boolean;
 var
   sSql : string;
@@ -52,19 +77,19 @@ begin
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
-function TEstadoModel.MontarGrid(out aMemTable: TFDMemTable): Boolean;
+function TEstadoModel.MontarGrid(aMemTable: TFDMemTable): Boolean;
 var
   oQuery : TFDQuery;
 begin
   Result := False;
-  oQuery:=TFDQuery.Create(nil);
+  oQuery := TFDQuery.Create(nil);
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
     oQuery.Open('SELECT iduf ID, descricao Descrição, sigla_uf UF FROM uf');
+    aMemTable.Data := oQuery.Data;
 
     if (not(oQuery.IsEmpty)) then
     begin
-      aMemTable.Data := oQuery.Data;
       Result := True;
     end;
   finally
@@ -85,6 +110,16 @@ begin
           QuotedStr(aEstado.Descricao)+' ,'+
           QuotedStr(aEstado.UF)+')';
 
+  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+end;
+
+function TEstadoModel.Update(const aEstado: TEstadoDTO): Boolean;
+var
+  sSql: String;
+begin
+  sSql := 'UPDATE uf SET descricao = '+ QuotedStr(aEstado.Descricao)
+                     +', sigla_uf =  '+ QuotedStr(aEstado.UF)
+                     +' WHERE iduf = '+ IntToStr(aEstado.ID);
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 

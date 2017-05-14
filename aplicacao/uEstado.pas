@@ -78,7 +78,8 @@ begin
   oEstadoControler.MontarGrid(FDMemTable_listagem);
   FDMemTable_listagem.Open;
 
-  dbGridListagem.Columns[0].Width := 30;
+  //define os tamanhos de cada coluna da grid
+  dbGridListagem.Columns[0].Width := 40;
   dbGridListagem.Columns[0].Title.Alignment := taCenter;
   dbGridListagem.Columns[1].Width := 260;
   dbGridListagem.Columns[1].Title.Alignment := taCenter;
