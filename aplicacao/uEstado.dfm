@@ -1,10 +1,14 @@
 inherited frmEstado: TfrmEstado
+  BorderIcons = [biMinimize, biMaximize]
   Caption = 'Listagem dos estados'
+  ClientHeight = 510
   OnActivate = FormActivate
   OnClose = FormClose
+  ExplicitHeight = 548
   PixelsPerInch = 96
   TextHeight = 14
   inherited Panel1: TPanel
+    Height = 450
     inherited edtPesquisa: TEdit
       OnKeyUp = edtPesquisaKeyUp
     end
@@ -20,11 +24,14 @@ inherited frmEstado: TfrmEstado
       ExplicitTop = 0
     end
   end
+  inherited StatusBar1: TStatusBar
+    Top = 491
+  end
   object dbGridListagem: TDBGrid [3]
     Left = 185
     Top = 41
     Width = 715
-    Height = 417
+    Height = 450
     Align = alClient
     DataSource = src_listagem
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]

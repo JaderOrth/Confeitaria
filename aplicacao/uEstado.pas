@@ -30,8 +30,8 @@ var
 
 implementation
 
-//uses
- // uEstadoCadastro;
+uses
+ uEstadoController;
 
 {$R *.dfm}
 
@@ -45,6 +45,9 @@ procedure TfrmEstado.btnNovoClick(Sender: TObject);
 begin
   inherited;
 //  oEstadoControler.CriarFormulario(Self, 0);
+  if (not(Assigned(oEstadoController))) then
+    oEstadoController := TEstadoController.Create;
+  oEstadoController.CreateFormCadastro(Self);
 end;
 
 procedure TfrmEstado.edtPesquisaKeyUp(Sender: TObject; var Key: Word;

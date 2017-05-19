@@ -33,6 +33,8 @@ type
     btnSair: TSpeedButton;
     procedure FormCreate(Sender: TObject);
     procedure Estado1Click(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -46,11 +48,23 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmPrincipal.btnSairClick(Sender: TObject);
+begin
+  Close;
+end;
+
 procedure TfrmPrincipal.Estado1Click(Sender: TObject);
 begin
   if (not(Assigned(oEstadoController))) then
     oEstadoController := TEstadoController.Create;
-    oEstadoController.CreateForm(Self);
+  oEstadoController.CreateFormListagem(Self);
+
+end;
+
+procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmPrincipal := nil;
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);

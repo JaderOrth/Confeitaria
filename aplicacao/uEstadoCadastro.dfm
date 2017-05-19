@@ -1,4 +1,5 @@
 inherited frmEstadoCadastro: TfrmEstadoCadastro
+  BorderIcons = [biMinimize, biMaximize]
   Caption = 'Cadastro estado'
   ClientWidth = 647
   OnClose = FormClose

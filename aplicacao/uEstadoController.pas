@@ -13,10 +13,11 @@ type
     oEstadoModel: TEstadoModel;
     oEstadoDTO: TEstadoDTO;
     oEstadoRegra: TEstadoRegra;
-
     procedure CloseForm(Sender: TObject);
+    procedure CloseFormCadastro(Sender: TObject);
   public
-    procedure CreateForm(AOwner: TComponent);
+    procedure CreateFormListagem(AOwner: TComponent);
+    procedure CreateFormCadastro(AOwner: TComponent);
 //    function Salvar(const aEstado: TEstadoDTO): Boolean;
 //    function Excluir(const aEstado: TEstadoDTO): Boolean;
 //    function MontarGrid(aMemTable: TFDMemTable): Boolean;
@@ -58,11 +59,16 @@ implementation
 
 procedure TEstadoController.CloseForm(Sender: TObject);
 begin
-  if (Assigned(frmEstado)) then
+  if (not(Assigned(frmEstado))) then
     exit;
-
-  frmEstado.Close;
   FreeAndNil(frmEstado);
+end;
+
+procedure TEstadoController.CloseFormCadastro(Sender: TObject);
+begin
+  if (not(Assigned(frmEstadoCadastro))) then
+    exit;
+  FreeAndNil(frmEstadoCadastro);
 end;
 
 constructor TEstadoController.Create;
@@ -82,13 +88,26 @@ end;
 //  end;
 //end;
 
-procedure TEstadoController.CreateForm(AOwner: TComponent);
+procedure TEstadoController.CreateFormListagem(AOwner: TComponent);
 begin
   if (not(Assigned(frmEstado))) then
     frmEstado := TfrmEstado.Create(AOwner);
   frmEstado.Show;
 
   frmEstado.btnSair.OnClick := CloseForm;
+
+
+  oEstadoRegra.MontarGrid(frmEstado.FDMemTable_listagem, oEstadoModel);
+  frmEstado.FDMemTable_listagem.Open
+end;
+
+procedure TEstadoController.CreateFormCadastro(AOwner: TComponent);
+begin
+  if (not(Assigned(frmEstadoCadastro))) then
+    frmEstadoCadastro := TfrmEstadoCadastro.Create(AOwner);
+  frmEstadoCadastro.Show;
+
+  frmEstadoCadastro.btnSair.OnClick := CloseFormCadastro;
 end;
 
 destructor TEstadoController.Destroy;
