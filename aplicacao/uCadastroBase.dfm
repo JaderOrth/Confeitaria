@@ -492,7 +492,6 @@ object frmCadastroBase: TfrmCadastroBase
       Layout = blGlyphTop
       ParentShowHint = False
       ShowHint = True
-      OnClick = btnSairClick
       ExplicitLeft = 6
     end
     object btnNovo: TSpeedButton
@@ -704,7 +703,6 @@ object frmCadastroBase: TfrmCadastroBase
       NumGlyphs = 2
       ParentShowHint = False
       ShowHint = True
-      OnClick = btnNovoClick
       ExplicitLeft = 6
     end
   end

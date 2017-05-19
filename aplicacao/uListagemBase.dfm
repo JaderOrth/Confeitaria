@@ -39,7 +39,6 @@ object frmListagemBase: TfrmListagemBase
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      OnKeyPress = edtPesquisaKeyPress
     end
     object Panel3: TPanel
       Left = 2
@@ -515,7 +514,6 @@ object frmListagemBase: TfrmListagemBase
         DFE4C2DFE4C2DFE4C2DFE4C2DFE4C0DEE4B9D4E0FFFFFFFFFFFF}
       ParentShowHint = False
       ShowHint = True
-      OnClick = btnSairClick
     end
   end
   object StatusBar1: TStatusBar

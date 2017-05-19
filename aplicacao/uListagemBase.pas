@@ -20,9 +20,6 @@ type
     btnAjuda: TSpeedButton;
     src_listagem: TDataSource;
     FDMemTable_listagem: TFDMemTable;
-    procedure edtPesquisaKeyPress(Sender: TObject; var Key: Char);
-    procedure btnSairClick(Sender: TObject);
-    procedure btnPesquisaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -35,23 +32,5 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmListagemBase.btnPesquisaClick(Sender: TObject);
-begin
-//
-end;
-
-procedure TfrmListagemBase.btnSairClick(Sender: TObject);
-begin
-  Close;
-end;
-
-procedure TfrmListagemBase.edtPesquisaKeyPress(Sender: TObject; var Key: Char);
-begin
-  if key = #13 then
-  begin
-    btnPesquisaClick(Sender);
-  end;
-end;
 
 end.

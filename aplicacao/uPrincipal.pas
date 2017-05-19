@@ -31,11 +31,8 @@ type
     btnProdutos: TSpeedButton;
     btnClientes: TSpeedButton;
     btnSair: TSpeedButton;
-    procedure Sair1Click(Sender: TObject);
-    procedure btnSairClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Estado1Click(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -49,26 +46,16 @@ implementation
 
 {$R *.dfm}
 
-uses
-  uEstado, uEstadoCadastro;
-
 procedure TfrmPrincipal.Estado1Click(Sender: TObject);
 begin
-  if (not(Assigned(frmEstado))) then
-    frmEstado := TfrmEstado.Create(self);
-    frmEstado.Show;
-end;
-
-procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  if (Assigned(frmEstado)) then
-    frmEstado.Close;
-  if (Assigned(frmEstadoCadastro)) then
-    frmEstadoCadastro.Close;
+//  if (not(Assigned(frmEstado))) then
+//    frmEstado := TfrmEstado.Create(self);
+//    frmEstado.Show;
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 begin
+  ReportMemoryLeaksOnShutdown := True;
   try
     TConexaoSingleton.GetInstancia;
   except
@@ -77,18 +64,6 @@ begin
     exit;
   end;
 
-  ReportMemoryLeaksOnShutdown := True;
-
-end;
-
-procedure TfrmPrincipal.Sair1Click(Sender: TObject);
-begin
-  Close;
-end;
-
-procedure TfrmPrincipal.btnSairClick(Sender: TObject);
-begin
-  Close;
 end;
 
 end.

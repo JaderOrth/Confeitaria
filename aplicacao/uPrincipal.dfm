@@ -15,7 +15,6 @@ object frmPrincipal: TfrmPrincipal
   OldCreateOrder = False
   Position = poMainFormCenter
   WindowState = wsMaximized
-  OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
@@ -904,7 +903,6 @@ object frmPrincipal: TfrmPrincipal
         DFDFDFDFDFDFDFDFDFDFDFDFDFDFDEDEDED7D7D7FFFFFFFFFFFF}
       Layout = blGlyphTop
       NumGlyphs = 2
-      OnClick = btnSairClick
     end
   end
   object MainMenu1: TMainMenu
@@ -946,7 +944,6 @@ object frmPrincipal: TfrmPrincipal
     end
     object Sair1: TMenuItem
       Caption = '&Sair'
-      OnClick = Sair1Click
     end
   end
   object LargeImages: TImageList

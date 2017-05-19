@@ -2,12 +2,10 @@ inherited frmEstado: TfrmEstado
   Caption = 'Listagem dos estados'
   OnActivate = FormActivate
   OnClose = FormClose
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 14
   inherited Panel1: TPanel
     inherited edtPesquisa: TEdit
-      OnKeyPress = nil
       OnKeyUp = edtPesquisaKeyUp
     end
   end
@@ -37,6 +35,5 @@ inherited frmEstado: TfrmEstado
     TitleFont.Height = -12
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
-    OnDblClick = dbGridListagemDblClick
   end
 end

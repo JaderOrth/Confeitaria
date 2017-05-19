@@ -2,8 +2,6 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
   Caption = 'Cadastro estado'
   ClientWidth = 647
   OnClose = FormClose
-  OnCreate = FormCreate
-  OnShow = FormShow
   ExplicitWidth = 663
   PixelsPerInch = 96
   TextHeight = 16
@@ -16,9 +14,6 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
     ExplicitLeft = 544
     inherited btnSalvar: TSpeedButton
       OnClick = btnSalvarClick
-    end
-    inherited btnEditar: TSpeedButton
-      OnClick = btnEditarClick
     end
     inherited btnExcluir: TSpeedButton
       OnClick = btnExcluirClick

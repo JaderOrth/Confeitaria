@@ -11,7 +11,8 @@ uses
   uEstadoController in 'uEstadoController.pas',
   uEstadoModel in 'uEstadoModel.pas',
   uEstadoCadastro in 'uEstadoCadastro.pas' {frmEstadoCadastro},
-  uEstadoDTO in 'uEstadoDTO.pas';
+  uEstadoDTO in 'uEstadoDTO.pas',
+  uEstadoRegra in 'uEstadoRegra.pas';
 
 {$R *.res}
 
