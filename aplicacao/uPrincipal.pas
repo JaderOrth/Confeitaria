@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.Menus, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
-  uClassConexaoSingleton;
+  uClassConexaoSingleton, uEstadoController;
 
 type
   TfrmPrincipal = class(TForm)
@@ -48,9 +48,9 @@ implementation
 
 procedure TfrmPrincipal.Estado1Click(Sender: TObject);
 begin
-//  if (not(Assigned(frmEstado))) then
-//    frmEstado := TfrmEstado.Create(self);
-//    frmEstado.Show;
+  if (not(Assigned(oEstadoController))) then
+    oEstadoController := TEstadoController.Create;
+    oEstadoController.CreateForm(Self);
 end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);

@@ -11,8 +11,12 @@ type
   TEstadoController = class
   private
     oEstadoModel: TEstadoModel;
+    oEstadoDTO: TEstadoDTO;
+    oEstadoRegra: TEstadoRegra;
 
+    procedure CloseForm(Sender: TObject);
   public
+    procedure CreateForm(AOwner: TComponent);
 //    function Salvar(const aEstado: TEstadoDTO): Boolean;
 //    function Excluir(const aEstado: TEstadoDTO): Boolean;
 //    function MontarGrid(aMemTable: TFDMemTable): Boolean;
@@ -26,6 +30,9 @@ type
     constructor Create;
     destructor Destroy; override;
   end;
+
+  var
+    oEstadoController: TEstadoController;
 
 implementation
 
@@ -49,9 +56,20 @@ implementation
 //  end;
 //end;
 
+procedure TEstadoController.CloseForm(Sender: TObject);
+begin
+  if (Assigned(frmEstado)) then
+    exit;
+
+  frmEstado.Close;
+  FreeAndNil(frmEstado);
+end;
+
 constructor TEstadoController.Create;
 begin
   oEstadoModel := TEstadoModel.Create;
+  oEstadoDTO := TEstadoDTO.Create;
+  oEstadoRegra := TEstadoRegra.Create;
 end;
 
 //procedure TEstadoController.CriarFormulario(AOwner: TComponent;
@@ -64,10 +82,25 @@ end;
 //  end;
 //end;
 
+procedure TEstadoController.CreateForm(AOwner: TComponent);
+begin
+  if (not(Assigned(frmEstado))) then
+    frmEstado := TfrmEstado.Create(AOwner);
+  frmEstado.Show;
+
+  frmEstado.btnSair.OnClick := CloseForm;
+end;
+
 destructor TEstadoController.Destroy;
 begin
   if (Assigned(oEstadoModel)) then
     FreeAndNil(oEstadoModel);
+
+  if (Assigned(oEstadoDTO)) then
+    FreeAndNil(oEstadoDTO);
+
+  if (Assigned(oEstadoRegra)) then
+    FreeAndNil(oEstadoRegra);
   inherited;
 end;
 
@@ -199,5 +232,11 @@ end;
 //    end;
 //  end;
 //end;
+
+initialization
+
+finalization
+  if (Assigned(oEstadoController)) then
+    FreeAndNil(oEstadoController);
 
 end.
