@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uListagemBase, Data.DB, Vcl.ComCtrls,
   Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
-  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,Vcl.CheckLst;
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,Vcl.CheckLst,
+  uInterfaceListagemController;
 
 type
   TfrmEstado = class(TfrmListagemBase)
@@ -22,6 +23,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    oInterface: IInterfaceListagemController;
 
   end;
 
@@ -29,9 +31,6 @@ var
   frmEstado: TfrmEstado;
 
 implementation
-
-uses
- uEstadoController;
 
 {$R *.dfm}
 
@@ -45,9 +44,8 @@ procedure TfrmEstado.btnNovoClick(Sender: TObject);
 begin
   inherited;
 //  oEstadoControler.CriarFormulario(Self, 0);
-  if (not(Assigned(oEstadoController))) then
-    oEstadoController := TEstadoController.Create;
-  oEstadoController.CreateFormCadastro(Self);
+ if (not(Assigned(oInterface))) then
+  oInterface.CreateFormCadastro(Self);
 end;
 
 procedure TfrmEstado.edtPesquisaKeyUp(Sender: TObject; var Key: Word;

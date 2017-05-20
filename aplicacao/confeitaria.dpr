@@ -8,11 +8,12 @@ uses
   uClassConexao in 'uClassConexao.pas',
   uClassConexaoSingleton in 'uClassConexaoSingleton.pas',
   uEstado in 'uEstado.pas' {frmEstado},
-  uEstadoController in 'uEstadoController.pas',
-  uEstadoModel in 'uEstadoModel.pas',
-  uEstadoCadastro in 'uEstadoCadastro.pas' {frmEstadoCadastro},
+  uEstadoListagemModel in 'uEstadoListagemModel.pas',
   uEstadoDTO in 'uEstadoDTO.pas',
-  uEstadoRegra in 'uEstadoRegra.pas';
+  uEstadoListagemRegra in 'uEstadoListagemRegra.pas',
+  uInterfaceListagemController in 'uInterfaceListagemController.pas',
+  uEstadoListagemController in 'uEstadoListagemController.pas',
+  uEstadoCadastro in 'uEstadoCadastro.pas' {frmEstadoCadastro};
 
 {$R *.res}
 

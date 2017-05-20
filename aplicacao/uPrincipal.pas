@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.Menus, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
-  uClassConexaoSingleton, uEstadoController;
+  uClassConexaoSingleton, uInterfaceListagemController;
 
 type
   TfrmPrincipal = class(TForm)
@@ -39,6 +39,7 @@ type
     { Private declarations }
   public
     { Public declarations }
+    oInterfaceController: IInterfaceListagemController;
   end;
 
 var
@@ -55,9 +56,8 @@ end;
 
 procedure TfrmPrincipal.Estado1Click(Sender: TObject);
 begin
-  if (not(Assigned(oEstadoController))) then
-    oEstadoController := TEstadoController.Create;
-  oEstadoController.CreateFormListagem(Self);
+  if (not(Assigned(oInterfaceController))) then
+    oInterfaceController.CreateFormListagem(Self);
 
 end;
 

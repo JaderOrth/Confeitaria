@@ -9,6 +9,7 @@ inherited frmEstado: TfrmEstado
   TextHeight = 14
   inherited Panel1: TPanel
     Height = 450
+    ExplicitHeight = 450
     inherited edtPesquisa: TEdit
       OnKeyUp = edtPesquisaKeyUp
     end
@@ -26,6 +27,7 @@ inherited frmEstado: TfrmEstado
   end
   inherited StatusBar1: TStatusBar
     Top = 491
+    ExplicitTop = 491
   end
   object dbGridListagem: TDBGrid [3]
     Left = 185

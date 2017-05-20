@@ -1,4 +1,4 @@
-unit uEstadoModel;
+unit uEstadoListagemModel;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   FireDAC.Comp.Client, System.SysUtils, FireDAC.DApt;
 
 type
-  TEstadoModel = class
+  TEstadoListagemModel = class
   public
     function BuscarID:Integer;
     function Salvar(const aEstado: TEstadoDTO):Boolean;
@@ -23,7 +23,7 @@ implementation
 
 { TEstadoModel }
 
-function TEstadoModel.BuscarGrid(aMemTable: TFDMemTable;
+function TEstadoListagemModel.BuscarGrid(aMemTable: TFDMemTable;
   aPesquisa: String): Boolean;
 var
   oQuery: TFDQuery;
@@ -46,7 +46,7 @@ begin
   end;
 end;
 
-function TEstadoModel.BuscarID: Integer;
+function TEstadoListagemModel.BuscarID: Integer;
 var
   oQuery : TFDQuery;
 begin
@@ -70,7 +70,7 @@ begin
   end;
 end;
 
-function TEstadoModel.BuscarSelect(var aEstado: TEstadoDTO): Boolean;
+function TEstadoListagemModel.BuscarSelect(var aEstado: TEstadoDTO): Boolean;
 var
   oQuery: TFDQuery;
 begin
@@ -92,7 +92,7 @@ begin
   end;
 end;
 
-function TEstadoModel.BuscarUF(const aEstado: TEstadoDTO): Boolean;
+function TEstadoListagemModel.BuscarUF(const aEstado: TEstadoDTO): Boolean;
 var
   oQuery: TFDQuery;
 begin
@@ -111,7 +111,7 @@ begin
   end;
 end;
 
-function TEstadoModel.Excluir(const aEstado: TEstadoDTO): Boolean;
+function TEstadoListagemModel.Excluir(const aEstado: TEstadoDTO): Boolean;
 var
   sSql : string;
 begin
@@ -121,7 +121,7 @@ begin
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
-function TEstadoModel.MontarGrid(aMemTable: TFDMemTable): Boolean;
+function TEstadoListagemModel.MontarGrid(aMemTable: TFDMemTable): Boolean;
 var
   oQuery : TFDQuery;
 begin
@@ -144,7 +144,7 @@ begin
   end;
 end;
 
-function TEstadoModel.Salvar(const aEstado: TEstadoDTO): Boolean;
+function TEstadoListagemModel.Salvar(const aEstado: TEstadoDTO): Boolean;
 var
   sSql : string;
 begin
@@ -157,7 +157,7 @@ begin
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
-function TEstadoModel.Update(const aEstado: TEstadoDTO): Boolean;
+function TEstadoListagemModel.Update(const aEstado: TEstadoDTO): Boolean;
 var
   sSql: String;
 begin
