@@ -16,6 +16,8 @@ type
     btnSair: TSpeedButton;
     btnNovo: TSpeedButton;
     panelCadastro: TPanel;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,5 +30,17 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadastroBase.FormCreate(Sender: TObject);
+begin
+  if (Owner is TForm) then
+    (Owner as TForm).Enabled := False;
+end;
+
+procedure TfrmCadastroBase.FormDestroy(Sender: TObject);
+begin
+  if (Owner is TForm) then
+    (Owner as TForm).Enabled := True;
+end;
 
 end.

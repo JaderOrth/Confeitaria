@@ -9,9 +9,8 @@ uses
 type
   IInterfaceListagemController = interface
     procedure CreateFormListagem(AOwner: TComponent);
-    procedure CreateFormCadastro(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
-    procedure CloseFormCadastro(Sender: TObject);
+    procedure ControlerCadastro(Sender: TObject);
   end;
 
 implementation

@@ -12,20 +12,11 @@ type
     edtID: TLabeledEdit;
     edtEstado: TLabeledEdit;
     edtSigla: TLabeledEdit;
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure btnSalvarClick(Sender: TObject);
-    procedure btnExcluirClick(Sender: TObject);
-   // procedure FormCreate(Sender: TObject);
-    //procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-   // constructor Create(AOwner: TComponent; AIDEstado: Integer);
   end;
-
-var
-  frmEstadoCadastro: TfrmEstadoCadastro;
 
 implementation
 
@@ -33,78 +24,5 @@ uses
   uEstado;
 
 {$R *.dfm}
-
-procedure TfrmEstadoCadastro.btnExcluirClick(Sender: TObject);
-begin
-  inherited;
-//  oEstadoDTO.ID := StrToIntDef(edtID.Text,0);
-//  if oEstadoController.Excluir(oEstadoDTO) = True then
-//  begin
-//    Close;
-//  end;
-end;
-
-procedure TfrmEstadoCadastro.btnSalvarClick(Sender: TObject);
-begin
-  inherited;
-//  oEstadoDTO.ID := StrToIntDef(edtID.Text, 0);
-//  oEstadoDTO.Descricao := edtEstado.Text;
-//  oEstadoDTO.UF := edtSigla.Text;
-//
-//  oEstadoController.Salvar(oEstadoDTO);
-//
-//  edtID.Text := IntToStr(oEstadoDTO.ID);
-//  oEstadoController.LimparDTO(oEstadoDTO);
-end;
-
-//constructor TfrmEstadoCadastro.Create(AOwner: TComponent; AIDEstado: Integer);
-//begin
-  //inherited Create(AOwner);
-
-  //oEstadoDTO := TEstadoDTO.Create;
-
-  //oEstadoDTO.ID := AIDEstado;
-
-  //(Owner as TForm).Enabled := False;
-//end;
-
-procedure TfrmEstadoCadastro.FormClose(Sender: TObject;
-  var Action: TCloseAction);
-begin
-  inherited;
-//
-//  if Assigned(oEstadoDTO) then
-//  begin
-//    FreeAndNil(oEstadoDTO);
-//  end;
-//
-//  if Assigned(oEstadoController) then
-//  begin
-//    FreeAndNil(oEstadoController);
-//  end;
-//
-//  (Owner as TForm).Enabled := True;
-//
-//  Action := caFree;
-//  frmEstadoCadastro := nil;
-end;
-
-//procedure TfrmEstadoCadastro.FormCreate(Sender: TObject);
-//begin
- // inherited;
- // oEstadoController := TEstadoController.Create;
-//end;
-
-//procedure TfrmEstadoCadastro.FormShow(Sender: TObject);
-//begin
- // inherited;
-//  if oEstadoDTO.ID > 0 then
-//  begin
-//    oEstadoController.BuscarSelect(oEstadoDTO);
-//    edtID.Text := IntToStr(oEstadoDTO.ID);
-//    edtEstado.Text := oEstadoDTO.Descricao;
-//    edtSigla.Text := oEstadoDTO.UF;
-//  end;
-//end;
 
 end.

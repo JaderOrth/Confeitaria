@@ -5,24 +5,26 @@ interface
 uses
   System.SysUtils, Vcl.Dialogs, Controls, System.UITypes, FireDAC.Comp.Client,
   System.Classes, Vcl.DBGrids, Vcl.ExtCtrls,
-  uInterfaceListagemController, uEstadoListagemModel, uEstadoDTO, uEstadoListagemRegra, uEstado, uEstadoCadastro;
+  uInterfaceListagemController, uEstadoListagemModel, uEstadoDTO,
+  uEstadoListagemRegra, uEstado, uEstadoCadastroController;
 
 type
-  TEstadoController = class(TInterfacedObject, IInterfaceListagemController)
+  TEstadoListagemController = class(TInterfacedObject, IInterfaceListagemController)
   private
     oEstadoModel: TEstadoListagemModel;
     oEstadoDTO: TEstadoDTO;
     oEstadoRegra: TEstadoListagemRegra;
-    //oInterfaceController: IInterfaceController;
   public
     procedure CreateFormListagem(AOwner: TComponent);
-    procedure CreateFormCadastro(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
-    procedure CloseFormCadastro(Sender: TObject);
+    procedure ControlerCadastro(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
   end;
+
+var
+  oEstadoListagemController: TEstadoListagemController;
 
 implementation
 
@@ -31,21 +33,23 @@ implementation
 
 
 
-procedure TEstadoController.CloseForm(Sender: TObject);
+procedure TEstadoListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmEstado))) then
     exit;
+
   FreeAndNil(frmEstado);
 end;
 
-procedure TEstadoController.CloseFormCadastro(Sender: TObject);
+procedure TEstadoListagemController.ControlerCadastro(Sender: TObject);
 begin
-  if (not(Assigned(frmEstadoCadastro))) then
-    exit;
-  FreeAndNil(frmEstadoCadastro);
+  if (not(Assigned(oEstadoCadastrocontroller))) then
+    oEstadoCadastrocontroller := TEstadoCadastroController.Create;
+
+  oEstadoCadastrocontroller.CreateFormCadastro(frmEstado);
 end;
 
-constructor TEstadoController.Create;
+constructor TEstadoListagemController.Create;
 begin
   oEstadoModel := TEstadoListagemModel.Create;
   oEstadoDTO := TEstadoDTO.Create;
@@ -54,29 +58,19 @@ end;
 
 
 
-procedure TEstadoController.CreateFormListagem(AOwner: TComponent);
+procedure TEstadoListagemController.CreateFormListagem(AOwner: TComponent);
 begin
   if (not(Assigned(frmEstado))) then
     frmEstado := TfrmEstado.Create(AOwner);
+
+  frmEstado.oListagemBase := oEstadoListagemController;
   frmEstado.Show;
 
-  frmEstado.btnSair.OnClick := CloseForm;
-
-
-  oEstadoRegra.MontarGrid(frmEstado.FDMemTable_listagem, oEstadoModel);
-  frmEstado.FDMemTable_listagem.Open
+//  oEstadoRegra.MontarGrid(frmEstado.FDMemTable_listagem, oEstadoModel);
+//  frmEstado.FDMemTable_listagem.Open
 end;
 
-procedure TEstadoController.CreateFormCadastro(AOwner: TComponent);
-begin
-  if (not(Assigned(frmEstadoCadastro))) then
-    frmEstadoCadastro := TfrmEstadoCadastro.Create(AOwner);
-  frmEstadoCadastro.Show;
-
-  frmEstadoCadastro.btnSair.OnClick := CloseFormCadastro;
-end;
-
-destructor TEstadoController.Destroy;
+destructor TEstadoListagemController.Destroy;
 begin
   if (Assigned(oEstadoModel)) then
     FreeAndNil(oEstadoModel);
@@ -88,6 +82,5 @@ begin
     FreeAndNil(oEstadoRegra);
   inherited;
 end;
-
 
 end.

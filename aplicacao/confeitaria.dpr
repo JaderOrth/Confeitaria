@@ -13,7 +13,8 @@ uses
   uEstadoListagemRegra in 'uEstadoListagemRegra.pas',
   uInterfaceListagemController in 'uInterfaceListagemController.pas',
   uEstadoListagemController in 'uEstadoListagemController.pas',
-  uEstadoCadastro in 'uEstadoCadastro.pas' {frmEstadoCadastro};
+  uEstadoCadastro in 'uEstadoCadastro.pas' {frmEstadoCadastro},
+  uEstadoCadastroController in 'uEstadoCadastroController.pas';
 
 {$R *.res}
 

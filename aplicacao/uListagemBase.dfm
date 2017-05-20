@@ -403,6 +403,7 @@ object frmListagemBase: TfrmListagemBase
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       ParentShowHint = False
       ShowHint = True
+      OnClick = btnNovoClick
     end
     object btnSair: TSpeedButton
       Left = 137
@@ -514,6 +515,7 @@ object frmListagemBase: TfrmListagemBase
         DFE4C2DFE4C2DFE4C2DFE4C2DFE4C0DEE4B9D4E0FFFFFFFFFFFF}
       ParentShowHint = False
       ShowHint = True
+      OnClick = btnSairClick
     end
   end
   object StatusBar1: TStatusBar

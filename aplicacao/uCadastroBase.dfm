@@ -14,6 +14,8 @@ object frmCadastroBase: TfrmCadastroBase
   OldCreateOrder = False
   Position = poMainFormCenter
   Visible = True
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 16
   object StatusBar1: TStatusBar
@@ -493,6 +495,7 @@ object frmCadastroBase: TfrmCadastroBase
       ParentShowHint = False
       ShowHint = True
       ExplicitLeft = 6
+      ExplicitTop = 279
     end
     object btnNovo: TSpeedButton
       Left = 2

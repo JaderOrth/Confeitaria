@@ -2,7 +2,6 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
   BorderIcons = [biMinimize, biMaximize]
   Caption = 'Cadastro estado'
   ClientWidth = 647
-  OnClose = FormClose
   ExplicitWidth = 663
   PixelsPerInch = 96
   TextHeight = 16
@@ -13,12 +12,6 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
   inherited Panel1: TPanel
     Left = 544
     ExplicitLeft = 544
-    inherited btnSalvar: TSpeedButton
-      OnClick = btnSalvarClick
-    end
-    inherited btnExcluir: TSpeedButton
-      OnClick = btnExcluirClick
-    end
   end
   inherited panelCadastro: TPanel
     Width = 544
