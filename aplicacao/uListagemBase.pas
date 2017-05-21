@@ -23,6 +23,7 @@ type
     FDMemTable_listagem: TFDMemTable;
     procedure btnNovoClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -42,6 +43,11 @@ end;
 procedure TfrmListagemBase.btnSairClick(Sender: TObject);
 begin
   oListagemBase.CloseForm(Sender);
+end;
+
+procedure TfrmListagemBase.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  action := cafree;
 end;
 
 end.

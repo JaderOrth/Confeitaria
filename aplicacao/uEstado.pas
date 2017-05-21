@@ -19,9 +19,6 @@ type
     { Public declarations }
   end;
 
-var
-  frmEstado: TfrmEstado;
-
 implementation
 
 {$R *.dfm}

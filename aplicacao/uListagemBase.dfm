@@ -14,6 +14,7 @@ object frmListagemBase: TfrmListagemBase
   OldCreateOrder = False
   Position = poMainFormCenter
   Visible = True
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 14
   object Panel1: TPanel

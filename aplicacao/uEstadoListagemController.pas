@@ -14,6 +14,8 @@ type
     oEstadoModel: TEstadoListagemModel;
     oEstadoDTO: TEstadoDTO;
     oEstadoRegra: TEstadoListagemRegra;
+
+    frmEstado: TfrmEstado;
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
@@ -24,7 +26,7 @@ type
   end;
 
 var
-  oEstadoListagemController: TEstadoListagemController;
+  oEstadoListagemController: IInterfaceListagemController;
 
 implementation
 
@@ -37,7 +39,7 @@ procedure TEstadoListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmEstado))) then
     exit;
-
+  frmEstado.Close;
   FreeAndNil(frmEstado);
 end;
 
@@ -80,6 +82,7 @@ begin
 
   if (Assigned(oEstadoRegra)) then
     FreeAndNil(oEstadoRegra);
+
   inherited;
 end;
 
