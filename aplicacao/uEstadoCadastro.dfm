@@ -1,5 +1,4 @@
 inherited frmEstadoCadastro: TfrmEstadoCadastro
-  BorderIcons = [biMinimize, biMaximize]
   Caption = 'Cadastro estado'
   ClientWidth = 647
   ExplicitWidth = 663
@@ -7,15 +6,18 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
   TextHeight = 16
   inherited StatusBar1: TStatusBar
     Width = 647
+    ExplicitTop = 288
     ExplicitWidth = 647
   end
   inherited Panel1: TPanel
     Left = 544
     ExplicitLeft = 544
+    ExplicitHeight = 288
   end
   inherited panelCadastro: TPanel
     Width = 544
     ExplicitWidth = 544
+    ExplicitHeight = 288
     object edtID: TLabeledEdit
       Left = 80
       Top = 58

@@ -11,11 +11,10 @@ type
     StatusBar1: TStatusBar;
     Panel1: TPanel;
     btnSalvar: TSpeedButton;
-    btnEditar: TSpeedButton;
     btnExcluir: TSpeedButton;
     btnSair: TSpeedButton;
-    btnNovo: TSpeedButton;
     panelCadastro: TPanel;
+    btnNovo: TSpeedButton;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private

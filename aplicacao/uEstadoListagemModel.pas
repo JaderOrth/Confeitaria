@@ -3,7 +3,7 @@ unit uEstadoListagemModel;
 interface
 
 uses
-  uEstadoDTO, uClassConexaoSingleton, Data.DB,
+  uEstadoDTO, uClassConexaoSingleton, Data.DB, uInterfaceListagemModel,
   FireDAC.Comp.Client, System.SysUtils, FireDAC.DApt;
 
 type
@@ -12,7 +12,7 @@ type
     function BuscarID:Integer;
     function Salvar(const aEstado: TEstadoDTO):Boolean;
     function Excluir(const aEstado: TEstadoDTO):Boolean;
-    function MontarGrid(aMemTable: TFDMemTable):Boolean;
+    function MontarGrid(oMemTable: TFDMemTable):Boolean;
     function BuscarSelect(var aEstado: TEstadoDTO): Boolean;
     function Update(const aEstado: TEstadoDTO): Boolean;
     function BuscarUF(const aEstado: TEstadoDTO): Boolean;
@@ -121,7 +121,7 @@ begin
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
-function TEstadoListagemModel.MontarGrid(aMemTable: TFDMemTable): Boolean;
+function TEstadoListagemModel.MontarGrid(oMemTable: TFDMemTable): Boolean;
 var
   oQuery : TFDQuery;
 begin
@@ -129,10 +129,10 @@ begin
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Close;
-    aMemTable.Close;
+    oMemTable.Close;
     oQuery.Connection := TConexaoSingleton.GetInstancia;
     oQuery.Open('SELECT iduf ID, descricao Descrição, sigla_uf UF FROM uf');
-    aMemTable.Data := oQuery.Data;
+    oMemTable.Data := oQuery.Data;
 
     if (not(oQuery.IsEmpty)) then
       Result := True;

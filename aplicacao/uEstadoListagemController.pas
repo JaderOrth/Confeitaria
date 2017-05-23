@@ -19,7 +19,9 @@ type
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
+    procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
+    procedure MontarGrid(oMemtable: TFDMemTable);
 
     constructor Create;
     destructor Destroy; override;
@@ -32,8 +34,6 @@ implementation
 
 
 { TEstadoControler }
-
-
 
 procedure TEstadoListagemController.CloseForm(Sender: TObject);
 begin
@@ -84,6 +84,16 @@ begin
     FreeAndNil(oEstadoRegra);
 
   inherited;
+end;
+
+procedure TEstadoListagemController.Help(Sender: TObject);
+begin
+  ShowMessage('Teste');
+end;
+
+procedure TEstadoListagemController.MontarGrid(oMemtable: TFDMemTable);
+begin
+
 end;
 
 end.

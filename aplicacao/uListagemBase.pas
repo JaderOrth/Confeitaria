@@ -21,9 +21,13 @@ type
     btnAjuda: TSpeedButton;
     src_listagem: TDataSource;
     FDMemTable_listagem: TFDMemTable;
+    btnExcluir: TSpeedButton;
+    DBGrid1: TDBGrid;
     procedure btnNovoClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnAjudaClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,6 +38,11 @@ type
 implementation
 
 {$R *.dfm}
+
+procedure TfrmListagemBase.btnAjudaClick(Sender: TObject);
+begin
+  oListagemBase.Help(Sender);
+end;
 
 procedure TfrmListagemBase.btnNovoClick(Sender: TObject);
 begin
@@ -48,6 +57,11 @@ end;
 procedure TfrmListagemBase.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   action := cafree;
+end;
+
+procedure TfrmListagemBase.FormCreate(Sender: TObject);
+begin
+  oListagemBase.MontarGrid(FDMemTable_listagem);
 end;
 
 end.

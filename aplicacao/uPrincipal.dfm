@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'Confeitaria - Meu Docinho'
-  ClientHeight = 408
-  ClientWidth = 904
+  ClientHeight = 415
+  ClientWidth = 736
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,8 +22,8 @@ object frmPrincipal: TfrmPrincipal
   TextHeight = 13
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 389
-    Width = 904
+    Top = 396
+    Width = 736
     Height = 19
     Panels = <
       item
@@ -44,12 +44,14 @@ object frmPrincipal: TfrmPrincipal
         Bevel = pbNone
         Width = 150
       end>
+    ExplicitTop = 389
+    ExplicitWidth = 904
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 904
-    Height = 71
+    Width = 736
+    Height = 65
     Align = alTop
     BevelOuter = bvNone
     Color = clWhite
@@ -59,7 +61,7 @@ object frmPrincipal: TfrmPrincipal
       Left = 0
       Top = 0
       Width = 105
-      Height = 71
+      Height = 65
       Align = alLeft
       Caption = 'Pedidos'
       Flat = True
@@ -261,12 +263,13 @@ object frmPrincipal: TfrmPrincipal
       Layout = blGlyphTop
       NumGlyphs = 2
       ExplicitLeft = -6
+      ExplicitHeight = 71
     end
     object btnProdutos: TSpeedButton
       Left = 105
       Top = 0
       Width = 105
-      Height = 71
+      Height = 65
       Align = alLeft
       Caption = 'Produtos'
       Flat = True
@@ -468,12 +471,13 @@ object frmPrincipal: TfrmPrincipal
       Layout = blGlyphTop
       NumGlyphs = 2
       ExplicitLeft = 99
+      ExplicitHeight = 71
     end
     object btnClientes: TSpeedButton
       Left = 210
       Top = 0
       Width = 105
-      Height = 71
+      Height = 65
       Align = alLeft
       Caption = 'Clientes'
       Flat = True
@@ -699,12 +703,13 @@ object frmPrincipal: TfrmPrincipal
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
       NumGlyphs = 2
+      ExplicitHeight = 71
     end
     object btnSair: TSpeedButton
       Left = 315
       Top = 0
       Width = 105
-      Height = 71
+      Height = 65
       Align = alLeft
       Caption = 'Sair'
       Flat = True
@@ -906,6 +911,8 @@ object frmPrincipal: TfrmPrincipal
       Layout = blGlyphTop
       NumGlyphs = 2
       OnClick = btnSairClick
+      ExplicitLeft = 299
+      ExplicitHeight = 71
     end
   end
   object MainMenu1: TMainMenu

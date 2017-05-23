@@ -1,13 +1,12 @@
 inherited frmEstado: TfrmEstado
-  BorderIcons = [biMinimize, biMaximize]
   Caption = 'Listagem dos estados'
   ClientHeight = 510
-  ExplicitHeight = 548
+  ExplicitHeight = 549
   PixelsPerInch = 96
   TextHeight = 14
   inherited Panel1: TPanel
-    Height = 450
-    ExplicitHeight = 450
+    Height = 435
+    ExplicitHeight = 435
   end
   inherited Panel2: TPanel
     inherited btnEditar: TSpeedButton
@@ -22,21 +21,8 @@ inherited frmEstado: TfrmEstado
     Top = 491
     ExplicitTop = 491
   end
-  object dbGridListagem: TDBGrid [3]
-    Left = 185
-    Top = 41
-    Width = 715
-    Height = 450
-    Align = alClient
-    DataSource = src_listagem
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-    ReadOnly = True
-    TabOrder = 3
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -12
-    TitleFont.Name = 'Tahoma'
-    TitleFont.Style = []
+  inherited DBGrid1: TDBGrid
+    Height = 435
   end
   inherited src_listagem: TDataSource
     AutoEdit = False

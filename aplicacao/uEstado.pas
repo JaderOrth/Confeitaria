@@ -12,7 +12,6 @@ uses
 
 type
   TfrmEstado = class(TfrmListagemBase)
-    dbGridListagem: TDBGrid;
   private
     { Private declarations }
   public
