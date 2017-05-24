@@ -24,7 +24,6 @@ object frmCadastroBase: TfrmCadastroBase
     Width = 677
     Height = 19
     Panels = <>
-    ExplicitWidth = 832
   end
   object Panel1: TPanel
     Left = 574
@@ -37,7 +36,6 @@ object frmCadastroBase: TfrmCadastroBase
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = 729
     object btnSalvar: TSpeedButton
       Left = 2
       Top = 72
@@ -380,6 +378,7 @@ object frmCadastroBase: TfrmCadastroBase
       Layout = blGlyphTop
       ParentShowHint = False
       ShowHint = True
+      OnClick = btnSairClick
       ExplicitLeft = 6
       ExplicitTop = 279
     end
@@ -604,6 +603,5 @@ object frmCadastroBase: TfrmCadastroBase
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 2
-    ExplicitWidth = 729
   end
 end

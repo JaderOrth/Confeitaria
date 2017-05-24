@@ -9,16 +9,18 @@ uses
 type
   TEstadoListagemRegra = class
   public
-
+    function MontarGrid(oMemTable: TFDMeMTable;
+      AModel: TEstadoListagemModel): Boolean;
   end;
 
 implementation
 
 { TEstadoListagemRegra }
 
-function TEstadoListagemRegra.MontarGrid(oMemTable: TFDMeMTable): Boolean;
+function TEstadoListagemRegra.MontarGrid(oMemTable: TFDMeMTable;
+  AModel: TEstadoListagemModel): Boolean;
 begin
-
+  AModel.MontarGrid(oMemTable);
 end;
 
 end.

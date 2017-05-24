@@ -6,10 +6,10 @@ interface
 uses
   System.Classes,
   System.SysUtils,
-  uEstadoCadastro;
+  uEstadoCadastro, uInterfaceCadastroController;
 
 type
-  TEstadoCadastroController = class
+  TEstadoCadastroController = class(TInterfacedObject, IInterfaceCadastroController)
   private
     frmEstadoCadastro: TfrmEstadoCadastro;
   public
@@ -18,7 +18,7 @@ type
   end;
 
 var
-  oEstadoCadastroController: TEstadoCadastroController;
+  oEstadoCadastroController: IInterfaceCadastroController;
 
 implementation
 
@@ -28,7 +28,7 @@ begin
     frmEstadoCadastro := TfrmEstadoCadastro.Create(AOwner);
   frmEstadoCadastro.Show;
 
-  frmEstadoCadastro.btnSair.OnClick := CloseFormCadastro;
+  frmEstadoCadastro.oInterfaceCadastroController := oEstadoCadastroController;
 end;
 
 procedure TEstadoCadastroController.CloseFormCadastro(Sender: TObject);

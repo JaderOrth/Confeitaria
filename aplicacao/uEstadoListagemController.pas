@@ -45,10 +45,10 @@ end;
 
 procedure TEstadoListagemController.ControlerCadastro(Sender: TObject);
 begin
-  if (not(Assigned(oEstadoCadastrocontroller))) then
-    oEstadoCadastrocontroller := TEstadoCadastroController.Create;
+  if (not(Assigned(oEstadoCadastroController))) then
+    oEstadoCadastroController := TEstadoCadastroController.Create;
 
-  oEstadoCadastrocontroller.CreateFormCadastro(frmEstado);
+  oEstadoCadastroController.CreateFormCadastro(frmEstado);
 end;
 
 constructor TEstadoListagemController.Create;
@@ -64,12 +64,9 @@ procedure TEstadoListagemController.CreateFormListagem(AOwner: TComponent);
 begin
   if (not(Assigned(frmEstado))) then
     frmEstado := TfrmEstado.Create(AOwner);
-
   frmEstado.oListagemBase := oEstadoListagemController;
   frmEstado.Show;
 
-//  oEstadoRegra.MontarGrid(frmEstado.FDMemTable_listagem, oEstadoModel);
-//  frmEstado.FDMemTable_listagem.Open
 end;
 
 destructor TEstadoListagemController.Destroy;
@@ -93,7 +90,9 @@ end;
 
 procedure TEstadoListagemController.MontarGrid(oMemtable: TFDMemTable);
 begin
-
+  oEstadoRegra.MontarGrid(oMemtable, oEstadoModel);
+  //frmEstado.FDMemTable_listagem.Open;
+  oMemtable.Open;
 end;
 
 end.

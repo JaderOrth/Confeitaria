@@ -4,7 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Buttons, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Buttons, Vcl.StdCtrls,
+  Vcl.Mask, Vcl.DBCtrls,
+  uInterfaceCadastroController;
 
 type
   TfrmCadastroBase = class(TForm)
@@ -17,10 +19,12 @@ type
     btnNovo: TSpeedButton;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure btnSairClick(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    oInterfaceCadastroController: IInterfaceCadastroController;
   end;
 
 var
@@ -29,6 +33,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadastroBase.btnSairClick(Sender: TObject);
+begin
+  oInterfaceCadastroController.CloseFormCadastro(Sender);
+end;
 
 procedure TfrmCadastroBase.FormCreate(Sender: TObject);
 begin

@@ -16,7 +16,6 @@ object frmListagemBase: TfrmListagemBase
   Visible = True
   WindowState = wsMaximized
   OnClose = FormClose
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 14
   object Panel1: TPanel
@@ -29,7 +28,6 @@ object frmListagemBase: TfrmListagemBase
     BevelOuter = bvLowered
     ParentBackground = False
     TabOrder = 0
-    ExplicitHeight = 402
     object edtPesquisa: TEdit
       Left = 5
       Top = 27
@@ -68,7 +66,6 @@ object frmListagemBase: TfrmListagemBase
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 900
     object btnAjuda: TSpeedButton
       Left = 158
       Top = 2
@@ -1144,8 +1141,6 @@ object frmListagemBase: TfrmListagemBase
     Width = 834
     Height = 19
     Panels = <>
-    ExplicitTop = 458
-    ExplicitWidth = 900
   end
   object DBGrid1: TDBGrid
     Left = 185
@@ -1160,6 +1155,7 @@ object frmListagemBase: TfrmListagemBase
     TitleFont.Height = -12
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnEnter = DBGrid1Enter
   end
   object src_listagem: TDataSource
     DataSet = FDMemTable_listagem

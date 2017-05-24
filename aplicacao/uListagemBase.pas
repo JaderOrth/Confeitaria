@@ -27,7 +27,7 @@ type
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnAjudaClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
+    procedure DBGrid1Enter(Sender: TObject);
   private
     { Private declarations }
   public
@@ -54,14 +54,15 @@ begin
   oListagemBase.CloseForm(Sender);
 end;
 
+procedure TfrmListagemBase.DBGrid1Enter(Sender: TObject);
+begin
+   oListagemBase.MontarGrid(FDMemTable_listagem);
+end;
+
+//oListagemBase.MontarGrid(FDMemTable_listagem);
 procedure TfrmListagemBase.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   action := cafree;
-end;
-
-procedure TfrmListagemBase.FormCreate(Sender: TObject);
-begin
-  oListagemBase.MontarGrid(FDMemTable_listagem);
 end;
 
 end.

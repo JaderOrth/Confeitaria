@@ -15,7 +15,8 @@ uses
   uEstadoListagemController in 'uEstadoListagemController.pas',
   uEstadoCadastro in 'uEstadoCadastro.pas' {frmEstadoCadastro},
   uEstadoCadastroController in 'uEstadoCadastroController.pas',
-  uInterfaceListagemModel in 'uInterfaceListagemModel.pas';
+  uInterfaceListagemModel in 'uInterfaceListagemModel.pas',
+  uInterfaceCadastroController in 'uInterfaceCadastroController.pas';
 
 {$R *.res}
 
