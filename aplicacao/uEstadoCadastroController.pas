@@ -19,6 +19,7 @@ type
   public
     procedure CreateFormCadastro(AOwner: TComponent; iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
+    procedure Salvar(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -66,6 +67,15 @@ begin
   if (Assigned(oEstadoModel)) then
     FreeAndNil(oEstadoModel);
   inherited;
+end;
+
+procedure TEstadoCadastroController.Salvar(Sender: TObject);
+begin
+  oEstadoDTO.ID := StrToIntDef(frmEstadoCadastro.edtID.Text, 0);
+  oEstadoDTO.UF := frmEstadoCadastro.edtSigla.Text;
+  oEstadoDTO.Descricao := frmEstadoCadastro.edtEstado.Text;
+
+  oEstadoRegra.Salvar(oEstadoDTO, oEstadoModel);
 end;
 
 procedure TEstadoCadastroController.CloseFormCadastro(Sender: TObject);

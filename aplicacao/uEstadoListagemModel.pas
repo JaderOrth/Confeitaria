@@ -9,12 +9,12 @@ uses
 type
   TEstadoListagemModel = class
   public
-    function BuscarID:Integer;
-    function Salvar(const aEstado: TEstadoDTO):Boolean;
+    //function BuscarID:Integer;
+    //function Salvar(const aEstado: TEstadoDTO):Boolean;
     function Excluir(const aEstado: TEstadoDTO):Boolean;
     function MontarGrid(oMemTable: TFDMemTable):Boolean;
     //function BuscarSelect(var aEstado: TEstadoDTO): Boolean;
-    function Update(const aEstado: TEstadoDTO): Boolean;
+    //function Update(const aEstado: TEstadoDTO): Boolean;
     function BuscarUF(const aEstado: TEstadoDTO): Boolean;
     function BuscarGrid(aMemTable: TFDMemTable; aPesquisa: String): Boolean;
 
@@ -46,29 +46,29 @@ begin
   end;
 end;
 
-function TEstadoListagemModel.BuscarID: Integer;
-var
-  oQuery : TFDQuery;
-begin
-  Result := 1;
-  oQuery := TFDQuery.Create(nil);
-
-  try
-    oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT MAX(iduf) as ID FROM uf');
-
-    if (not(oQuery.IsEmpty)) then
-    begin
-      Result := oQuery.FieldByName('ID').AsInteger +1;
-    end;
-
-  finally
-    if Assigned(oQuery) then
-    begin
-      FreeAndNil(oQuery);
-    end;
-  end;
-end;
+//function TEstadoListagemModel.BuscarID: Integer;
+//var
+//  oQuery : TFDQuery;
+//begin
+//  Result := 1;
+//  oQuery := TFDQuery.Create(nil);
+//
+//  try
+//    oQuery.Connection := TConexaoSingleton.GetInstancia;
+//    oQuery.Open('SELECT MAX(iduf) as ID FROM uf');
+//
+//    if (not(oQuery.IsEmpty)) then
+//    begin
+//      Result := oQuery.FieldByName('ID').AsInteger +1;
+//    end;
+//
+//  finally
+//    if Assigned(oQuery) then
+//    begin
+//      FreeAndNil(oQuery);
+//    end;
+//  end;
+//end;
 
 //function TEstadoListagemModel.BuscarSelect(var aEstado: TEstadoDTO): Boolean;
 //var
@@ -144,27 +144,27 @@ begin
   end;
 end;
 
-function TEstadoListagemModel.Salvar(const aEstado: TEstadoDTO): Boolean;
-var
-  sSql : string;
-begin
-  sSql := 'INSERT INTO uf (iduf, descricao, sigla_uf) ' +
-          'VALUES (' +
-          IntToStr(aEstado.ID)+','+
-          QuotedStr(aEstado.Descricao)+' ,'+
-          QuotedStr(aEstado.UF)+')';
+//function TEstadoListagemModel.Salvar(const aEstado: TEstadoDTO): Boolean;
+//var
+//  sSql : string;
+//begin
+//  sSql := 'INSERT INTO uf (iduf, descricao, sigla_uf) ' +
+//          'VALUES (' +
+//          IntToStr(aEstado.ID)+','+
+//          QuotedStr(aEstado.Descricao)+' ,'+
+//          QuotedStr(aEstado.UF)+')';
+//
+//  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+//end;
 
-  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
-end;
-
-function TEstadoListagemModel.Update(const aEstado: TEstadoDTO): Boolean;
-var
-  sSql: String;
-begin
-  sSql := 'UPDATE uf SET descricao = '+ QuotedStr(aEstado.Descricao)
-                     +', sigla_uf =  '+ QuotedStr(aEstado.UF)
-                     +' WHERE iduf = '+ IntToStr(aEstado.ID);
-  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
-end;
+//function TEstadoListagemModel.Update(const aEstado: TEstadoDTO): Boolean;
+//var
+//  sSql: String;
+//begin
+//  sSql := 'UPDATE uf SET descricao = '+ QuotedStr(aEstado.Descricao)
+//                     +', sigla_uf =  '+ QuotedStr(aEstado.UF)
+//                     +' WHERE iduf = '+ IntToStr(aEstado.ID);
+//  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+//end;
 
 end.

@@ -148,6 +148,7 @@ object frmCadastroBase: TfrmCadastroBase
       Layout = blGlyphTop
       ParentShowHint = False
       ShowHint = True
+      OnClick = btnSalvarClick
       ExplicitLeft = 6
       ExplicitTop = 78
     end

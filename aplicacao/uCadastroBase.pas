@@ -20,6 +20,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,6 +38,11 @@ implementation
 procedure TfrmCadastroBase.btnSairClick(Sender: TObject);
 begin
   oInterfaceCadastroController.CloseFormCadastro(Sender);
+end;
+
+procedure TfrmCadastroBase.btnSalvarClick(Sender: TObject);
+begin
+  oInterfaceCadastroController.Salvar(Sender);
 end;
 
 procedure TfrmCadastroBase.FormCreate(Sender: TObject);
