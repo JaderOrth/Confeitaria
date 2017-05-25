@@ -28,6 +28,8 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnAjudaClick(Sender: TObject);
     procedure DBGrid1Enter(Sender: TObject);
+    procedure btnEditarClick(Sender: TObject);
+    procedure DBGrid1DblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,6 +46,11 @@ begin
   oListagemBase.Help(Sender);
 end;
 
+procedure TfrmListagemBase.btnEditarClick(Sender: TObject);
+begin
+  oListagemBase.CreateFormEdit(Sender, FDMemTable_listagem);
+end;
+
 procedure TfrmListagemBase.btnNovoClick(Sender: TObject);
 begin
   oListagemBase.ControlerCadastro(Sender);
@@ -52,6 +59,11 @@ end;
 procedure TfrmListagemBase.btnSairClick(Sender: TObject);
 begin
   oListagemBase.CloseForm(Sender);
+end;
+
+procedure TfrmListagemBase.DBGrid1DblClick(Sender: TObject);
+begin
+ btnEditarClick(Sender);
 end;
 
 procedure TfrmListagemBase.DBGrid1Enter(Sender: TObject);

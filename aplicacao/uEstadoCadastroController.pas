@@ -2,19 +2,26 @@ unit uEstadoCadastroController;
 
 interface
 
-
 uses
   System.Classes,
   System.SysUtils,
-  uEstadoCadastro, uInterfaceCadastroController;
+  uEstadoCadastro, uInterfaceCadastroController, uEstadoDTO,
+  uEstadoCadastroRegra, uEstadoCadastroModel;
 
 type
-  TEstadoCadastroController = class(TInterfacedObject, IInterfaceCadastroController)
+  TEstadoCadastroController = class(TInterfacedObject,
+    IInterfaceCadastroController)
   private
+    oEstadoDTO: TEstadoDTO;
+    oEstadoRegra: TEstadoCadastroRegra;
+    oEstadoModel: TEstadoCadastroModel;
     frmEstadoCadastro: TfrmEstadoCadastro;
   public
-    procedure CreateFormCadastro(AOwner: TComponent);
+    procedure CreateFormCadastro(AOwner: TComponent; iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
+
+    constructor Create;
+    destructor Destroy; override;
   end;
 
 var
@@ -22,13 +29,43 @@ var
 
 implementation
 
-procedure TEstadoCadastroController.CreateFormCadastro(AOwner: TComponent);
+constructor TEstadoCadastroController.Create;
+begin
+  oEstadoRegra := TEstadoCadastroRegra.Create;
+  oEstadoDTO := TEstadoDTO.Create;
+  oEstadoModel := TEstadoCadastroModel.Create;
+end;
+
+procedure TEstadoCadastroController.CreateFormCadastro(AOwner: TComponent;
+  iId: Integer);
 begin
   if (not(Assigned(frmEstadoCadastro))) then
     frmEstadoCadastro := TfrmEstadoCadastro.Create(AOwner);
+  frmEstadoCadastro.oInterfaceCadastroController := oEstadoCadastroController;
   frmEstadoCadastro.Show;
 
-  frmEstadoCadastro.oInterfaceCadastroController := oEstadoCadastroController;
+  if (iId > 0) then
+  begin
+    oEstadoDTO.ID := iId;
+    oEstadoRegra.BuscarSelect(oEstadoDTO, oEstadoModel);
+
+    frmEstadoCadastro.edtID.Text := IntToStr(oEstadoDTO.ID);
+    frmEstadoCadastro.edtEstado.Text := oEstadoDTO.Descricao;
+    frmEstadoCadastro.edtSigla.Text := oEstadoDTO.UF;
+  end;
+end;
+
+destructor TEstadoCadastroController.Destroy;
+begin
+  if (Assigned(oEstadoDTO)) then
+    FreeandNil(oEstadoDTO);
+
+  if (Assigned(oEstadoRegra)) then
+    FreeandNil(oEstadoRegra);
+
+  if (Assigned(oEstadoModel)) then
+    FreeAndNil(oEstadoModel);
+  inherited;
 end;
 
 procedure TEstadoCadastroController.CloseFormCadastro(Sender: TObject);

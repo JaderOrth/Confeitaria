@@ -482,6 +482,7 @@ object frmListagemBase: TfrmListagemBase
       NumGlyphs = 2
       ParentShowHint = False
       ShowHint = True
+      OnClick = btnEditarClick
     end
     object btnNovo: TSpeedButton
       Left = 2
@@ -1149,12 +1150,15 @@ object frmListagemBase: TfrmListagemBase
     Height = 366
     Align = alClient
     DataSource = src_listagem
+    Options = [dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
+    ReadOnly = True
     TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -12
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnDblClick = DBGrid1DblClick
     OnEnter = DBGrid1Enter
   end
   object src_listagem: TDataSource

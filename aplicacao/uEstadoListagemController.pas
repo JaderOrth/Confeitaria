@@ -21,6 +21,7 @@ type
     procedure CloseForm(Sender: TObject);
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
+    procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
     procedure MontarGrid(oMemtable: TFDMemTable);
 
     constructor Create;
@@ -47,8 +48,19 @@ procedure TEstadoListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oEstadoCadastroController))) then
     oEstadoCadastroController := TEstadoCadastroController.Create;
+   // passa 0 porque quando o usuario clicar em editar iá passar o ID
+   oEstadoCadastroController.CreateFormCadastro(frmEstado, 0);
+end;
 
-  oEstadoCadastroController.CreateFormCadastro(frmEstado);
+procedure TEstadoListagemController.CreateFormEdit(Sender: TObject;
+  oMemTable: TFDMemTable);
+var
+  iId: Integer;
+begin
+  if (not(Assigned(oEstadoCadastroController))) then
+    oEstadoCadastroController := TEstadoCadastroController.Create;
+  iId := oMemTable.FieldByName('ID').AsInteger;
+  oEstadoCadastroController.CreateFormCadastro(frmEstado, iId);
 end;
 
 constructor TEstadoListagemController.Create;
