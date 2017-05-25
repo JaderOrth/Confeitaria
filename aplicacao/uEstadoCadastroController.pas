@@ -76,6 +76,8 @@ begin
   oEstadoDTO.Descricao := frmEstadoCadastro.edtEstado.Text;
 
   oEstadoRegra.Salvar(oEstadoDTO, oEstadoModel);
+  frmEstadoCadastro.edtID.Text := IntToStr(oEstadoDTO.ID);
+  oEstadoRegra.LimparDTO(oEstadoDTO);
 end;
 
 procedure TEstadoCadastroController.CloseFormCadastro(Sender: TObject);

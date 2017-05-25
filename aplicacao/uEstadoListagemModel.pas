@@ -15,7 +15,7 @@ type
     function MontarGrid(oMemTable: TFDMemTable):Boolean;
     //function BuscarSelect(var aEstado: TEstadoDTO): Boolean;
     //function Update(const aEstado: TEstadoDTO): Boolean;
-    function BuscarUF(const aEstado: TEstadoDTO): Boolean;
+   // function BuscarUF(const aEstado: TEstadoDTO): Boolean;
     function BuscarGrid(aMemTable: TFDMemTable; aPesquisa: String): Boolean;
 
   end;
@@ -92,24 +92,25 @@ end;
 //  end;
 //end;
 
-function TEstadoListagemModel.BuscarUF(const aEstado: TEstadoDTO): Boolean;
-var
-  oQuery: TFDQuery;
-begin
-  Result := false;
-  oQuery := TFDQuery.Create(nil);
-  try
-    oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT * FROM uf WHERE sigla_uf = '+ QuotedStr(aEstado.UF));
-    if (not(oQuery.IsEmpty)) then
-    begin
-      Result := True;
-    end;
-  finally
-    if (Assigned(oQuery)) then
-      FreeAndNil(oQuery);
-  end;
-end;
+
+//function TEstadoListagemModel.BuscarUF(const aEstado: TEstadoDTO): Boolean;
+//var
+//  oQuery: TFDQuery;
+//begin
+//  Result := false;
+//  oQuery := TFDQuery.Create(nil);
+//  try
+//    oQuery.Connection := TConexaoSingleton.GetInstancia;
+//    oQuery.Open('SELECT * FROM uf WHERE sigla_uf = '+ QuotedStr(aEstado.UF));
+//    if (not(oQuery.IsEmpty)) then
+//    begin
+//      Result := True;
+//    end;
+//  finally
+//    if (Assigned(oQuery)) then
+//      FreeAndNil(oQuery);
+//  end;
+//end;
 
 function TEstadoListagemModel.Excluir(const aEstado: TEstadoDTO): Boolean;
 var

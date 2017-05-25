@@ -20,7 +20,7 @@ implementation
 function TEstadoListagemRegra.MontarGrid(oMemTable: TFDMeMTable;
   AModel: TEstadoListagemModel): Boolean;
 begin
-  AModel.MontarGrid(oMemTable);
+  Result := AModel.MontarGrid(oMemTable);
 end;
 
 end.
