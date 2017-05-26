@@ -22,7 +22,9 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable);
+    procedure MontarGrid(oMemtable: TFDMemTable; AGrid: TDBGrid);
+    procedure Excluir(Sender: TObject; oMemtable: TFDMemTable; AGrid: TDBGrid);
+
 
     constructor Create;
     destructor Destroy; override;
@@ -78,7 +80,7 @@ begin
     frmEstado := TfrmEstado.Create(AOwner);
   frmEstado.oListagemBase := oEstadoListagemController;
   frmEstado.Show;
-
+  frmEstado.FormActivate(nil);
 end;
 
 destructor TEstadoListagemController.Destroy;
@@ -95,15 +97,28 @@ begin
   inherited;
 end;
 
+procedure TEstadoListagemController.Excluir(Sender: TObject;
+  oMemtable: TFDMemTable; AGrid: TDBGrid);
+begin
+  if (oEstadoRegra.Excluir(oMemtable.FieldByName('ID').AsInteger,
+  oEstadoModel)) then
+  begin
+      oEstadoRegra.MontarGrid(oMemtable, oEstadoModel);
+      oEstadoRegra.configurarGrid(AGrid);
+  end;
+
+end;
+
 procedure TEstadoListagemController.Help(Sender: TObject);
 begin
   ShowMessage('Teste');
 end;
 
-procedure TEstadoListagemController.MontarGrid(oMemtable: TFDMemTable);
+procedure TEstadoListagemController.MontarGrid(oMemtable: TFDMemTable;
+  AGrid: TDBGrid);
 begin
   oEstadoRegra.MontarGrid(oMemtable, oEstadoModel);
-  //frmEstado.FDMemTable_listagem.Open;
+  oEstadoRegra.configurarGrid(AGrid);
   oMemtable.Open;
 end;
 

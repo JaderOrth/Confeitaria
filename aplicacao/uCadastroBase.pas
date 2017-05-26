@@ -13,7 +13,6 @@ type
     StatusBar1: TStatusBar;
     Panel1: TPanel;
     btnSalvar: TSpeedButton;
-    btnExcluir: TSpeedButton;
     btnSair: TSpeedButton;
     panelCadastro: TPanel;
     btnNovo: TSpeedButton;

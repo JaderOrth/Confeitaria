@@ -14,6 +14,7 @@ type
     function Update(const aEstado: TEstadoDTO): Boolean;
     function BuscarID:Integer;
     function BuscarUF(const aEstado: TEstadoDTO): Boolean;
+    function BuscarUFEdit(const aEstado: TEstadoDTO): Boolean;
   end;
 
 implementation
@@ -81,6 +82,27 @@ begin
     if (Assigned(oQuery)) then
       FreeAndNil(oQuery);
   end;
+end;
+
+function TEstadoCadastroModel.BuscarUFEdit(const aEstado: TEstadoDTO): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := false;
+  oQuery := TFDQuery.Create(nil);
+  try
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT * FROM uf WHERE sigla_uf = '+ QuotedStr(aEstado.UF)+
+                ' and iduf = '+ IntToStr(aEstado.ID));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      Result := True;
+    end;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+
 end;
 
 function TEstadoCadastroModel.Salvar(const aEstado: TEstadoDTO): Boolean;
