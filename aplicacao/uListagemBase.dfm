@@ -1154,9 +1154,7 @@ object frmListagemBase: TfrmListagemBase
     Align = alClient
     DataSource = src_listagem
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
-    ParentShowHint = False
     ReadOnly = True
-    ShowHint = True
     TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText

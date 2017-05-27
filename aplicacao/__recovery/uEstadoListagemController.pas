@@ -50,7 +50,7 @@ procedure TEstadoListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oEstadoCadastroController))) then
     oEstadoCadastroController := TEstadoCadastroController.Create;
-   // passa 0 porque quando o usuario clicar em editar i· passar o ID
+   // passa 0 porque quando o usuario clicar em editar i√° passar o ID
    oEstadoCadastroController.CreateFormCadastro(frmEstado, 0);
 end;
 
