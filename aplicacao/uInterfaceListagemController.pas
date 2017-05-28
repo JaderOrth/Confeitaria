@@ -2,7 +2,6 @@ unit uInterfaceListagemController;
 
 interface
 
-
 uses
   System.Classes, FireDAC.Comp.Client, Vcl.DBGrids;
 
@@ -15,6 +14,8 @@ type
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
     procedure MontarGrid(oMemtable: TFDMemTable; AGrid: TDBGrid);
     procedure Excluir(oMemtable: TFDMemTable; AGrid: TDBGrid);
+    procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
+      APesquisa: String);
   end;
 
 implementation

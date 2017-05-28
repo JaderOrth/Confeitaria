@@ -45,6 +45,7 @@ object frmListagemBase: TfrmListagemBase
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      OnKeyUp = edtPesquisaKeyUp
     end
     object Panel3: TPanel
       Left = 2

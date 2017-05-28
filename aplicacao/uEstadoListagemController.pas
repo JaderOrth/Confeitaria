@@ -9,7 +9,8 @@ uses
   uEstadoListagemRegra, uEstado, uEstadoCadastroController;
 
 type
-  TEstadoListagemController = class(TInterfacedObject, IInterfaceListagemController)
+  TEstadoListagemController = class(TInterfacedObject,
+    IInterfaceListagemController)
   private
     oEstadoModel: TEstadoListagemModel;
     oEstadoDTO: TEstadoDTO;
@@ -22,9 +23,10 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable; AGrid: TDBGrid);
-    procedure Excluir(oMemtable: TFDMemTable; AGrid: TDBGrid);
-
+    procedure MontarGrid(oMemTable: TFDMemTable; AGrid: TDBGrid);
+    procedure Excluir(oMemTable: TFDMemTable; AGrid: TDBGrid);
+    procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
+      APesquisa: String);
     constructor Create;
     destructor Destroy; override;
   end;
@@ -34,8 +36,14 @@ var
 
 implementation
 
-
 { TEstadoControler }
+
+procedure TEstadoListagemController.BuscarGrid(aMemTable: TFDMemTable;
+  AGrid: TDBGrid; APesquisa: String);
+begin
+  oEstadoRegra.BuscarGrid(aMemTable, oEstadoModel, aPesquisa);
+  oEstadoRegra.ConfigGrid(AGrid);
+end;
 
 procedure TEstadoListagemController.CloseForm(Sender: TObject);
 begin
@@ -49,7 +57,7 @@ procedure TEstadoListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oEstadoCadastroController))) then
     oEstadoCadastroController := TEstadoCadastroController.Create;
-   // passa 0 porque quando o usuario clicar em editar iá passar o ID
+  // passa 0 porque quando o usuario clicar em editar iá passar o ID
   oEstadoCadastroController.CreateFormCadastro(frmEstado, 0);
 end;
 
@@ -71,8 +79,6 @@ begin
   oEstadoDTO := TEstadoDTO.Create;
   oEstadoRegra := TEstadoListagemRegra.Create;
 end;
-
-
 
 procedure TEstadoListagemController.CreateFormListagem(AOwner: TComponent);
 begin
@@ -97,13 +103,17 @@ begin
   inherited;
 end;
 
-procedure TEstadoListagemController.Excluir(oMemtable: TFDMemTable;
+procedure TEstadoListagemController.Excluir(oMemTable: TFDMemTable;
   AGrid: TDBGrid);
 begin
-  oEstadoRegra.Excluir(oMemtable.FieldByName('ID').AsInteger, oEstadoModel);
-  oEstadoRegra.MontarGrid(oMemtable, oEstadoModel);
-   oEstadoRegra.ConfigGrid(AGrid);
-  oMemtable.Open;
+  // retorna erro quando não tem nada cadastrado BUG-----
+  if oEstadoRegra.Excluir(oMemTable.FieldByName('ID').AsInteger, oEstadoModel)
+  then
+  begin
+    oEstadoRegra.MontarGrid(oMemTable, oEstadoModel);
+    oEstadoRegra.ConfigGrid(AGrid);
+    oMemTable.Open;
+  end;
 end;
 
 procedure TEstadoListagemController.Help(Sender: TObject);
@@ -111,12 +121,17 @@ begin
   ShowMessage('Teste');
 end;
 
-procedure TEstadoListagemController.MontarGrid(oMemtable: TFDMemTable;
+procedure TEstadoListagemController.MontarGrid(oMemTable: TFDMemTable;
   AGrid: TDBGrid);
 begin
-  oEstadoRegra.MontarGrid(oMemtable, oEstadoModel);
-  oEstadoRegra.ConfigGrid(AGrid);
-  oMemtable.Open;
+  if oEstadoRegra.MontarGrid(oMemTable, oEstadoModel) then
+  begin
+    oEstadoRegra.ConfigGrid(AGrid);
+    oMemTable.Open;
+    frmEstado.btnExcluir.Enabled := True;
+  end
+  else
+    frmEstado.btnExcluir.Enabled := False;
 end;
 
 end.

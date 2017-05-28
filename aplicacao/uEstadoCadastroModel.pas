@@ -4,10 +4,10 @@ interface
 
 uses
   FireDAC.Comp.Client, System.SysUtils, Data.DB,
-  uClassConexaosingleton, uEstadoDTO;
+  uClassConexaosingleton, uEstadoDTO, uInterfaceCadastroModel;
 
 type
-  TEstadoCadastroModel = class
+  TEstadoCadastroModel = class(TInterfacedObject, IIntrefaceCadastroModel)
   public
     function BuscarSelect(var aEstado: TEstadoDTO): Boolean;
     function Salvar(const aEstado: TEstadoDTO):Boolean;

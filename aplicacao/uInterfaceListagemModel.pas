@@ -7,7 +7,9 @@ uses
 
 type
   IInterfaceListagemModel = interface
-  function MontarGrid (oMemTable : TFDMeMTable):Boolean;
+    function Excluir(const iID: Integer):Boolean;
+    function MontarGrid(oMemTable: TFDMemTable):Boolean;
+    function BuscarGrid(aMemTable: TFDMemTable; aPesquisa: String): Boolean;
 
   end;
 

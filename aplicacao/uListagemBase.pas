@@ -1,5 +1,5 @@
 unit uListagemBase;
-
+
 interface
 
 uses
@@ -36,6 +36,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure DBGridListagemDblClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
+    procedure edtPesquisaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     bGrid: Boolean;
@@ -78,6 +80,13 @@ begin
   btnEditarClick(Sender);
 end;
 
+procedure TfrmListagemBase.edtPesquisaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  oListagemBase.BuscarGrid(FDMemTable_listagem, DBGridListagem,
+    edtPesquisa.Text);
+end;
+
 procedure TfrmListagemBase.FormActivate(Sender: TObject);
 begin
   if (bGrid) then
@@ -96,3 +105,4 @@ begin
 end;
 
 end.
+

@@ -18,7 +18,9 @@ uses
   uInterfaceListagemModel in 'uInterfaceListagemModel.pas',
   uInterfaceCadastroController in 'uInterfaceCadastroController.pas',
   uEstadoCadastroRegra in 'uEstadoCadastroRegra.pas',
-  uEstadoCadastroModel in 'uEstadoCadastroModel.pas';
+  uEstadoCadastroModel in 'uEstadoCadastroModel.pas',
+ // Unit1 in 'Unit1.pas',
+  uInterfaceCadastroModel in 'uInterfaceCadastroModel.pas';
 
 {$R *.res}
 
