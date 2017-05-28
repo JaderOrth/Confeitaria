@@ -3,8 +3,9 @@ unit uEstadoCadastroController;
 interface
 
 uses
+  Vcl.Controls,
   System.Classes,
-  System.SysUtils,
+  System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls,
   uEstadoCadastro, uInterfaceCadastroController, uEstadoDTO,
   uEstadoCadastroRegra, uEstadoCadastroModel;
 

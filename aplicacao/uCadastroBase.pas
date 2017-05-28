@@ -13,7 +13,6 @@ type
     StatusBar1: TStatusBar;
     Panel1: TPanel;
     btnSalvar: TSpeedButton;
-    btnExcluir: TSpeedButton;
     btnSair: TSpeedButton;
     panelCadastro: TPanel;
     btnNovo: TSpeedButton;
@@ -21,6 +20,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -34,6 +34,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmCadastroBase.btnNovoClick(Sender: TObject);
+begin
+  {}
+end;
 
 procedure TfrmCadastroBase.btnSairClick(Sender: TObject);
 begin
