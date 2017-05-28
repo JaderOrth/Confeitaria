@@ -1136,7 +1136,6 @@ object frmListagemBase: TfrmListagemBase
       NumGlyphs = 2
       ParentShowHint = False
       ShowHint = True
-      OnClick = btnExcluirClick
     end
   end
   object StatusBar1: TStatusBar
@@ -1146,14 +1145,14 @@ object frmListagemBase: TfrmListagemBase
     Height = 19
     Panels = <>
   end
-  object DBGridListagem: TDBGrid
+  object DBGrid1: TDBGrid
     Left = 185
     Top = 56
     Width = 649
     Height = 366
     Align = alClient
     DataSource = src_listagem
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
+    Options = [dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
     ReadOnly = True
     TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET
@@ -1161,7 +1160,7 @@ object frmListagemBase: TfrmListagemBase
     TitleFont.Height = -12
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
-    OnDblClick = DBGridListagemDblClick
+    OnDblClick = DBGrid1DblClick
   end
   object src_listagem: TDataSource
     DataSet = FDMemTable_listagem

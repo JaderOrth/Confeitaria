@@ -39,17 +39,16 @@ end;
 function TEstadoCadastroRegra.Salvar(AEstado: TEstadoDTO;
   AEstadoModel: TEstadoCadastroModel): boolean;
 begin
-
-  if (AEstado.ID > 0) then
-  begin
-    
-    if (not(AEstadoModel.BuscarUFEdit(AEstado))) then
-      raise Exception.Create('UF '+QuotedStr(AEstado.UF)+' já esta cadastrado!');
-    Result := AEstadoModel.Update(AEstado);
-  end else
+  if AEstado.ID = 0 then
   begin
     if (AEstadoModel.BuscarUF(AEstado)) then
       raise Exception.Create('UF '+QuotedStr(AEstado.UF)+' já esta cadastrado!');
+  end;
+  if (AEstado.ID > 0) then
+  begin
+    Result := AEstadoModel.Update(AEstado);
+  end else
+  begin
     AEstado.ID := AEstadoModel.BuscarID;
     Result := AEstadoModel.Salvar(AEstado);
   end;

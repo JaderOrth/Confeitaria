@@ -1,10 +1,7 @@
 inherited frmEstado: TfrmEstado
   Caption = 'Listagem dos estados'
   ClientHeight = 510
-  OnActivate = nil
-  OnClose = nil
-  OnCreate = nil
-  ExplicitHeight = 548
+  ExplicitHeight = 549
   PixelsPerInch = 96
   TextHeight = 14
   inherited Panel1: TPanel
@@ -24,7 +21,7 @@ inherited frmEstado: TfrmEstado
     Top = 491
     ExplicitTop = 491
   end
-  inherited DBGridListagem: TDBGrid
+  inherited DBGrid1: TDBGrid
     Height = 435
   end
   inherited src_listagem: TDataSource

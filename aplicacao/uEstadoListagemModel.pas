@@ -11,7 +11,7 @@ type
   public
     //function BuscarID:Integer;
     //function Salvar(const aEstado: TEstadoDTO):Boolean;
-    function Excluir(const AId: Integer):Boolean;
+    function Excluir(const aEstado: TEstadoDTO):Boolean;
     function MontarGrid(oMemTable: TFDMemTable):Boolean;
     //function BuscarSelect(var aEstado: TEstadoDTO): Boolean;
     //function Update(const aEstado: TEstadoDTO): Boolean;
@@ -112,12 +112,12 @@ end;
 //  end;
 //end;
 
-function TEstadoListagemModel.Excluir(const AId: Integer): Boolean;
+function TEstadoListagemModel.Excluir(const aEstado: TEstadoDTO): Boolean;
 var
   sSql : string;
 begin
   sSql := 'DELETE FROM uf WHERE iduf = ' +
-          IntToStr(AId);
+          IntToStr(aEstado.ID);
 
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
