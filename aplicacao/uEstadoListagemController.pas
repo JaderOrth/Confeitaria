@@ -22,7 +22,8 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable);
+    procedure MontarGrid(oMemtable: TFDMemTable; AGrid: TDBGrid);
+    procedure Excluir(oMemtable: TFDMemTable; AGrid: TDBGrid);
 
     constructor Create;
     destructor Destroy; override;
@@ -49,7 +50,7 @@ begin
   if (not(Assigned(oEstadoCadastroController))) then
     oEstadoCadastroController := TEstadoCadastroController.Create;
    // passa 0 porque quando o usuario clicar em editar iá passar o ID
-   oEstadoCadastroController.CreateFormCadastro(frmEstado, 0);
+  oEstadoCadastroController.CreateFormCadastro(frmEstado, 0);
 end;
 
 procedure TEstadoListagemController.CreateFormEdit(Sender: TObject;
@@ -59,6 +60,7 @@ var
 begin
   if (not(Assigned(oEstadoCadastroController))) then
     oEstadoCadastroController := TEstadoCadastroController.Create;
+
   iId := oMemTable.FieldByName('ID').AsInteger;
   oEstadoCadastroController.CreateFormCadastro(frmEstado, iId);
 end;
@@ -95,15 +97,25 @@ begin
   inherited;
 end;
 
+procedure TEstadoListagemController.Excluir(oMemtable: TFDMemTable;
+  AGrid: TDBGrid);
+begin
+  oEstadoRegra.Excluir(oMemtable.FieldByName('ID').AsInteger, oEstadoModel);
+  oEstadoRegra.MontarGrid(oMemtable, oEstadoModel);
+   oEstadoRegra.ConfigGrid(AGrid);
+  oMemtable.Open;
+end;
+
 procedure TEstadoListagemController.Help(Sender: TObject);
 begin
   ShowMessage('Teste');
 end;
 
-procedure TEstadoListagemController.MontarGrid(oMemtable: TFDMemTable);
+procedure TEstadoListagemController.MontarGrid(oMemtable: TFDMemTable;
+  AGrid: TDBGrid);
 begin
   oEstadoRegra.MontarGrid(oMemtable, oEstadoModel);
-  //frmEstado.FDMemTable_listagem.Open;
+  oEstadoRegra.ConfigGrid(AGrid);
   oMemtable.Open;
 end;
 

@@ -26,15 +26,16 @@ type
     src_listagem: TDataSource;
     FDMemTable_listagem: TFDMemTable;
     btnExcluir: TSpeedButton;
-    DBGrid1: TDBGrid;
+    DBGridListagem: TDBGrid;
     procedure btnNovoClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnAjudaClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
-    procedure DBGrid1DblClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure DBGridListagemDblClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
     bGrid: Boolean;
@@ -57,6 +58,11 @@ begin
   oListagemBase.CreateFormEdit(Sender, FDMemTable_listagem);
 end;
 
+procedure TfrmListagemBase.btnExcluirClick(Sender: TObject);
+begin
+  oListagemBase.Excluir(FDMemTable_listagem, DBGridListagem);
+end;
+
 procedure TfrmListagemBase.btnNovoClick(Sender: TObject);
 begin
   oListagemBase.ControlerCadastro(Sender);
@@ -67,16 +73,15 @@ begin
   oListagemBase.CloseForm(Sender);
 end;
 
-procedure TfrmListagemBase.DBGrid1DblClick(Sender: TObject);
+procedure TfrmListagemBase.DBGridListagemDblClick(Sender: TObject);
 begin
   btnEditarClick(Sender);
 end;
 
-// oListagemBase.MontarGrid(FDMemTable_listagem);
 procedure TfrmListagemBase.FormActivate(Sender: TObject);
 begin
   if (bGrid) then
-    oListagemBase.MontarGrid(FDMemTable_listagem);
+    oListagemBase.MontarGrid(FDMemTable_listagem, DBGridListagem);
   bGrid := true;
 end;
 
