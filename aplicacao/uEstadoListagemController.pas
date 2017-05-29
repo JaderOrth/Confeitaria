@@ -27,10 +27,12 @@ type
     procedure Excluir(oMemTable: TFDMemTable; AGrid: TDBGrid);
     procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
       APesquisa: String);
+   // procedure CaracterEspecial(Key: Char);
+
     constructor Create;
     destructor Destroy; override;
   end;
-
+  //if ( key in[´!´, ´@´, ´/´, ´$´, 8] ) then
 var
   oEstadoListagemController: IInterfaceListagemController;
 
@@ -44,6 +46,12 @@ begin
   oEstadoRegra.BuscarGrid(aMemTable, oEstadoModel, aPesquisa);
   oEstadoRegra.ConfigGrid(AGrid);
 end;
+
+//procedure TEstadoListagemController.CaracterEspecial(Key: Char);
+//begin
+//  if ( Key in['!', '@', '/', '$','*'] ) then
+//    Key := #0;
+//end;
 
 procedure TEstadoListagemController.CloseForm(Sender: TObject);
 begin

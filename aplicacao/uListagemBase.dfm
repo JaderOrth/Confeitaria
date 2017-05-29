@@ -30,8 +30,6 @@ object frmListagemBase: TfrmListagemBase
     BevelOuter = bvLowered
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = 2
-    ExplicitTop = 60
     object edtPesquisa: TEdit
       Left = 5
       Top = 27
@@ -45,6 +43,7 @@ object frmListagemBase: TfrmListagemBase
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      OnKeyPress = edtPesquisaKeyPress
       OnKeyUp = edtPesquisaKeyUp
     end
     object Panel3: TPanel

@@ -36,8 +36,19 @@ implementation
 {$R *.dfm}
 
 procedure TfrmCadastroBase.btnNovoClick(Sender: TObject);
+var
+  iIndiceComponente: Integer;
 begin
   {}
+  for iIndiceComponente := 0 to pred(Self.ComponentCount) do
+  begin
+    if (Components[iIndiceComponente] is TLabeledEdit) or
+       (Components[iIndiceComponente] is TEdit) then
+      (Components[iIndiceComponente] as TCustomEdit).Clear;
+
+    if (Components[iIndiceComponente] is TComboBox) then
+      (Components[iIndiceComponente] as TComboBox).ItemIndex := -1;
+  end;
 end;
 
 procedure TfrmCadastroBase.btnSairClick(Sender: TObject);
