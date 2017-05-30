@@ -44,8 +44,6 @@ object frmPrincipal: TfrmPrincipal
         Bevel = pbNone
         Width = 150
       end>
-    ExplicitTop = 389
-    ExplicitWidth = 904
   end
   object Panel1: TPanel
     Left = 0
@@ -944,6 +942,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object Municpio1: TMenuItem
         Caption = '&Munic'#237'pio'
+        OnClick = Municpio1Click
       end
       object Bairro1: TMenuItem
         Caption = '&Bairro'

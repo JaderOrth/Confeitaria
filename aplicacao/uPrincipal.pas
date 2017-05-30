@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.Menus, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
-  uClassConexaoSingleton, uEstadoListagemcontroller;
+  uClassConexaoSingleton, uEstadoListagemController, uMunicipioListagemController;
 
 type
   TfrmPrincipal = class(TForm)
@@ -35,6 +35,7 @@ type
     procedure Estado1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Municpio1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -78,6 +79,13 @@ begin
     exit;
   end;
 
+end;
+
+procedure TfrmPrincipal.Municpio1Click(Sender: TObject);
+begin
+  if (not(Assigned(oMunicipioListagemController))) then
+    oMunicipioListagemController := TMunicipioListagemController.Create;
+  oMunicipioListagemController.CreateFormListagem(Self);
 end;
 
 end.
