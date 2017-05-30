@@ -4,8 +4,8 @@
     <Transaction>2016/09/15 14:04:11.000.684,=C:\Users\Felipe Royer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2016/09/16 09:38:59.000.431,=C:\Users\Felipe Royer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2017/04/20 21:40:32.000.866,=C:\Users\Felipe Royer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2017/04/20 21:41:15.000.851,C:\Users\Felipe Royer\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\frmPrincipal.dfm</Transaction>
     <Transaction>2017/04/20 21:41:15.000.851,C:\Users\Felipe Royer\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\frmPrincipal.pas</Transaction>
+    <Transaction>2017/04/20 21:41:15.000.851,C:\Users\Felipe Royer\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\frmPrincipal.dfm</Transaction>
     <Transaction>2017/04/20 21:41:32.000.535,C:\Users\Felipe Royer\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\confeitaria.dproj</Transaction>
     <Transaction>2017/04/20 21:43:57.000.489,C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\frmPrincipal.pas=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\uPrincipal.pas</Transaction>
     <Transaction>2017/04/20 21:43:57.000.489,C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\frmPrincipal.dfm=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\uPrincipal.dfm</Transaction>
@@ -13,16 +13,16 @@
     <Transaction>2017/04/24 20:50:02.000.267,C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\uCadastroBase.pas=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/04/24 20:50:02.000.267,C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\uCadastroBase.dfm=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\Unit1.dfm</Transaction>
     <Transaction>2017/04/24 21:05:21.000.929,=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/04/24 21:05:52.000.592,C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\uListagemBase.dfm=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\Unit1.dfm</Transaction>
     <Transaction>2017/04/24 21:05:52.000.592,C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\uListagemBase.pas=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/04/24 21:05:52.000.592,C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\uListagemBase.dfm=C:\Users\Felipe Royer\Desktop\Confeitaria\GitHub\Confeitaria\aplicacao\Unit1.dfm</Transaction>
     <Transaction>2017/04/27 21:16:09.000.038,=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/04/27 21:18:52.000.803,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uClassConexao.pas=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/04/27 21:28:04.000.532,=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/04/27 21:28:24.000.140,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uClassConexaoSingleton.pas=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/04/27 22:03:54.000.067,=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/04/27 22:52:48.000.411,=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/04/27 22:53:08.000.564,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.dfm=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uEstado.dfm</Transaction>
     <Transaction>2017/04/27 22:53:08.000.564,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uEstado.pas</Transaction>
+    <Transaction>2017/04/27 22:53:08.000.564,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.dfm=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uEstado.dfm</Transaction>
     <Transaction>2017/04/27 23:16:26.000.776,=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/04/27 23:16:38.000.357,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uEstadoControler.pas</Transaction>
     <Transaction>2017/04/27 23:19:33.000.641,=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
@@ -62,10 +62,16 @@
     <Transaction>2017/05/29 15:45:59.000.054,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas=</Transaction>
     <Transaction>2017/05/29 15:46:47.000.914,=C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipio.pas</Transaction>
     <Transaction>2017/05/30 09:41:02.995,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/05/30 09:41:17.646,C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioCadastro.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/05/30 09:41:17.646,C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioCadastro.dfm=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.dfm</Transaction>
+    <Transaction>2017/05/30 09:41:17.646,C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioCadastro.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/05/30 09:42:50.135,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/05/30 09:43:07.599,C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioCadastroController.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/05/30 14:08:14.266,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/05/30 14:08:29.651,C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioListagemRegra.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/05/30 14:11:02.972,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/05/30 14:11:14.881,C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioListagemModel.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/05/30 14:18:13.407,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/05/30 14:18:22.315,C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioDTO.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5"/>

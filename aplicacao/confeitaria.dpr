@@ -23,7 +23,10 @@ uses
   uMunicipioListagemController in 'uMunicipioListagemController.pas',
   uMunicipio in 'uMunicipio.pas' {frmMunicipio},
   uMunicipioCadastro in 'uMunicipioCadastro.pas' {frmMunicipioCadastro},
-  uMunicipioCadastroController in 'uMunicipioCadastroController.pas';
+  uMunicipioCadastroController in 'uMunicipioCadastroController.pas',
+  uMunicipioListagemRegra in 'uMunicipioListagemRegra.pas',
+  uMunicipioListagemModel in 'uMunicipioListagemModel.pas',
+  uMunicipioDTO in 'uMunicipioDTO.pas';
 
 {$R *.res}
 

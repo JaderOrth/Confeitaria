@@ -138,6 +138,9 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uMunicipioCadastroController.pas"/>
+        <DCCReference Include="uMunicipioListagemRegra.pas"/>
+        <DCCReference Include="uMunicipioListagemModel.pas"/>
+        <DCCReference Include="uMunicipioDTO.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

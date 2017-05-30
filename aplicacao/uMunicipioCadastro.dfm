@@ -12,37 +12,41 @@ inherited frmMunicipioCadastro: TfrmMunicipioCadastro
   end
   inherited panelCadastro: TPanel
     Height = 268
-    object LabeledEdit1: TLabeledEdit
+    object Label1: TLabel
+      Left = 61
+      Top = 127
+      Width = 38
+      Height = 16
+      Caption = 'Estado'
+    end
+    object edtID: TLabeledEdit
       Left = 104
-      Top = 48
+      Top = 57
       Width = 121
       Height = 24
-      EditLabel.Width = 72
+      EditLabel.Width = 12
       EditLabel.Height = 16
-      EditLabel.Caption = 'LabeledEdit1'
+      EditLabel.Caption = 'ID'
+      Enabled = False
       LabelPosition = lpLeft
       TabOrder = 0
     end
-    object LabeledEdit2: TLabeledEdit
+    object edtMunicipio: TLabeledEdit
       Left = 104
-      Top = 104
-      Width = 121
+      Top = 90
+      Width = 337
       Height = 24
-      EditLabel.Width = 72
+      EditLabel.Width = 53
       EditLabel.Height = 16
-      EditLabel.Caption = 'LabeledEdit1'
+      EditLabel.Caption = 'Munic'#237'pio'
       LabelPosition = lpLeft
       TabOrder = 1
     end
-    object LabeledEdit3: TLabeledEdit
+    object cbEstado: TComboBox
       Left = 104
-      Top = 157
-      Width = 121
+      Top = 124
+      Width = 337
       Height = 24
-      EditLabel.Width = 72
-      EditLabel.Height = 16
-      EditLabel.Caption = 'LabeledEdit1'
-      LabelPosition = lpLeft
       TabOrder = 2
     end
   end
