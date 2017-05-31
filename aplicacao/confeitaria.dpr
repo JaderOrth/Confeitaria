@@ -26,7 +26,11 @@ uses
   uMunicipioCadastroController in 'uMunicipioCadastroController.pas',
   uMunicipioListagemRegra in 'uMunicipioListagemRegra.pas',
   uMunicipioListagemModel in 'uMunicipioListagemModel.pas',
-  uMunicipioDTO in 'uMunicipioDTO.pas';
+  uMunicipioDTO in 'uMunicipioDTO.pas',
+  uMunicipioCadastroRegra in 'uMunicipioCadastroRegra.pas',
+  uMunicipioCadastroModel in 'uMunicipioCadastroModel.pas',
+  uInterfaceMunicipioModel in 'uInterfaceMunicipioModel.pas',
+  uMunicipioListaHash in 'uMunicipioListaHash.pas';
 
 {$R *.res}
 

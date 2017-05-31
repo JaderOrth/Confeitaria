@@ -11,7 +11,7 @@ type
   private
 
   public
-    function BuscarSelect(AEstado: TEstadoDTO;
+    function BuscarUpdate(AEstado: TEstadoDTO;
       AEstadoModel: TEstadoCadastroModel): boolean;
     function Salvar(AEstado: TEstadoDTO;
       AEstadoModel: TEstadoCadastroModel): boolean;
@@ -22,11 +22,10 @@ implementation
 
 { TEstadoCadastroRegra }
 
-function TEstadoCadastroRegra.BuscarSelect(AEstado: TEstadoDTO;
+function TEstadoCadastroRegra.BuscarUpdate(AEstado: TEstadoDTO;
   AEstadoModel: TEstadoCadastroModel): boolean;
 begin
-  AEstadoModel.BuscarSelect(AEstado);
-  Result := true;
+  Result := AEstadoModel.BuscarUpdate(AEstado);
 end;
 
 procedure TEstadoCadastroRegra.LimparDTO(AEstadoDTO: TEstadoDTO);

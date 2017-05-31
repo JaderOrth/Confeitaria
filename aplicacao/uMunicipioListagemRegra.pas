@@ -22,9 +22,18 @@ implementation
 
 procedure TMunicipioListagemRegra.ConfigGrid(AGrid: TDBGrid);
 begin
+  //idMunicipio
   AGrid.Columns[0].Title.Caption := 'ID';
   AGrid.Columns[0].Title.Alignment := taCenter;
   AGrid.Columns[0].Width := 50;
+  //descrição do municipio
+  AGrid.Columns[1].Title.Caption := 'Município';
+  AGrid.Columns[1].Title.Alignment := taCenter;
+  AGrid.Columns[1].Width := 350;
+  //estado
+  AGrid.Columns[2].Title.Caption := 'Estado';
+  AGrid.Columns[2].Title.Alignment := taCenter;
+  AGrid.Columns[2].Width := 250;
 end;
 
 function TMunicipioListagemRegra.Excluir(iId: Integer;
@@ -36,8 +45,7 @@ end;
 function TMunicipioListagemRegra.MontarGrid(AMemtable: TFDMemTable;
   AModel: TMunicipioListagemModel): Boolean;
 begin
-  Result := False;
-  AModel.MontarGrid(AMemtable);
+  Result := AModel.MontarGrid(AMemtable);
 end;
 
 end.

@@ -49,7 +49,7 @@ begin
   if (iId > 0) then
   begin
     oEstadoDTO.ID := iId;
-    oEstadoRegra.BuscarSelect(oEstadoDTO, oEstadoModel);
+    oEstadoRegra.BuscarUpdate(oEstadoDTO, oEstadoModel);
 
     frmEstadoCadastro.edtID.Text := IntToStr(oEstadoDTO.ID);
     frmEstadoCadastro.edtEstado.Text := oEstadoDTO.Descricao;

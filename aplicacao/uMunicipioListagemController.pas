@@ -113,7 +113,7 @@ end;
 
 procedure TMunicipioListagemController.Help(Sender: TObject);
 begin
-  { }
+  {  }
 end;
 
 procedure TMunicipioListagemController.MontarGrid(oMemTable: TFDMemTable;
@@ -129,6 +129,7 @@ begin
   begin
     frmMunicipio.btnEditar.Enabled := False;
     frmMunicipio.btnExcluir.Enabled := False;
+    oMunicipioRegra.ConfigGrid(AGrid);
   end;
 end;
 

@@ -7,7 +7,7 @@ uses
 
 type
   IIntrefaceCadastroModel = interface
-    function BuscarSelect(var aEstado: TEstadoDTO): Boolean;
+    function BuscarUpdate(var aEstado: TEstadoDTO): Boolean;
     function Salvar(const aEstado: TEstadoDTO):Boolean;
     function Update(const aEstado: TEstadoDTO): Boolean;
     function BuscarID:Integer;
