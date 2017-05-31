@@ -25,8 +25,11 @@ begin
 end;
 
 function TMunicipioListagemModel.Excluir(const iID: Integer): Boolean;
+var
+  sSql: String;
 begin
-
+  sSql := 'DELETE FROM Municipio where idMunicipio = '+ IntToStr(iID);
+  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
 function TMunicipioListagemModel.MontarGrid(oMemTable: TFDMemTable): Boolean;
@@ -39,12 +42,10 @@ begin
     oMemTable.Close;
     oQuery.Close;
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT idMunicipio as ID, descricao, iduf FROM Municipio');
+    oQuery.Open('SELECT idMunicipio, descricao, iduf FROM Municipio');
+     oMemTable.Data := oQuery.Data;
     if (not(oQuery.IsEmpty)) then
-    begin
-      oMemTable.Data := oQuery.Data;
       Result := True;
-    end;
   finally
     if (Assigned(oQuery)) then
       FreeAndNil(oQuery);

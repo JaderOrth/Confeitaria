@@ -4,13 +4,13 @@ interface
 
 uses
   System.Classes, FireDAC.Comp.Client, Vcl.DBGrids,
-  System.SysUtils,
+  System.SysUtils, Vcl.Dialogs, System.UITypes,
   uInterfaceListagemController, uMunicipio, uMunicipioCadastroController,
   uMunicipioDTO, uMunicipioListagemRegra, uMunicipioListagemModel;
 
 type
-  TMunicipioListagemController = class
-  (TInterfacedObject, IInterfaceListagemController)
+  TMunicipioListagemController = class(TInterfacedObject,
+    IInterfaceListagemController)
   private
     oMunicipioDTO: TMunicipioDTO;
     oMunicipioRegra: TMunicipioListagemRegra;
@@ -21,8 +21,8 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable; AGrid: TDBGrid);
-    procedure Excluir(oMemtable: TFDMemTable; AGrid: TDBGrid);
+    procedure MontarGrid(oMemTable: TFDMemTable; AGrid: TDBGrid);
+    procedure Excluir(oMemTable: TFDMemTable; AGrid: TDBGrid);
     procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
       APesquisa: String);
 
@@ -30,8 +30,9 @@ type
     destructor Destroy; override;
 
   end;
-  var
-    oMunicipioListagemController: IInterfaceListagemController;
+
+var
+  oMunicipioListagemController: IInterfaceListagemController;
 
 implementation
 
@@ -68,7 +69,8 @@ end;
 procedure TMunicipioListagemController.CreateFormEdit(Sender: TObject;
   oMemTable: TFDMemTable);
 begin
-      {}
+  oMunicipioCadastroController.CreateFormCadastro(frmMunicipio,
+    oMemTable.FieldByName('ID').AsInteger);
 end;
 
 procedure TMunicipioListagemController.CreateFormListagem(AOwner: TComponent);
@@ -77,6 +79,7 @@ begin
     frmMunicipio := TfrmMunicipio.Create(AOwner);
   frmMunicipio.oListagemBase := oMunicipioListagemController;
   frmMunicipio.Show;
+  frmMunicipio.OnActivate(nil);
 end;
 
 destructor TMunicipioListagemController.Destroy;
@@ -92,22 +95,41 @@ begin
   inherited;
 end;
 
-procedure TMunicipioListagemController.Excluir(oMemtable: TFDMemTable;
+procedure TMunicipioListagemController.Excluir(oMemTable: TFDMemTable;
   AGrid: TDBGrid);
+var
+  iId: Integer;
 begin
-        {}
+  if (MessageDlg('Deseja realmente Excluir?', mtConfirmation, [mbYes, mbNo], 0)
+    = mrYes) then
+  begin
+    iId := oMemTable.FieldByName('ID').AsInteger;
+    if (oMunicipioRegra.Excluir(iId, oMunicipioModel)) then
+      MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0)
+    else
+      raise Exception.Create('Error  ao deletar o Registro');
+  end;
 end;
 
 procedure TMunicipioListagemController.Help(Sender: TObject);
 begin
-          {}
+  { }
 end;
 
-procedure TMunicipioListagemController.MontarGrid(oMemtable: TFDMemTable;
+procedure TMunicipioListagemController.MontarGrid(oMemTable: TFDMemTable;
   AGrid: TDBGrid);
 begin
-  oMunicipioRegra.MontarGrid(oMemtable, oMunicipioModel);
-  oMemtable.Open;
+  if (oMunicipioRegra.MontarGrid(oMemTable, oMunicipioModel)) then
+  begin
+    frmMunicipio.btnEditar.Enabled := True;
+    frmMunicipio.btnExcluir.Enabled := True;
+    oMunicipioRegra.ConfigGrid(AGrid);
+    oMemTable.Open;
+  end else
+  begin
+    frmMunicipio.btnEditar.Enabled := False;
+    frmMunicipio.btnExcluir.Enabled := False;
+  end;
 end;
 
 end.
