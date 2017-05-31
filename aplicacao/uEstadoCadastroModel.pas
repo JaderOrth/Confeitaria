@@ -4,7 +4,8 @@ interface
 
 uses
   FireDAC.Comp.Client, System.SysUtils, Data.DB,
-  uClassConexaosingleton, uEstadoDTO, uInterfaceCadastroModel;
+  uMunicipioListaHash, uClassConexaosingleton, uEstadoDTO,
+  uInterfaceCadastroModel, uMunicipioDTO;
 
 type
   TEstadoCadastroModel = class(TInterfacedObject, IIntrefaceCadastroModel)
@@ -15,6 +16,7 @@ type
     function BuscarID:Integer;
     function BuscarUF(const aEstado: TEstadoDTO): Boolean;
     function BuscarEditUF(const aEstado: TEstadoDTO): Boolean;
+    function ComboBox(ALista: TMunicipioListaHash): Boolean;
   end;
 
 implementation
@@ -83,6 +85,33 @@ begin
     if (Assigned(oQuery)) then
       FreeAndNil(oQuery);
   end;
+end;
+
+function TEstadoCadastroModel.ComboBox(ALista: TMunicipioListaHash): Boolean;
+var
+  oQuery: TFDQuery;
+  oMunicipioDTO: TMunicipioDTO;
+begin
+  Result := False;
+  oQuery := TFDQuery.Create(nil);
+  try
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT * FROM Municipio');
+    if (not(oQuery.IsEmpty)) then
+    begin
+      oQuery.First;
+      while (oQuery.Eof) do
+      begin
+        oMunicipioDTO.IdMunicipio := oQuery.FieldByName('idMunicipio').AsInteger;
+        oMunicipioDTO.Descrição := oQuery.FieldByName('descricao').AsString;
+        oMunicipioDTO.IdEstado
+      end;
+    end;
+
+  finally
+
+  end;
+
 end;
 
 function TEstadoCadastroModel.BuscarUF(const aEstado: TEstadoDTO): Boolean;
