@@ -18,7 +18,7 @@ type
     oEstadoModel: TEstadoCadastroModel;
     frmEstadoCadastro: TfrmEstadoCadastro;
   public
-    procedure CreateFormCadastro(AOwner: TComponent; iId: Integer);
+    procedure CreateFormCadastro(AOwner: TComponent; const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
 
@@ -39,7 +39,7 @@ begin
 end;
 
 procedure TEstadoCadastroController.CreateFormCadastro(AOwner: TComponent;
-  iId: Integer);
+  const iId: Integer);
 begin
   if (not(Assigned(frmEstadoCadastro))) then
     frmEstadoCadastro := TfrmEstadoCadastro.Create(AOwner);

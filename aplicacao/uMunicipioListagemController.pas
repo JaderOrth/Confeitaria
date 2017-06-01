@@ -21,10 +21,11 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
+    procedure ConfigurarGrid(AGrid: TDBGrid);
     procedure MontarGrid(oMemTable: TFDMemTable; AGrid: TDBGrid);
     procedure Excluir(oMemTable: TFDMemTable; AGrid: TDBGrid);
-    procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
-      APesquisa: String);
+//    procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
+//      APesquisa: String);
 
     constructor Create;
     destructor Destroy; override;
@@ -38,11 +39,11 @@ implementation
 
 { TMunicipioListagemController }
 
-procedure TMunicipioListagemController.BuscarGrid(aMemTable: TFDMemTable;
-  AGrid: TDBGrid; APesquisa: String);
-begin
-
-end;
+//procedure TMunicipioListagemController.BuscarGrid(aMemTable: TFDMemTable;
+//  AGrid: TDBGrid; APesquisa: String);
+//begin
+//
+//end;
 
 procedure TMunicipioListagemController.CloseForm(Sender: TObject);
 begin
@@ -50,6 +51,11 @@ begin
     exit;
   frmMunicipio.Close;
   FreeAndNil(frmMunicipio);
+end;
+
+procedure TMunicipioListagemController.ConfigurarGrid(AGrid: TDBGrid);
+begin
+
 end;
 
 procedure TMunicipioListagemController.ControlerCadastro(Sender: TObject);

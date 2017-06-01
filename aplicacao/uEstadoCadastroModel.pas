@@ -104,7 +104,7 @@ begin
       begin
         oMunicipioDTO.IdMunicipio := oQuery.FieldByName('idMunicipio').AsInteger;
         oMunicipioDTO.Descrição := oQuery.FieldByName('descricao').AsString;
-        oMunicipioDTO.IdEstado
+       // oMunicipioDTO.IdEstado
       end;
     end;
 

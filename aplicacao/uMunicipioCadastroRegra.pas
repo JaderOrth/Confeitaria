@@ -4,13 +4,13 @@ interface
 
 uses
   System.classes, System.SysUtils, Vcl.StdCtrls,
-  uMunicipioCadastroModel, uMunicipioDTO, uMunicipioListaHash;
+  uInterfaceMunicipioModel, uMunicipioDTO, uMunicipioListaHash;
 
 type
   TMunicipioCadastroRegra = class
   public
-    function BuscarUpdate(AMunicipio: TMunicipioDTO;
-      AModel: TMunicipioCadastroModel): Boolean;
+    function BuscarUpdate(var AMunicipio: TMunicipioDTO;
+      const AModel: IInterfaceMunicipioModel): Boolean;
     function ComboBox(AComboBox: TComboBox): Boolean;
   end;
 
@@ -18,8 +18,8 @@ implementation
 
 { TMunicipioCadastroRegra }
 
-function TMunicipioCadastroRegra.BuscarUpdate(AMunicipio: TMunicipioDTO;
-  AModel: TMunicipioCadastroModel): Boolean;
+function TMunicipioCadastroRegra.BuscarUpdate(var AMunicipio: TMunicipioDTO;
+  const AModel: IInterfaceMunicipioModel): Boolean;
 begin
   Result := False;
   if (AMunicipio.IdMunicipio > 0) then

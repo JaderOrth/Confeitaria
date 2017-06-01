@@ -26,7 +26,8 @@ type
     procedure MontarGrid(oMemTable: TFDMemTable; AGrid: TDBGrid);
     procedure Excluir(oMemTable: TFDMemTable; AGrid: TDBGrid);
     procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
-      APesquisa: String);
+      const APesquisa: String);
+    procedure ConfigurarGrid(AGrid: TDBGrid);
 
     constructor Create;
     destructor Destroy; override;
@@ -39,9 +40,9 @@ implementation
 { TEstadoControler }
 
 procedure TEstadoListagemController.BuscarGrid(aMemTable: TFDMemTable;
-  AGrid: TDBGrid; APesquisa: String);
+  AGrid: TDBGrid; const APesquisa: String);
 begin
-  oEstadoRegra.BuscarGrid(aMemTable, oEstadoModel, aPesquisa);
+  oEstadoRegra.BuscarGrid(aMemTable, oEstadoModel, APesquisa);
   oEstadoRegra.ConfigGrid(AGrid);
 end;
 
@@ -51,6 +52,24 @@ begin
     exit;
   frmEstado.Close;
   FreeAndNil(frmEstado);
+end;
+
+procedure TEstadoListagemController.ConfigurarGrid(AGrid: TDBGrid);
+begin
+  AGrid.Columns.Add;
+  AGrid.Columns[0].Title.Caption := 'ID';
+  AGrid.Columns[0].Title.Alignment := taCenter;
+  AGrid.Columns[0].Width := 50;
+
+  AGrid.Columns.Add;
+  AGrid.Columns[1].Title.Caption := 'Estado';
+  AGrid.Columns[1].Title.Alignment := taCenter;
+  AGrid.Columns[1].Width := 230;
+
+  AGrid.Columns.Add;
+  AGrid.Columns[2].Title.Caption := 'Sigla';
+  AGrid.Columns[2].Title.Alignment := taCenter;
+  AGrid.Columns[2].Width := 50;
 end;
 
 procedure TEstadoListagemController.ControlerCadastro(Sender: TObject);
@@ -126,7 +145,6 @@ procedure TEstadoListagemController.MontarGrid(oMemTable: TFDMemTable;
 begin
   if oEstadoRegra.MontarGrid(oMemTable, oEstadoModel) then
   begin
-    oEstadoRegra.ConfigGrid(AGrid);
     oMemTable.Open;
     frmEstado.btnExcluir.Enabled := True;
   end

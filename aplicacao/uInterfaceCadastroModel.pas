@@ -13,6 +13,7 @@ type
     function BuscarID:Integer;
     function BuscarUF(const aEstado: TEstadoDTO): Boolean;
     function ComboBox(ALista: TMunicipioListaHash): Boolean;
+    function BuscarEditUF(const aEstado: TEstadoDTO): Boolean;
   end;
 implementation
 

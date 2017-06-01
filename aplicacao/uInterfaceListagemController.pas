@@ -11,11 +11,12 @@ type
     procedure CloseForm(Sender: TObject);
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
+    procedure ConfigurarGrid(AGrid: TDBGrid);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
     procedure MontarGrid(oMemtable: TFDMemTable; AGrid: TDBGrid);
     procedure Excluir(oMemtable: TFDMemTable; AGrid: TDBGrid);
     procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
-      APesquisa: String);
+      const APesquisa: String);
     //procedure CaracterEspecial(Key: Char);
   end;
 

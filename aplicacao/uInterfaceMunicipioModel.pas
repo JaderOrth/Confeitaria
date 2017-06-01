@@ -7,7 +7,7 @@ uses
 
 type
   IInterfaceMunicipioModel = interface
-    function BuscarUpdate(AMunicipio: TMunicipioDTO): Boolean;
+    function BuscarUpdate(var AMunicipio: TMunicipioDTO): Boolean;
   end;
 
 implementation

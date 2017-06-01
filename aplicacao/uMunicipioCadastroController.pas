@@ -15,7 +15,7 @@ type
     oMunicipioRegra: TMunicipioCadastroRegra;
     oMunicipioModel: TMunicipioCadastroModel;
   public
-    procedure CreateFormCadastro(AOwner: TComponent; iId: Integer);
+    procedure CreateFormCadastro(AOwner: TComponent; const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
 
@@ -45,7 +45,7 @@ begin
 end;
 
 procedure TMunicipioCadastroController.CreateFormCadastro(AOwner: TComponent;
-  iId: Integer);
+  const iId: Integer);
 begin
   if (not(Assigned(frmMunicipioCadastro))) then
     frmMunicipioCadastro := TfrmMunicipioCadastro.Create(AOwner);

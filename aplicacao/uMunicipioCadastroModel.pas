@@ -9,7 +9,7 @@ uses
 type
   TMunicipioCadastroModel = class(TInterfacedObject, IInterfaceMunicipioModel)
   public
-    function BuscarUpdate(AMunicipio: TMunicipioDTO): Boolean;
+    function BuscarUpdate(var AMunicipio: TMunicipioDTO): Boolean;
   end;
 
 implementation
@@ -17,7 +17,7 @@ implementation
 { TMunicipioCadastroModel }
 
 function TMunicipioCadastroModel.BuscarUpdate(
-  AMunicipio: TMunicipioDTO): Boolean;
+  var AMunicipio: TMunicipioDTO): Boolean;
 begin
 
 end;
