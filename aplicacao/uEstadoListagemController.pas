@@ -43,7 +43,7 @@ procedure TEstadoListagemController.BuscarGrid(aMemTable: TFDMemTable;
   AGrid: TDBGrid; const APesquisa: String);
 begin
   oEstadoRegra.BuscarGrid(aMemTable, oEstadoModel, APesquisa);
-  oEstadoRegra.ConfigGrid(AGrid);
+  //oEstadoRegra.ConfigGrid(AGrid);
 end;
 
 procedure TEstadoListagemController.CloseForm(Sender: TObject);
@@ -130,7 +130,7 @@ begin
   then
   begin
     oEstadoRegra.MontarGrid(oMemTable, oEstadoModel);
-    oEstadoRegra.ConfigGrid(AGrid);
+    //oEstadoRegra.ConfigGrid(AGrid);
     oMemTable.Open;
   end;
 end;
@@ -147,9 +147,13 @@ begin
   begin
     oMemTable.Open;
     frmEstado.btnExcluir.Enabled := True;
+    frmEstado.btnEditar.Enabled := True;
+    frmEstado.bClick := True;
   end
   else
     frmEstado.btnExcluir.Enabled := False;
+    frmEstado.btnEditar.Enabled := False;
+    frmEstado.bClick := True;
 end;
 
 end.

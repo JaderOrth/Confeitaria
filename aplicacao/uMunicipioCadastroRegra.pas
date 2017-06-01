@@ -11,7 +11,8 @@ type
   public
     function BuscarUpdate(var AMunicipio: TMunicipioDTO;
       const AModel: IInterfaceMunicipioModel): Boolean;
-    function ComboBox(AComboBox: TComboBox): Boolean;
+    function ComboBox(var ALista: TMunicipioListaHash;
+      const AModel: IInterfaceMunicipioModel): Boolean;
   end;
 
 implementation
@@ -26,7 +27,8 @@ begin
     Result := AModel.BuscarUpdate(AMunicipio);
 end;
 
-function TMunicipioCadastroRegra.ComboBox(AComboBox: TComboBox): Boolean;
+function TMunicipioCadastroRegra.ComboBox(var ALista: TMunicipioListaHash;
+  const AModel: IInterfaceMunicipioModel): Boolean;
 begin
 
 end;

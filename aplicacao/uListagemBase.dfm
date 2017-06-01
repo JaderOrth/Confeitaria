@@ -43,7 +43,6 @@ object frmListagemBase: TfrmListagemBase
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      OnKeyPress = edtPesquisaKeyPress
       OnKeyUp = edtPesquisaKeyUp
     end
     object Panel3: TPanel
@@ -1155,7 +1154,7 @@ object frmListagemBase: TfrmListagemBase
     Height = 366
     Align = alClient
     DataSource = src_listagem
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
     ReadOnly = True
     TabOrder = 3
     TitleFont.Charset = DEFAULT_CHARSET

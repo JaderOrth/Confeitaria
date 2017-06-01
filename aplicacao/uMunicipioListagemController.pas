@@ -24,8 +24,8 @@ type
     procedure ConfigurarGrid(AGrid: TDBGrid);
     procedure MontarGrid(oMemTable: TFDMemTable; AGrid: TDBGrid);
     procedure Excluir(oMemTable: TFDMemTable; AGrid: TDBGrid);
-//    procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
-//      APesquisa: String);
+    procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
+      const APesquisa: String);
 
     constructor Create;
     destructor Destroy; override;
@@ -44,6 +44,12 @@ implementation
 //begin
 //
 //end;
+
+procedure TMunicipioListagemController.BuscarGrid(aMemTable: TFDMemTable;
+  AGrid: TDBGrid; const APesquisa: String);
+begin
+
+end;
 
 procedure TMunicipioListagemController.CloseForm(Sender: TObject);
 begin

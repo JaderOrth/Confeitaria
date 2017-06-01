@@ -3,9 +3,9 @@ unit uMunicipioCadastroController;
 interface
 
 uses
-  System.Classes, System.SysUtils,
+  System.Classes, System.SysUtils, Vcl.StdCtrls,
   uInterfaceCadastroController, uMunicipioCadastro, uMunicipioCadastroModel,
-  uMunicipioCadastroRegra, uMunicipioDTO;
+  uMunicipioCadastroRegra, uMunicipioDTO, uMunicipioListaHash;
 
 type
   TMunicipioCadastroController = class(TInterfacedObject,
@@ -18,6 +18,7 @@ type
     procedure CreateFormCadastro(AOwner: TComponent; const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
+    procedure ActivateForm(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -37,6 +38,37 @@ begin
   FreeandNil(frmMunicipioCadastro);
 end;
 
+procedure TMunicipioCadastroController.ActivateForm(Sender: TObject);
+var
+  oComBox: TComboBox;
+    //oComBox := frmMunicipioCadastro.cbEstado;
+begin
+//var
+//  oListaEstados: TListaEstados;
+//  oEstadoModel: TEstadoModel;
+//  oEstadoDTO: TEstadoDTO;
+//begin
+//  ACmbEstados.Items.Clear;
+//  oEstadoModel:= TEstadoModel.Create;
+//  try
+//    oListaEstados:= TListaEstados.Create([doOwnsValues]);
+//
+//    if oEstadoModel.BuscarListaEstados(oListaEstados) then
+//    begin
+//      for oEstadoDTO in oListaEstados.Values do
+//        ACmbEstados.Items.AddObject(oEstadoDTO.Nome, TObject(oEstadoDTO.ID));
+//    end;
+//  finally
+//
+//    if assigned(oEstadoModel) then
+//      oEstadoModel.Free;
+//
+//   if (assigned(oListaEstados)) then
+//      FreeAndNil(oListaEstados);
+//  end;
+
+end;
+
 constructor TMunicipioCadastroController.Create;
 begin
   oMunicipioDTO := TMunicipioDTO.Create;
@@ -53,14 +85,13 @@ begin
     oMunicipioCadastroController;
   frmMunicipioCadastro.Show;
 
-
-
-  oMunicipioDTO.IdMunicipio := iId;
-  if (oMunicipioRegra.BuscarUpdate(oMunicipioDTO, oMunicipioModel)) then
-  begin
-    frmMunicipioCadastro.edtID.Text := IntToStr(oMunicipioDTO.IdMunicipio);
-    frmMunicipioCadastro.edtMunicipio.Text := oMunicipioDTO.Descrição;
-  end;
+//  oMunicipioDTO.IdMunicipio := iId;
+//  if (oMunicipioRegra.BuscarUpdate(oMunicipioDTO, oMunicipioModel)) then
+//  begin
+//    frmMunicipioCadastro.edtID.Text := IntToStr(oMunicipioDTO.IdMunicipio);
+//    frmMunicipioCadastro.edtMunicipio.Text := oMunicipioDTO.Descrição;
+//  end else
+//    raise Exception.Create('Erro ao trazer o registro do Banco!');
 end;
 
 destructor TMunicipioCadastroController.Destroy;

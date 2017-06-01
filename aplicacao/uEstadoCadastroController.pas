@@ -21,6 +21,7 @@ type
     procedure CreateFormCadastro(AOwner: TComponent; const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
+    procedure ActivateForm(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -30,6 +31,11 @@ var
   oEstadoCadastroController: IInterfaceCadastroController;
 
 implementation
+
+procedure TEstadoCadastroController.ActivateForm(Sender: TObject);
+begin
+{}
+end;
 
 constructor TEstadoCadastroController.Create;
 begin

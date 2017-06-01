@@ -8,13 +8,13 @@ type
   private
     FIdMunicipio: Integer;
     FIdEstado: Integer;
-    FDescrição: String;
-    procedure SetDescrição(const Value: String);
+    FDescricao: String;
+    procedure SetDescricao(const Value: String);
     procedure SetIdEstado(const Value: Integer);
     procedure SetIdMunicipio(const Value: Integer);
   public
     property IdMunicipio: Integer read FIdMunicipio write SetIdMunicipio;
-    property Descrição: String read FDescrição write SetDescrição;
+    property Descricao: String read FDescricao write SetDescricao;
     property IdEstado: Integer read FIdEstado write SetIdEstado;
   end;
 
@@ -22,9 +22,9 @@ implementation
 
 { TMunicipioDTO }
 
-procedure TMunicipioDTO.SetDescrição(const Value: String);
+procedure TMunicipioDTO.SetDescricao(const Value: String);
 begin
-  FDescrição := Value;
+  FDescricao := Value;
 end;
 
 procedure TMunicipioDTO.SetIdEstado(const Value: Integer);

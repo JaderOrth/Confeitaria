@@ -5,14 +5,15 @@ interface
 uses
   Vcl.Controls, System.UITypes, Vcl.DBGrids, Data.DB,
   System.SysUtils, System.Classes, FireDAC.Comp.Client,
-  uInterfaceListagemModel;
+  uInterfaceMunicipioListagemModel;
 
 type
   TMunicipioListagemRegra = class
   public
     function MontarGrid(AMemtable: TFDMemTable;
-      const AModel: IInterfaceListagemModel): Boolean;
-    function Excluir(const iId: Integer; const AModel: IInterfaceListagemModel): Boolean;
+      const AModel: IInterfaceMunicipioListagemModel): Boolean;
+    function Excluir(const iId: Integer;
+      const AModel: IInterfaceMunicipioListagemModel): Boolean;
     procedure ConfigGrid(AGrid: TDBGrid);
   end;
 
@@ -37,13 +38,13 @@ begin
 end;
 
 function TMunicipioListagemRegra.Excluir(const iId: Integer;
-  const AModel: IInterfaceListagemModel): Boolean;
+  const AModel: IInterfaceMunicipioListagemModel): Boolean;
 begin
   Result := AModel.Excluir(iId);
 end;
 
 function TMunicipioListagemRegra.MontarGrid(AMemtable: TFDMemTable;
-  const AModel: IInterfaceListagemModel): Boolean;
+  const AModel: IInterfaceMunicipioListagemModel): Boolean;
 begin
   Result := AModel.MontarGrid(AMemtable);
 end;

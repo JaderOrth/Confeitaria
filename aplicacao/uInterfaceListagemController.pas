@@ -17,7 +17,6 @@ type
     procedure Excluir(oMemtable: TFDMemTable; AGrid: TDBGrid);
     procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
       const APesquisa: String);
-    //procedure CaracterEspecial(Key: Char);
   end;
 
 implementation

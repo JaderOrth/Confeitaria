@@ -4,14 +4,16 @@ interface
 
 uses
   FireDAC.Comp.Client, System.SysUtils,
-  uInterfaceListagemModel, uClassConexaoSingleton;
+  uClassConexaoSingleton, uInterfaceMunicipioListagemModel;
 
 type
-  TMunicipioListagemModel = class(TInterfacedObject, IInterfaceListagemModel)
+  TMunicipioListagemModel = class(TInterfacedObject,
+    IInterfaceMunicipioListagemModel)
   public
     function Excluir(const iID: Integer): Boolean;
     function MontarGrid(oMemTable: TFDMemTable): Boolean;
-    function BuscarGrid(aMemTable: TFDMemTable; const aPesquisa: String): Boolean;
+    function BuscarGrid(aMemTable: TFDMemTable;
+      const aPesquisa: String): Boolean;
   end;
 
 implementation
@@ -28,7 +30,7 @@ function TMunicipioListagemModel.Excluir(const iID: Integer): Boolean;
 var
   sSql: String;
 begin
-  sSql := 'DELETE FROM Municipio where idMunicipio = '+ IntToStr(iID);
+  sSql := 'DELETE FROM Municipio where idMunicipio = ' + IntToStr(iID);
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
@@ -43,7 +45,7 @@ begin
     oQuery.Close;
     oQuery.Connection := TConexaoSingleton.GetInstancia;
     oQuery.Open('SELECT idMunicipio, descricao, iduf FROM Municipio');
-     oMemTable.Data := oQuery.Data;
+    oMemTable.Data := oQuery.Data;
     if (not(oQuery.IsEmpty)) then
       Result := True;
   finally

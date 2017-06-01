@@ -21,6 +21,7 @@ type
     procedure btnSairClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,7 +40,6 @@ procedure TfrmCadastroBase.btnNovoClick(Sender: TObject);
 var
   iIndiceComponente: Integer;
 begin
-  {}
   for iIndiceComponente := 0 to pred(Self.ComponentCount) do
   begin
     if (Components[iIndiceComponente] is TLabeledEdit) or
@@ -59,6 +59,11 @@ end;
 procedure TfrmCadastroBase.btnSalvarClick(Sender: TObject);
 begin
   oInterfaceCadastroController.Salvar(Sender);
+end;
+
+procedure TfrmCadastroBase.FormActivate(Sender: TObject);
+begin
+  //oInterfaceCadastroController.ActivateForm(Sender);
 end;
 
 procedure TfrmCadastroBase.FormCreate(Sender: TObject);

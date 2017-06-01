@@ -38,13 +38,13 @@ type
     procedure btnExcluirClick(Sender: TObject);
     procedure edtPesquisaKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure edtPesquisaKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
     bGrid: Boolean;
   public
     { Public declarations }
     oListagemBase: IInterfaceListagemController;
+    bClick: boolean;
   end;
 
 implementation
@@ -78,12 +78,8 @@ end;
 
 procedure TfrmListagemBase.DBGridListagemDblClick(Sender: TObject);
 begin
-  btnEditarClick(Sender);
-end;
-
-procedure TfrmListagemBase.edtPesquisaKeyPress(Sender: TObject; var Key: Char);
-begin
- // oListagemBase.CaracterEspecial(key);
+  if (bClick) then
+    btnEditarClick(Sender);
 end;
 
 procedure TfrmListagemBase.edtPesquisaKeyUp(Sender: TObject; var Key: Word;
@@ -98,7 +94,7 @@ begin
   if (bGrid) then
   begin
     oListagemBase.MontarGrid(FDMemTable_listagem, DBGridListagem);
-    oListagemBase.ConfigurarGrid(DBGridListagem);
+   // oListagemBase.ConfigurarGrid(DBGridListagem);
   end;
   bGrid := true;
 end;
