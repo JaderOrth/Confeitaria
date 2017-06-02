@@ -10,7 +10,8 @@ type
     procedure CreateFormCadastro(AOwner: TComponent; const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
-    procedure ActivateForm(Sender: TObject);
+    procedure Pesquisar(Sender: TObject);
+
   end;
 
 implementation

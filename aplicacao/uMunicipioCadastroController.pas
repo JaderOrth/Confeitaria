@@ -18,7 +18,7 @@ type
     procedure CreateFormCadastro(AOwner: TComponent; const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
-    procedure ActivateForm(Sender: TObject);
+    procedure Pesquisar(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -38,7 +38,7 @@ begin
   FreeandNil(frmMunicipioCadastro);
 end;
 
-procedure TMunicipioCadastroController.ActivateForm(Sender: TObject);
+procedure TMunicipioCadastroController.Pesquisar(Sender: TObject);
 var
   oComBox: TComboBox;
     //oComBox := frmMunicipioCadastro.cbEstado;

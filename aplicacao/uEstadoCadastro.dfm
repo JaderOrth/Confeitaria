@@ -14,25 +14,9 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
   end
   inherited panelCadastro: TPanel
     Width = 544
+    ExplicitLeft = -4
+    ExplicitTop = -6
     ExplicitWidth = 544
-    object edtID: TLabeledEdit
-      Left = 80
-      Top = 58
-      Width = 121
-      Height = 24
-      BiDiMode = bdLeftToRight
-      Color = clBtnFace
-      EditLabel.Width = 12
-      EditLabel.Height = 16
-      EditLabel.HelpType = htKeyword
-      EditLabel.BiDiMode = bdLeftToRight
-      EditLabel.Caption = 'ID'
-      EditLabel.ParentBiDiMode = False
-      Enabled = False
-      LabelPosition = lpLeft
-      ParentBiDiMode = False
-      TabOrder = 0
-    end
     object edtEstado: TLabeledEdit
       Left = 80
       Top = 88
@@ -47,12 +31,12 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
       EditLabel.ParentBiDiMode = False
       LabelPosition = lpLeft
       ParentBiDiMode = False
-      TabOrder = 1
+      TabOrder = 0
       TextHint = 'Descri'#231#227'o UF'
     end
     object edtSigla: TLabeledEdit
       Left = 80
-      Top = 118
+      Top = 58
       Width = 121
       Height = 24
       CharCase = ecUpperCase
@@ -61,7 +45,7 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
       EditLabel.Caption = 'Sigla'
       LabelPosition = lpLeft
       MaxLength = 2
-      TabOrder = 2
+      TabOrder = 1
       TextHint = 'UF'
     end
   end

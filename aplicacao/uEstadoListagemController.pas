@@ -27,7 +27,6 @@ type
     procedure Excluir(oMemTable: TFDMemTable; AGrid: TDBGrid);
     procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
       const APesquisa: String);
-    procedure ConfigurarGrid(AGrid: TDBGrid);
 
     constructor Create;
     destructor Destroy; override;
@@ -43,7 +42,6 @@ procedure TEstadoListagemController.BuscarGrid(aMemTable: TFDMemTable;
   AGrid: TDBGrid; const APesquisa: String);
 begin
   oEstadoRegra.BuscarGrid(aMemTable, oEstadoModel, APesquisa);
-  //oEstadoRegra.ConfigGrid(AGrid);
 end;
 
 procedure TEstadoListagemController.CloseForm(Sender: TObject);
@@ -52,24 +50,6 @@ begin
     exit;
   frmEstado.Close;
   FreeAndNil(frmEstado);
-end;
-
-procedure TEstadoListagemController.ConfigurarGrid(AGrid: TDBGrid);
-begin
-  AGrid.Columns.Add;
-  AGrid.Columns[0].Title.Caption := 'ID';
-  AGrid.Columns[0].Title.Alignment := taCenter;
-  AGrid.Columns[0].Width := 50;
-
-  AGrid.Columns.Add;
-  AGrid.Columns[1].Title.Caption := 'Estado';
-  AGrid.Columns[1].Title.Alignment := taCenter;
-  AGrid.Columns[1].Width := 230;
-
-  AGrid.Columns.Add;
-  AGrid.Columns[2].Title.Caption := 'Sigla';
-  AGrid.Columns[2].Title.Alignment := taCenter;
-  AGrid.Columns[2].Width := 50;
 end;
 
 procedure TEstadoListagemController.ControlerCadastro(Sender: TObject);
@@ -88,7 +68,7 @@ begin
   if (not(Assigned(oEstadoCadastroController))) then
     oEstadoCadastroController := TEstadoCadastroController.Create;
 
-  iId := oMemTable.FieldByName('ID').AsInteger;
+  iId := oMemTable.FieldByName('iduf').AsInteger;
   oEstadoCadastroController.CreateFormCadastro(frmEstado, iId);
 end;
 
@@ -126,11 +106,11 @@ procedure TEstadoListagemController.Excluir(oMemTable: TFDMemTable;
   AGrid: TDBGrid);
 begin
   // retorna erro quando não tem nada cadastrado BUG-----
-  if oEstadoRegra.Excluir(oMemTable.FieldByName('ID').AsInteger, oEstadoModel)
+  if oEstadoRegra.Excluir(oMemTable.FieldByName('iduf').AsInteger, oEstadoModel)
   then
   begin
+    oMemTable.Close;
     oEstadoRegra.MontarGrid(oMemTable, oEstadoModel);
-    //oEstadoRegra.ConfigGrid(AGrid);
     oMemTable.Open;
   end;
 end;
@@ -143,6 +123,7 @@ end;
 procedure TEstadoListagemController.MontarGrid(oMemTable: TFDMemTable;
   AGrid: TDBGrid);
 begin
+  oMemTable.Close;
   if oEstadoRegra.MontarGrid(oMemTable, oEstadoModel) then
   begin
     oMemTable.Open;
@@ -151,9 +132,11 @@ begin
     frmEstado.bClick := True;
   end
   else
+  begin
     frmEstado.btnExcluir.Enabled := False;
     frmEstado.btnEditar.Enabled := False;
-    frmEstado.bClick := True;
+    frmEstado.bClick := False;
+  end;
 end;
 
 end.

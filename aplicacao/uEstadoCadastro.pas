@@ -9,7 +9,6 @@ uses
 
 type
   TfrmEstadoCadastro = class(TfrmCadastroBase)
-    edtID: TLabeledEdit;
     edtEstado: TLabeledEdit;
     edtSigla: TLabeledEdit;
   private

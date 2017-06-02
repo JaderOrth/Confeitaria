@@ -23,6 +23,31 @@ inherited frmEstado: TfrmEstado
   end
   inherited DBGridListagem: TDBGrid
     Height = 435
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'iduf'
+        Title.Alignment = taCenter
+        Title.Caption = 'ID'
+        Width = -1
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'descricao'
+        Title.Alignment = taCenter
+        Title.Caption = 'Estado'
+        Width = 250
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'sigla_uf'
+        Title.Alignment = taCenter
+        Title.Caption = 'Sigla'
+        Width = 60
+        Visible = True
+      end>
   end
   inherited src_listagem: TDataSource
     AutoEdit = False

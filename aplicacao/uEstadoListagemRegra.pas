@@ -13,7 +13,6 @@ type
   public
     function MontarGrid(oMemTable: TFDMeMTable;
       const AModel: IInterfaceListagemModel): Boolean;
-//    procedure ConfigGrid(AGrid: TDBGrid);
     function Excluir(const iId: Integer; const AModel: IInterfaceListagemModel): Boolean;
     function BuscarGrid(aMemTable: TFDMeMTable; const AModel: IInterfaceListagemModel;
       const aPesquisa: String): Boolean;
@@ -29,23 +28,6 @@ begin
   Result := AModel.BuscarGrid(aMemTable, aPesquisa);
 end;
 
-//procedure TEstadoListagemRegra.ConfigGrid(AGrid: TDBGrid);
-//begin
-//  AGrid.Columns.Add;
-//  AGrid.Columns[0].Title.Caption := 'ID';
-//  AGrid.Columns[0].Title.Alignment := taCenter;
-//  AGrid.Columns[0].Width := 50;
-//
-//  AGrid.Columns.Add;
-//  AGrid.Columns[1].Title.Caption := 'Estado';
-//  AGrid.Columns[1].Title.Alignment := taCenter;
-//  AGrid.Columns[1].Width := 230;
-//
-//  AGrid.Columns.Add;
-//  AGrid.Columns[2].Title.Caption := 'Sigla';
-//  AGrid.Columns[2].Title.Alignment := taCenter;
-//  AGrid.Columns[2].Width := 50;
-//end;
 
 function TEstadoListagemRegra.Excluir(const iId: Integer;
   const AModel: IInterfaceListagemModel): Boolean;

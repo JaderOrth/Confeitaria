@@ -93,8 +93,7 @@ procedure TfrmListagemBase.FormActivate(Sender: TObject);
 begin
   if (bGrid) then
   begin
-    oListagemBase.MontarGrid(FDMemTable_listagem, DBGridListagem);
-   // oListagemBase.ConfigurarGrid(DBGridListagem);
+    oListagemBase.MontarGrid(FDMemTable_listagem, DBGridListagem)
   end;
   bGrid := true;
 end;

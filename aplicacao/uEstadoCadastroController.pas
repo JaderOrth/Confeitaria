@@ -21,7 +21,7 @@ type
     procedure CreateFormCadastro(AOwner: TComponent; const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
-    procedure ActivateForm(Sender: TObject);
+    procedure Pesquisar(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -32,7 +32,7 @@ var
 
 implementation
 
-procedure TEstadoCadastroController.ActivateForm(Sender: TObject);
+procedure TEstadoCadastroController.Pesquisar(Sender: TObject);
 begin
 {}
 end;
@@ -50,17 +50,21 @@ begin
   if (not(Assigned(frmEstadoCadastro))) then
     frmEstadoCadastro := TfrmEstadoCadastro.Create(AOwner);
   frmEstadoCadastro.oInterfaceCadastroController := oEstadoCadastroController;
+
+  frmEstadoCadastro.edtSigla.OnExit := oEstadoCadastroController.Pesquisar();
   frmEstadoCadastro.Show;
+
 
   if (iId > 0) then
   begin
     oEstadoDTO.ID := iId;
     oEstadoRegra.BuscarUpdate(oEstadoDTO, oEstadoModel);
-
-    frmEstadoCadastro.edtID.Text := IntToStr(oEstadoDTO.ID);
+    frmEstadoCadastro.edtSigla.Enabled := False;
     frmEstadoCadastro.edtEstado.Text := oEstadoDTO.Descricao;
     frmEstadoCadastro.edtSigla.Text := oEstadoDTO.UF;
-  end;
+  end
+  else
+    frmEstadoCadastro.edtSigla.Enabled := True;
 end;
 
 destructor TEstadoCadastroController.Destroy;
@@ -78,12 +82,11 @@ end;
 
 procedure TEstadoCadastroController.Salvar(Sender: TObject);
 begin
-  oEstadoDTO.ID := StrToIntDef(frmEstadoCadastro.edtID.Text, 0);
+  //oEstadoDTO.ID := StrToIntDef(frmEstadoCadastro.edtID.Text, 0);
   oEstadoDTO.UF := frmEstadoCadastro.edtSigla.Text;
   oEstadoDTO.Descricao := frmEstadoCadastro.edtEstado.Text;
 
   oEstadoRegra.Salvar(oEstadoDTO, oEstadoModel);
-  frmEstadoCadastro.edtID.Text := IntToStr(oEstadoDTO.ID);
   oEstadoRegra.LimparDTO(oEstadoDTO);
 end;
 

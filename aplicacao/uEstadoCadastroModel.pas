@@ -3,7 +3,7 @@ unit uEstadoCadastroModel;
 interface
 
 uses
-  FireDAC.Comp.Client, System.SysUtils, Data.DB,
+  FireDAC.Comp.Client, System.SysUtils, Data.DB, Vcl.Dialogs,
   uClassConexaosingleton, uEstadoDTO,
   uInterfaceCadastroModel, uMunicipioDTO;
 
@@ -28,8 +28,8 @@ begin
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT * FROM uf WHERE sigla_uf = '+ QuotedStr(aEstado.UF)+
-                ' AND iduf = '+ IntToStr(aEstado.ID));
+    oQuery.Open('SELECT * FROM uf WHERE sigla_uf = '+ QuotedStr(aEstado.UF));
+
     if (not(oQuery.IsEmpty)) then
     begin
       Result := True;

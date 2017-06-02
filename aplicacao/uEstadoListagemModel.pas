@@ -33,7 +33,7 @@ begin
     oQuery.Close;
     aMemTable.Close;
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT iduf ID, descricao Descrição, sigla_uf UF FROM' +
+    oQuery.Open('SELECT iduf, descricao, sigla_uf  FROM' +
       ' uf WHERE sigla_uf  like ''%' + aPesquisa + '%''' +
       ' or descricao like ''%' + aPesquisa + '%''' + ' or iduf like ''%' +
       aPesquisa + '%''');
@@ -96,9 +96,8 @@ begin
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Close;
-    oMemTable.Close;
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT iduf ID, descricao Descrição, sigla_uf UF FROM uf');
+    oQuery.Open('SELECT iduf, descricao, sigla_uf FROM uf');
     oMemTable.Data := oQuery.Data;
     if (not(oQuery.IsEmpty)) then
       Result := True;
