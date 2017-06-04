@@ -14,7 +14,7 @@ type
     function BuscarUpdate(var AEstado: TEstadoDTO;
       const AEstadoModel: IIntrefaceCadastroModel): boolean;
     function Salvar(var AEstado: TEstadoDTO;
-      const AEstadoModel: IIntrefaceCadastroModel): boolean;
+      const AEstadoModel: IIntrefaceCadastroModel): Integer;
     procedure LimparDTO(const AEstadoDTO: TEstadoDTO);
   end;
 
@@ -36,21 +36,34 @@ begin
 end;
 
 function TEstadoCadastroRegra.Salvar(var AEstado: TEstadoDTO;
-  const AEstadoModel: IIntrefaceCadastroModel): boolean;
+  const AEstadoModel: IIntrefaceCadastroModel): Integer;
 begin
-  if (AEstado.ID > 0) then
-  begin
-    if (AEstadoModel.BuscarEditUF(AEstado)) then
-      Result := AEstadoModel.Update(AEstado)
-    else
-      raise Exception.Create('Uf '+QuotedStr(AEstado.UF)+' já esta cadastrado!');
-  end else
-  begin
-    if (AEstadoModel.BuscarUF(AEstado)) then
-      raise Exception.Create('UF '+QuotedStr(AEstado.UF)+' já esta cadastrado!');
-    AEstado.ID := AEstadoModel.BuscarID;
-    Result := AEstadoModel.Salvar(AEstado);
-  end;
+//  if (Length(Trim(AEstado.UF)) <> 2) then
+//  begin
+//    Result := 1;
+//    exit;
+//  end;
+//  if (Length(Trim(AEstado.Descricao)) <= 3) then
+//  begin
+//    Result := 2;
+//    exit;
+//  end;
+
+//  if (AEstado.ID > 0) then
+//  begin
+//    if (AEstadoModel.Update(AEstado)) then
+//      Result := 3
+//    else
+//      Result := 4;
+//  end
+//  else
+//  begin
+//    AEstado.ID := AEstadoModel.BuscarID;
+//   if (AEstadoModel.Salvar(AEstado)) then
+//    Result := 5
+//   else
+//    Result := 6;
+//  end;
 end;
 
 end.

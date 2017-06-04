@@ -14,31 +14,10 @@ type
     function Salvar(const aEstado: TEstadoDTO):Boolean;
     function Update(const aEstado: TEstadoDTO): Boolean;
     function BuscarID:Integer;
-    function BuscarUF(const aEstado: TEstadoDTO): Boolean;
-    function BuscarEditUF(const aEstado: TEstadoDTO): Boolean;
+
   end;
 
 implementation
-
-function TEstadoCadastroModel.BuscarEditUF(const aEstado: TEstadoDTO): Boolean;
-var
-  oQuery: TFDQuery;
-begin
-  Result := false;
-  oQuery := TFDQuery.Create(nil);
-  try
-    oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT * FROM uf WHERE sigla_uf = '+ QuotedStr(aEstado.UF));
-
-    if (not(oQuery.IsEmpty)) then
-    begin
-      Result := True;
-    end;
-  finally
-    if (Assigned(oQuery)) then
-      FreeAndNil(oQuery);
-  end;
-end;
 
 function TEstadoCadastroModel.BuscarID: Integer;
 var
@@ -79,25 +58,6 @@ begin
       aEstado.UF := oQuery.FieldByName('sigla_uf').AsString;
       aEstado.Descricao := oQuery.FieldByName('descricao').AsString;
       Result := true;
-    end;
-  finally
-    if (Assigned(oQuery)) then
-      FreeAndNil(oQuery);
-  end;
-end;
-
-function TEstadoCadastroModel.BuscarUF(const aEstado: TEstadoDTO): Boolean;
-var
-  oQuery: TFDQuery;
-begin
-  Result := false;
-  oQuery := TFDQuery.Create(nil);
-  try
-    oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT * FROM uf WHERE sigla_uf = '+ QuotedStr(aEstado.UF));
-    if (not(oQuery.IsEmpty)) then
-    begin
-      Result := True;
     end;
   finally
     if (Assigned(oQuery)) then

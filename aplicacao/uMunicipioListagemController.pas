@@ -21,11 +21,9 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure ConfigurarGrid(AGrid: TDBGrid);
-    procedure MontarGrid(oMemTable: TFDMemTable; AGrid: TDBGrid);
-    procedure Excluir(oMemTable: TFDMemTable; AGrid: TDBGrid);
-    procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
-      const APesquisa: String);
+    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure Excluir(oMemTable: TFDMemTable);
+    procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
     destructor Destroy; override;
@@ -39,14 +37,8 @@ implementation
 
 { TMunicipioListagemController }
 
-//procedure TMunicipioListagemController.BuscarGrid(aMemTable: TFDMemTable;
-//  AGrid: TDBGrid; APesquisa: String);
-//begin
-//
-//end;
-
 procedure TMunicipioListagemController.BuscarGrid(aMemTable: TFDMemTable;
-  AGrid: TDBGrid; const APesquisa: String);
+  const APesquisa: String);
 begin
 
 end;
@@ -57,11 +49,6 @@ begin
     exit;
   frmMunicipio.Close;
   FreeAndNil(frmMunicipio);
-end;
-
-procedure TMunicipioListagemController.ConfigurarGrid(AGrid: TDBGrid);
-begin
-
 end;
 
 procedure TMunicipioListagemController.ControlerCadastro(Sender: TObject);
@@ -107,8 +94,7 @@ begin
   inherited;
 end;
 
-procedure TMunicipioListagemController.Excluir(oMemTable: TFDMemTable;
-  AGrid: TDBGrid);
+procedure TMunicipioListagemController.Excluir(oMemTable: TFDMemTable);
 var
   iId: Integer;
 begin
@@ -128,20 +114,20 @@ begin
   {  }
 end;
 
-procedure TMunicipioListagemController.MontarGrid(oMemTable: TFDMemTable;
-  AGrid: TDBGrid);
+procedure TMunicipioListagemController.MontarGrid(oMemTable: TFDMemTable);
 begin
+  oMemTable.Close;
   if (oMunicipioRegra.MontarGrid(oMemTable, oMunicipioModel)) then
   begin
+    oMemTable.Open;
     frmMunicipio.btnEditar.Enabled := True;
     frmMunicipio.btnExcluir.Enabled := True;
-    oMunicipioRegra.ConfigGrid(AGrid);
-    oMemTable.Open;
-  end else
+    frmMunicipio.bClick := true;
+  end
+  else
   begin
     frmMunicipio.btnEditar.Enabled := False;
     frmMunicipio.btnExcluir.Enabled := False;
-    oMunicipioRegra.ConfigGrid(AGrid);
   end;
 end;
 

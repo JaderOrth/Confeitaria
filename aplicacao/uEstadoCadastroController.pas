@@ -5,7 +5,7 @@ interface
 uses
   Vcl.Controls,
   System.Classes,
-  System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls,
+  System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs,
   uEstadoCadastro, uInterfaceCadastroController, uEstadoDTO,
   uEstadoCadastroRegra, uEstadoCadastroModel;
 
@@ -17,11 +17,11 @@ type
     oEstadoRegra: TEstadoCadastroRegra;
     oEstadoModel: TEstadoCadastroModel;
     frmEstadoCadastro: TfrmEstadoCadastro;
+    iIdAlterar: Integer;
   public
     procedure CreateFormCadastro(AOwner: TComponent; const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
-    procedure Pesquisar(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -31,11 +31,6 @@ var
   oEstadoCadastroController: IInterfaceCadastroController;
 
 implementation
-
-procedure TEstadoCadastroController.Pesquisar(Sender: TObject);
-begin
-{}
-end;
 
 constructor TEstadoCadastroController.Create;
 begin
@@ -50,16 +45,15 @@ begin
   if (not(Assigned(frmEstadoCadastro))) then
     frmEstadoCadastro := TfrmEstadoCadastro.Create(AOwner);
   frmEstadoCadastro.oInterfaceCadastroController := oEstadoCadastroController;
-
-  frmEstadoCadastro.edtSigla.OnExit := oEstadoCadastroController.Pesquisar();
   frmEstadoCadastro.Show;
-
 
   if (iId > 0) then
   begin
+    iIdAlterar := iId;
     oEstadoDTO.ID := iId;
     oEstadoRegra.BuscarUpdate(oEstadoDTO, oEstadoModel);
     frmEstadoCadastro.edtSigla.Enabled := False;
+    frmEstadoCadastro.edtEstado.SetFocus;
     frmEstadoCadastro.edtEstado.Text := oEstadoDTO.Descricao;
     frmEstadoCadastro.edtSigla.Text := oEstadoDTO.UF;
   end
@@ -82,11 +76,15 @@ end;
 
 procedure TEstadoCadastroController.Salvar(Sender: TObject);
 begin
-  //oEstadoDTO.ID := StrToIntDef(frmEstadoCadastro.edtID.Text, 0);
+  oEstadoDTO.ID := iIdAlterar;
   oEstadoDTO.UF := frmEstadoCadastro.edtSigla.Text;
   oEstadoDTO.Descricao := frmEstadoCadastro.edtEstado.Text;
 
-  oEstadoRegra.Salvar(oEstadoDTO, oEstadoModel);
+ oEstadoRegra.Salvar(oEstadoDTO, oEstadoModel);
+
+
+ // messageDlg('Registro foi salvo com sucesso!', mtInformation, [mbOK], 0);
+
   oEstadoRegra.LimparDTO(oEstadoDTO);
 end;
 

@@ -23,10 +23,9 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemTable: TFDMemTable; AGrid: TDBGrid);
-    procedure Excluir(oMemTable: TFDMemTable; AGrid: TDBGrid);
-    procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
-      const APesquisa: String);
+    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure Excluir(oMemTable: TFDMemTable);
+    procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
     destructor Destroy; override;
@@ -39,7 +38,7 @@ implementation
 { TEstadoControler }
 
 procedure TEstadoListagemController.BuscarGrid(aMemTable: TFDMemTable;
-  AGrid: TDBGrid; const APesquisa: String);
+  const APesquisa: String);
 begin
   oEstadoRegra.BuscarGrid(aMemTable, oEstadoModel, APesquisa);
 end;
@@ -102,8 +101,7 @@ begin
   inherited;
 end;
 
-procedure TEstadoListagemController.Excluir(oMemTable: TFDMemTable;
-  AGrid: TDBGrid);
+procedure TEstadoListagemController.Excluir(oMemTable: TFDMemTable);
 begin
   // retorna erro quando não tem nada cadastrado BUG-----
   if oEstadoRegra.Excluir(oMemTable.FieldByName('iduf').AsInteger, oEstadoModel)
@@ -120,8 +118,7 @@ begin
   ShowMessage('Teste');
 end;
 
-procedure TEstadoListagemController.MontarGrid(oMemTable: TFDMemTable;
-  AGrid: TDBGrid);
+procedure TEstadoListagemController.MontarGrid(oMemTable: TFDMemTable);
 begin
   oMemTable.Close;
   if oEstadoRegra.MontarGrid(oMemTable, oEstadoModel) then

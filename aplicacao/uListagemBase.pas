@@ -63,7 +63,7 @@ end;
 
 procedure TfrmListagemBase.btnExcluirClick(Sender: TObject);
 begin
-  oListagemBase.Excluir(FDMemTable_listagem, DBGridListagem);
+  oListagemBase.Excluir(FDMemTable_listagem);
 end;
 
 procedure TfrmListagemBase.btnNovoClick(Sender: TObject);
@@ -85,15 +85,14 @@ end;
 procedure TfrmListagemBase.edtPesquisaKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  oListagemBase.BuscarGrid(FDMemTable_listagem, DBGridListagem,
-    edtPesquisa.Text);
+  oListagemBase.BuscarGrid(FDMemTable_listagem, edtPesquisa.Text);
 end;
 
 procedure TfrmListagemBase.FormActivate(Sender: TObject);
 begin
   if (bGrid) then
   begin
-    oListagemBase.MontarGrid(FDMemTable_listagem, DBGridListagem)
+    oListagemBase.MontarGrid(FDMemTable_listagem)
   end;
   bGrid := true;
 end;

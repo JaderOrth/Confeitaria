@@ -14,8 +14,6 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
   end
   inherited panelCadastro: TPanel
     Width = 544
-    ExplicitLeft = -4
-    ExplicitTop = -6
     ExplicitWidth = 544
     object edtEstado: TLabeledEdit
       Left = 80
@@ -31,7 +29,7 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
       EditLabel.ParentBiDiMode = False
       LabelPosition = lpLeft
       ParentBiDiMode = False
-      TabOrder = 0
+      TabOrder = 1
       TextHint = 'Descri'#231#227'o UF'
     end
     object edtSigla: TLabeledEdit
@@ -45,7 +43,7 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
       EditLabel.Caption = 'Sigla'
       LabelPosition = lpLeft
       MaxLength = 2
-      TabOrder = 1
+      TabOrder = 0
       TextHint = 'UF'
     end
   end

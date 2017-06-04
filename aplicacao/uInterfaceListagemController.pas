@@ -12,10 +12,9 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable; AGrid: TDBGrid);
-    procedure Excluir(oMemtable: TFDMemTable; AGrid: TDBGrid);
-    procedure BuscarGrid(aMemTable: TFDMemTable; AGrid: TDBGrid;
-      const APesquisa: String);
+    procedure MontarGrid(oMemtable: TFDMemTable);
+    procedure Excluir(oMemtable: TFDMemTable);
+    procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
   end;
 
 implementation

@@ -41,10 +41,10 @@ begin
   Result := False;
   oQuery := TFDQuery.Create(nil);
   try
-    oMemTable.Close;
-    oQuery.Close;
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT idMunicipio, descricao, iduf FROM Municipio');
+    oQuery.Open('SELECT m.idMunicipio as idMunicipio,'+
+                ' m.descricao as descricao, uf.descricao as estado '+
+                'FROM Municipio as m inner join uf on uf.iduf = m.iduf');
     oMemTable.Data := oQuery.Data;
     if (not(oQuery.IsEmpty)) then
       Result := True;
