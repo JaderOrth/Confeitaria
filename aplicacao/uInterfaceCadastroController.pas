@@ -7,7 +7,8 @@ uses
 
 type
   IInterfaceCadastroController = interface
-    procedure CreateFormCadastro(AOwner: TComponent; const iId: Integer);
+    procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
+      const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
 

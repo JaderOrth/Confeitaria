@@ -55,7 +55,7 @@ procedure TMunicipioListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oMunicipioCadastroController))) then
     oMunicipioCadastroController := TMunicipioCadastroController.Create;
-  oMunicipioCadastroController.CreateFormCadastro(frmMunicipio, 0);
+  oMunicipioCadastroController.CreateFormCadastro(frmMunicipio, Sender, 0);
 end;
 
 constructor TMunicipioListagemController.Create;
@@ -68,7 +68,7 @@ end;
 procedure TMunicipioListagemController.CreateFormEdit(Sender: TObject;
   oMemTable: TFDMemTable);
 begin
-  oMunicipioCadastroController.CreateFormCadastro(frmMunicipio,
+  oMunicipioCadastroController.CreateFormCadastro(frmMunicipio, Sender,
     oMemTable.FieldByName('ID').AsInteger);
 end;
 

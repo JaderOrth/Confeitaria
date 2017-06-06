@@ -5,7 +5,7 @@ interface
 uses
   FireDAC.Comp.Client, System.SysUtils, Data.DB, Vcl.Dialogs,
   uClassConexaosingleton, uEstadoDTO,
-  uInterfaceCadastroModel, uMunicipioDTO;
+  uInterfaceCadastroModel;
 
 type
   TEstadoCadastroModel = class(TInterfacedObject, IIntrefaceCadastroModel)
@@ -13,6 +13,7 @@ type
     function BuscarUpdate(var aEstado: TEstadoDTO): Boolean;
     function Salvar(const aEstado: TEstadoDTO):Boolean;
     function Update(const aEstado: TEstadoDTO): Boolean;
+   // function BuscarUF(const aEstado: TEstadoDTO): Boolean;
     function BuscarID:Integer;
 
   end;

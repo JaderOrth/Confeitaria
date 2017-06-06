@@ -56,7 +56,7 @@ begin
   if (not(Assigned(oEstadoCadastroController))) then
     oEstadoCadastroController := TEstadoCadastroController.Create;
   // passa 0 porque quando o usuario clicar em editar iá passar o ID
-  oEstadoCadastroController.CreateFormCadastro(frmEstado, 0);
+  oEstadoCadastroController.CreateFormCadastro(frmEstado, Sender, 0);
 end;
 
 procedure TEstadoListagemController.CreateFormEdit(Sender: TObject;
@@ -68,7 +68,7 @@ begin
     oEstadoCadastroController := TEstadoCadastroController.Create;
 
   iId := oMemTable.FieldByName('iduf').AsInteger;
-  oEstadoCadastroController.CreateFormCadastro(frmEstado, iId);
+  oEstadoCadastroController.CreateFormCadastro(frmEstado, Sender, iId);
 end;
 
 constructor TEstadoListagemController.Create;
