@@ -2,7 +2,7 @@ object frmCadastroBase: TfrmCadastroBase
   Left = 0
   Top = 0
   Caption = 'Cadastro Base'
-  ClientHeight = 259
+  ClientHeight = 264
   ClientWidth = 677
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,7 @@ object frmCadastroBase: TfrmCadastroBase
   TextHeight = 16
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 240
+    Top = 245
     Width = 677
     Height = 19
     Panels = <>
@@ -29,7 +29,7 @@ object frmCadastroBase: TfrmCadastroBase
     Left = 574
     Top = 0
     Width = 103
-    Height = 240
+    Height = 245
     Align = alRight
     BevelInner = bvRaised
     BevelOuter = bvLowered
@@ -485,7 +485,7 @@ object frmCadastroBase: TfrmCadastroBase
     Left = 0
     Top = 0
     Width = 574
-    Height = 240
+    Height = 245
     Align = alClient
     BevelInner = bvRaised
     BevelOuter = bvLowered

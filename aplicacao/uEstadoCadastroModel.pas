@@ -13,7 +13,7 @@ type
     function BuscarUpdate(var aEstado: TEstadoDTO): Boolean;
     function Salvar(const aEstado: TEstadoDTO):Boolean;
     function Update(const aEstado: TEstadoDTO): Boolean;
-   // function BuscarUF(const aEstado: TEstadoDTO): Boolean;
+    function ValidarUF(const aEstado: TEstadoDTO): Boolean;
     function BuscarID:Integer;
 
   end;
@@ -88,6 +88,25 @@ begin
                      +', sigla_uf =  '+ QuotedStr(aEstado.UF)
                      +' WHERE iduf = '+ IntToStr(aEstado.ID);
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+end;
+
+function TEstadoCadastroModel.ValidarUF(const aEstado: TEstadoDTO): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  oQuery := TFDQuery.Create(nil);
+  try
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT * FROM uf where sigla_uf = '+ QuotedStr(aEstado.UF));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      Result := True;
+    end;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
 end;
 
 end.

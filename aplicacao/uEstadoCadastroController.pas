@@ -17,12 +17,12 @@ type
     oEstadoRegra: TEstadoCadastroRegra;
     oEstadoModel: TEstadoCadastroModel;
     frmEstadoCadastro: TfrmEstadoCadastro;
-    iIdAlterar: Integer;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
+    procedure Novo(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -50,7 +50,6 @@ begin
 
   if (iId > 0) then
   begin
-    iIdAlterar := iId;
     oEstadoDTO.ID := iId;
     oEstadoRegra.BuscarUpdate(oEstadoDTO, oEstadoModel);
     frmEstadoCadastro.edtSigla.Enabled := False;
@@ -75,28 +74,44 @@ begin
   inherited;
 end;
 
+procedure TEstadoCadastroController.Novo(Sender: TObject);
+begin
+  oEstadoRegra.LimparDTO(oEstadoDTO);
+  frmEstadoCadastro.edtSigla.Enabled := true;
+  frmEstadoCadastro.edtSigla.SetFocus;
+end;
+
 procedure TEstadoCadastroController.Salvar(Sender: TObject);
 var
   iSalvar, iValidar: Integer;
 begin
-  oEstadoDTO.ID := iIdAlterar;
   oEstadoDTO.UF := frmEstadoCadastro.edtSigla.Text;
   oEstadoDTO.Descricao := frmEstadoCadastro.edtEstado.Text;
 
-  iValidar := oEstadoRegra.ValidarCampos(oEstadoDTO);
+  iValidar := oEstadoRegra.ValidarCampos(oEstadoDTO, oEstadoModel);
   // Valida o campo sigla do estado
   if (iValidar = 1) then
   begin
-    MessageDlg('Preencha o campo SIGLA corretamente', mtWarning, [mbOK], 0);
+    MessageDlg('Preencha o campo SIGLA corretamente!', mtWarning, [mbOK], 0);
     frmEstadoCadastro.edtSigla.SetFocus;
     exit;
   end;
   // valida o campo Estado
   if (iValidar = 2) then
   begin
-    MessageDlg('Preencha o campo ESTADO corretamente', mtWarning, [mbOK], 0);
+    MessageDlg('Preencha o campo ESTADO corretamente!', mtWarning, [mbOK], 0);
     frmEstadoCadastro.edtEstado.SetFocus;
     exit;
+  end;
+  if (oEstadoDTO.ID = 0) then
+  begin
+    //Validar UF
+    if (iValidar = 3) then
+    begin
+      MessageDlg('Estado '+ oEstadoDTO.UF+' já cadastrado!', mtWarning, [mbOK], 0);
+      frmEstadoCadastro.edtSigla.SetFocus;
+      exit;
+    end;
   end;
 
   iSalvar := oEstadoRegra.Salvar(oEstadoDTO, oEstadoModel);
@@ -125,8 +140,6 @@ begin
     MessageDlg('Erro ao Salvar o regristro!', mtWarning, [mbOK], 0);
     exit;
   end;
-
-  // oEstadoRegra.LimparDTO(oEstadoDTO);
 end;
 
 procedure TEstadoCadastroController.CloseFormCadastro(Sender: TObject);
@@ -134,6 +147,7 @@ begin
   if (not(Assigned(frmEstadoCadastro))) then
     exit;
   FreeandNil(frmEstadoCadastro);
+  oEstadoRegra.LimparDTO(oEstadoDTO);
 end;
 
 end.

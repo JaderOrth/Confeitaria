@@ -11,7 +11,7 @@ type
       const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
-
+    procedure Novo(Sender: TObject);
   end;
 
 implementation

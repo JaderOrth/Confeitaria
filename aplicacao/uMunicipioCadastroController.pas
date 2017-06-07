@@ -20,6 +20,7 @@ type
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
+    procedure Novo(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -106,6 +107,11 @@ begin
   if (Assigned(oMunicipioModel)) then
     FreeAndNil(oMunicipioModel);
   inherited;
+end;
+
+procedure TMunicipioCadastroController.Novo(Sender: TObject);
+begin
+
 end;
 
 procedure TMunicipioCadastroController.Salvar(Sender: TObject);

@@ -39,6 +39,8 @@ procedure TfrmCadastroBase.btnNovoClick(Sender: TObject);
 var
   iIndiceComponente: Integer;
 begin
+  oInterfaceCadastroController.Novo(Sender);
+
   for iIndiceComponente := 0 to pred(Self.ComponentCount) do
   begin
     if (Components[iIndiceComponente] is TLabeledEdit) or

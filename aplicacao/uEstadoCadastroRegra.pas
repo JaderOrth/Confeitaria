@@ -13,7 +13,8 @@ type
   public
     function BuscarUpdate(var AEstado: TEstadoDTO;
       const AEstadoModel: IIntrefaceCadastroModel): boolean;
-    function ValidarCampos(const AEstado: TEstadoDTO): Integer;
+    function ValidarCampos(const AEstado: TEstadoDTO;
+      const AEstadoModel: IIntrefaceCadastroModel): Integer;
     function Salvar(const AEstado: TEstadoDTO;
       const AEstadoModel: IIntrefaceCadastroModel): Integer;
     procedure LimparDTO(const AEstadoDTO: TEstadoDTO);
@@ -56,7 +57,8 @@ begin
   end;
 end;
 
-function TEstadoCadastroRegra.ValidarCampos(const AEstado: TEstadoDTO): Integer;
+function TEstadoCadastroRegra.ValidarCampos(const AEstado: TEstadoDTO;
+  const AEstadoModel: IIntrefaceCadastroModel): Integer;
 begin
   Result := 0;
     if (Length(Trim(AEstado.UF)) <> 2) then
@@ -67,6 +69,11 @@ begin
   if (Length(Trim(AEstado.Descricao)) <= 3) then
   begin
     Result := 2;
+    exit;
+  end;
+  if (AEstadoModel.ValidarUF(AEstado)) then
+  begin
+    Result := 3;
     exit;
   end;
 end;
