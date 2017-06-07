@@ -14,20 +14,11 @@ type
     function MontarGrid(oMemTable: TFDMeMTable;
       const AModel: IInterfaceListagemModel): Boolean;
     function Excluir(const iId: Integer; const AModel: IInterfaceListagemModel): Boolean;
-    function BuscarGrid(aMemTable: TFDMeMTable; const AModel: IInterfaceListagemModel;
-      const aPesquisa: String): Boolean;
   end;
 
 implementation
 
 { TEstadoListagemRegra }
-
-function TEstadoListagemRegra.BuscarGrid(aMemTable: TFDMeMTable;
-  const AModel: IInterfaceListagemModel; const aPesquisa: String): Boolean;
-begin
-  Result := AModel.BuscarGrid(aMemTable, aPesquisa);
-end;
-
 
 function TEstadoListagemRegra.Excluir(const iId: Integer;
   const AModel: IInterfaceListagemModel): Boolean;

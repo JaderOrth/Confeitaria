@@ -12,8 +12,6 @@ type
   public
     function Excluir(const iID: Integer): Boolean;
     function MontarGrid(oMemTable: TFDMemTable): Boolean;
-    function BuscarGrid(aMemTable: TFDMemTable;
-      const aPesquisa: String): Boolean;
     function ComboBox(ALista: TMunicipioListaHash): Boolean;
 
   end;
@@ -21,31 +19,6 @@ type
 implementation
 
 { TEstadoModel }
-
-function TEstadoListagemModel.BuscarGrid(aMemTable: TFDMemTable;
-  const aPesquisa: String): Boolean;
-var
-  oQuery: TFDQuery;
-begin
-  Result := false;
-  oQuery := TFDQuery.Create(nil);
-  try
-    oQuery.Close;
-    aMemTable.Close;
-    oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT iduf, descricao, sigla_uf  FROM' +
-      ' uf WHERE sigla_uf  like ''%' + aPesquisa + '%''' +
-      ' or descricao like ''%' + aPesquisa + '%''' + ' or iduf like ''%' +
-      aPesquisa + '%''');
-    aMemTable.Data := oQuery.Data;
-    if (not(oQuery.IsEmpty)) then
-      Result := True;
-
-  finally
-    if (Assigned(oQuery)) then
-      FreeAndNil(oQuery);
-  end;
-end;
 
 function TEstadoListagemModel.ComboBox(ALista: TMunicipioListaHash): Boolean;
 var
