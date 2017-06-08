@@ -104,14 +104,25 @@ begin
 end;
 
 procedure TEstadoListagemController.Excluir(oMemTable: TFDMemTable);
+var
+  iID: Integer;
 begin
-  // retorna erro quando não tem nada cadastrado BUG-----
-  if oEstadoRegra.Excluir(oMemTable.FieldByName('iduf').AsInteger, oEstadoModel)
-  then
+  if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
+    [mbYes, mbNo], 0) = mrYes) then
   begin
-    oMemTable.Close;
-    oEstadoRegra.MontarGrid(oMemTable, oEstadoModel);
-    oMemTable.Open;
+    iID := oMemTable.FieldByName('iduf').AsInteger;
+    if oEstadoRegra.Excluir(iID, oEstadoModel) then
+    begin
+      MessageDlg('Registro deletado com sucesso!', mtInformation, [mbOK], 0);
+      oMemTable.Close;
+      oEstadoRegra.MontarGrid(oMemTable, oEstadoModel);
+      oMemTable.Open;
+    end
+    else
+    begin
+      MessageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
+      exit;
+    end;
   end;
 end;
 

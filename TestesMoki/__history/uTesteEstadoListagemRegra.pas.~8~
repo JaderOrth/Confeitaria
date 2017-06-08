@@ -1,0 +1,46 @@
+unit uTesteEstadoListagemRegra;
+
+interface
+uses
+  DUnitX.TestFramework;
+
+type
+
+  [TestFixture]
+  TMyTestEstadoListagemRegra = class(TObject)
+  public
+    [Test]
+    procedure Test1;
+  end;
+
+implementation
+
+uses
+  Delphi.Mocks,
+  uEstadoListagemRegra,
+  uInterfaceListagemModel,
+  DUnitX.Utils,
+  System.SysUtils,
+  System.Rtti;
+
+procedure TMyTestEstadoListagemRegra.Test1;
+var
+  oEstadoListagemRegra: TEstadoListagemRegra;
+  oModelMock : TMock<IInterfaceListagemModel>;
+  iExclusao: Integer;
+begin
+  oEstadoListagemRegra:= TEstadoListagemRegra.Create;
+  oModelMock := TMock<IInterfaceListagemModel>.Create;
+
+  oModelMock.Setup.WillReturn(
+
+  ).When.Excluir(iExclusao);
+
+  iExclusao := 0;
+
+  oEstadoListagemRegra.Excluir(ID, oModelMock);
+end;
+
+initialization
+  TDUnitX.RegisterTestFixture(TMyTestEstadoListagemRegra);
+end.

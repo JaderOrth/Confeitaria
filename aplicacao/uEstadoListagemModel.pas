@@ -10,7 +10,7 @@ uses
 type
   TEstadoListagemModel = class(TInterfacedObject, IInterfaceListagemModel)
   public
-    function Excluir(const iID: Integer): Boolean;
+    function Excluir(var iID: Integer): Boolean;
     function MontarGrid(oMemTable: TFDMemTable): Boolean;
     function ComboBox(ALista: TMunicipioListaHash): Boolean;
 
@@ -52,7 +52,7 @@ begin
 
 end;
 
-function TEstadoListagemModel.Excluir(const iID: Integer): Boolean;
+function TEstadoListagemModel.Excluir(var iID: Integer): Boolean;
 var
   sSql: string;
 begin
