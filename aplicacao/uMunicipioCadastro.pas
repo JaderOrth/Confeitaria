@@ -9,7 +9,6 @@ uses
 
 type
   TfrmMunicipioCadastro = class(TfrmCadastroBase)
-    edtID: TLabeledEdit;
     edtMunicipio: TLabeledEdit;
     cbEstado: TComboBox;
     Label1: TLabel;
