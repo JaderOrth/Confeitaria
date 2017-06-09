@@ -5,14 +5,14 @@ interface
 uses
   uEstadoDTO, uClassConexaoSingleton, Data.DB, FireDAC.Comp.Client,
   System.SysUtils, FireDAC.DApt,
-  uInterfaceListagemModel, uMunicipioListaHash, uMunicipioDTO;
+  uInterfaceListagemModel, uEstadoListaHash;
 
 type
   TEstadoListagemModel = class(TInterfacedObject, IInterfaceListagemModel)
   public
     function Excluir(var iID: Integer): Boolean;
     function MontarGrid(oMemTable: TFDMemTable): Boolean;
-    function ComboBox(ALista: TMunicipioListaHash): Boolean;
+    function ComboBox(ALista: TEstadoListaHash): Boolean;
 
   end;
 
@@ -20,27 +20,25 @@ implementation
 
 { TEstadoModel }
 
-function TEstadoListagemModel.ComboBox(ALista: TMunicipioListaHash): Boolean;
+function TEstadoListagemModel.ComboBox(ALista: TEstadoListaHash): Boolean;
 var
   oQuery: TFDQuery;
-  oMunicipioDTO: TMunicipioDTO;
+  oEstadoDTO: TEstadoDTO;
 begin
   Result := False;
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT * FROM Municipio');
+    oQuery.Open('SELECT * FROM uf');
     if (not(oQuery.IsEmpty)) then
     begin
       oQuery.First;
-      while (oQuery.Eof) do
+      while (not(oQuery.Eof)) do
       begin
-        oMunicipioDTO.IdMunicipio := oQuery.FieldByName('idMunicipio').AsInteger;
-        oMunicipioDTO.Descricao := oQuery.FieldByName('descricao').AsString;
-        oMunicipioDTO.IdEstado := oQuery.FieldByName('iduf').AsInteger;
-
-        ALista.Add(oMunicipioDTO.Descricao, oMunicipioDTO);
-
+        oEstadoDTO := TEstadoDTO.Create;
+        oEstadoDTO.ID := oQuery.FieldByName('iduf').AsInteger;
+        oEstadoDTO.Descricao := oQuery.FieldByName('descricao').AsString;
+        ALista.Add(oEstadoDTO.Descricao, oEstadoDTO);
         oQuery.Next;
       end;
       Result := True;

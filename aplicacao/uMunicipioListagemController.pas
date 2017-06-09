@@ -40,7 +40,8 @@ implementation
 procedure TMunicipioListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-
+  aMemTable.Filter := 'descricao like ''%'+APesquisa+'%'' or estado like ''%'+APesquisa+'$''';
+  aMemTable.Filtered := True;
 end;
 
 procedure TMunicipioListagemController.CloseForm(Sender: TObject);

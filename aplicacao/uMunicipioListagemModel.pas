@@ -12,19 +12,11 @@ type
   public
     function Excluir(const iID: Integer): Boolean;
     function MontarGrid(oMemTable: TFDMemTable): Boolean;
-    function BuscarGrid(aMemTable: TFDMemTable;
-      const aPesquisa: String): Boolean;
   end;
 
 implementation
 
 { TMunicipioListagemModel }
-
-function TMunicipioListagemModel.BuscarGrid(aMemTable: TFDMemTable;
-  const aPesquisa: String): Boolean;
-begin
-
-end;
 
 function TMunicipioListagemModel.Excluir(const iID: Integer): Boolean;
 var

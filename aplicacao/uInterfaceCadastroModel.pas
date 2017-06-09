@@ -3,7 +3,7 @@ unit uInterfaceCadastroModel;
 interface
 
 uses
-  uMunicipioListaHash, uEstadoDTO;
+  uEstadoDTO;
 
 type
   IIntrefaceCadastroModel = interface

@@ -30,8 +30,8 @@ uses
   uMunicipioCadastroRegra in 'uMunicipioCadastroRegra.pas',
   uMunicipioCadastroModel in 'uMunicipioCadastroModel.pas',
   uInterfaceMunicipioModel in 'uInterfaceMunicipioModel.pas',
-  uMunicipioListaHash in 'uMunicipioListaHash.pas',
-  uInterfaceMunicipioListagemModel in 'uInterfaceMunicipioListagemModel.pas';
+  uInterfaceMunicipioListagemModel in 'uInterfaceMunicipioListagemModel.pas',
+  uEstadoListaHash in 'uEstadoListaHash.pas';
 
 {$R *.res}
 

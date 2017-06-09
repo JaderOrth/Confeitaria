@@ -3,9 +3,11 @@ unit uMunicipioCadastroController;
 interface
 
 uses
-  System.Classes, System.SysUtils, Vcl.StdCtrls,
+  System.Classes, System.SysUtils, Vcl.StdCtrls, System.Generics.Collections,
+  Vcl.Dialogs, System.UITypes,
   uInterfaceCadastroController, uMunicipioCadastro, uMunicipioCadastroModel,
-  uMunicipioCadastroRegra, uMunicipioDTO, uMunicipioListaHash;
+  uMunicipioCadastroRegra, uMunicipioDTO, uEstadoListaHash,
+  uEstadoDTO, uEstadoListagemModel;
 
 type
   TMunicipioCadastroController = class(TInterfacedObject,
@@ -14,13 +16,14 @@ type
     oMunicipioDTO: TMunicipioDTO;
     oMunicipioRegra: TMunicipioCadastroRegra;
     oMunicipioModel: TMunicipioCadastroModel;
+    oEstadoListagemModel: TEstadoListagemModel;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
-    procedure Pesquisar(Sender: TObject);
     procedure Novo(Sender: TObject);
+    procedure Pesquisar(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -42,32 +45,24 @@ end;
 
 procedure TMunicipioCadastroController.Pesquisar(Sender: TObject);
 var
+  oListaEstados: TEstadoListaHash;
+  oEstadoDTO: TEstadoDTO;
   oComBox: TComboBox;
-    //oComBox := frmMunicipioCadastro.cbEstado;
 begin
-//var
-//  oListaEstados: TListaEstados;
-//  oEstadoModel: TEstadoModel;
-//  oEstadoDTO: TEstadoDTO;
-//begin
-//  ACmbEstados.Items.Clear;
-//  oEstadoModel:= TEstadoModel.Create;
-//  try
-//    oListaEstados:= TListaEstados.Create([doOwnsValues]);
-//
-//    if oEstadoModel.BuscarListaEstados(oListaEstados) then
-//    begin
-//      for oEstadoDTO in oListaEstados.Values do
-//        ACmbEstados.Items.AddObject(oEstadoDTO.Nome, TObject(oEstadoDTO.ID));
-//    end;
-//  finally
-//
-//    if assigned(oEstadoModel) then
-//      oEstadoModel.Free;
-//
-//   if (assigned(oListaEstados)) then
-//      FreeAndNil(oListaEstados);
-//  end;
+  oComBox := frmMunicipioCadastro.cbEstado;
+  oComBox.Items.Clear;
+  try
+    oListaEstados:= TEstadoListaHash.Create([doOwnsValues]);
+
+    if oMunicipioRegra.ComboBox(oListaEstados, oEstadoListagemModel) then
+    begin
+      for oEstadoDTO in oListaEstados.Values do
+        oComBox.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
+    end;
+  finally
+   if (assigned(oListaEstados)) then
+      FreeAndNil(oListaEstados);
+  end;
 
 end;
 
@@ -76,6 +71,7 @@ begin
   oMunicipioDTO := TMunicipioDTO.Create;
   oMunicipioRegra := TMunicipioCadastroRegra.Create;
   oMunicipioModel := TMunicipioCadastroModel.Create;
+  oEstadoListagemModel := TEstadoListagemModel.Create;
 end;
 
 procedure TMunicipioCadastroController.CreateFormCadastro(AOwner: TComponent;
@@ -83,9 +79,12 @@ procedure TMunicipioCadastroController.CreateFormCadastro(AOwner: TComponent;
 begin
   if (not(Assigned(frmMunicipioCadastro))) then
     frmMunicipioCadastro := TfrmMunicipioCadastro.Create(AOwner);
+
+  frmMunicipioCadastro.OnActivate := Pesquisar;
   frmMunicipioCadastro.oInterfaceCadastroController :=
     oMunicipioCadastroController;
   frmMunicipioCadastro.Show;
+  frmMunicipioCadastro.OnActivate(nil);
 
 //  oMunicipioDTO.IdMunicipio := iId;
 //  if (oMunicipioRegra.BuscarUpdate(oMunicipioDTO, oMunicipioModel)) then
@@ -106,17 +105,68 @@ begin
 
   if (Assigned(oMunicipioModel)) then
     FreeAndNil(oMunicipioModel);
+
+  if (Assigned(oEstadoListagemModel)) then
+    FreeAndNil(oEstadoListagemModel);
   inherited;
 end;
 
 procedure TMunicipioCadastroController.Novo(Sender: TObject);
 begin
-
+  ShowMessage('Help');
 end;
 
 procedure TMunicipioCadastroController.Salvar(Sender: TObject);
+var
+  oComboBox: TComboBox;
+  iValidar, iSalvar: Integer;
 begin
+  oComboBox := frmMunicipioCadastro.cbEstado;
+  //oMunicipioDTO.IdMunicipio
+  oMunicipioDTO.Descricao := frmMunicipioCadastro.edtMunicipio.Text;
+  oMunicipioDTO.IdEstado := Integer(oComboBox.Items.Objects[oComboBox.ItemIndex]);
 
+  iValidar := oMunicipioRegra.ValidarMunicipio(oMunicipioDTO);
+  //Descrição do Município
+  if (iValidar = 1) then
+  begin
+    MessageDlg('Preencha o campo DESCRIÇÃO corretamente!',
+      mtWarning, [mbOK], 0);
+    exit;
+  end;
+  //Estado Selecionado no comboBox
+  if (iValidar = 2) then
+  begin
+    MessageDlg('Preencha o campo ESTADO corretamente!', mtWarning, [mbOK], 0);
+    exit;
+  end;
+
+  iSalvar := oMunicipioRegra.Salvar(oMunicipioDTO, oMunicipioModel);
+
+  //update true
+  if (iSalvar = 1) then
+  begin
+    MessageDlg('Resgistro alterado com sucesso!', mtInformation, [mbOK], 0);
+    exit;
+  end;
+  //update false
+  if (iSalvar = 2) then
+  begin
+    MessageDlg('Erro ao ALTERAR o registro!', mtError, [mbOK], 0);
+    exit;
+  end;
+  //insert true
+  if (iSalvar = 3) then
+  begin
+    MessageDlg('Resgistro salvo com sucesso!', mtInformation, [mbOK], 0);
+    exit;
+  end;
+  //insert false
+  if (iSalvar = 4) then
+  begin
+    MessageDlg('Erro ao SALVAR o registro!', mtError, [mbOK], 0);
+    exit;
+  end;
 end;
 
 end.
