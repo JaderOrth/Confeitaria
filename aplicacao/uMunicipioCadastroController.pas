@@ -18,13 +18,13 @@ type
     oMunicipioModel: TMunicipioCadastroModel;
     oEstadoListagemModel: TEstadoListagemModel;
     iIdAlterar: Integer;
+    procedure Pesquisar(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
-    procedure Pesquisar(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -42,6 +42,7 @@ begin
   if (Assigned(frmMunicipioCadastro)) then
     frmMunicipioCadastro.Close;
   FreeandNil(frmMunicipioCadastro);
+  oMunicipioRegra.LimparDTO(oMunicipioDTO);
 end;
 
 procedure TMunicipioCadastroController.Pesquisar(Sender: TObject);
@@ -53,7 +54,7 @@ begin
   oComBox := frmMunicipioCadastro.cbEstado;
   oComBox.Items.Clear;
   try
-    oListaEstados:= TEstadoListaHash.Create([doOwnsValues]);
+    oListaEstados := TEstadoListaHash.Create([doOwnsValues]);
 
     if oMunicipioRegra.ComboBox(oListaEstados, oEstadoListagemModel) then
     begin
@@ -61,8 +62,8 @@ begin
         oComBox.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
     end;
   finally
-   if (assigned(oListaEstados)) then
-      FreeAndNil(oListaEstados);
+    if (Assigned(oListaEstados)) then
+      FreeandNil(oListaEstados);
   end;
 
 end;
@@ -97,32 +98,33 @@ begin
     if (oMunicipioRegra.BuscarUpdate(oMunicipioDTO, oMunicipioModel)) then
     begin
       frmMunicipioCadastro.edtMunicipio.Text := oMunicipioDTO.Descricao;
-      oComboBox.ItemIndex := oComboBox.Items.IndexOfObject(TObject(oMunicipioDTO.IdEstado));
+      oComboBox.ItemIndex := oComboBox.Items.IndexOfObject
+        (TObject(oMunicipioDTO.IdEstado));
     end
     else
       raise Exception.Create('Erro ao trazer o registro do Banco!');
-    end;
+  end;
 end;
 
 destructor TMunicipioCadastroController.Destroy;
 begin
   if (Assigned(oMunicipioDTO)) then
-    FreeAndNil(oMunicipioDTO);
+    FreeandNil(oMunicipioDTO);
 
   if (Assigned(oMunicipioRegra)) then
-    FreeAndNil(oMunicipioRegra);
+    FreeandNil(oMunicipioRegra);
 
   if (Assigned(oMunicipioModel)) then
-    FreeAndNil(oMunicipioModel);
+    FreeandNil(oMunicipioModel);
 
   if (Assigned(oEstadoListagemModel)) then
-    FreeAndNil(oEstadoListagemModel);
+    FreeandNil(oEstadoListagemModel);
   inherited;
 end;
 
 procedure TMunicipioCadastroController.Novo(Sender: TObject);
 begin
-  ShowMessage('Help');
+  oMunicipioRegra.LimparDTO(oMunicipioDTO);
 end;
 
 procedure TMunicipioCadastroController.Salvar(Sender: TObject);
@@ -132,22 +134,23 @@ var
 begin
   oComboBox := frmMunicipioCadastro.cbEstado;
   oMunicipioDTO.Descricao := frmMunicipioCadastro.edtMunicipio.Text;
-  //verefica se o ComboBox já foi selecionado ou não
+  // verefica se o ComboBox já foi selecionado ou não
   if (oComboBox.ItemIndex = -1) then
     oMunicipioDTO.IdEstado := -1
   else
-    oMunicipioDTO.IdEstado := Integer(oComboBox.Items.Objects[oComboBox.ItemIndex]);
+    oMunicipioDTO.IdEstado :=
+      Integer(oComboBox.Items.Objects[oComboBox.ItemIndex]);
 
   iValidar := oMunicipioRegra.ValidarMunicipio(oMunicipioDTO);
-  //Descrição do Município
+  // Descrição do Município
   if (iValidar = 1) then
   begin
-    MessageDlg('Preencha o campo DESCRIÇÃO corretamente!',
-      mtWarning, [mbOK], 0);
+    MessageDlg('Preencha o campo DESCRIÇÃO corretamente!', mtWarning,
+      [mbOK], 0);
     frmMunicipioCadastro.edtMunicipio.SetFocus;
     exit;
   end;
-  //Estado Selecionado no comboBox
+  // Estado Selecionado no comboBox
   if (iValidar = 2) then
   begin
     MessageDlg('Preencha o campo ESTADO corretamente!', mtWarning, [mbOK], 0);
@@ -157,25 +160,25 @@ begin
 
   iSalvar := oMunicipioRegra.Salvar(oMunicipioDTO, oMunicipioModel);
 
-  //update true
+  // update true
   if (iSalvar = 1) then
   begin
     MessageDlg('Resgistro alterado com sucesso!', mtInformation, [mbOK], 0);
     exit;
   end;
-  //update false
+  // update false
   if (iSalvar = 2) then
   begin
     MessageDlg('Erro ao ALTERAR o registro!', mtError, [mbOK], 0);
     exit;
   end;
-  //insert true
+  // insert true
   if (iSalvar = 3) then
   begin
     MessageDlg('Resgistro salvo com sucesso!', mtInformation, [mbOK], 0);
     exit;
   end;
-  //insert false
+  // insert false
   if (iSalvar = 4) then
   begin
     MessageDlg('Erro ao SALVAR o registro!', mtError, [mbOK], 0);

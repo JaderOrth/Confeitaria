@@ -40,7 +40,9 @@ implementation
 procedure TMunicipioListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'descricao like ''%'+APesquisa+'%'' or estado like ''%'+APesquisa+'$''';
+  aMemTable.Filter := 'descricao like ''%'+
+                      APesquisa+'%'' or estado like ''%'+
+                      UpperCase(APesquisa)+'%''';
   aMemTable.Filtered := True;
 end;
 
@@ -69,8 +71,10 @@ end;
 procedure TMunicipioListagemController.CreateFormEdit(Sender: TObject;
   oMemTable: TFDMemTable);
 begin
+  if (not(Assigned(oMunicipioCadastroController))) then
+    oMunicipioCadastroController := TMunicipioCadastroController.Create;
   oMunicipioCadastroController.CreateFormCadastro(frmMunicipio, Sender,
-    oMemTable.FieldByName('ID').AsInteger);
+    oMemTable.FieldByName('idmunicipio').AsInteger);
 end;
 
 procedure TMunicipioListagemController.CreateFormListagem(AOwner: TComponent);
@@ -104,7 +108,12 @@ begin
   begin
     iId := oMemTable.FieldByName('idmunicipio').AsInteger;
     if (oMunicipioRegra.Excluir(iId, oMunicipioModel)) then
-      MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0)
+    begin
+      MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
+      //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
+      oMemTable.Locate('idmunicipio', iId);
+      oMemTable.Delete;
+    end
     else
       raise Exception.Create('Error  ao deletar o Registro');
   end;
@@ -129,6 +138,7 @@ begin
   begin
     frmMunicipio.btnEditar.Enabled := False;
     frmMunicipio.btnExcluir.Enabled := False;
+    frmMunicipio.bClick := False;
   end;
 end;
 

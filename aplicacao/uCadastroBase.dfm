@@ -1,6 +1,7 @@
 object frmCadastroBase: TfrmCadastroBase
   Left = 0
   Top = 0
+  BorderIcons = []
   Caption = 'Cadastro Base'
   ClientHeight = 264
   ClientWidth = 677

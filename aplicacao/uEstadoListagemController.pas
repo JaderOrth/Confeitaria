@@ -114,9 +114,9 @@ begin
     if oEstadoRegra.Excluir(iID, oEstadoModel) then
     begin
       MessageDlg('Registro deletado com sucesso!', mtInformation, [mbOK], 0);
-      oMemTable.Close;
-      oEstadoRegra.MontarGrid(oMemTable, oEstadoModel);
-      oMemTable.Open;
+      //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
+      oMemTable.Locate('iduf', iID);
+      oMemTable.Delete;
     end
     else
     begin

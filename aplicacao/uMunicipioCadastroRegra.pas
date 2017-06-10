@@ -17,6 +17,7 @@ type
     function Salvar(var AMunicipio: TMunicipioDTO;
       const AModel: IInterfaceMunicipioModel): Integer;
     function ValidarMunicipio(const AMunicipio: TMunicipioDTO): Integer;
+    procedure LimparDTO(AMunicipioDTO: TMunicipioDTO);
   end;
 
 implementation
@@ -35,6 +36,13 @@ function TMunicipioCadastroRegra.ComboBox(var ALista: TEstadoListaHash;
   const AModel: IInterfaceListagemModel): Boolean;
 begin
   Result := AModel.ComboBox(ALista);
+end;
+
+procedure TMunicipioCadastroRegra.LimparDTO(AMunicipioDTO: TMunicipioDTO);
+begin
+  AMunicipioDTO.IdMunicipio := 0;
+  AMunicipioDTO.Descricao := EmptyStr;
+  AMunicipioDTO.IdEstado := -1;
 end;
 
 function TMunicipioCadastroRegra.Salvar(var AMunicipio: TMunicipioDTO;

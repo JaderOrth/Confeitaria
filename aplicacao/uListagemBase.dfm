@@ -1,6 +1,7 @@
 object frmListagemBase: TfrmListagemBase
   Left = 0
   Top = 0
+  BorderIcons = []
   Caption = 'Listagem Base'
   ClientHeight = 441
   ClientWidth = 834
