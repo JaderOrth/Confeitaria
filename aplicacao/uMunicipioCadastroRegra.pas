@@ -68,6 +68,7 @@ end;
 function TMunicipioCadastroRegra.ValidarMunicipio(
   const AMunicipio: TMunicipioDTO): Integer;
 begin
+  Result := 0;
   if (Trim(AMunicipio.Descricao).IsEmpty) then
   begin
     Result := 1;
