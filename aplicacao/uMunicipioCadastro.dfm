@@ -38,6 +38,7 @@ inherited frmMunicipioCadastro: TfrmMunicipioCadastro
       Top = 124
       Width = 337
       Height = 24
+      CharCase = ecUpperCase
       TabOrder = 1
     end
   end

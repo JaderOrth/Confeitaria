@@ -29,7 +29,7 @@ end;
 function TMunicipioListagemRegra.MontarGrid(AMemtable: TFDMemTable;
   const AModel: IInterfaceMunicipioListagemModel): Boolean;
 begin
-  AModel.MontarGrid(AMemtable);
+  Result := AModel.MontarGrid(AMemtable);
 end;
 
 end.

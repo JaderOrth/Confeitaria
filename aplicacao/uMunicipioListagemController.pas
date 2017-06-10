@@ -102,7 +102,7 @@ begin
   if (MessageDlg('Deseja realmente Excluir?', mtConfirmation, [mbYes, mbNo], 0)
     = mrYes) then
   begin
-    iId := oMemTable.FieldByName('ID').AsInteger;
+    iId := oMemTable.FieldByName('idmunicipio').AsInteger;
     if (oMunicipioRegra.Excluir(iId, oMunicipioModel)) then
       MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0)
     else

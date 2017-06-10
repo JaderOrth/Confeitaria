@@ -17,6 +17,7 @@ type
     oMunicipioRegra: TMunicipioCadastroRegra;
     oMunicipioModel: TMunicipioCadastroModel;
     oEstadoListagemModel: TEstadoListagemModel;
+    iIdAlterar: Integer;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -76,6 +77,8 @@ end;
 
 procedure TMunicipioCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
+var
+  oComboBox: TComboBox;
 begin
   if (not(Assigned(frmMunicipioCadastro))) then
     frmMunicipioCadastro := TfrmMunicipioCadastro.Create(AOwner);
@@ -86,13 +89,19 @@ begin
   frmMunicipioCadastro.Show;
   frmMunicipioCadastro.OnActivate(nil);
 
-//  oMunicipioDTO.IdMunicipio := iId;
-//  if (oMunicipioRegra.BuscarUpdate(oMunicipioDTO, oMunicipioModel)) then
-//  begin
-//    frmMunicipioCadastro.edtID.Text := IntToStr(oMunicipioDTO.IdMunicipio);
-//    frmMunicipioCadastro.edtMunicipio.Text := oMunicipioDTO.Descrição;
-//  end else
-//    raise Exception.Create('Erro ao trazer o registro do Banco!');
+  if (iId > 0) then
+  begin
+    oMunicipioDTO.IdMunicipio := iId;
+    iIdAlterar := iId;
+    oComboBox := frmMunicipioCadastro.cbEstado;
+    if (oMunicipioRegra.BuscarUpdate(oMunicipioDTO, oMunicipioModel)) then
+    begin
+      frmMunicipioCadastro.edtMunicipio.Text := oMunicipioDTO.Descricao;
+      oComboBox.ItemIndex := oComboBox.Items.IndexOfObject(TObject(oMunicipioDTO.IdEstado));
+    end
+    else
+      raise Exception.Create('Erro ao trazer o registro do Banco!');
+    end;
 end;
 
 destructor TMunicipioCadastroController.Destroy;
@@ -122,9 +131,12 @@ var
   iValidar, iSalvar: Integer;
 begin
   oComboBox := frmMunicipioCadastro.cbEstado;
-  //oMunicipioDTO.IdMunicipio
   oMunicipioDTO.Descricao := frmMunicipioCadastro.edtMunicipio.Text;
-  oMunicipioDTO.IdEstado := Integer(oComboBox.Items.Objects[oComboBox.ItemIndex]);
+  //verefica se o ComboBox já foi selecionado ou não
+  if (oComboBox.ItemIndex = -1) then
+    oMunicipioDTO.IdEstado := -1
+  else
+    oMunicipioDTO.IdEstado := Integer(oComboBox.Items.Objects[oComboBox.ItemIndex]);
 
   iValidar := oMunicipioRegra.ValidarMunicipio(oMunicipioDTO);
   //Descrição do Município
@@ -132,12 +144,14 @@ begin
   begin
     MessageDlg('Preencha o campo DESCRIÇÃO corretamente!',
       mtWarning, [mbOK], 0);
+    frmMunicipioCadastro.edtMunicipio.SetFocus;
     exit;
   end;
   //Estado Selecionado no comboBox
   if (iValidar = 2) then
   begin
     MessageDlg('Preencha o campo ESTADO corretamente!', mtWarning, [mbOK], 0);
+    frmMunicipioCadastro.cbEstado.SetFocus;
     exit;
   end;
 

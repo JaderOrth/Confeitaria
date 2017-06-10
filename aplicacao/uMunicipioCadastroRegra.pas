@@ -50,13 +50,10 @@ begin
   else
   begin
     AMunicipio.IdMunicipio := AModel.BuscarID;
-    if (AMunicipio.IdMunicipio > 0) then
-    begin
-      if (AModel.Insert(AMunicipio)) then
-        Result := 3
-      else
-        Result := 4;
-    end;
+    if (AModel.Insert(AMunicipio)) then
+      Result := 3
+    else
+      Result := 4;
   end;
 end;
 

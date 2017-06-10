@@ -26,6 +26,7 @@ begin
   Result := 1;
   try
     oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
     oQuery.Open('SELECT MAX(idmunicipio) AS id FROM municipio');
     if (not(oQuery.IsEmpty)) then
       Result := oQuery.FieldByName('id').AsInteger + 1;
@@ -37,7 +38,24 @@ end;
 
 function TMunicipioCadastroModel.BuscarUpdate(
   var AMunicipio: TMunicipioDTO): Boolean;
+var
+  oQuery: TFDQuery;
 begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Open('SELECT descricao, idestado FROM municipio WHERE idmunicipio = '
+                + IntToStr(AMunicipio.IdMunicipio));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      AMunicipio.Descricao := oQuery.FieldByName('descricao').AsString;
+      AMunicipio.IdEstado := oQuery.FieldByName('iduf').AsInteger;
+    end;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndnil(oQuery);
+  end;
+
 
 end;
 
@@ -46,7 +64,7 @@ function TMunicipioCadastroModel.Insert(
 var
   sSql: String;
 begin
-  sSql := 'INSERT INTO(idmunicipio, descricao, iduf) VALUES ('+
+  sSql := 'INSERT INTO municipio(idmunicipio, descricao, iduf) VALUES ('+
           IntToStr(AMunicipio.IdMunicipio)+', '+
           QuotedStr(AMunicipio.Descricao)+', '+
           IntToStr(AMunicipio.IdEstado)+')';

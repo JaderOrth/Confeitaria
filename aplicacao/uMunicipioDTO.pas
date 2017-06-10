@@ -29,6 +29,7 @@ end;
 
 procedure TMunicipioDTO.SetIdEstado(const Value: Integer);
 begin
+  //if (Value <> -1) then
   FIdEstado := Value;
 end;
 
