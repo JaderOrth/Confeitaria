@@ -35,7 +35,7 @@ begin
           IntToStr(AMunicipio.IdMunicipio)+', '+
           QuotedStr(AMunicipio.Descricao)+', '+
           IntToStr(AMunicipio.IdEstado)+')';
-  TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
 function TMunicipioCadastroModel.Update(
