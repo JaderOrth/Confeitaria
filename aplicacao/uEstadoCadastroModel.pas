@@ -98,7 +98,7 @@ begin
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT * FROM uf where sigla_uf = '+ QuotedStr(aEstado.UF));
+    oQuery.Open('SELECT descricao FROM uf where sigla_uf = '+ QuotedStr(aEstado.UF));
     if (not(oQuery.IsEmpty)) then
     begin
       Result := True;

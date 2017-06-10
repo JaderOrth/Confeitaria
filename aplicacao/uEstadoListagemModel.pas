@@ -29,7 +29,7 @@ begin
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT * FROM uf');
+    oQuery.Open('SELECT iduf, descricao FROM uf');
     if (not(oQuery.IsEmpty)) then
     begin
       oQuery.First;
