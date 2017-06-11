@@ -31,7 +31,15 @@ uses
   uMunicipioCadastroModel in 'uMunicipioCadastroModel.pas',
   uInterfaceMunicipioModel in 'uInterfaceMunicipioModel.pas',
   uInterfaceMunicipioListagemModel in 'uInterfaceMunicipioListagemModel.pas',
-  uEstadoListaHash in 'uEstadoListaHash.pas';
+  uEstadoListaHash in 'uEstadoListaHash.pas',
+  uBairro in 'uBairro.pas' {frmBairro},
+  uBairroListagemController in 'uBairroListagemController.pas',
+  uBairroCadastroController in 'uBairroCadastroController.pas',
+  uBairroCadastro in 'uBairroCadastro.pas' {frmBairroCadastro},
+  uBairroListagemRegra in 'uBairroListagemRegra.pas',
+  uBairroListagemModel in 'uBairroListagemModel.pas',
+  uInterfaceBairroListagemModel in 'uInterfaceBairroListagemModel.pas',
+  uBairroDTO in 'uBairroDTO.pas';
 
 {$R *.res}
 
@@ -39,5 +47,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmBairroCadastro, frmBairroCadastro);
   Application.Run;
 end.
