@@ -38,8 +38,7 @@ procedure TBairroCadastroController.CreateFormCadastro(AOwner: TComponent;
 begin
   if (not(Assigned(frmBairroCadastro))) then
     frmBairroCadastro := TfrmBairroCadastro.Create(AOwner);
-  frmBairroCadastro.oInterfaceCadastroController :=
-    IInterfaceCadastroController;
+  frmBairroCadastro.oInterfaceCadastroController := oBairroCadastroController;
   frmBairroCadastro.Show;
 end;
 

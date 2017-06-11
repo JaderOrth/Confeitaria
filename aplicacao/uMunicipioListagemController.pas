@@ -3,8 +3,8 @@ unit uMunicipioListagemController;
 interface
 
 uses
-  System.Classes, FireDAC.Comp.Client, Vcl.DBGrids,
-  System.SysUtils, Vcl.Dialogs, System.UITypes,
+  System.Classes, FireDAC.Comp.Client,System.SysUtils, Vcl.Dialogs,
+   System.UITypes,
   uInterfaceListagemController, uMunicipio, uMunicipioCadastroController,
   uMunicipioDTO, uMunicipioListagemRegra, uMunicipioListagemModel;
 

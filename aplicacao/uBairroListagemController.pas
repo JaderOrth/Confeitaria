@@ -3,7 +3,8 @@ unit uBairroListagemController;
 interface
 
 uses
-  System.Classes, FireDAC.Comp.Client, System.SysUtils,
+  System.Classes, FireDAC.Comp.Client,System.SysUtils, Vcl.Dialogs,
+  System.UITypes,
   uBairro, uInterfaceListagemController, uBairroCadastroController,
   uBairroListagemRegra, uBairroListagemModel, uBairroDTO;
 
@@ -20,8 +21,8 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable);
-    procedure Excluir(oMemtable: TFDMemTable);
+    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure Excluir(oMemTable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
@@ -31,7 +32,6 @@ type
 var
   oBairroListagemController: IInterfaceListagemController;
 
-
 implementation
 
 { TBairroListagemController }
@@ -39,7 +39,9 @@ implementation
 procedure TBairroListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-
+  aMemTable.Filter := 'descricao like ''%'+APesquisa+'%'''+
+                      ' or municipio like ''%'+APesquisa+'%''';
+  aMemTable.Filtered := true;
 end;
 
 procedure TBairroListagemController.CloseForm(Sender: TObject);
@@ -62,7 +64,7 @@ constructor TBairroListagemController.Create;
 begin
   oBairroModel := TBairroListagemModel.Create;
   oBairroRegra := TBairroListagemRegra.Create;
-  oBairroDTO   := TBairroDTO.Create;
+  oBairroDTO := TBairroDTO.Create;
 end;
 
 procedure TBairroListagemController.CreateFormEdit(Sender: TObject;
@@ -82,6 +84,7 @@ begin
     frmBairro := TfrmBairro.Create(AOwner);
   frmBairro.oListagemBase := oBairroListagemController;
   frmBairro.Show;
+  frmBairro.OnActivate(nil);
 end;
 
 destructor TBairroListagemController.Destroy;
@@ -97,9 +100,24 @@ begin
   inherited;
 end;
 
-procedure TBairroListagemController.Excluir(oMemtable: TFDMemTable);
+procedure TBairroListagemController.Excluir(oMemTable: TFDMemTable);
+var
+  iID: Integer;
 begin
-
+  if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
+    [mbYes, mbNo], 0) = mrYes) then
+  begin
+    iId := oMemTable.FieldByName('idbairro').AsInteger;
+    if (oBairroRegra.Excluir(iId, oBairroModel)) then
+    begin
+      MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
+      //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
+      oMemTable.Locate('idbairro', iId);
+      oMemTable.Delete;
+    end
+    else
+      raise Exception.Create('Error  ao deletar o Registro');
+  end;
 end;
 
 procedure TBairroListagemController.Help(Sender: TObject);
@@ -107,9 +125,22 @@ begin
 
 end;
 
-procedure TBairroListagemController.MontarGrid(oMemtable: TFDMemTable);
+procedure TBairroListagemController.MontarGrid(oMemTable: TFDMemTable);
 begin
-  oMemtable.Close;
+  oMemTable.Close;
+  if (oBairroRegra.MontarGrid(oMemTable, oBairroModel)) then
+  begin
+    oMemTable.Open;
+    frmBairro.bClick := True;
+    frmBairro.btnEditar.Enabled := True;
+    frmBairro.btnExcluir.Enabled := True;
+  end
+  else
+  begin
+    frmBairro.bClick := False;
+    frmBairro.btnEditar.Enabled := False;
+    frmBairro.btnExcluir.Enabled := False;
+  end;
 end;
 
 end.
