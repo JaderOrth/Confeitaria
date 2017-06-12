@@ -39,7 +39,10 @@ uses
   uBairroListagemRegra in 'uBairroListagemRegra.pas',
   uBairroListagemModel in 'uBairroListagemModel.pas',
   uInterfaceBairroListagemModel in 'uInterfaceBairroListagemModel.pas',
-  uBairroDTO in 'uBairroDTO.pas';
+  uBairroDTO in 'uBairroDTO.pas',
+  uBairroCadastroRegra in 'uBairroCadastroRegra.pas',
+  uBairroCadastroModel in 'uBairroCadastroModel.pas',
+  uInterfaceBairroCadastroModel in 'uInterfaceBairroCadastroModel.pas';
 
 {$R *.res}
 

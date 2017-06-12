@@ -23,6 +23,7 @@ type
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
+    procedure Pesquisar(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -79,6 +80,11 @@ begin
   oEstadoRegra.LimparDTO(oEstadoDTO);
   frmEstadoCadastro.edtSigla.Enabled := true;
   frmEstadoCadastro.edtSigla.SetFocus;
+end;
+
+procedure TEstadoCadastroController.Pesquisar(Sender: TObject);
+begin
+{}
 end;
 
 procedure TEstadoCadastroController.Salvar(Sender: TObject);

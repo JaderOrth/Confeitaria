@@ -12,7 +12,7 @@ type
   public
     function Excluir(var iID: Integer): Boolean;
     function MontarGrid(oMemTable: TFDMemTable): Boolean;
-    function ComboBox(ALista: TEstadoListaHash): Boolean;
+    function ComboBox(var ALista: TEstadoListaHash): Boolean;
 
   end;
 
@@ -20,7 +20,7 @@ implementation
 
 { TEstadoModel }
 
-function TEstadoListagemModel.ComboBox(ALista: TEstadoListaHash): Boolean;
+function TEstadoListagemModel.ComboBox(var ALista: TEstadoListaHash): Boolean;
 var
   oQuery: TFDQuery;
   oEstadoDTO: TEstadoDTO;

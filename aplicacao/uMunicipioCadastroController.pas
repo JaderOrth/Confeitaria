@@ -18,13 +18,13 @@ type
     oMunicipioModel: TMunicipioCadastroModel;
     oEstadoListagemModel: TEstadoListagemModel;
     iIdAlterar: Integer;
-    procedure Pesquisar(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
+    procedure Pesquisar(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
