@@ -7,7 +7,8 @@ uses
   System.Generics.Collections,
   uInterfaceCadastroController, uBairroCadastro, uBairroCadastroRegra,
   uBairroCadastroModel, uBairroDTO, uEstadoListaHash, uEstadoDTO,
-  uEstadoListagemModel;
+  uEstadoListagemModel, uMunicipioListagemModel, uMunicipioDTO,
+  uMunicipioListaHash;
 
 type
   TBairroCadastroController = class(TInterfacedObject,
@@ -46,9 +47,42 @@ begin
 end;
 
 procedure TBairroCadastroController.ComboBox(Sender: TObject);
+var
+  oMunicipioLista: TMunicipioListaHash;
+  oMunicipioModel: TMunicipioListagemModel;
+  oMunicipioDTO: TMunicipioDTO;
+  oComboBox: TComboBox;
+  iID: Integer;
 begin
-  if frmBairroCadastro.cbEstado.ItemIndex <> -1 then
+  if (frmBairroCadastro.cbEstado.ItemIndex <> -1) then
   begin
+    oComboBox := frmBairroCadastro.cbMunicipio;
+    oComboBox.Items.Clear;
+    oComboBox.Clear;
+    //id do estado para poder fazer o select
+    iID := Integer(frmBairroCadastro.cbEstado.Items.Objects
+      [frmBairroCadastro.cbEstado.ItemIndex]);
+
+    try
+      oMunicipioLista := TMunicipioListaHash.Create([doOwnsValues]);
+      oMunicipioModel := TMunicipioListagemModel.Create;
+
+      if (oBairroRegra.ComboBomMunicipio(oMunicipioLista, iID,
+        oMunicipioModel)) then
+      begin
+        for oMunicipioDTO in oMunicipioLista.Values do
+        begin
+          oComboBox.Items.AddObject(oMunicipioDTO.Descricao,
+            TObject(oMunicipioDTO.IdMunicipio));
+        end;
+      end;
+    finally
+      if (Assigned(oMunicipioModel)) then
+        FreeAndNil(oMunicipioModel);
+
+      if (Assigned(oMunicipioLista)) then
+        FreeAndNil(oMunicipioLista);
+    end;
 
   end
   else
@@ -121,6 +155,7 @@ end;
 
 procedure TBairroCadastroController.Salvar(Sender: TObject);
 begin
+
 end;
 
 end.

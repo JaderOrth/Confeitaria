@@ -5,7 +5,7 @@ interface
 uses
   System.Generics.Collections, uMunicipioDTO;
 type
-  TMunicipioListaHash = TObjectDictionary<String, uMunicipioDTO>;
+  TMunicipioListaHash = TObjectDictionary<String, TMunicipioDTO>;
 
 implementation
 

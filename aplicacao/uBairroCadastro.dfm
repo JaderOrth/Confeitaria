@@ -52,6 +52,7 @@ inherited frmBairroCadastro: TfrmBairroCadastro
       Top = 125
       Width = 337
       Height = 24
+      CharCase = ecUpperCase
       TabOrder = 1
     end
     object cbMunicipio: TComboBox

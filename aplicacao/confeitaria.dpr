@@ -42,7 +42,8 @@ uses
   uBairroDTO in 'uBairroDTO.pas',
   uBairroCadastroRegra in 'uBairroCadastroRegra.pas',
   uBairroCadastroModel in 'uBairroCadastroModel.pas',
-  uInterfaceBairroCadastroModel in 'uInterfaceBairroCadastroModel.pas';
+  uInterfaceBairroCadastroModel in 'uInterfaceBairroCadastroModel.pas',
+  uMunicipioListaHash in 'uMunicipioListaHash.pas';
 
 {$R *.res}
 

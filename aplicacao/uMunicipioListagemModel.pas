@@ -4,7 +4,8 @@ interface
 
 uses
   FireDAC.Comp.Client, System.SysUtils,
-  uClassConexaoSingleton, uInterfaceMunicipioListagemModel;
+  uClassConexaoSingleton, uInterfaceMunicipioListagemModel,
+  uMunicipioListaHash, uMunicipioDTO;
 
 type
   TMunicipioListagemModel = class(TInterfacedObject,
@@ -12,11 +13,46 @@ type
   public
     function Excluir(const iID: Integer): Boolean;
     function MontarGrid(oMemTable: TFDMemTable): Boolean;
+    function ComboBox(var aLista: TMunicipioListaHash; iID: Integer): Boolean;
   end;
 
 implementation
 
 { TMunicipioListagemModel }
+
+function TMunicipioListagemModel.ComboBox(var aLista: TMunicipioListaHash;
+  iID: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+  oMunicipioDTO: TMunicipioDTO;
+begin
+  Result := False;
+  oQuery := TFDQuery.Create(nil);
+  try
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT idmunicipio, descricao FROM municipio' +
+      ' WHERE iduf = ' + IntToStr(iID));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      oQuery.First;
+      while (not(oQuery.Eof)) do
+      begin
+        oMunicipioDTO := TMunicipioDTO.Create;
+
+        oMunicipioDTO.IdMunicipio :=
+          oQuery.FieldByName('idmunicipio').AsInteger;
+        oMunicipioDTO.Descricao := oQuery.FieldByName('descricao').AsString;
+
+        aLista.Add(oMunicipioDTO.Descricao, oMunicipioDTO);
+        oQuery.Next;
+      end;
+      Result := True;
+    end;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
 
 function TMunicipioListagemModel.Excluir(const iID: Integer): Boolean;
 var
@@ -34,9 +70,9 @@ begin
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT m.idMunicipio as idMunicipio,'+
-                ' m.descricao as descricao, uf.descricao as estado '+
-                'FROM Municipio as m inner join uf on uf.iduf = m.iduf');
+    oQuery.Open('SELECT m.idMunicipio as idMunicipio,' +
+      ' m.descricao as descricao, uf.descricao as estado ' +
+      'FROM Municipio as m inner join uf on uf.iduf = m.iduf');
     oMemTable.Data := oQuery.Data;
     if (not(oQuery.IsEmpty)) then
       Result := True;

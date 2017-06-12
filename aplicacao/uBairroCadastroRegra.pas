@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils,
   uInterfaceBairroCadastroModel, uBairroDTO, uInterfaceListagemModel,
-  uEstadoListaHash;
+  uEstadoListaHash, uMunicipioListaHash, uInterfaceMunicipioListagemModel;
 
 type
   TBairroCadastroRegra = class
@@ -13,11 +13,20 @@ type
     procedure LimparDTO(aBairroDTO: TBairroDTO);
     function ComboBox(var aListaEstado: TEstadoListaHash;
       const aModel: IInterfaceListagemModel): Boolean;
+    function ComboBomMunicipio(var aListaMunicipio: TMunicipioListaHash;
+      const  iID: Integer; const aModel: IInterfaceMunicipioListagemModel): Boolean;
   end;
 
 implementation
 
 { TBairroCadastroRegra }
+
+function TBairroCadastroRegra.ComboBomMunicipio(
+  var aListaMunicipio: TMunicipioListaHash; const  iID: Integer;
+  const aModel: IInterfaceMunicipioListagemModel): Boolean;
+begin
+  Result := aModel.ComboBox(aListaMunicipio, iID);
+end;
 
 function TBairroCadastroRegra.ComboBox(var aListaEstado: TEstadoListaHash;
   const aModel: IInterfaceListagemModel): Boolean;
