@@ -33,12 +33,14 @@ begin
   oEstadoListagemRegra:= TEstadoListagemRegra.Create;
   oModelMock := TMock<IInterfaceListagemModel>.Create;
 
+  //iExclusao := 1;
   oModelMock.Setup.WillExecute(
     function (const args : TArray<TValue>; const ReturnType : TRttiType): TValue
     begin
+      Result := false;
       Result := iExclusao > 0;
     end
-  ).When.Excluir(iExclusao);
+  ).When.Excluir(1);
 
   iExclusao := 0;
   bResultado := oEstadoListagemRegra.Excluir(iExclusao, oModelMock);

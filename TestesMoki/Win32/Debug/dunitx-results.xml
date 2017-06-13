@@ -1,22 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<test-results name="E:\Confeitaria\TestesMoki\Win32\Debug\AplicacaoTeste.exe" total="1" errors="1" failures="0" ignored="0" inconclusive="0" not-run="0" skipped="0" invalid="0" date="2017-06-07" time="21.868">
+<test-results name="E:\Confeitaria\TestesMoki\Win32\Debug\AplicacaoTeste.exe" total="1" errors="0" failures="0" ignored="0" inconclusive="0" not-run="0" skipped="0" invalid="0" date="2017-06-12" time="0.001">
   <culture-info current-culture="en" current-uiculture="en" />
-  <test-suite type="Assembly" name="AplicacaoTeste.exe" executed="true" result="Failure" success="False" time="21.868" asserts="0">
+  <test-suite type="Assembly" name="AplicacaoTeste.exe" executed="true" result="Success" success="True" time="0.001" asserts="0">
     <results>
-        <test-suite type="Namespace" name="uTesteEstadoListagemRegra" executed="true" result="Success" success="True" time="21.868" asserts="0" >
+        <test-suite type="Namespace" name="uTesteEstadoListagemRegra" executed="true" result="Success" success="True" time="0.001" asserts="0" >
           <results>
-              <test-suite type="Fixture" name="TMyTestEstadoListagemRegra" executed="True" result="Success" success="True" time="21.868" >
+              <test-suite type="Fixture" name="TMyTestEstadoListagemRegra" executed="True" result="Success" success="True" time="0.001" >
                 <results>
-                  <test-case name="Test1" executed="True" result="Error" success="False" time="21.855" asserts="0" >
-                    <failure>
-                      <message>
-                        <![CDATA[ [IInterfaceListagemModel] has no default return value or return type was defined for method [Excluir] ]]>
-                      </message>
-                      <stack-trace>
-                        <![CDATA[  ]]>
-                      </stack-trace>
-                    </failure>
-                  </test-case>
+                  <test-case name="Test1" executed="True" result="Success" success="True" time="0.001" asserts="0" />
                 </results>
               </test-suite>
           </results>

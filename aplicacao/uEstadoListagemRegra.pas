@@ -13,14 +13,14 @@ type
   public
     function MontarGrid(oMemTable: TFDMeMTable;
       const AModel: IInterfaceListagemModel): Boolean;
-    function Excluir(var iId: Integer; const AModel: IInterfaceListagemModel): Boolean;
+    function Excluir(const iId: Integer; const AModel: IInterfaceListagemModel): Boolean;
   end;
 
 implementation
 
 { TEstadoListagemRegra }
 
-function TEstadoListagemRegra.Excluir(var iId: Integer;
+function TEstadoListagemRegra.Excluir(const iId: Integer;
   const AModel: IInterfaceListagemModel): Boolean;
 begin
   Result := False;
