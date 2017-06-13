@@ -53,23 +53,23 @@ var
   oMunicipioModel: TMunicipioListagemModel;
   oMunicipioDTO: TMunicipioDTO;
   oComboBox: TComboBox;
-  iID: Integer;
+  iId: Integer;
 begin
   if (frmBairroCadastro.cbEstado.ItemIndex <> -1) then
   begin
     oComboBox := frmBairroCadastro.cbMunicipio;
     oComboBox.Items.Clear;
     oComboBox.Clear;
-    //id do estado para poder fazer o select
-    iID := Integer(frmBairroCadastro.cbEstado.Items.Objects
+    // id do estado para poder fazer o select
+    iId := Integer(frmBairroCadastro.cbEstado.Items.Objects
       [frmBairroCadastro.cbEstado.ItemIndex]);
 
     try
       oMunicipioLista := TMunicipioListaHash.Create([doOwnsValues]);
       oMunicipioModel := TMunicipioListagemModel.Create;
 
-      if (oBairroRegra.ComboBomMunicipio(oMunicipioLista, iID,
-        oMunicipioModel)) then
+      if (oBairroRegra.ComboBomMunicipio(oMunicipioLista, iId, oMunicipioModel))
+      then
       begin
         for oMunicipioDTO in oMunicipioLista.Values do
         begin
@@ -124,8 +124,8 @@ begin
     frmBairroCadastro.edtBairro.Text := oBairroDTO.Descricao;
     oCbEstado.ItemIndex := oCbEstado.Items.IndexOfObject(TObject(iIdEstado));
     ComboBox(Sender);
-    oCbMunicipio.ItemIndex := oCbMunicipio.Items.IndexOfObject(
-      TObject(oBairroDTO.idMunicipio));
+    oCbMunicipio.ItemIndex := oCbMunicipio.Items.IndexOfObject
+      (TObject(oBairroDTO.IdMunicipio));
   end;
 end;
 
@@ -164,7 +164,8 @@ begin
     if (oBairroRegra.ComboBox(oListaEstado, oEstadoModel)) then
     begin
       for oEstadoDTO in oListaEstado.Values do
-        cbEstado.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
+        cbEstado.Items.AddObject(oEstadoDTO.Descricao,
+          TObject(oEstadoDTO.ID));
     end;
   finally
     if (Assigned(oListaEstado)) then
@@ -181,23 +182,22 @@ var
   iValidar, iSalvar: Integer;
 begin
   oComboBox := frmBairroCadastro.cbMunicipio;
-  oBairroDTO.idBairro := iIdAlterar;
   oBairroDTO.Descricao := frmBairroCadastro.edtBairro.Text;
   if (oComboBox.ItemIndex = -1) then
-    oBairroDTO.idMunicipio := -1
+    oBairroDTO.IdMunicipio := -1
   else
-    oBairroDTO.idMunicipio := Integer(oComboBox.Items.Objects
-      [oComboBox.ItemIndex]);
+    oBairroDTO.IdMunicipio :=
+      Integer(oComboBox.Items.Objects[oComboBox.ItemIndex]);
 
   iValidar := oBairroRegra.ValidarEdit(oBairroDTO);
-  //descrição
+  // descrição
   if (iValidar = 1) then
   begin
     MessageDlg('Preencha o campo DESCRICÃO corretamente!', mtWarning,
       [mbOK], 0);
     exit;
   end;
-  //idMunicipio
+  // idMunicipio
   if (iValidar = 2) then
   begin
     MessageDlg('Preencha o campo MUNICÍPIO corretamente!', mtWarning,
@@ -206,25 +206,25 @@ begin
   end;
 
   iSalvar := oBairroRegra.Salvar(oBairroDTO, oBairroModel);
-  //Update True
+  // Update True
   if (iSalvar = 1) then
   begin
     MessageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
     exit;
   end;
-  //Update False
+  // Update False
   if (iSalvar = 2) then
   begin
     MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     exit;
   end;
-  //Insert True
+  // Insert True
   if (iSalvar = 3) then
   begin
-    MessageDlg('Registro salvado com sucesso!', mtInformation, [mbOK], 0);
+    MessageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
     exit;
   end;
-  //Insert False
+  // Insert False
   if (iSalvar = 4) then
   begin
     MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
