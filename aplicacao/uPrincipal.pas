@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.Menus, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
   uClassConexaoSingleton, uEstadoListagemController, uMunicipioListagemController,
-  uBairroListagemController;
+  uBairroListagemController, uClienteListagemController;
 
 type
   TfrmPrincipal = class(TForm)
@@ -38,6 +38,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Municpio1Click(Sender: TObject);
     procedure Bairro1Click(Sender: TObject);
+    procedure Cliente1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -64,11 +65,17 @@ begin
   Close;
 end;
 
+procedure TfrmPrincipal.Cliente1Click(Sender: TObject);
+begin
+  if (not(Assigned(oClienteListagemController))) then
+    oClienteListagemController := TClienteListagemController.Create;
+  oClienteListagemController.CreateFormListagem(Self);
+end;
+
 procedure TfrmPrincipal.Estado1Click(Sender: TObject);
 begin
   if (not(Assigned(oEstadoListagemController))) then
     oEstadoListagemController := TEstadoListagemController.Create;
-
   oEstadoListagemController.CreateFormListagem(Self);
 end;
 

@@ -164,6 +164,23 @@
         <DCCReference Include="uBairroCadastroModel.pas"/>
         <DCCReference Include="uInterfaceBairroCadastroModel.pas"/>
         <DCCReference Include="uMunicipioListaHash.pas"/>
+        <DCCReference Include="uClienteListagemController.pas"/>
+        <DCCReference Include="uClienteListagemRegra.pas"/>
+        <DCCReference Include="uClienteListagemModel.pas"/>
+        <DCCReference Include="uClienteDTO.pas"/>
+        <DCCReference Include="uCliente.pas">
+            <Form>frmCliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uClienteCadastro.pas">
+            <Form>frmCadastroCliente</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uClienteCadastroController.pas"/>
+        <DCCReference Include="uInterfaceClienteModel.pas"/>
+        <DCCReference Include="uClienteCadastroRegra.pas"/>
+        <DCCReference Include="uClienteCadastroModel.pas"/>
+        <DCCReference Include="uInterfaceClienteCadastroModel.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

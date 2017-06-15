@@ -50,7 +50,6 @@ begin
     exit;
   frmBairro.Close;
   FreeAndNil(frmBairro);
-
 end;
 
 procedure TBairroListagemController.ControlerCadastro(Sender: TObject);

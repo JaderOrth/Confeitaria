@@ -935,6 +935,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object Cliente1: TMenuItem
         Caption = 'C&liente'
+        OnClick = Cliente1Click
       end
       object Estado1: TMenuItem
         Caption = '&Estado'

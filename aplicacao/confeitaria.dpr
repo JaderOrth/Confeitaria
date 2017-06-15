@@ -43,7 +43,18 @@ uses
   uBairroCadastroRegra in 'uBairroCadastroRegra.pas',
   uBairroCadastroModel in 'uBairroCadastroModel.pas',
   uInterfaceBairroCadastroModel in 'uInterfaceBairroCadastroModel.pas',
-  uMunicipioListaHash in 'uMunicipioListaHash.pas';
+  uMunicipioListaHash in 'uMunicipioListaHash.pas',
+  uClienteListagemController in 'uClienteListagemController.pas',
+  uClienteListagemRegra in 'uClienteListagemRegra.pas',
+  uClienteListagemModel in 'uClienteListagemModel.pas',
+  uClienteDTO in 'uClienteDTO.pas',
+  uCliente in 'uCliente.pas' {frmCliente},
+  uClienteCadastro in 'uClienteCadastro.pas' {frmCadastroCliente},
+  uClienteCadastroController in 'uClienteCadastroController.pas',
+  uInterfaceClienteModel in 'uInterfaceClienteModel.pas',
+  uClienteCadastroRegra in 'uClienteCadastroRegra.pas',
+  uClienteCadastroModel in 'uClienteCadastroModel.pas',
+  uInterfaceClienteCadastroModel in 'uInterfaceClienteCadastroModel.pas';
 
 {$R *.res}
 
