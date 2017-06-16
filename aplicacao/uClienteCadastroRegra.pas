@@ -3,7 +3,7 @@ unit uClienteCadastroRegra;
 interface
 
 uses
-  uInterfaceClienteCadastroModel;
+  uInterfaceClienteCadastroModel, uClienteDTO;
 
 type
   TClienteCadastroRegra = class

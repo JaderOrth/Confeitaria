@@ -39,6 +39,7 @@ type
     procedure Municpio1Click(Sender: TObject);
     procedure Bairro1Click(Sender: TObject);
     procedure Cliente1Click(Sender: TObject);
+    procedure btnClientesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -60,6 +61,13 @@ begin
   oBairroListagemController.CreateFormListagem(Self);
 end;
 
+procedure TfrmPrincipal.btnClientesClick(Sender: TObject);
+begin
+  if (not(Assigned(oClienteListagemController))) then
+    oClienteListagemController := TClienteListagemController.Create;
+  oClienteListagemController.CreateFormListagem(Self);
+end;
+
 procedure TfrmPrincipal.btnSairClick(Sender: TObject);
 begin
   Close;
@@ -67,9 +75,7 @@ end;
 
 procedure TfrmPrincipal.Cliente1Click(Sender: TObject);
 begin
-  if (not(Assigned(oClienteListagemController))) then
-    oClienteListagemController := TClienteListagemController.Create;
-  oClienteListagemController.CreateFormListagem(Self);
+  btnClientesClick(Sender);
 end;
 
 procedure TfrmPrincipal.Estado1Click(Sender: TObject);

@@ -3,7 +3,7 @@ unit uClienteCadastroModel;
 interface
 
 uses
-  uInterfaceClienteCadastroModel;
+  uInterfaceClienteCadastroModel, uClienteDTO, uClassConexaoSingleton;
 
 type
   TClienteCadastroModel = class(TInterfacedObject,
@@ -12,6 +12,7 @@ type
 
 
   end;
+
 implementation
 
 end.

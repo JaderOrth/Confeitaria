@@ -3,7 +3,8 @@ unit uClienteListagemController;
 interface
 
 uses
-  System.Classes, FireDAC.Comp.Client, System.SysUtils, System.UITypes,
+  System.Classes, FireDAC.Comp.Client, System.SysUtils, Vcl.Dialogs,
+  System.UITypes, Data.DB,
   uInterfaceListagemController, uClienteDTO, uCliente,
   uClienteCadastroController, uClienteListagemRegra, uClienteListagemModel;
 
@@ -38,7 +39,13 @@ implementation
 procedure TClienteListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-
+  aMemTable.Filter := ' endereco like ''%'+APesquisa+'%'''+
+                      ' or numero like ''%'+APesquisa+'%'''+
+                      ' or telefone like ''%'+APesquisa+'%'''+
+                      ' or celular like ''%'+APesquisa+'%'''+
+                      ' or descricao like ''%'+APesquisa+'%'''+
+                      ' or municipio like ''%'+APesquisa+'%''';
+  aMemTable.Filtered := true;
 end;
 
 procedure TClienteListagemController.CloseForm(Sender: TObject);
@@ -97,20 +104,52 @@ begin
 end;
 
 procedure TClienteListagemController.Excluir(oMemtable: TFDMemTable);
+var
+  iID: Integer;
 begin
+  if (MessageDlg('Deseja realmente deletar esse registro?', mtConfirmation,
+  [mbYes, mbNo], 0 ) = mrYes) then
+  begin
+    iID := oMemtable.FieldByName('idcliente').AsInteger;
+    if (oClienteRegra.Excluir(iID, oClienteModel)) then
+    begin
+      MessageDlg('Resgistro deletado com sucesso', mtInformation, [mbOK], 0);
+      oMemtable.Locate('idcliente', iID);
+      oMemtable.Delete;
+    end
+    else
+      MessageDlg('Erro ao deletar este registro!', mtError, [mbOK], 0);
+  end;
+
+  if (oMemtable.IsEmpty) then
+  begin
+    frmCliente.btnEditar.Enabled := false;
+    frmCliente.btnExcluir.Enabled := false;
+  end;
 
 end;
 
 procedure TClienteListagemController.Help(Sender: TObject);
 begin
-
+{}
 end;
 
 procedure TClienteListagemController.MontarGrid(oMemtable: TFDMemTable);
 begin
   oMemtable.Close;
-  oClienteRegra.MontarGrid(oMemtable, oClienteModel);
-  oMemtable.open;
+  if (oClienteRegra.MontarGrid(oMemtable, oClienteModel)) then
+   begin
+    oMemTable.Open;
+    frmCliente.bClick := True;
+    frmCliente.btnEditar.Enabled := True;
+    frmCliente.btnExcluir.Enabled := True;
+  end
+  else
+  begin
+    frmCliente.bClick := False;
+    frmCliente.btnEditar.Enabled := False;
+    frmCliente.btnExcluir.Enabled := False;
+  end;
 end;
 
 end.

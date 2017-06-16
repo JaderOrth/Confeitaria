@@ -701,6 +701,7 @@ object frmPrincipal: TfrmPrincipal
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
       NumGlyphs = 2
+      OnClick = btnClientesClick
       ExplicitHeight = 71
     end
     object btnSair: TSpeedButton

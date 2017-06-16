@@ -11,6 +11,7 @@ inherited frmCliente: TfrmCliente
         Visible = False
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'endereco'
         Title.Caption = 'Endere'#231'o'
@@ -18,31 +19,32 @@ inherited frmCliente: TfrmCliente
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'numero'
         Title.Caption = 'N'#250'mero'
-        Width = 100
+        Width = 80
         Visible = True
       end
       item
+        DropDownRows = 0
         Expanded = False
-        FieldName = 'observacao'
-        Title.Caption = 'Observa'#231#245'es'
-        Width = 250
-        Visible = True
+        Visible = False
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'telefone'
         Title.Caption = 'Telefone'
-        Width = 70
+        Width = 120
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'celular'
         Title.Caption = 'Celular'
-        Width = 70
+        Width = 120
         Visible = True
       end
       item

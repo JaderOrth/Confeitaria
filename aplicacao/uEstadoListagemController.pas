@@ -124,6 +124,13 @@ begin
       exit;
     end;
   end;
+
+  if (oMemtable.IsEmpty) then
+  begin
+    frmEstado.btnEditar.Enabled := false;
+    frmEstado.btnExcluir.Enabled := false;
+  end;
+
 end;
 
 procedure TEstadoListagemController.Help(Sender: TObject);

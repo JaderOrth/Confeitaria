@@ -117,6 +117,13 @@ begin
     else
       raise Exception.Create('Error  ao deletar o Registro');
   end;
+
+  if (oMemtable.IsEmpty) then
+  begin
+    frmMunicipio.btnEditar.Enabled := false;
+    frmMunicipio.btnExcluir.Enabled := false;
+  end;
+
 end;
 
 procedure TMunicipioListagemController.Help(Sender: TObject);

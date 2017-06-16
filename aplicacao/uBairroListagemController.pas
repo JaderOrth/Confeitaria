@@ -3,7 +3,7 @@ unit uBairroListagemController;
 interface
 
 uses
-  System.Classes, FireDAC.Comp.Client,System.SysUtils, Vcl.Dialogs,
+  System.Classes, FireDAC.Comp.Client, System.SysUtils, Vcl.Dialogs,
   System.UITypes,
   uBairro, uInterfaceListagemController, uBairroCadastroController,
   uBairroListagemRegra, uBairroListagemModel, uBairroDTO;
@@ -116,6 +116,12 @@ begin
     end
     else
       raise Exception.Create('Error  ao deletar o Registro');
+  end;
+
+  if (oMemtable.IsEmpty) then
+  begin
+    frmBairro.btnEditar.Enabled := false;
+    frmBairro.btnExcluir.Enabled := false;
   end;
 end;
 
