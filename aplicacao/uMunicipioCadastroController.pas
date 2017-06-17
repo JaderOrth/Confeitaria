@@ -60,6 +60,11 @@ begin
     begin
       for oEstadoDTO in oListaEstados.Values do
         oComBox.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
+    end
+    else
+    begin
+      messageDlg('Nenhum ESTADO cadastrado!', mtWarning, [mbOK], 0);
+      exit;
     end;
   finally
     if (Assigned(oListaEstados)) then

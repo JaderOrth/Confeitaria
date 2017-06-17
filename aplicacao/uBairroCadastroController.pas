@@ -75,7 +75,12 @@ begin
         begin
           oComboBox.Items.AddObject(oMunicipioDTO.Descricao,
             TObject(oMunicipioDTO.IdMunicipio));
-        end;
+        end
+      end
+      else
+      begin
+        messageDlg('Nenhum MUNICÍPIO cadastrado!', mtWarning, [mbOK], 0);
+        exit;
       end;
     finally
       if (Assigned(oMunicipioModel)) then
@@ -164,8 +169,12 @@ begin
     if (oBairroRegra.ComboBox(oListaEstado, oEstadoModel)) then
     begin
       for oEstadoDTO in oListaEstado.Values do
-        cbEstado.Items.AddObject(oEstadoDTO.Descricao,
-          TObject(oEstadoDTO.ID));
+        cbEstado.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
+    end
+    else
+    begin
+      MessageDlg('Nenhum ESTADO cadastrado!', mtWarning, [mbOK], 0);
+      exit;
     end;
   finally
     if (Assigned(oListaEstado)) then
@@ -193,14 +202,14 @@ begin
   // descrição
   if (iValidar = 1) then
   begin
-    MessageDlg('Preencha o campo DESCRICÃO corretamente!', mtWarning,
+    messageDlg('Preencha o campo DESCRICÃO corretamente!', mtWarning,
       [mbOK], 0);
     exit;
   end;
   // idMunicipio
   if (iValidar = 2) then
   begin
-    MessageDlg('Preencha o campo MUNICÍPIO corretamente!', mtWarning,
+    messageDlg('Preencha o campo MUNICÍPIO corretamente!', mtWarning,
       [mbOK], 0);
     exit;
   end;
@@ -209,25 +218,25 @@ begin
   // Update True
   if (iSalvar = 1) then
   begin
-    MessageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
+    messageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
     exit;
   end;
   // Update False
   if (iSalvar = 2) then
   begin
-    MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
+    messageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     exit;
   end;
   // Insert True
   if (iSalvar = 3) then
   begin
-    MessageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
+    messageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
     exit;
   end;
   // Insert False
   if (iSalvar = 4) then
   begin
-    MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
+    messageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
   end;
 end;

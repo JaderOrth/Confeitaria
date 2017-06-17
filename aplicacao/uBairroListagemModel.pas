@@ -4,17 +4,54 @@ interface
 
 uses
   FireDAC.Comp.Client, System.SysUtils,
-  uInterfaceBairroListagemModel, uBairroDTO, uClassConexaoSingleton;
+  uInterfaceBairroListagemModel, uBairroDTO, uClassConexaoSingleton,
+  uBairroListaHash;
 type
   TBairroListagemModel = class(TInterfacedObject, IInterfaceBairroListagemModel)
   public
     function MontarGrid(AMemTable: TFDMemTable): Boolean;
     function Excluir(const iID: Integer): Boolean;
+    function ComboBoxBairro(var aLista: TBairroListaHash;
+      const aID: Integer): Boolean;
   end;
 
 implementation
 
 { TBairroListagemModel }
+
+function TBairroListagemModel.ComboBoxBairro(var aLista: TBairroListaHash;
+  const aID: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+  oBairroDTO: TBairroDTO;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT idbairro, descricao FROM bairro'+
+                ' WHERE idmunicipio = '+ IntToStr(aID));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      oQuery.First;
+      while (not(oQuery.Eof)) do
+      begin
+        oBairroDTO :=  TBairroDTO.Create;
+
+        oBairroDTO.idBairro := oQuery.FieldByName('idbairro').AsInteger;
+        oBairroDTO.Descricao := oQuery.FieldByName('descricao').AsString;
+
+        aLista.Add(oBairroDTO.Descricao, oBairroDTO);
+
+        oQuery.Next;
+      end;
+      Result := True;
+    end;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
 
 function TBairroListagemModel.Excluir(const iID: Integer): Boolean;
 var

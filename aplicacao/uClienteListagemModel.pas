@@ -4,18 +4,26 @@ interface
 
 uses
   FireDAC.Comp.Client, System.SysUtils, Data.DB,
-  uClienteDTO, uInterfaceClienteModel, uClassConexaoSingleton;
+  uClienteDTO, uInterfaceClienteModel, uClassConexaoSingleton, uBairroListaHash;
 
 type
   TClienteListagemModel = class(TInterfacedObject, IInterfaceClienteModel)
   public
     function MontarGrid(aMenTable: TFDMemTable): Boolean;
     function Excluir(const iID: Integer): Boolean;
+    function ComboBoxBairro(var aLista: TBairroListaHash;
+      const aId: Integer): Boolean;
   end;
 
 implementation
 
 { TClienteListagemModel }
+
+function TClienteListagemModel.ComboBoxBairro(var aLista: TBairroListaHash;
+  const aId: Integer): Boolean;
+begin
+
+end;
 
 function TClienteListagemModel.Excluir(const iID: Integer): Boolean;
 var

@@ -54,7 +54,9 @@ uses
   uInterfaceClienteModel in 'uInterfaceClienteModel.pas',
   uClienteCadastroRegra in 'uClienteCadastroRegra.pas',
   uClienteCadastroModel in 'uClienteCadastroModel.pas',
-  uInterfaceClienteCadastroModel in 'uInterfaceClienteCadastroModel.pas';
+  uInterfaceClienteCadastroModel in 'uInterfaceClienteCadastroModel.pas',
+  uClienteListaHash in 'uClienteListaHash.pas',
+  uBairroListaHash in 'uBairroListaHash.pas';
 
 {$R *.res}
 
