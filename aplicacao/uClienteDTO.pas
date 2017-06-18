@@ -7,6 +7,7 @@ type
   private
     FCPF_CNPJ: Currency;
     FObservacao: String;
+    FNome: String;
     FNumero: String;
     FIdBairro: Integer;
     FComplemento: String;
@@ -16,6 +17,7 @@ type
     FCelular: Currency;
     procedure SetCelular(const Value: Currency);
     procedure SetComplemento(const Value: String);
+    procedure SetNome(const Value: String);
     procedure SetCPF_CNPJ(const Value: Currency);
     procedure SetEndereco(const Value: String);
     procedure SetIdBairro(const Value: Integer);
@@ -26,6 +28,7 @@ type
   public
     property IdCliente: Integer read FIdCliente write SetIdCliente;
     property Endereco: String read FEndereco write SetEndereco;
+    property Nome: String read FNome write SetNome;
     property Numero: String read FNumero write SetNumero;
     property Complemento: String read FComplemento write SetComplemento;
     property Observacao: String read FObservacao write SetObservacao;
@@ -67,6 +70,11 @@ end;
 procedure TClienteDTO.SetIdCliente(const Value: Integer);
 begin
   FIdCliente := Value;
+end;
+
+procedure TClienteDTO.SetNome(const Value: String);
+begin
+  FNome := Value;
 end;
 
 procedure TClienteDTO.SetNumero(const Value: String);

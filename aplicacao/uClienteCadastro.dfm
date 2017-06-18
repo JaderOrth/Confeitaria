@@ -9,16 +9,18 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   inherited StatusBar1: TStatusBar
     Top = 426
     Width = 755
+    ExplicitTop = 426
+    ExplicitWidth = 755
   end
   inherited Panel1: TPanel
     Left = 652
     Height = 426
+    ExplicitLeft = 652
+    ExplicitHeight = 426
   end
   inherited panelCadastro: TPanel
     Width = 652
     Height = 426
-    ExplicitLeft = -4
-    ExplicitTop = 32
     ExplicitWidth = 652
     ExplicitHeight = 426
     object Label1: TLabel
@@ -60,7 +62,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       EditLabel.Width = 55
       EditLabel.Height = 16
       EditLabel.Caption = 'CPF/CNPJ'
-      TabOrder = 1
+      TabOrder = 4
     end
     object edtEndereco: TLabeledEdit
       Left = 16
@@ -80,7 +82,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       EditLabel.Width = 57
       EditLabel.Height = 16
       EditLabel.Caption = 'Numero* '
-      TabOrder = 3
+      TabOrder = 1
     end
     object edtObservacao: TLabeledEdit
       Left = 16
@@ -90,7 +92,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       EditLabel.Width = 81
       EditLabel.Height = 16
       EditLabel.Caption = 'Observa'#231#245'es*'
-      TabOrder = 4
+      TabOrder = 3
     end
     object edtComplemento: TLabeledEdit
       Left = 240
@@ -110,28 +112,28 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       EditLabel.Width = 40
       EditLabel.Height = 16
       EditLabel.Caption = 'Celular'
-      TabOrder = 6
+      TabOrder = 7
     end
     object cbEstado: TComboBox
       Left = 16
       Top = 268
       Width = 329
       Height = 24
-      TabOrder = 7
+      TabOrder = 8
     end
     object cbMunicipio: TComboBox
       Left = 16
       Top = 320
       Width = 329
       Height = 24
-      TabOrder = 8
+      TabOrder = 9
     end
     object cbBairro: TComboBox
       Left = 16
       Top = 372
       Width = 329
       Height = 24
-      TabOrder = 9
+      TabOrder = 10
     end
     object edtTelefone: TLabeledEdit
       Left = 16
@@ -141,7 +143,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       EditLabel.Width = 43
       EditLabel.Height = 16
       EditLabel.Caption = 'Telfone'
-      TabOrder = 10
+      TabOrder = 6
     end
   end
 end

@@ -4,7 +4,7 @@ interface
 
 uses
   System.Classes, System.SysUtils, Vcl.StdCtrls, Generics.Collections,
-  Vcl.Dialogs,
+  Vcl.Dialogs, System.UITypes,
   uClienteCadastro, uInterfaceCadastroController, uClienteDTO,
   uClienteCadastroRegra, uClienteCadastroModel, uEstadoListaHash, uEstadoDTO,
   uEstadoListagemModel, uMunicipioListaHash, uMunicipioDTO,
@@ -17,6 +17,7 @@ type
     oClienteDTO: TClienteDTO;
     oClienteModel: TClienteCadastroModel;
     oClienteRegra: TClienteCadastroRegra;
+    iIDAlterar: Integer;
     procedure ComboBox(Sender: TObject);
     procedure ComboBoxBairro(Sender: TObject);
   public
@@ -44,6 +45,7 @@ begin
     exit;
   frmCadastroCliente.Close;
   FreeAndNil(frmCadastroCliente);
+  oClienteRegra.LimparDTO(oClienteDTO);
 end;
 
 procedure TClienteCadastroController.ComboBox(Sender: TObject);
@@ -75,12 +77,7 @@ begin
       begin
         oComboBox.Items.AddObject(oMunicipioDTO.Descricao,
           TObject(oMunicipioDTO.IdMunicipio));
-      end
-    end
-    else
-    begin
-      MessageDlg('Nenhum MUNICÍPIO cadastrado!', mtWarning, [mbOK], 0);
-      exit;
+      end;
     end;
   finally
     if (Assigned(oMunicipioModel)) then
@@ -106,13 +103,13 @@ begin
       [mbOK], 0);
     exit;
   end;
-
+  oComboBox := frmCadastroCliente.cbBairro;
+  oComboBox.Items.Clear;
   try
     oBairroLista := TBairroListaHash.Create([doOwnsValues]);
     oBairroModel := TBairroListagemModel.Create;
-    oComboBox := frmCadastroCliente.cbBairro;
-    iId :=  Integer(frmCadastroCliente.cbMunicipio.Items.Objects
-     [frmCadastroCliente.cbMunicipio.ItemIndex]);
+    iId := Integer(frmCadastroCliente.cbMunicipio.Items.Objects
+      [frmCadastroCliente.cbMunicipio.ItemIndex]);
     if (oClienteRegra.ComboBoxBairro(oBairroLista, iId, oBairroModel)) then
     begin
       for oBairroDTO in oBairroLista.Values do
@@ -121,11 +118,6 @@ begin
           TObject(oBairroDTO.idBairro));
       end;
     end
-    else
-    begin
-      MessageDlg('Nenhum BAIRRO cadastrado!', mtWarning, [mbOK], 0);
-      exit;
-    end;
   finally
     if (Assigned(oBairroLista)) then
       FreeAndNil(oBairroLista);
@@ -144,6 +136,9 @@ end;
 
 procedure TClienteCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
+var
+  iIdMunicipio, iIdEstado: Integer;
+  oCbEstado, oCbMunicipio, oCbBairro: TComboBox;
 begin
   if (not(Assigned(frmCadastroCliente))) then
     frmCadastroCliente := TfrmCadastroCliente.Create(AOwner);
@@ -157,7 +152,34 @@ begin
 
   if (iId > 0) then
   begin
-
+    iIDAlterar := iId;
+    oClienteDTO.IdCliente := iId;
+    if (oClienteRegra.BuscarUpdate(oClienteDTO, iIdMunicipio, iIdEstado,
+      oClienteModel)) then
+    begin
+      frmCadastroCliente.edtNome.Text := oClienteDTO.Nome;
+      frmCadastroCliente.edtEndereco.Text := oClienteDTO.Endereco;
+      frmCadastroCliente.edtNumero.Text := oClienteDTO.Numero;
+      frmCadastroCliente.edtObservacao.Text := oClienteDTO.Observacao;
+      frmCadastroCliente.edtComplemento.Text := oClienteDTO.Complemento;
+      frmCadastroCliente.edtCPFCNPJ.Text := CurrToStr(oClienteDTO.CPF_CNPJ);
+      frmCadastroCliente.edtTelefone.Text := CurrToStr(oClienteDTO.Telefone);
+      frmCadastroCliente.edtCelular.Text := CurrToStr(oClienteDTO.Celular);
+      // selecione o estado no comboBox
+      oCbEstado := frmCadastroCliente.cbEstado;
+      oCbEstado.ItemIndex := oCbEstado.Items.IndexOfObject(TObject(iIdEstado));
+      // monta a grid Municipio
+      ComboBox(Sender);
+      oCbMunicipio := frmCadastroCliente.cbMunicipio;
+      oCbMunicipio.ItemIndex := oCbMunicipio.Items.IndexOfObject
+        (TObject(iIdMunicipio));
+      ComboBoxBairro(Sender);
+      oCbBairro := frmCadastroCliente.cbBairro;
+      oCbBairro.ItemIndex := oCbBairro.Items.IndexOfObject
+        (TObject(oClienteDTO.idBairro));
+    end
+    else
+      raise Exception.Create('Error ao retornar valor do banco de dados!');
   end;
 end;
 
@@ -176,7 +198,7 @@ end;
 
 procedure TClienteCadastroController.Novo(Sender: TObject);
 begin
-
+  oClienteRegra.LimparDTO(oClienteDTO);
 end;
 
 procedure TClienteCadastroController.Pesquisar(Sender: TObject);
@@ -197,11 +219,6 @@ begin
       for oEstadoDTO in oListaEstados.Values do
         oComboBox.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
     end
-    else
-    begin
-      MessageDlg('Nenhum ESTADO cadastrado!', mtWarning, [mbOK], 0);
-      exit;
-    end;
   finally
     if (Assigned(oListaEstados)) then
       FreeAndNil(oListaEstados);
@@ -212,7 +229,92 @@ begin
 end;
 
 procedure TClienteCadastroController.Salvar(Sender: TObject);
+var
+  iValidar, iSalvar: Integer;
 begin
+  oClienteDTO.Endereco := frmCadastroCliente.edtEndereco.Text;
+  oClienteDTO.Numero := frmCadastroCliente.edtNumero.Text;
+  oClienteDTO.Nome := frmCadastroCliente.edtNome.Text;
+  oClienteDTO.Complemento := frmCadastroCliente.edtComplemento.Text;
+  oClienteDTO.Observacao := frmCadastroCliente.edtObservacao.Text;
+  oClienteDTO.CPF_CNPJ := StrToCurrDef(frmCadastroCliente.edtCPFCNPJ.Text, 0);
+  oClienteDTO.Telefone := StrToCurrDef(frmCadastroCliente.edtTelefone.Text, 0);
+  oClienteDTO.Celular := StrToCurrDef(frmCadastroCliente.edtCelular.Text, 0);
+  if (frmCadastroCliente.cbBairro.ItemIndex = -1) then
+    oClienteDTO.idBairro := -1
+  else
+    oClienteDTO.idBairro := Integer(frmCadastroCliente.cbBairro.Items.Objects
+      [frmCadastroCliente.cbBairro.ItemIndex]);
+
+  iValidar := oClienteRegra.Validar(oClienteDTO);
+  // Endereço
+  if (iValidar = 1) then
+  begin
+    MessageDlg('Preencha o campo ENDEREÇO corretamente!', mtWarning, [mbOK], 0);
+    frmCadastroCliente.edtEndereco.SetFocus;
+    exit;
+  end;
+  // Nome
+  if (iValidar = 2) then
+  begin
+    MessageDlg('Preencha o campo NOME corretamente!', mtWarning, [mbOK], 0);
+    frmCadastroCliente.edtNome.SetFocus;
+    exit;
+  end;
+  // Numero
+  if (iValidar = 3) then
+  begin
+    MessageDlg('Preencha o campo NÚMERO corretamente!', mtWarning, [mbOK], 0);
+    frmCadastroCliente.edtNumero.SetFocus;
+    exit;
+  end;
+  // Observação
+  if (iValidar = 4) then
+  begin
+    MessageDlg('Preencha o campo OBSERVAÇÃO corretamente!', mtWarning,
+      [mbOK], 0);
+    frmCadastroCliente.edtObservacao.SetFocus;
+    exit;
+  end;
+  // Telefone ou Celular
+  if (iValidar = 5) then
+  begin
+    MessageDlg('Preencha o campo TELEFONE ou CELULAR corretamente!', mtWarning,
+      [mbOK], 0);
+    frmCadastroCliente.edtCelular.SetFocus;
+    exit;
+  end;
+  // idBairro
+  if (iValidar = 6) then
+  begin
+    MessageDlg('Preencha o campo BAIRRO corretamente!', mtWarning, [mbOK], 0);
+    exit;
+  end;
+
+  iSalvar := oClienteRegra.Salvar(oClienteDTO, oClienteModel);
+  if (iSalvar = 1) then
+  begin
+    MessageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
+    exit;
+  end;
+  // Update False
+  if (iSalvar = 2) then
+  begin
+    MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
+    exit;
+  end;
+  // Insert True
+  if (iSalvar = 3) then
+  begin
+    MessageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
+    exit;
+  end;
+  // Insert False
+  if (iSalvar = 4) then
+  begin
+    MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
+    exit;
+  end;
 
 end;
 

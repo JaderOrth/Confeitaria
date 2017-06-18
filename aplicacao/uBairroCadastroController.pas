@@ -77,11 +77,6 @@ begin
             TObject(oMunicipioDTO.IdMunicipio));
         end
       end
-      else
-      begin
-        messageDlg('Nenhum MUNICÍPIO cadastrado!', mtWarning, [mbOK], 0);
-        exit;
-      end;
     finally
       if (Assigned(oMunicipioModel)) then
         FreeAndNil(oMunicipioModel);
@@ -171,11 +166,6 @@ begin
       for oEstadoDTO in oListaEstado.Values do
         cbEstado.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
     end
-    else
-    begin
-      MessageDlg('Nenhum ESTADO cadastrado!', mtWarning, [mbOK], 0);
-      exit;
-    end;
   finally
     if (Assigned(oListaEstado)) then
       FreeAndNil(oListaEstado);
