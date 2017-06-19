@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, Vcl.Dialogs, Controls, System.UITypes, FireDAC.Comp.Client,
-  System.Classes, Vcl.ExtCtrls,
+  System.Classes, Vcl.ExtCtrls, Data.DB,
   uInterfaceListagemController, uEstadoListagemModel, uEstadoDTO,
   uEstadoListagemRegra, uEstado, uEstadoCadastroController;
 

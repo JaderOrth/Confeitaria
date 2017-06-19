@@ -4,7 +4,7 @@ interface
 
 uses
   System.Classes, FireDAC.Comp.Client,System.SysUtils, Vcl.Dialogs,
-   System.UITypes,
+   System.UITypes, Data.DB,
   uInterfaceListagemController, uMunicipio, uMunicipioCadastroController,
   uMunicipioDTO, uMunicipioListagemRegra, uMunicipioListagemModel;
 

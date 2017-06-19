@@ -21,6 +21,7 @@ implementation
 function TClienteListagemRegra.Excluir(const aId: Integer;
   const aModel: IInterfaceClienteModel): Boolean;
 begin
+  Result := False;
   if (aId > 0) then
     Result := aModel.Excluir(aId);
 end;

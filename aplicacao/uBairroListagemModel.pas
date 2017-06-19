@@ -3,7 +3,7 @@ unit uBairroListagemModel;
 interface
 
 uses
-  FireDAC.Comp.Client, System.SysUtils,
+  FireDAC.Comp.Client, System.SysUtils, Data.DB,
   uInterfaceBairroListagemModel, uBairroDTO, uClassConexaoSingleton,
   uBairroListaHash;
 type
