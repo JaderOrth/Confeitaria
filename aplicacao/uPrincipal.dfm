@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'Confeitaria - Meu Docinho'
-  ClientHeight = 415
-  ClientWidth = 736
+  ClientHeight = 430
+  ClientWidth = 766
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,8 +22,8 @@ object frmPrincipal: TfrmPrincipal
   TextHeight = 13
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 396
-    Width = 736
+    Top = 411
+    Width = 766
     Height = 19
     Panels = <
       item
@@ -48,7 +48,7 @@ object frmPrincipal: TfrmPrincipal
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 736
+    Width = 766
     Height = 65
     Align = alTop
     BevelOuter = bvNone
@@ -915,8 +915,8 @@ object frmPrincipal: TfrmPrincipal
     end
   end
   object MainMenu1: TMainMenu
-    Left = 520
-    Top = 128
+    Left = 424
+    Top = 80
     object Cadastros1: TMenuItem
       Caption = '&Cadastros'
       object Usurio1: TMenuItem
@@ -930,6 +930,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object Categorias1: TMenuItem
         Caption = 'Ca&tegorias'
+        OnClick = Categorias1Click
       end
       object Produtos1: TMenuItem
         Caption = '&Produtos'
@@ -961,11 +962,11 @@ object frmPrincipal: TfrmPrincipal
   object LargeImages: TImageList
     Height = 32
     Width = 32
-    Left = 440
-    Top = 192
+    Left = 344
+    Top = 144
   end
   object SmallImages: TImageList
-    Left = 528
-    Top = 192
+    Left = 432
+    Top = 144
   end
 end
