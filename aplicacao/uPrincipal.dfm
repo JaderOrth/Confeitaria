@@ -2,8 +2,8 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   Caption = 'Confeitaria - Meu Docinho'
-  ClientHeight = 415
-  ClientWidth = 736
+  ClientHeight = 454
+  ClientWidth = 856
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,8 +22,8 @@ object frmPrincipal: TfrmPrincipal
   TextHeight = 13
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 396
-    Width = 736
+    Top = 435
+    Width = 856
     Height = 19
     Panels = <
       item
@@ -44,17 +44,20 @@ object frmPrincipal: TfrmPrincipal
         Bevel = pbNone
         Width = 150
       end>
+    ExplicitTop = 396
+    ExplicitWidth = 736
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 736
+    Width = 856
     Height = 65
     Align = alTop
     BevelOuter = bvNone
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
+    ExplicitWidth = 736
     object btnPedidos: TSpeedButton
       Left = 0
       Top = 0
@@ -921,6 +924,7 @@ object frmPrincipal: TfrmPrincipal
       Caption = '&Cadastros'
       object Usurio1: TMenuItem
         Caption = '&Usu'#225'rio'
+        OnClick = Usurio1Click
       end
       object UnidadedeMedida1: TMenuItem
         Caption = 'U&nidade de Medida'

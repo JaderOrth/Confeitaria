@@ -56,7 +56,18 @@ uses
   uClienteCadastroModel in 'uClienteCadastroModel.pas',
   uInterfaceClienteCadastroModel in 'uInterfaceClienteCadastroModel.pas',
   uClienteListaHash in 'uClienteListaHash.pas',
-  uBairroListaHash in 'uBairroListaHash.pas';
+  uBairroListaHash in 'uBairroListaHash.pas',
+  uUsuario in 'uUsuario.pas' {frmUsuario},
+  uUsuarioListagemController in 'uUsuarioListagemController.pas',
+  uUsuarioCadastro in 'uUsuarioCadastro.pas' {frmUsuarioCadastro},
+  uUsuarioCadastroController in 'uUsuarioCadastroController.pas',
+  uUsuarioDTO in 'uUsuarioDTO.pas',
+  uUsuarioListagemRegra in 'uUsuarioListagemRegra.pas',
+  uUsuarioListagemModel in 'uUsuarioListagemModel.pas',
+  uInterfaceUsuarioListagemModel in 'uInterfaceUsuarioListagemModel.pas',
+  uUsuarioCadastroRegra in 'uUsuarioCadastroRegra.pas',
+  uUsuarioCadastroModel in 'uUsuarioCadastroModel.pas',
+  uInterfaceUsuarioCadastroModel in 'uInterfaceUsuarioCadastroModel.pas';
 
 {$R *.res}
 

@@ -3,8 +3,8 @@ object frmCadastroBase: TfrmCadastroBase
   Top = 0
   BorderIcons = []
   Caption = 'Cadastro Base'
-  ClientHeight = 264
-  ClientWidth = 677
+  ClientHeight = 427
+  ClientWidth = 884
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,22 +21,26 @@ object frmCadastroBase: TfrmCadastroBase
   TextHeight = 16
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 245
-    Width = 677
+    Top = 408
+    Width = 884
     Height = 19
     Panels = <>
+    ExplicitTop = 245
+    ExplicitWidth = 677
   end
   object Panel1: TPanel
-    Left = 574
+    Left = 781
     Top = 0
     Width = 103
-    Height = 245
+    Height = 408
     Align = alRight
     BevelInner = bvRaised
     BevelOuter = bvLowered
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
+    ExplicitLeft = 574
+    ExplicitHeight = 245
     object btnSalvar: TSpeedButton
       Left = 2
       Top = 72
@@ -485,11 +489,13 @@ object frmCadastroBase: TfrmCadastroBase
   object panelCadastro: TPanel
     Left = 0
     Top = 0
-    Width = 574
-    Height = 245
+    Width = 781
+    Height = 408
     Align = alClient
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 2
+    ExplicitWidth = 574
+    ExplicitHeight = 245
   end
 end
