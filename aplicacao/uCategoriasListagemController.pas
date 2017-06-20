@@ -6,7 +6,7 @@ uses
   System.Classes, FireDAC.Comp.Client, System.SysUtils, Vcl.Dialogs,
   System.UITypes, Data.DB,
   uCategorias, uInterfaceListagemController, uCategoriasDTO,
-  uCategoriasListagemModel, uCategoriasListagemRegra;
+  uCategoriasListagemModel, uCategoriasListagemRegra, uCategoriasCadastroController;
 
 type
   TCategoriasListagemController = class(TInterfacedObject,
@@ -75,13 +75,20 @@ end;
 
 procedure TCategoriasListagemController.ControlerCadastro(Sender: TObject);
 begin
-
+if (not(Assigned(oCategoriasCadastroController))) then
+    oCategoriasCadastroController := TCategoriasCadastroController.Create;
+  oCategoriasCadastroController.CreateFormCadastro(frmCategorias, Sender, 0);
 end;
 
 procedure TCategoriasListagemController.CreateFormEdit(Sender: TObject;
   oMemTable: TFDMemTable);
+var
+  iID: Integer;
 begin
-
+  if (not(Assigned(oCategoriasCadastroController))) then
+    oCategoriasCadastroController := TCategoriasCadastroController.Create;
+  iID := oMemTable.FieldByName('idcategorias').AsInteger;
+  oCategoriasCadastroController.CreateFormCadastro(frmCategorias, Sender, iID);
 end;
 
 procedure TCategoriasListagemController.CreateFormListagem(AOwner: TComponent);

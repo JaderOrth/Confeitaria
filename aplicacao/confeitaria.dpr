@@ -62,7 +62,12 @@ uses
   uCategoriasListagemRegra in 'uCategoriasListagemRegra.pas',
   uCategoriasListagemModel in 'uCategoriasListagemModel.pas',
   uInterfaceCategoriaListagemModel in 'uInterfaceCategoriaListagemModel.pas',
-  uCategoriasDTO in 'uCategoriasDTO.pas';
+  uCategoriasDTO in 'uCategoriasDTO.pas',
+  uCategoriasCadastroController in 'uCategoriasCadastroController.pas',
+  uCategoriasCadastroModel in 'uCategoriasCadastroModel.pas',
+  uCategoriasCadastroRegra in 'uCategoriasCadastroRegra.pas',
+  uInterfaceCategoriaCadastroModel in 'uInterfaceCategoriaCadastroModel.pas',
+  uCategoriasCadastro in 'uCategoriasCadastro.pas' {frmCategoriasCadastro};
 
 {$R *.res}
 

@@ -192,6 +192,14 @@
         <DCCReference Include="uCategoriasListagemModel.pas"/>
         <DCCReference Include="uInterfaceCategoriaListagemModel.pas"/>
         <DCCReference Include="uCategoriasDTO.pas"/>
+        <DCCReference Include="uCategoriasCadastroController.pas"/>
+        <DCCReference Include="uCategoriasCadastroModel.pas"/>
+        <DCCReference Include="uCategoriasCadastroRegra.pas"/>
+        <DCCReference Include="uInterfaceCategoriaCadastroModel.pas"/>
+        <DCCReference Include="uCategoriasCadastro.pas">
+            <Form>frmCategoriasCadastro</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
