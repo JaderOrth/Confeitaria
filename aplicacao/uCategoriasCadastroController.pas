@@ -59,7 +59,11 @@ end;
 
 procedure TCategoriasCadastroController.CloseFormCadastro(Sender: TObject);
 begin
-
+  if (not(Assigned(frmCategoriasCadastro))) then
+    exit;
+  frmCategoriasCadastro.Close;
+  FreeAndNil(frmCategoriasCadastro);
+  oCategoriasRegra.LimparDTO(oCategoriasDTO);
 end;
 
 procedure TCategoriasCadastroController.CreateFormCadastro(AOwner: TComponent;
@@ -97,7 +101,6 @@ procedure TCategoriasCadastroController.Salvar(Sender: TObject);
 var
   iValidar, iSalvar: Integer;
 begin
-
   oCategoriasDTO.descricao := frmCategoriasCadastro.edtCategoria.Text;
   iValidar := oCategoriasRegra.ValidarEdit(oCategoriasDTO);
   // descrição

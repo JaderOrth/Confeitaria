@@ -3,7 +3,6 @@ inherited frmCategoriasCadastro: TfrmCategoriasCadastro
   PixelsPerInch = 96
   TextHeight = 16
   inherited panelCadastro: TPanel
-    ExplicitLeft = -4
     object edtCategoria: TLabeledEdit
       Left = 32
       Top = 48

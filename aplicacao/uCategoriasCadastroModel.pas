@@ -27,7 +27,7 @@ begin
   try
     oQuery := TFDQuery.Create(nil);
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT MAX(idcategoria) as id FROM categorias');
+    oQuery.Open('SELECT MAX(idcategorias) as id FROM categorias');
     if (not(oQuery.IsEmpty)) then
     begin
       Result := oQuery.FieldByName('id').AsInteger + 1;
@@ -43,7 +43,7 @@ function TCategoriasCadastroModel.Insert(
 var
   sSql: String;
 begin
-  sSql := 'INSERT INTO categorias(idcategoria, descricao) VALUES('+
+  sSql := 'INSERT INTO categorias(idcategorias, descricao) VALUES('+
           IntToStr(aCategoriasDTO.idCategoria)+', '+
           QuotedStr(aCategoriasDTO.Descricao)+')';
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;

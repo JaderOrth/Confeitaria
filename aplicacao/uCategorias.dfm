@@ -17,7 +17,7 @@ inherited frmCategorias: TfrmCategorias
     Columns = <
       item
         Expanded = False
-        FieldName = 'idlistagem'
+        FieldName = 'idcategorias'
         Title.Alignment = taCenter
         Title.Caption = 'ID'
         Visible = False
