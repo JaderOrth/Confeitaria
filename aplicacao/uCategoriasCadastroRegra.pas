@@ -68,6 +68,7 @@ end;
 function TCategoriaCadastroRegra.ValidarEdit(
   const aCategoriaDTO: TCategoriasDTO): Integer;
 begin
+  Result := 0;
   if (Length(Trim(aCategoriaDTO.descricao)) < 3) then
   begin
     Result := 1;
