@@ -38,6 +38,7 @@ begin
     exit;
   frmUsuarioCadastro.Close;
   FreeAndNil(frmUsuarioCadastro);
+  oUsuarioRegra.LimparDTO(oUsuarioDTO);
 end;
 
 constructor TUsuarioCadastroController.Create;
@@ -57,8 +58,10 @@ begin
 
   if (iId > 0) then
   begin
-
-
+    oUsuarioDTO.idUsuario := iId;
+    oUsuarioRegra.BuscarUpdate(oUsuarioDTO, oUsuarioModel);
+    frmUsuarioCadastro.edtUsuario.Text := oUsuarioDTO.usuario;
+    frmUsuarioCadastro.edtSenha.Text := oUsuarioDTO.senha;
   end;
 
 end;
@@ -78,7 +81,7 @@ end;
 
 procedure TUsuarioCadastroController.Novo(Sender: TObject);
 begin
-
+  oUsuarioRegra.LimparDTO(oUsuarioDTO);
 end;
 
 procedure TUsuarioCadastroController.Pesquisar(Sender: TObject);
@@ -109,7 +112,31 @@ begin
   end;
 
   //iSalvar = oUsuarioRegra
-
+  iSalvar := oUsuarioRegra.Salvar(oUsuarioDTO, oUsuarioModel);
+  // Update True
+  if (iSalvar = 1) then
+  begin
+    messageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
+    exit;
+  end;
+  // Update False
+  if (iSalvar = 2) then
+  begin
+    messageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
+    exit;
+  end;
+  // Insert True
+  if (iSalvar = 3) then
+  begin
+    messageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
+    exit;
+  end;
+  // Insert False
+  if (iSalvar = 4) then
+  begin
+    messageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
+    exit;
+  end;
 end;
 
 end.

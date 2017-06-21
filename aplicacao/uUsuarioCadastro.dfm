@@ -31,7 +31,8 @@ inherited frmUsuarioCadastro: TfrmUsuarioCadastro
       EditLabel.Width = 36
       EditLabel.Height = 16
       EditLabel.Caption = 'Senha'
-      TabOrder = 0
+      PasswordChar = '*'
+      TabOrder = 1
     end
     object edtUsuario: TLabeledEdit
       Left = 56
@@ -41,7 +42,7 @@ inherited frmUsuarioCadastro: TfrmUsuarioCadastro
       EditLabel.Width = 43
       EditLabel.Height = 16
       EditLabel.Caption = 'Usu'#225'rio'
-      TabOrder = 1
+      TabOrder = 0
     end
   end
 end

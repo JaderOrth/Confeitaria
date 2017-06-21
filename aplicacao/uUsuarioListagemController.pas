@@ -109,7 +109,6 @@ begin
     if (oUsuarioRegra.Excluir(iID, oUsuarioModel)) then
     begin
       MessageDlg('Registro deletado com sucesso!', mtInformation, [mbOK], 0);
-      exit;
       oMemtable.Locate('idusuario', iID);
       oMemtable.Delete;
     end

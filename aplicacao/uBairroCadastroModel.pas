@@ -3,7 +3,7 @@ unit uBairroCadastroModel;
 interface
 
 uses
-  FireDAC.Comp.Client, System.SysUtils,
+  FireDAC.Comp.Client, System.SysUtils, Data.DB,
   uInterfaceBairroCadastroModel, uBairroDTO, uClassConexaoSingleton;
 
 type
