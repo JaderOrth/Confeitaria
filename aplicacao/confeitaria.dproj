@@ -200,6 +200,21 @@
         <DCCReference Include="uUsuarioCadastroRegra.pas"/>
         <DCCReference Include="uUsuarioCadastroModel.pas"/>
         <DCCReference Include="uInterfaceUsuarioCadastroModel.pas"/>
+        <DCCReference Include="uCategorias.pas">
+            <Form>frmCategorias</Form>
+        </DCCReference>
+        <DCCReference Include="uCategoriasListagemController.pas"/>
+        <DCCReference Include="uCategoriasListagemRegra.pas"/>
+        <DCCReference Include="uCategoriasListagemModel.pas"/>
+        <DCCReference Include="uInterfaceCategoriaListagemModel.pas"/>
+        <DCCReference Include="uCategoriasDTO.pas"/>
+        <DCCReference Include="uCategoriasCadastroController.pas"/>
+        <DCCReference Include="uCategoriasCadastroModel.pas"/>
+        <DCCReference Include="uCategoriasCadastroRegra.pas"/>
+        <DCCReference Include="uInterfaceCategoriaCadastroModel.pas"/>
+        <DCCReference Include="uCategoriasCadastro.pas">
+            <Form>frmCategoriasCadastro</Form>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -221,6 +236,8 @@
                     <Source Name="MainSource">confeitaria.dpr</Source>
                 </Source>
                 <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k240.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp240.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k240.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp240.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
