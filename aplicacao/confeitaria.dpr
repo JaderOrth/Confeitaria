@@ -73,7 +73,12 @@ uses
   uInterfaceSaborListagemModel in 'uInterfaceSaborListagemModel.pas',
   uSaborDTO in 'uSaborDTO.pas',
   uSaborListagemRegra in 'uSaborListagemRegra.pas',
-  uSaborListagemModel in 'uSaborListagemModel.pas';
+  uSaborListagemModel in 'uSaborListagemModel.pas',
+  uSaborCadastroController in 'uSaborCadastroController.pas',
+  uSaborCadastro in 'uSaborCadastro.pas' {frmSaborCadastro},
+  uSaborCadastroRegra in 'uSaborCadastroRegra.pas',
+  uInterfaceSaborCadastroModel in 'uInterfaceSaborCadastroModel.pas',
+  uSaborCadastroModel in 'uSaborCadastroModel.pas';
 
 {$R *.res}
 

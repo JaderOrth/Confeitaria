@@ -5,9 +5,8 @@ interface
 uses
   System.Classes, FireDAC.Comp.Client, System.SysUtils, Vcl.Dialogs,
   System.UITypes, Data.DB,
-  uSabor, uInterfaceListagemController, uSaborDTO, uSaborListagemRegra, uSaborListagemModel;
-  // , uBairroCadastroController,
-
+  uSabor, uInterfaceListagemController, uSaborDTO, uSaborListagemRegra, uSaborListagemModel,
+  uSaborCadastroController;
 
 type
   TSaborListagemController = class(TInterfacedObject,
@@ -55,9 +54,9 @@ end;
 
 procedure TSaborListagemController.ControlerCadastro(Sender: TObject);
 begin
-  {if (not(Assigned(oSaborCadastroController))) then
+  if (not(Assigned(oSaborCadastroController))) then
     oSaborCadastroController := TSaborCadastroController.Create;
-  oSaborListagemController.CreateFormCadastro(frmSaborListagem, Sender, 0); }
+  oSaborCadastroController.CreateFormCadastro(frmSabor, Sender, 0);
 end;
 
 constructor TSaborListagemController.Create;
@@ -72,10 +71,10 @@ procedure TSaborListagemController.CreateFormEdit(Sender: TObject;
 var
   iID: Integer;
 begin
-  {if (not(Assigned(oSaborCadastroController))) then
+  if (not(Assigned(oSaborCadastroController))) then
     oSaborCadastroController := TSaborCadastroController.Create;
   iID := oMemTable.FieldByName('idsabores').AsInteger;
-  oSaborCadastroController.CreateFormCadastro(frmSaborListagem, Sender, iID);}
+  oSaborCadastroController.CreateFormCadastro(frmSabor, Sender, iID);
 end;
 
 procedure TSaborListagemController.CreateFormListagem(AOwner: TComponent);
