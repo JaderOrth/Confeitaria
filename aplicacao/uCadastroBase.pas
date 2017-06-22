@@ -49,6 +49,9 @@ begin
 
     if (Components[iIndiceComponente] is TComboBox) then
       (Components[iIndiceComponente] as TComboBox).ItemIndex := -1;
+
+    if (Components[iIndiceComponente] is TMemo) then
+      (Components[iIndiceComponente] as TMemo).Clear;
   end;
 end;
 
