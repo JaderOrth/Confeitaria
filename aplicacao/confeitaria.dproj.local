@@ -21,8 +21,8 @@
     <Transaction>2017/04/27 21:28:24.000.140,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uClassConexaoSingleton.pas</Transaction>
     <Transaction>2017/04/27 22:03:54.000.067,=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/04/27 22:52:48.000.411,=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/04/27 22:53:08.000.564,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uEstado.dfm=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.dfm</Transaction>
     <Transaction>2017/04/27 22:53:08.000.564,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uEstado.pas=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/04/27 22:53:08.000.564,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uEstado.dfm=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.dfm</Transaction>
     <Transaction>2017/04/27 23:16:26.000.776,=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/04/27 23:16:38.000.357,C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\uEstadoControler.pas=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/04/27 23:19:33.000.641,=C:\Users\senac\Documents\GitHub\Confeitaria\aplicacao\Unit1.pas</Transaction>
@@ -62,8 +62,8 @@
     <Transaction>2017/05/29 15:45:59.000.054,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas=</Transaction>
     <Transaction>2017/05/29 15:46:47.000.914,=C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipio.pas</Transaction>
     <Transaction>2017/05/30 09:41:02.000.995,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/05/30 09:41:17.000.646,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.dfm=C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioCadastro.dfm</Transaction>
     <Transaction>2017/05/30 09:41:17.000.646,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioCadastro.pas</Transaction>
+    <Transaction>2017/05/30 09:41:17.000.646,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.dfm=C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioCadastro.dfm</Transaction>
     <Transaction>2017/05/30 09:42:50.000.135,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/05/30 09:43:07.000.599,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\uMunicipioCadastroController.pas</Transaction>
     <Transaction>2017/05/30 14:08:14.000.266,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
@@ -85,8 +85,8 @@
     <Transaction>2017/06/08 00:00:01.000.961,E:\Confeitaria\aplicacao\uMunicipioListaHash.pas=</Transaction>
     <Transaction>2017/06/08 00:00:35.000.442,=E:\Confeitaria\aplicacao\uEstadoListaHash.pas</Transaction>
     <Transaction>2017/06/10 18:45:27.000.324,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/10 18:46:03.000.491,C:\Users\Jader\Documents\Confeitaria\aplicacao\uBairro.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/10 18:46:03.000.491,C:\Users\Jader\Documents\Confeitaria\aplicacao\uBairro.dfm=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.dfm</Transaction>
+    <Transaction>2017/06/10 18:46:03.000.491,C:\Users\Jader\Documents\Confeitaria\aplicacao\uBairro.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/10 18:46:17.000.384,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/10 18:46:34.000.511,C:\Users\Jader\Documents\Confeitaria\aplicacao\uBairroListagemController.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/10 20:40:35.000.283,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
@@ -119,8 +119,8 @@
     <Transaction>2017/06/14 11:16:18.000.025,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/14 11:16:25.000.969,C:\Users\Jader\Documents\Confeitaria\aplicacao\uClienteDTO.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/14 11:24:08.000.566,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/14 11:24:14.000.788,C:\Users\Jader\Documents\Confeitaria\aplicacao\uCliente.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/14 11:24:14.000.788,C:\Users\Jader\Documents\Confeitaria\aplicacao\uCliente.dfm=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.dfm</Transaction>
+    <Transaction>2017/06/14 11:24:14.000.788,C:\Users\Jader\Documents\Confeitaria\aplicacao\uCliente.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/14 13:31:48.000.585,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/14 13:31:55.000.995,C:\Users\Jader\Documents\Confeitaria\aplicacao\uClienteCadastro.dfm=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.dfm</Transaction>
     <Transaction>2017/06/14 13:31:55.000.995,C:\Users\Jader\Documents\Confeitaria\aplicacao\uClienteCadastro.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
@@ -161,15 +161,21 @@
     <Transaction>2017/06/19 21:52:56.000.176,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uInterfaceCategoriaCadastro.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/19 21:53:16.000.134,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uInterfaceCategoriaCadastroModel.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uInterfaceCategoriaCadastro.pas</Transaction>
     <Transaction>2017/06/19 22:21:31.000.382,=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/19 22:22:04.000.171,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uCategoriasCadastro.dfm=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.dfm</Transaction>
     <Transaction>2017/06/19 22:22:04.000.171,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uCategoriasCadastro.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/20 23:00:00.495,=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/20 23:00:50.497,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uSabor.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/20 23:00:50.497,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uSabor.dfm=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.dfm</Transaction>
-    <Transaction>2017/06/20 23:02:56.300,=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/20 23:03:22.758,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uSaborListagemController.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/20 23:09:28.138,=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/20 23:09:52.745,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uInterfaceSaborListagemModel.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/06/19 22:22:04.000.171,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uCategoriasCadastro.dfm=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.dfm</Transaction>
+    <Transaction>2017/06/20 23:00:00.000.495,=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/06/20 23:00:50.000.497,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uSabor.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/06/20 23:00:50.000.497,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uSabor.dfm=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.dfm</Transaction>
+    <Transaction>2017/06/20 23:02:56.000.300,=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/06/20 23:03:22.000.758,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uSaborListagemController.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/06/20 23:09:28.000.138,=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/06/20 23:09:52.000.745,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uInterfaceSaborListagemModel.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/06/21 20:57:19.000.192,=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/06/21 20:57:35.000.901,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uSaborDTO.pas</Transaction>
+    <Transaction>2017/06/21 21:02:02.000.505,=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/06/21 21:02:13.000.681,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uSaborListagemRegra.pas</Transaction>
+    <Transaction>2017/06/21 21:04:03.000.583,=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas</Transaction>
+    <Transaction>2017/06/21 21:04:14.000.412,C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\Unit1.pas=C:\Users\senac\Desktop\confeitaria\Confeitaria\aplicacao\uSaborListagemModel.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5"/>

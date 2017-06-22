@@ -927,6 +927,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object Sabores1: TMenuItem
         Caption = 'Sabo&res'
+        OnClick = Sabores1Click
       end
       object Categorias1: TMenuItem
         Caption = 'Ca&tegorias'

@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.Menus, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
   uClassConexaoSingleton, uEstadoListagemController, uMunicipioListagemController,
-  uBairroListagemController, uClienteListagemController, uCategoriasListagemController;
+  uBairroListagemController, uClienteListagemController, uCategoriasListagemController,
+  uSaborListagemController;
 
 type
   TfrmPrincipal = class(TForm)
@@ -41,6 +42,7 @@ type
     procedure Cliente1Click(Sender: TObject);
     procedure btnClientesClick(Sender: TObject);
     procedure Categorias1Click(Sender: TObject);
+    procedure Sabores1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -117,6 +119,13 @@ begin
   if (not(Assigned(oMunicipioListagemController))) then
     oMunicipioListagemController := TMunicipioListagemController.Create;
   oMunicipioListagemController.CreateFormListagem(Self);
+end;
+
+procedure TfrmPrincipal.Sabores1Click(Sender: TObject);
+begin
+  if (not(Assigned(oSaborListagemController))) then
+    oSaborListagemController := TSaborListagemController.Create;
+  oSaborListagemController.CreateFormListagem(Self);
 end;
 
 end.

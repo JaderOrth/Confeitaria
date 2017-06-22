@@ -11,7 +11,7 @@ uses
   Vcl.ComCtrls, Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls;
 
 type
-  TfrmSaborListagem = class(TfrmListagemBase)
+  TfrmSabor = class(TfrmListagemBase)
   private
     { Private declarations }
   public
@@ -19,7 +19,7 @@ type
   end;
 
 var
-  frmSaborListagem: TfrmSaborListagem;
+  frmSabor: TfrmSabor;
 
 implementation
 

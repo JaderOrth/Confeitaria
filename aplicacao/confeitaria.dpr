@@ -68,9 +68,12 @@ uses
   uCategoriasCadastroRegra in 'uCategoriasCadastroRegra.pas',
   uInterfaceCategoriaCadastroModel in 'uInterfaceCategoriaCadastroModel.pas',
   uCategoriasCadastro in 'uCategoriasCadastro.pas' {frmCategoriasCadastro},
-  uSabor in 'uSabor.pas' {frmSaborListagem},
+  uSabor in 'uSabor.pas' {frmSabor},
   uSaborListagemController in 'uSaborListagemController.pas',
-  uInterfaceSaborListagemModel in 'uInterfaceSaborListagemModel.pas';
+  uInterfaceSaborListagemModel in 'uInterfaceSaborListagemModel.pas',
+  uSaborDTO in 'uSaborDTO.pas',
+  uSaborListagemRegra in 'uSaborListagemRegra.pas',
+  uSaborListagemModel in 'uSaborListagemModel.pas';
 
 {$R *.res}
 
@@ -78,6 +81,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmSaborListagem, frmSaborListagem);
   Application.Run;
 end.

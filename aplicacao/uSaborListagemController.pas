@@ -5,17 +5,17 @@ interface
 uses
   System.Classes, FireDAC.Comp.Client, System.SysUtils, Vcl.Dialogs,
   System.UITypes, Data.DB,
-  uSabor, uInterfaceListagemController;
-  // uInterfaceListagemController, uBairroCadastroController,
-  //uBairroListagemRegra, uBairroListagemModel, uBairroDTO;
+  uSabor, uInterfaceListagemController, uSaborDTO, uSaborListagemRegra, uSaborListagemModel;
+  // , uBairroCadastroController,
+
 
 type
   TSaborListagemController = class(TInterfacedObject,
     IInterfaceListagemController)
   private
-    {oSaborModel: TSaborListagemModel;
+    oSaborModel: TSaborListagemModel;
     oSaborRegra: TSaborListagemRegra;
-    oSaborDTO: TSaborDTO;}
+    oSaborDTO: TSaborDTO;
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
@@ -47,10 +47,10 @@ end;
 
 procedure TSaborListagemController.CloseForm(Sender: TObject);
 begin
-  if (not(Assigned(frmSaborListagem))) then
+  if (not(Assigned(frmSabor))) then
     exit;
-  frmSaborListagem.Close;
-  FreeAndNil(frmSaborListagem);
+  frmSabor.Close;
+  FreeAndNil(frmSabor);
 end;
 
 procedure TSaborListagemController.ControlerCadastro(Sender: TObject);
@@ -62,9 +62,9 @@ end;
 
 constructor TSaborListagemController.Create;
 begin
-  {oSaborModel := TSaborListagemModel.Create;
+  oSaborModel := TSaborListagemModel.Create;
   oSaborRegra := TSaborListagemRegra.Create;
-  oSaborDTO := TSaborDTO.Create;}
+  oSaborDTO := TSaborDTO.Create;
 end;
 
 procedure TSaborListagemController.CreateFormEdit(Sender: TObject;
@@ -80,23 +80,23 @@ end;
 
 procedure TSaborListagemController.CreateFormListagem(AOwner: TComponent);
 begin
-  if (not(Assigned(frmSaborListagem))) then
-    frmSaborListagem := TfrmSaborListagem.Create(AOwner);
-  frmSaborListagem.oListagemBase := oSaborListagemController;
-  frmSaborListagem.Show;
-  frmSaborListagem.OnActivate(nil);
+  if (not(Assigned(frmSabor))) then
+    frmSabor := TfrmSabor.Create(AOwner);
+  frmSabor.oListagemBase := oSaborListagemController;
+  frmSabor.Show;
+  frmSabor.OnActivate(nil);
 end;
 
 destructor TSaborListagemController.Destroy;
 begin
-  if (Assigned(oModel)) then
-    FreeAndNil(oBairroModel);
+  if (Assigned(oSaborModel)) then
+    FreeAndNil(oSaborModel);
 
-  if (Assigned(oBairroRegra)) then
-    FreeAndNil(oBairroRegra);
+  if (Assigned(oSaborRegra)) then
+    FreeAndNil(oSaborRegra);
 
-  if (Assigned(oBairroDTO)) then
-    FreeAndNil(oBairroDTO);
+  if (Assigned(oSaborDTO)) then
+    FreeAndNil(oSaborDTO);
   inherited;
 end;
 
@@ -121,8 +121,8 @@ begin
 
   if (oMemtable.IsEmpty) then
   begin
-    frmSaborListagem.btnEditar.Enabled := false;
-    frmSaborListagem.btnExcluir.Enabled := false;
+    frmSabor.btnEditar.Enabled := false;
+    frmSabor.btnExcluir.Enabled := false;
   end;
 end;
 
