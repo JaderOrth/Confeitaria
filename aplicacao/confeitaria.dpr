@@ -82,7 +82,14 @@ uses
   uPedido in 'uPedido.pas' {frmPedido},
   uPedidoListagemController in 'uPedidoListagemController.pas',
   uPedidoCadastro in 'uPedidoCadastro.pas' {frmPedidoCadastro},
-  uPedidoCadastrocontroller in 'uPedidoCadastrocontroller.pas';
+  uPedidoCadastroController in 'uPedidoCadastroController.pas',
+  uPedidoDTO in 'uPedidoDTO.pas',
+  uPedidoListagemRegra in 'uPedidoListagemRegra.pas',
+  uPedidoListagemModel in 'uPedidoListagemModel.pas',
+  uInterfacePedidoListagem in 'uInterfacePedidoListagem.pas',
+  uPedidoCadastroRegra in 'uPedidoCadastroRegra.pas',
+  uPedidoCadstroModel in 'uPedidoCadstroModel.pas',
+  uInterfacePedidoCadastroModel in 'uInterfacePedidoCadastroModel.pas';
 
 {$R *.res}
 

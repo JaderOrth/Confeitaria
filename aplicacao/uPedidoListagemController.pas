@@ -5,10 +5,15 @@ interface
 uses
   System.Classes, FireDAC.Comp.Client, System.SysUtils, Vcl.Dialogs,
   System.UITypes, Data.DB,
-  uInterfaceListagemController, uPedido, uPedidoCadastrocontroller;
+  uInterfaceListagemController, uPedido, uPedidoCadastrocontroller, uPedidoDTO,
+  uPedidoListagemRegra, uPedidoListagemModel;
 type
   TPedidoListagemController = class(TInterfacedObject,
     IInterfaceListagemController)
+  private
+    oPedidoDTO: TPedidoDTO;
+    oPedidoRegra: TPedidoListagemRegra;
+    oPedidoModel: TPedidoListagemModel;
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
@@ -53,7 +58,9 @@ end;
 
 constructor TPedidoListagemController.Create;
 begin
-
+  oPedidoDTO := TPedidoDTO.Create;
+  oPedidoRegra := TPedidoListagemRegra.Create;
+  oPedidoModel := TPedidoListagemModel.Create;
 end;
 
 procedure TPedidoListagemController.CreateFormEdit(Sender: TObject;
@@ -80,7 +87,14 @@ end;
 
 destructor TPedidoListagemController.Destroy;
 begin
+  if (Assigned(oPedidoDTO)) then
+    FreeAndNil(oPedidoDTO);
 
+  if (Assigned(oPedidoRegra)) then
+    FreeAndNil(oPedidoRegra);
+
+  if (Assigned(oPedidoModel)) then
+    FreeAndNil(oPedidoModel);
   inherited;
 end;
 
@@ -96,7 +110,20 @@ end;
 
 procedure TPedidoListagemController.MontarGrid(oMemtable: TFDMemTable);
 begin
-
+  oMemTable.Close;
+  if (oPedidoRegra.MontarGrid(oMemTable, oPedidoModel)) then
+  begin
+    oMemTable.Open;
+    frmPedido.bClick := True;
+    frmPedido.btnEditar.Enabled := True;
+    frmPedido.btnExcluir.Enabled := True;
+  end
+  else
+  begin
+    frmPedido.bClick := False;
+    frmPedido.btnEditar.Enabled := False;
+    frmPedido.btnExcluir.Enabled := False;
+  end;
 end;
 
 end.

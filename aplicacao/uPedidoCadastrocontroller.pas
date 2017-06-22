@@ -1,15 +1,20 @@
-unit uPedidoCadastrocontroller;
+unit uPedidoCadastroController;
 
 interface
 
 uses
   System.Classes, System.SysUtils, Vcl.StdCtrls, System.UITypes, Vcl.Dialogs,
   System.Generics.Collections,
-  uInterfaceCadastroController, uPedidoCadastro;
+  uInterfaceCadastroController, uPedidoCadastro, uPedidoCadastroRegra,
+  uPedidoCadstroModel, uPedidoDTO;
 
 type
   TPedidoCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
+  private
+    oPedidoDTO: TPedidoDTO;
+    oPedidoRegra: TPedidoCadastroRegra;
+    oPedidoModel: TPedidoCadastroModel;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -39,7 +44,9 @@ end;
 
 constructor TPedidoCadastroController.Create;
 begin
-
+  oPedidoDTO := TPedidoDTO.Create;
+  oPedidoRegra := TPedidoCadastroRegra.Create;
+  oPedidoModel := TPedidoCadastroModel.Create;
 end;
 
 procedure TPedidoCadastroController.CreateFormCadastro(AOwner: TComponent;
@@ -54,7 +61,14 @@ end;
 
 destructor TPedidoCadastroController.Destroy;
 begin
+  if (Assigned(oPedidoDTO)) then
+    FreeAndNil(oPedidoDTO);
 
+  if (Assigned(oPedidoRegra)) then
+    FreeAndNil(oPedidoRegra);
+
+  if (Assigned(oPedidoModel)) then
+    FreeAndNil(oPedidoModel);
   inherited;
 end;
 
