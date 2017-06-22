@@ -7,7 +7,8 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.Menus, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
   uClassConexaoSingleton, uEstadoListagemController, uMunicipioListagemController,
-  uBairroListagemController, uClienteListagemController, uUsuarioListagemController, uCategoriasListagemController;
+  uBairroListagemController, uClienteListagemController, uUsuarioListagemController,
+  uCategoriasListagemController, uPedidoListagemController;
 
 type
   TfrmPrincipal = class(TForm)
@@ -32,6 +33,7 @@ type
     btnProdutos: TSpeedButton;
     btnClientes: TSpeedButton;
     btnSair: TSpeedButton;
+    Pedido1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Estado1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -42,6 +44,8 @@ type
     procedure btnClientesClick(Sender: TObject);
     procedure Usurio1Click(Sender: TObject);
     procedure Categorias1Click(Sender: TObject);
+    procedure Pedido1Click(Sender: TObject);
+    procedure btnPedidosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,6 +72,13 @@ begin
   if (not(Assigned(oClienteListagemController))) then
     oClienteListagemController := TClienteListagemController.Create;
   oClienteListagemController.CreateFormListagem(Self);
+end;
+
+procedure TfrmPrincipal.btnPedidosClick(Sender: TObject);
+begin
+  if (not(Assigned(oPedidoListagemController))) then
+    oPedidoListagemController := TPedidoListagemController.Create;
+  oPedidoListagemController.CreateFormListagem(Self);
 end;
 
 procedure TfrmPrincipal.btnSairClick(Sender: TObject);
@@ -118,6 +129,11 @@ begin
   if (not(Assigned(oMunicipioListagemController))) then
     oMunicipioListagemController := TMunicipioListagemController.Create;
   oMunicipioListagemController.CreateFormListagem(Self);
+end;
+
+procedure TfrmPrincipal.Pedido1Click(Sender: TObject);
+begin
+  btnPedidosClick(Sender);
 end;
 
 procedure TfrmPrincipal.Usurio1Click(Sender: TObject);

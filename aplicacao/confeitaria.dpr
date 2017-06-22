@@ -78,7 +78,11 @@ uses
   uCategoriasCadastroModel in 'uCategoriasCadastroModel.pas',
   uCategoriasCadastroRegra in 'uCategoriasCadastroRegra.pas',
   uInterfaceCategoriaCadastroModel in 'uInterfaceCategoriaCadastroModel.pas',
-  uCategoriasCadastro in 'uCategoriasCadastro.pas' {frmCategoriasCadastro};
+  uCategoriasCadastro in 'uCategoriasCadastro.pas' {frmCategoriasCadastro},
+  uPedido in 'uPedido.pas' {frmPedido},
+  uPedidoListagemController in 'uPedidoListagemController.pas',
+  uPedidoCadastro in 'uPedidoCadastro.pas' {frmPedidoCadastro},
+  uPedidoCadastrocontroller in 'uPedidoCadastrocontroller.pas';
 
 {$R *.res}
 

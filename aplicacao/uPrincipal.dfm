@@ -44,8 +44,6 @@ object frmPrincipal: TfrmPrincipal
         Bevel = pbNone
         Width = 150
       end>
-    ExplicitTop = 396
-    ExplicitWidth = 736
   end
   object Panel1: TPanel
     Left = 0
@@ -57,7 +55,6 @@ object frmPrincipal: TfrmPrincipal
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 736
     object btnPedidos: TSpeedButton
       Left = 0
       Top = 0
@@ -263,6 +260,7 @@ object frmPrincipal: TfrmPrincipal
         EBEBEBEBEBECECECF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
       NumGlyphs = 2
+      OnClick = btnPedidosClick
       ExplicitLeft = -6
       ExplicitHeight = 71
     end
@@ -925,6 +923,10 @@ object frmPrincipal: TfrmPrincipal
       object Usurio1: TMenuItem
         Caption = '&Usu'#225'rio'
         OnClick = Usurio1Click
+      end
+      object Pedido1: TMenuItem
+        Caption = 'Ped&ido'
+        OnClick = Pedido1Click
       end
       object UnidadedeMedida1: TMenuItem
         Caption = 'U&nidade de Medida'
