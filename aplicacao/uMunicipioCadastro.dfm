@@ -1,19 +1,30 @@
 inherited frmMunicipioCadastro: TfrmMunicipioCadastro
   Caption = 'Cadastro de Munic'#237'pio'
-  ClientHeight = 287
-  ExplicitHeight = 325
+  ClientHeight = 330
+  ClientWidth = 639
+  ExplicitWidth = 655
+  ExplicitHeight = 368
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
-    Top = 268
-    ExplicitTop = 268
+    Top = 311
+    Width = 639
+    ExplicitLeft = -8
+    ExplicitTop = 274
+    ExplicitWidth = 884
   end
   inherited Panel1: TPanel
-    Height = 268
+    Left = 536
+    Height = 311
+    ExplicitLeft = 781
     ExplicitHeight = 268
   end
   inherited panelCadastro: TPanel
-    Height = 268
+    Width = 536
+    Height = 311
+    ExplicitLeft = -4
+    ExplicitTop = -6
+    ExplicitWidth = 781
     ExplicitHeight = 268
     object Label1: TLabel
       Left = 61

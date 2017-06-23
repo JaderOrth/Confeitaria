@@ -18,6 +18,8 @@ type
     oBairroRegra: TBairroCadastroRegra;
     oBairroDTO: TBairroDTO;
     iIdAlterar: Integer;
+    procedure ComboBox(Sender: TObject);
+   // procedure PassarEdit(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -25,7 +27,6 @@ type
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
-    procedure ComboBox(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -111,7 +112,8 @@ begin
   frmBairroCadastro.OnActivate := Pesquisar;
   frmBairroCadastro.Show;
   frmBairroCadastro.OnActivate(nil);
-  frmBairroCadastro.cbMunicipio.OnEnter := ComboBox;
+  frmBairroCadastro.cbMunicipio.OnDropDown := ComboBox;
+//  frmBairroCadastro.cbEstado.OnKeyPress := ;
 
   if (iId > 0) then
   begin
@@ -142,6 +144,7 @@ begin
   inherited;
 end;
 
+
 procedure TBairroCadastroController.Novo(Sender: TObject);
 begin
   oBairroRegra.LimparDTO(oBairroDTO);
@@ -149,29 +152,51 @@ begin
   frmBairroCadastro.cbMunicipio.Clear;
 end;
 
+//procedure TBairroCadastroController.PassarEdit(Sender: TObject);
+//begin
+//  If key = #13 then
+//   Begin
+//      Key:= #0;
+//      Perform(Wm_NextDlgCtl,0,0);
+//   end;
+//end;
+
 procedure TBairroCadastroController.Pesquisar(Sender: TObject);
 var
   oListaEstado: TEstadoListaHash;
   oEstadoDTO: TEstadoDTO;
   oEstadoModel: TEstadoListagemModel;
   cbEstado: TComboBox;
+  iId : Integer;
 begin
   cbEstado := frmBairroCadastro.cbEstado;
-  cbEstado.Items.Clear;
-  try
-    oListaEstado := TEstadoListaHash.Create([doOwnsValues]);
-    oEstadoModel := TEstadoListagemModel.Create;
-    if (oBairroRegra.ComboBox(oListaEstado, oEstadoModel)) then
-    begin
-      for oEstadoDTO in oListaEstado.Values do
-        cbEstado.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
-    end
-  finally
-    if (Assigned(oListaEstado)) then
-      FreeAndNil(oListaEstado);
 
-    if (Assigned(oEstadoModel)) then
-      FreeAndNil(oEstadoModel);
+  if (cbEstado.ItemIndex <> -1) then
+    iId := Integer(cbEstado.Items.Objects[cbEstado.ItemIndex])
+  else
+    iId := -1;
+
+   cbEstado.Items.Clear;
+    try
+      oListaEstado := TEstadoListaHash.Create([doOwnsValues]);
+      oEstadoModel := TEstadoListagemModel.Create;
+      if (oBairroRegra.ComboBox(oListaEstado, oEstadoModel)) then
+      begin
+        for oEstadoDTO in oListaEstado.Values do
+          cbEstado.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
+      end;
+
+      if (iId <> -1) then
+      begin
+        cbEstado.ItemIndex := cbEstado.Items.IndexOfObject(TObject(iId));
+      end;
+
+    finally
+      if (Assigned(oListaEstado)) then
+        FreeAndNil(oListaEstado);
+
+      if (Assigned(oEstadoModel)) then
+        FreeAndNil(oEstadoModel);
   end;
 end;
 

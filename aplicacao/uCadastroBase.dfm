@@ -15,8 +15,7 @@ object frmCadastroBase: TfrmCadastroBase
   OldCreateOrder = False
   Position = poMainFormCenter
   Visible = True
-  OnCreate = FormCreate
-  OnDestroy = FormDestroy
+  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 16
   object StatusBar1: TStatusBar
@@ -25,8 +24,6 @@ object frmCadastroBase: TfrmCadastroBase
     Width = 884
     Height = 19
     Panels = <>
-    ExplicitTop = 245
-    ExplicitWidth = 677
   end
   object Panel1: TPanel
     Left = 781
@@ -39,8 +36,6 @@ object frmCadastroBase: TfrmCadastroBase
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = 574
-    ExplicitHeight = 245
     object btnSalvar: TSpeedButton
       Left = 2
       Top = 72
@@ -495,7 +490,5 @@ object frmCadastroBase: TfrmCadastroBase
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 2
-    ExplicitWidth = 574
-    ExplicitHeight = 245
   end
 end

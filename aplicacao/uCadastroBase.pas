@@ -16,11 +16,10 @@ type
     btnSair: TSpeedButton;
     panelCadastro: TPanel;
     btnNovo: TSpeedButton;
-    procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -62,16 +61,15 @@ begin
   oInterfaceCadastroController.Salvar(Sender);
 end;
 
-procedure TfrmCadastroBase.FormCreate(Sender: TObject);
+procedure TfrmCadastroBase.FormKeyPress(Sender: TObject; var Key: Char);
 begin
-  if (Owner is TForm) then
-    (Owner as TForm).Enabled := False;
+  if key = #13 then
+  begin
+    Key:= #0;
+    Perform(Wm_NextDlgCtl,0,0);
+  end;
 end;
 
-procedure TfrmCadastroBase.FormDestroy(Sender: TObject);
-begin
-  if (Owner is TForm) then
-    (Owner as TForm).Enabled := True;
-end;
+
 
 end.
