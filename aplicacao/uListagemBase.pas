@@ -44,7 +44,7 @@ type
   public
     { Public declarations }
     oListagemBase: IInterfaceListagemController;
-    bClick: boolean;
+    bClick: Boolean;
   end;
 
 implementation
@@ -108,4 +108,3 @@ begin
 end;
 
 end.
-

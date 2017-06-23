@@ -24,7 +24,6 @@ type
     procedure Novo(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-
     constructor Create;
     destructor Destroy; override;
   end;

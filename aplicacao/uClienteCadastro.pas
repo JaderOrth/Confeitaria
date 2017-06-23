@@ -13,7 +13,6 @@ type
     edtCPFCNPJ: TLabeledEdit;
     edtEndereco: TLabeledEdit;
     edtNumero: TLabeledEdit;
-    edtObservacao: TLabeledEdit;
     edtComplemento: TLabeledEdit;
     edtCelular: TLabeledEdit;
     cbEstado: TComboBox;
@@ -23,6 +22,8 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
+    Label4: TLabel;
+    edtObservacao: TMemo;
   private
     { Private declarations }
   public

@@ -2,7 +2,6 @@ inherited frmBairroCadastro: TfrmBairroCadastro
   Caption = 'Cadastro de Bairro'
   ClientHeight = 297
   ClientWidth = 582
-  OnKeyPress = nil
   ExplicitWidth = 598
   ExplicitHeight = 335
   PixelsPerInch = 96

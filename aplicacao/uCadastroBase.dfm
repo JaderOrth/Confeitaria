@@ -15,7 +15,6 @@ object frmCadastroBase: TfrmCadastroBase
   OldCreateOrder = False
   Position = poMainFormCenter
   Visible = True
-  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 16
   object StatusBar1: TStatusBar

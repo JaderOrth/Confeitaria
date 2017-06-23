@@ -1,48 +1,55 @@
 inherited frmCadastroCliente: TfrmCadastroCliente
   Caption = 'Cadastro de Cliente'
-  ClientHeight = 445
-  ClientWidth = 755
-  ExplicitWidth = 771
-  ExplicitHeight = 483
+  ClientHeight = 469
+  ClientWidth = 649
+  ExplicitWidth = 665
+  ExplicitHeight = 507
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
-    Top = 426
-    Width = 755
+    Top = 450
+    Width = 649
     ExplicitTop = 426
     ExplicitWidth = 755
   end
   inherited Panel1: TPanel
-    Left = 652
-    Height = 426
+    Left = 546
+    Height = 450
     ExplicitLeft = 652
     ExplicitHeight = 426
   end
   inherited panelCadastro: TPanel
-    Width = 652
-    Height = 426
+    Width = 546
+    Height = 450
     ExplicitWidth = 652
     ExplicitHeight = 426
     object Label1: TLabel
       Left = 16
-      Top = 246
+      Top = 196
       Width = 38
       Height = 16
       Caption = 'Estado'
     end
     object Label2: TLabel
       Left = 16
-      Top = 298
+      Top = 248
       Width = 61
       Height = 16
       Caption = 'Munic'#237'pio*'
     end
     object Label3: TLabel
       Left = 16
-      Top = 350
+      Top = 300
       Width = 42
       Height = 16
       Caption = 'Bairro*'
+    end
+    object Label4: TLabel
+      Left = 16
+      Top = 352
+      Width = 81
+      Height = 16
+      Caption = 'Observa'#231#245'es*'
     end
     object edtNome: TLabeledEdit
       Left = 16
@@ -56,18 +63,18 @@ inherited frmCadastroCliente: TfrmCadastroCliente
     end
     object edtCPFCNPJ: TLabeledEdit
       Left = 16
-      Top = 168
+      Top = 118
       Width = 193
       Height = 24
       EditLabel.Width = 55
       EditLabel.Height = 16
       EditLabel.Caption = 'CPF/CNPJ'
-      TabOrder = 4
+      TabOrder = 3
     end
     object edtEndereco: TLabeledEdit
       Left = 16
       Top = 72
-      Width = 281
+      Width = 393
       Height = 24
       EditLabel.Width = 61
       EditLabel.Height = 16
@@ -84,66 +91,65 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       EditLabel.Caption = 'Numero* '
       TabOrder = 1
     end
-    object edtObservacao: TLabeledEdit
-      Left = 16
-      Top = 120
-      Width = 329
-      Height = 24
-      EditLabel.Width = 81
-      EditLabel.Height = 16
-      EditLabel.Caption = 'Observa'#231#245'es*'
-      TabOrder = 3
-    end
     object edtComplemento: TLabeledEdit
       Left = 240
-      Top = 168
+      Top = 118
       Width = 249
       Height = 24
       EditLabel.Width = 69
       EditLabel.Height = 16
       EditLabel.Caption = 'Residencia*'
-      TabOrder = 5
+      TabOrder = 4
     end
     object edtCelular: TLabeledEdit
       Left = 240
-      Top = 216
+      Top = 166
       Width = 249
       Height = 24
       EditLabel.Width = 40
       EditLabel.Height = 16
       EditLabel.Caption = 'Celular'
-      TabOrder = 7
+      TabOrder = 6
     end
     object cbEstado: TComboBox
       Left = 16
-      Top = 268
+      Top = 218
+      Width = 329
+      Height = 24
+      TabOrder = 7
+    end
+    object cbMunicipio: TComboBox
+      Left = 16
+      Top = 270
       Width = 329
       Height = 24
       TabOrder = 8
     end
-    object cbMunicipio: TComboBox
+    object cbBairro: TComboBox
       Left = 16
-      Top = 320
+      Top = 322
       Width = 329
       Height = 24
       TabOrder = 9
     end
-    object cbBairro: TComboBox
-      Left = 16
-      Top = 372
-      Width = 329
-      Height = 24
-      TabOrder = 10
-    end
     object edtTelefone: TLabeledEdit
       Left = 16
-      Top = 216
+      Top = 166
       Width = 194
       Height = 24
       EditLabel.Width = 43
       EditLabel.Height = 16
       EditLabel.Caption = 'Telfone'
-      TabOrder = 6
+      TabOrder = 5
+    end
+    object edtObservacao: TMemo
+      Left = 16
+      Top = 374
+      Width = 473
+      Height = 59
+      Lines.Strings = (
+        'edtObservacao')
+      TabOrder = 10
     end
   end
 end
