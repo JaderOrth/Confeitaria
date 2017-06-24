@@ -108,10 +108,11 @@ begin
 
   frmBairroCadastro.oInterfaceCadastroController := oBairroCadastroController;
 
-  frmBairroCadastro.OnActivate := Pesquisar;
+ // frmBairroCadastro.OnActivate := Pesquisar;
   frmBairroCadastro.Show;
   frmBairroCadastro.OnActivate(nil);
-  frmBairroCadastro.cbEstado.OnExit := ComboBox;
+  frmBairroCadastro.cbMunicipio.OnEnter := ComboBox;
+
   if (iId > 0) then
   begin
     oCbEstado := frmBairroCadastro.cbEstado;
@@ -161,7 +162,7 @@ begin
   if (cbEstado.ItemIndex <> -1) then
   begin
     iId := Integer(cbEstado.Items.Objects[cbEstado.ItemIndex]);
-    frmBairroCadastro.cbMunicipio.OnDropDown := ComboBox;
+    frmBairroCadastro.cbEstado.SetFocus;
   end
   else
     iId := -1;
