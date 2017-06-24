@@ -52,6 +52,9 @@ begin
 
     if (Components[iIndiceComponente] is TMemo) then
       (Components[iIndiceComponente] as TMemo).Clear;
+
+    if (Components[iIndiceComponente] is TCheckBox) then
+      (Components[iIndiceComponente] as TCheckBox).State := cbUnchecked;
   end;
 end;
 

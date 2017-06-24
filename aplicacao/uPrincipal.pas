@@ -8,7 +8,7 @@ uses
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
   uClassConexaoSingleton, uEstadoListagemController, uMunicipioListagemController,
   uBairroListagemController, uClienteListagemController, uUsuarioListagemController,
-  uCategoriasListagemController, uSaborListagemController;
+  uCategoriasListagemController, uSaborListagemController, uUnidadeMedidaListagemController;
 
 type
   TfrmPrincipal = class(TForm)
@@ -44,6 +44,7 @@ type
     procedure Usurio1Click(Sender: TObject);
     procedure Categorias1Click(Sender: TObject);
     procedure Sabores1Click(Sender: TObject);
+    procedure UnidadedeMedida1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -127,6 +128,13 @@ begin
   if (not(Assigned(oSaborListagemController))) then
     oSaborListagemController := TSaborListagemController.Create;
   oSaborListagemController.CreateFormListagem(Self);
+end;
+
+procedure TfrmPrincipal.UnidadedeMedida1Click(Sender: TObject);
+begin
+  if (not(Assigned(oUnidadeMedidaListagemController))) then
+    oUnidadeMedidaListagemController := TUnidadeMedidaListagemController.Create;
+  oUnidadeMedidaListagemController.CreateFormListagem(Self);
 end;
 
 procedure TfrmPrincipal.Usurio1Click(Sender: TObject);

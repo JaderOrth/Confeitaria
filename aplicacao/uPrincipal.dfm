@@ -925,6 +925,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object UnidadedeMedida1: TMenuItem
         Caption = 'U&nidade de Medida'
+        OnClick = UnidadedeMedida1Click
       end
       object Sabores1: TMenuItem
         Caption = 'Sabo&res'

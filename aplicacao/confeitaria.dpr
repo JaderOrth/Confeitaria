@@ -89,7 +89,17 @@ uses
   uSaborCadastro in 'uSaborCadastro.pas' {frmSaborCadastro},
   uSaborCadastroRegra in 'uSaborCadastroRegra.pas',
   uInterfaceSaborCadastroModel in 'uInterfaceSaborCadastroModel.pas',
-  uSaborCadastroModel in 'uSaborCadastroModel.pas';
+  uSaborCadastroModel in 'uSaborCadastroModel.pas',
+  uUnidadeMedida in 'uUnidadeMedida.pas' {frmUnidadeMedida},
+  uUnidadeMedidaCadastro in 'uUnidadeMedidaCadastro.pas' {frmUnidadeMedidaCadastro},
+  uUnidadeMedidaCadastroController in 'uUnidadeMedidaCadastroController.pas',
+  uUnidadeMedidaDTO in 'uUnidadeMedidaDTO.pas',
+  uUnidadeMedidaListagemController in 'uUnidadeMedidaListagemController.pas',
+  uUnidadeMedidaListagemModel in 'uUnidadeMedidaListagemModel.pas',
+  uUnidadeMedidaListagemRegra in 'uUnidadeMedidaListagemRegra.pas',
+  uUnidadeMedidaCadastroRegra in 'uUnidadeMedidaCadastroRegra.pas',
+  uInterfaceUnidadeMedidaCadastroModel in 'uInterfaceUnidadeMedidaCadastroModel.pas',
+  uUnidadeMedidaCadastroModel in 'uUnidadeMedidaCadastroModel.pas';
 
 {$R *.res}
 

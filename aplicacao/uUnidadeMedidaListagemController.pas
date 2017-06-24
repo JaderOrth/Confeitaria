@@ -54,9 +54,9 @@ end;
 
 procedure TUnidadeMedidaListagemController.ControlerCadastro(Sender: TObject);
 begin
- { if (not(Assigned(oUnidadeMedidaCadastroController))) then
+  if (not(Assigned(oUnidadeMedidaCadastroController))) then
     oUnidadeMedidaCadastroController := TUnidadeMedidaCadastroController.Create;
-  oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida, Sender, 0);  }
+  oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida, Sender, 0);
 end;
 
 constructor TUnidadeMedidaListagemController.Create;
@@ -71,10 +71,10 @@ procedure TUnidadeMedidaListagemController.CreateFormEdit(Sender: TObject;
 var
   iID: Integer;
 begin
- { if (not(Assigned(oUnidadeMedidaCadastroController))) then
+  if (not(Assigned(oUnidadeMedidaCadastroController))) then
     oUnidadeMedidaCadastroController := TUnidadeMedidaCadastroController.Create;
   iID := oMemTable.FieldByName('idunidade_medida').AsInteger;
-  oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida, Sender, iID); }
+  oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida, Sender, iID);
 end;
 
 procedure TUnidadeMedidaListagemController.CreateFormListagem(
@@ -137,11 +137,13 @@ begin
   if (oUnidadeMedidaRegra.MontarGrid(oMemTable, oUnidadeMedidaModel)) then
   begin
     oMemTable.Open;
+    frmUnidadeMedida.bClick := True;
     frmUnidadeMedida.btnEditar.Enabled := True;
     frmUnidadeMedida.btnExcluir.Enabled := True;
   end
   else
   begin
+    frmUnidadeMedida.bClick := True;
     frmUnidadeMedida.btnEditar.Enabled := False;
     frmUnidadeMedida.btnExcluir.Enabled := False;
   end;

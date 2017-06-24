@@ -8,16 +8,16 @@ type
     Fdescricao: string;
     Fidunidade_medida: Integer;
     Fsigla: string;
-    Fpermite_decimal: Integer;
+    Fpermite_decimal: string;
     procedure Setdescricao(const Value: string);
     procedure Setidunidade_medida(const Value: Integer);
-    procedure Setpermite_decimal(const Value: Integer);
+    procedure Setpermite_decimal(const Value: string);
     procedure Setsigla(const Value: string);
   public
     property idunidade_medida: Integer read Fidunidade_medida write Setidunidade_medida;
     property descricao: string read Fdescricao write Setdescricao;
     property sigla: string read Fsigla write Setsigla;
-    property permite_decimal: Integer read Fpermite_decimal write Setpermite_decimal;
+    property permite_decimal: string read Fpermite_decimal write Setpermite_decimal;
   end;
 
 implementation
@@ -34,7 +34,7 @@ begin
   Fidunidade_medida := Value;
 end;
 
-procedure TUnidadeMedidaDTO.Setpermite_decimal(const Value: Integer);
+procedure TUnidadeMedidaDTO.Setpermite_decimal(const Value: string);
 begin
   Fpermite_decimal := Value;
 end;
