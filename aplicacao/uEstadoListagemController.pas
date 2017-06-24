@@ -40,8 +40,8 @@ implementation
 procedure TEstadoListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'descricao like ''%' + UpperCase(aPesquisa) + '%''' +
-                      ' or sigla_uf like ''%' + UpperCase(aPesquisa) + '%''';
+  aMemTable.Filter := 'descricao like ''%' + AnsiUpperCase(aPesquisa) + '%''' +
+                      ' or sigla_uf like ''%' + AnsiUpperCase(aPesquisa) + '%''';
   aMemTable.Filtered := True;
 end;
 

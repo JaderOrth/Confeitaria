@@ -129,9 +129,11 @@ end;
 
 procedure TMunicipioCadastroController.Salvar(Sender: TObject);
 var
- iValidar, iSalvar: Integer;
+  iValidar, iSalvar: Integer;
 begin
-  oMunicipioDTO.IdEstado := Integer(frmMunicipioCadastro.cbEstado.Items.Objects[frmMunicipioCadastro.cbEstado.ItemIndex]);
+  oMunicipioDTO.IdEstado := Integer(frmMunicipioCadastro.cbEstado.Items.Objects
+    [frmMunicipioCadastro.cbEstado.ItemIndex]);
+  oMunicipioDTO.Descricao := frmMunicipioCadastro.edtMunicipio.Text;
 
   iValidar := oMunicipioRegra.ValidarMunicipio(oMunicipioDTO);
   // Descrição do Município

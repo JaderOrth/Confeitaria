@@ -15,8 +15,10 @@ type
     Label1: TLabel;
     Label2: TLabel;
     procedure FormActivate(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
+    bCreate: Boolean;
   public
     { Public declarations }
   end;
@@ -31,7 +33,15 @@ implementation
 procedure TfrmBairroCadastro.FormActivate(Sender: TObject);
 begin
   inherited;
-  oInterfaceCadastroController.Pesquisar(Sender);
+  if not(bCreate) then
+    oInterfaceCadastroController.Pesquisar(Sender);
+  bCreate := False;
+end;
+
+procedure TfrmBairroCadastro.FormCreate(Sender: TObject);
+begin
+  inherited;
+  bCreate := True;
 end;
 
 end.

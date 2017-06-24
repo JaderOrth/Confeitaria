@@ -3,6 +3,7 @@ inherited frmBairroCadastro: TfrmBairroCadastro
   ClientHeight = 297
   ClientWidth = 582
   OnActivate = FormActivate
+  OnCreate = FormCreate
   ExplicitWidth = 598
   ExplicitHeight = 335
   PixelsPerInch = 96

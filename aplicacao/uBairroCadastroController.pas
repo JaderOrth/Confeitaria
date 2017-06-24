@@ -55,7 +55,6 @@ var
   oComboBox: TComboBox;
   iId: Integer;
 begin
-  // frmBairroCadastro.cbMunicipio.SetFocus;
   if (frmBairroCadastro.cbEstado.ItemIndex <> -1) then
   begin
     oComboBox := frmBairroCadastro.cbMunicipio;
@@ -106,12 +105,13 @@ var
 begin
   if (not(Assigned(frmBairroCadastro))) then
     frmBairroCadastro := TfrmBairroCadastro.Create(AOwner);
+
   frmBairroCadastro.oInterfaceCadastroController := oBairroCadastroController;
 
   frmBairroCadastro.OnActivate := Pesquisar;
   frmBairroCadastro.Show;
   frmBairroCadastro.OnActivate(nil);
-  frmBairroCadastro.cbEstado.OnChange := ComboBox;
+  frmBairroCadastro.cbEstado.OnExit := ComboBox;
   if (iId > 0) then
   begin
     oCbEstado := frmBairroCadastro.cbEstado;

@@ -42,7 +42,7 @@ procedure TMunicipioListagemController.BuscarGrid(aMemTable: TFDMemTable;
 begin
   aMemTable.Filter := 'descricao like ''%'+APesquisa+
                       '%'' or estado like ''%'+
-                      UpperCase(APesquisa)+'%''';
+                      AnsiUpperCase(APesquisa)+'%''';
   aMemTable.Filtered := True;
 end;
 
