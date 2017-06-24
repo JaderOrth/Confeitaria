@@ -921,6 +921,7 @@ object frmPrincipal: TfrmPrincipal
       Caption = '&Cadastros'
       object Usurio1: TMenuItem
         Caption = '&Usu'#225'rio'
+        OnClick = Usurio1Click
       end
       object UnidadedeMedida1: TMenuItem
         Caption = 'U&nidade de Medida'

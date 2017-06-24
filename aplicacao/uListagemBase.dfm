@@ -3,8 +3,8 @@ object frmListagemBase: TfrmListagemBase
   Top = 0
   BorderIcons = []
   Caption = 'Listagem Base'
-  ClientHeight = 441
-  ClientWidth = 834
+  ClientHeight = 506
+  ClientWidth = 1001
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -25,12 +25,13 @@ object frmListagemBase: TfrmListagemBase
     Left = 0
     Top = 56
     Width = 185
-    Height = 366
+    Height = 431
     Align = alLeft
     BevelInner = bvRaised
     BevelOuter = bvLowered
     ParentBackground = False
     TabOrder = 0
+    ExplicitHeight = 366
     object edtPesquisa: TEdit
       Left = 5
       Top = 27
@@ -62,7 +63,7 @@ object frmListagemBase: TfrmListagemBase
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 834
+    Width = 1001
     Height = 56
     Align = alTop
     BevelInner = bvRaised
@@ -70,6 +71,7 @@ object frmListagemBase: TfrmListagemBase
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
+    ExplicitWidth = 834
     object btnAjuda: TSpeedButton
       Left = 158
       Top = 2
@@ -1143,16 +1145,18 @@ object frmListagemBase: TfrmListagemBase
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 422
-    Width = 834
+    Top = 487
+    Width = 1001
     Height = 19
     Panels = <>
+    ExplicitTop = 422
+    ExplicitWidth = 834
   end
   object DBGridListagem: TDBGrid
     Left = 185
     Top = 56
-    Width = 649
-    Height = 366
+    Width = 816
+    Height = 431
     Align = alClient
     DataSource = src_listagem
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]

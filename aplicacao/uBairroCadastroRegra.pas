@@ -88,6 +88,7 @@ end;
 function TBairroCadastroRegra.ValidarEdit(
   const aBairroDTO: TBairroDTO): Integer;
 begin
+  Result := 0;
   if (Length(Trim(aBairroDTO.Descricao)) < 3) then
   begin
     Result := 1;
