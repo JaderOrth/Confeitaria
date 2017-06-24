@@ -14,6 +14,7 @@ type
     cbMunicipio: TComboBox;
     Label1: TLabel;
     Label2: TLabel;
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -26,5 +27,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmBairroCadastro.FormActivate(Sender: TObject);
+begin
+  inherited;
+  oInterfaceCadastroController.Pesquisar(Sender);
+end;
 
 end.

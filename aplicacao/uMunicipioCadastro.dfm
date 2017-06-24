@@ -9,23 +9,17 @@ inherited frmMunicipioCadastro: TfrmMunicipioCadastro
   inherited StatusBar1: TStatusBar
     Top = 311
     Width = 639
-    ExplicitLeft = -8
-    ExplicitTop = 274
-    ExplicitWidth = 884
+    ExplicitTop = 311
   end
   inherited Panel1: TPanel
     Left = 536
     Height = 311
-    ExplicitLeft = 781
-    ExplicitHeight = 268
+    ExplicitHeight = 311
   end
   inherited panelCadastro: TPanel
     Width = 536
     Height = 311
-    ExplicitLeft = -4
-    ExplicitTop = -6
-    ExplicitWidth = 781
-    ExplicitHeight = 268
+    ExplicitHeight = 311
     object Label1: TLabel
       Left = 61
       Top = 127
@@ -48,8 +42,10 @@ inherited frmMunicipioCadastro: TfrmMunicipioCadastro
       Left = 104
       Top = 124
       Width = 337
-      Height = 24
+      Height = 22
+      Style = csOwnerDrawFixed
       CharCase = ecUpperCase
+      Sorted = True
       TabOrder = 1
     end
   end

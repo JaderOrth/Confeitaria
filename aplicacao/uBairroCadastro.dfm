@@ -2,6 +2,7 @@ inherited frmBairroCadastro: TfrmBairroCadastro
   Caption = 'Cadastro de Bairro'
   ClientHeight = 297
   ClientWidth = 582
+  OnActivate = FormActivate
   ExplicitWidth = 598
   ExplicitHeight = 335
   PixelsPerInch = 96
@@ -51,15 +52,19 @@ inherited frmBairroCadastro: TfrmBairroCadastro
       Left = 40
       Top = 125
       Width = 337
-      Height = 24
+      Height = 22
+      Style = csOwnerDrawFixed
       CharCase = ecUpperCase
+      Sorted = True
       TabOrder = 1
     end
     object cbMunicipio: TComboBox
       Left = 40
       Top = 177
       Width = 337
-      Height = 24
+      Height = 22
+      Style = csOwnerDrawFixed
+      Sorted = True
       TabOrder = 2
     end
   end
