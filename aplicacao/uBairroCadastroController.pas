@@ -17,7 +17,7 @@ type
     oBairroModel: TBairroCadastroModel;
     oBairroRegra: TBairroCadastroRegra;
     oBairroDTO: TBairroDTO;
-    iIdAlterar: Integer;
+    iIdAlterar, iIDEstado: Integer;
     procedure ComboBox(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
@@ -70,6 +70,7 @@ begin
       if (oBairroRegra.ComboBomMunicipio(oMunicipioLista, iId, oMunicipioModel))
       then
       begin
+        iIDEstado := iId;
         for oMunicipioDTO in oMunicipioLista.Values do
         begin
           oComboBox.Items.AddObject(oMunicipioDTO.Descricao,
@@ -157,7 +158,7 @@ var
   cbEstado: TComboBox;
   iId: Integer;
 begin
-  cbEstado := frmBairroCadastro.cbEstado;
+ cbEstado := frmBairroCadastro.cbEstado;
 
   if (cbEstado.ItemIndex <> -1) then
   begin
@@ -194,8 +195,15 @@ end;
 procedure TBairroCadastroController.Salvar(Sender: TObject);
 var
   oComboBox: TComboBox;
-  iValidar, iSalvar: Integer;
+  iValidar, iSalvar, iIDValidarEstado: Integer;
 begin
+  iIDValidarEstado := Integer(frmBairroCadastro.cbEstado.Items.Objects
+    [frmBairroCadastro.cbEstado.ItemIndex]);
+  if (iIDValidarEstado <> iIDEstado) then
+  begin
+    frmBairroCadastro.cbMunicipio.Items.Clear;
+    frmBairroCadastro.cbMunicipio.Clear;
+  end;
   oComboBox := frmBairroCadastro.cbMunicipio;
   oBairroDTO.Descricao := frmBairroCadastro.edtBairro.Text;
   if (oComboBox.ItemIndex = -1) then
