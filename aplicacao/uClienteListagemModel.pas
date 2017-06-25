@@ -34,7 +34,7 @@ begin
   try
     oQuery := TFDQuery.Create(nil);
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT cli.idcliente, cli.endereco, cli.numero,'+
+    oQuery.Open('SELECT cli.idcliente, cli.endereco, cli.nome, cli.numero,'+
                 ' cli.telefone, cli.celular, bai.descricao,'+
                 ' mun.descricao as municipio FROM cliente as '+
                 ' cli INNER JOIN bairro as bai'+

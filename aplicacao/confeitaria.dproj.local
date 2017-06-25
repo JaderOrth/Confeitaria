@@ -125,10 +125,10 @@
     <Transaction>2017/06/14 11:16:18.000.025,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/14 11:16:25.000.969,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\uClienteDTO.pas</Transaction>
     <Transaction>2017/06/14 11:24:08.000.566,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/14 11:24:14.000.788,C:\Users\Jader\Documents\Confeitaria\aplicacao\uCliente.dfm=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.dfm</Transaction>
-    <Transaction>2017/06/14 11:24:14.000.788,C:\Users\Jader\Documents\Confeitaria\aplicacao\uCliente.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/14 11:24:14.000.788,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.dfm=C:\Users\Jader\Documents\Confeitaria\aplicacao\uCliente.dfm</Transaction>
+    <Transaction>2017/06/14 11:24:14.000.788,C:\Users\Jader\Documents\Confeitaria\aplicacao\uCliente.dfm=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.dfm</Transaction>
     <Transaction>2017/06/14 11:24:14.000.788,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\uCliente.pas</Transaction>
+    <Transaction>2017/06/14 11:24:14.000.788,C:\Users\Jader\Documents\Confeitaria\aplicacao\uCliente.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/14 13:31:48.000.585,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/14 13:31:48.000.585,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/14 13:31:55.000.995,C:\Users\Jader\Documents\Confeitaria\aplicacao\uClienteCadastro.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
@@ -151,8 +151,8 @@
     <Transaction>2017/06/16 22:09:15.000.810,C:\Users\Jader\Documents\Confeitaria\aplicacao\uBairroListaHash.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/16 22:09:15.000.810,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\uBairroListaHash.pas</Transaction>
     <Transaction>2017/06/19 14:31:54.000.758,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
-    <Transaction>2017/06/19 14:32:05.000.757,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\uUsuario.pas</Transaction>
     <Transaction>2017/06/19 14:32:05.000.757,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.dfm=C:\Users\Jader\Documents\Confeitaria\aplicacao\uUsuario.dfm</Transaction>
+    <Transaction>2017/06/19 14:32:05.000.757,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\uUsuario.pas</Transaction>
     <Transaction>2017/06/19 14:32:54.000.647,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>
     <Transaction>2017/06/19 14:33:06.000.707,C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas=C:\Users\Jader\Documents\Confeitaria\aplicacao\uUsuarioListagemController.pas</Transaction>
     <Transaction>2017/06/19 15:35:52.000.354,=C:\Users\Jader\Documents\Confeitaria\aplicacao\Unit1.pas</Transaction>

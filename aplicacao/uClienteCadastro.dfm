@@ -9,20 +9,20 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   inherited StatusBar1: TStatusBar
     Top = 450
     Width = 649
-    ExplicitTop = 426
-    ExplicitWidth = 755
+    ExplicitTop = 450
+    ExplicitWidth = 649
   end
   inherited Panel1: TPanel
     Left = 546
     Height = 450
-    ExplicitLeft = 652
-    ExplicitHeight = 426
+    ExplicitLeft = 546
+    ExplicitHeight = 450
   end
   inherited panelCadastro: TPanel
     Width = 546
     Height = 450
-    ExplicitWidth = 652
-    ExplicitHeight = 426
+    ExplicitWidth = 546
+    ExplicitHeight = 450
     object Label1: TLabel
       Left = 16
       Top = 196
@@ -115,21 +115,30 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       Left = 16
       Top = 218
       Width = 329
-      Height = 24
+      Height = 22
+      Style = csOwnerDrawFixed
+      CharCase = ecUpperCase
+      Color = clBtnHighlight
+      Sorted = True
       TabOrder = 7
     end
     object cbMunicipio: TComboBox
       Left = 16
       Top = 270
       Width = 329
-      Height = 24
+      Height = 22
+      Style = csOwnerDrawFixed
+      Color = clBtnHighlight
+      Sorted = True
       TabOrder = 8
     end
     object cbBairro: TComboBox
       Left = 16
       Top = 322
       Width = 329
-      Height = 24
+      Height = 22
+      Style = csOwnerDrawFixed
+      Sorted = True
       TabOrder = 9
     end
     object edtTelefone: TLabeledEdit
@@ -147,8 +156,11 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       Top = 374
       Width = 473
       Height = 59
+      DoubleBuffered = False
+      DragCursor = crHelp
       Lines.Strings = (
         'edtObservacao')
+      ParentDoubleBuffered = False
       TabOrder = 10
     end
   end
