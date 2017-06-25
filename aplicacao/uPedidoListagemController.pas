@@ -38,7 +38,8 @@ implementation
 procedure TPedidoListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-
+  aMemTable.Filter := '';
+  aMemTable.Filtered := true;
 end;
 
 procedure TPedidoListagemController.CloseForm(Sender: TObject);
@@ -99,7 +100,29 @@ begin
 end;
 
 procedure TPedidoListagemController.Excluir(oMemtable: TFDMemTable);
+var
+  iId: Integer;
 begin
+  if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
+    [mbYes, mbNo], 0) = mrYes) then
+  begin
+    iId := oMemTable.FieldByName('idbairro').AsInteger;
+    if (oPedidoRegra.Excluir(iId, oPedidoModel)) then
+    begin
+      MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
+      //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
+      oMemTable.Locate('idpedido', iId);
+      oMemTable.Delete;
+    end
+    else
+      raise Exception.Create('Error  ao deletar o Registro');
+  end;
+
+  if (oMemtable.IsEmpty) then
+  begin
+    frmPedido.btnEditar.Enabled := false;
+    frmPedido.btnExcluir.Enabled := false;
+  end;
 
 end;
 
