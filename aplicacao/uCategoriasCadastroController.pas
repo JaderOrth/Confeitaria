@@ -68,9 +68,6 @@ end;
 
 procedure TCategoriasCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
-var
-  iIdCategoria: Integer;
-
 begin
   if (not(Assigned(frmCategoriasCadastro))) then
     frmCategoriasCadastro := TfrmCategoriasCadastro.Create(AOwner);

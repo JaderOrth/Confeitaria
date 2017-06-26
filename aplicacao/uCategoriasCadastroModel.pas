@@ -3,7 +3,7 @@ unit uCategoriasCadastroModel;
 interface
 
 uses
-  FireDAC.Comp.Client, System.SysUtils,
+  FireDAC.Comp.Client, System.SysUtils, Data.DB,
   uInterfaceCategoriaCadastroModel, uCategoriasDTO, uClassConexaoSingleton;
 
 type

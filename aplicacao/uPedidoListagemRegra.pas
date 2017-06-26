@@ -21,6 +21,7 @@ implementation
 function TPedidoListagemRegra.Excluir(const aId: Integer;
   const aModel: IInterfacePedidoListagem): Boolean;
 begin
+  Result := False;
  if (aId > 0) then
   Result := aModel.Excluir(aId);
 end;
