@@ -129,17 +129,11 @@ end;
 
 procedure TMunicipioCadastroController.Salvar(Sender: TObject);
 var
-  oComboBox: TComboBox;
   iValidar, iSalvar: Integer;
 begin
-  oComboBox := frmMunicipioCadastro.cbEstado;
+  oMunicipioDTO.IdEstado := Integer(frmMunicipioCadastro.cbEstado.Items.Objects
+    [frmMunicipioCadastro.cbEstado.ItemIndex]);
   oMunicipioDTO.Descricao := frmMunicipioCadastro.edtMunicipio.Text;
-  // verefica se o ComboBox já foi selecionado ou não
-  if (oComboBox.ItemIndex = -1) then
-    oMunicipioDTO.IdEstado := -1
-  else
-    oMunicipioDTO.IdEstado :=
-      Integer(oComboBox.Items.Objects[oComboBox.ItemIndex]);
 
   iValidar := oMunicipioRegra.ValidarMunicipio(oMunicipioDTO);
   // Descrição do Município

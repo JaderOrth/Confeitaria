@@ -97,13 +97,7 @@ end;
 function TClienteCadastroRegra.Validar(const aClienteDTO: TClienteDTO): Integer;
 begin
   Result := 0;
-  if (Trim(aClienteDTO.Endereco).IsEmpty) then
-  begin
-    Result := 1;
-    exit;
-  end;
-
-  if (aClienteDTO.Nome.IsEmpty) then
+   if (aClienteDTO.Nome.IsEmpty) then
   begin
     Result := 2;
     exit;
@@ -112,6 +106,12 @@ begin
   if (Trim(aClienteDTO.Numero).IsEmpty) then
   begin
     Result := 3;
+    exit;
+  end;
+
+  if (Trim(aClienteDTO.Endereco).IsEmpty) then
+  begin
+    Result := 1;
     exit;
   end;
 

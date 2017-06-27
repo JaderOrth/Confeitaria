@@ -16,8 +16,6 @@ type
     btnSair: TSpeedButton;
     panelCadastro: TPanel;
     btnNovo: TSpeedButton;
-    procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
@@ -66,18 +64,6 @@ end;
 procedure TfrmCadastroBase.btnSalvarClick(Sender: TObject);
 begin
   oInterfaceCadastroController.Salvar(Sender);
-end;
-
-procedure TfrmCadastroBase.FormCreate(Sender: TObject);
-begin
-  if (Owner is TForm) then
-    (Owner as TForm).Enabled := False;
-end;
-
-procedure TfrmCadastroBase.FormDestroy(Sender: TObject);
-begin
-  if (Owner is TForm) then
-    (Owner as TForm).Enabled := True;
 end;
 
 end.

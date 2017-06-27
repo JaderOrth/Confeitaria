@@ -31,7 +31,6 @@ object frmListagemBase: TfrmListagemBase
     BevelOuter = bvLowered
     ParentBackground = False
     TabOrder = 0
-    ExplicitHeight = 366
     object edtPesquisa: TEdit
       Left = 5
       Top = 27
@@ -71,7 +70,6 @@ object frmListagemBase: TfrmListagemBase
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 834
     object btnAjuda: TSpeedButton
       Left = 158
       Top = 2
@@ -1149,8 +1147,6 @@ object frmListagemBase: TfrmListagemBase
     Width = 1001
     Height = 19
     Panels = <>
-    ExplicitTop = 422
-    ExplicitWidth = 834
   end
   object DBGridListagem: TDBGrid
     Left = 185

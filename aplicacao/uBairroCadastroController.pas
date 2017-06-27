@@ -4,7 +4,7 @@ interface
 
 uses
   System.Classes, System.SysUtils, Vcl.StdCtrls, System.UITypes, Vcl.Dialogs,
-  System.Generics.Collections,
+  System.Generics.Collections, Vcl.Controls,
   uInterfaceCadastroController, uBairroCadastro, uBairroCadastroRegra,
   uBairroCadastroModel, uBairroDTO, uEstadoListaHash, uEstadoDTO,
   uEstadoListagemModel, uMunicipioListagemModel, uMunicipioDTO,
@@ -17,7 +17,8 @@ type
     oBairroModel: TBairroCadastroModel;
     oBairroRegra: TBairroCadastroRegra;
     oBairroDTO: TBairroDTO;
-    iIdAlterar: Integer;
+    iIdAlterar, iIDEstado: Integer;
+    procedure ComboBox(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -25,7 +26,6 @@ type
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
-    procedure ComboBox(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
@@ -63,7 +63,6 @@ begin
     // id do estado para poder fazer o select
     iId := Integer(frmBairroCadastro.cbEstado.Items.Objects
       [frmBairroCadastro.cbEstado.ItemIndex]);
-
     try
       oMunicipioLista := TMunicipioListaHash.Create([doOwnsValues]);
       oMunicipioModel := TMunicipioListagemModel.Create;
@@ -71,6 +70,7 @@ begin
       if (oBairroRegra.ComboBomMunicipio(oMunicipioLista, iId, oMunicipioModel))
       then
       begin
+        iIDEstado := iId;
         for oMunicipioDTO in oMunicipioLista.Values do
         begin
           oComboBox.Items.AddObject(oMunicipioDTO.Descricao,
@@ -106,9 +106,10 @@ var
 begin
   if (not(Assigned(frmBairroCadastro))) then
     frmBairroCadastro := TfrmBairroCadastro.Create(AOwner);
+
   frmBairroCadastro.oInterfaceCadastroController := oBairroCadastroController;
 
-  frmBairroCadastro.OnActivate := Pesquisar;
+ // frmBairroCadastro.OnActivate := Pesquisar;
   frmBairroCadastro.Show;
   frmBairroCadastro.OnActivate(nil);
   frmBairroCadastro.cbMunicipio.OnEnter := ComboBox;
@@ -155,8 +156,18 @@ var
   oEstadoDTO: TEstadoDTO;
   oEstadoModel: TEstadoListagemModel;
   cbEstado: TComboBox;
+  iId: Integer;
 begin
-  cbEstado := frmBairroCadastro.cbEstado;
+ cbEstado := frmBairroCadastro.cbEstado;
+
+  if (cbEstado.ItemIndex <> -1) then
+  begin
+    iId := Integer(cbEstado.Items.Objects[cbEstado.ItemIndex]);
+    frmBairroCadastro.cbEstado.SetFocus;
+  end
+  else
+    iId := -1;
+
   cbEstado.Items.Clear;
   try
     oListaEstado := TEstadoListaHash.Create([doOwnsValues]);
@@ -165,7 +176,13 @@ begin
     begin
       for oEstadoDTO in oListaEstado.Values do
         cbEstado.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
-    end
+    end;
+
+    if (iId <> -1) then
+    begin
+      cbEstado.ItemIndex := cbEstado.Items.IndexOfObject(TObject(iId));
+    end;
+
   finally
     if (Assigned(oListaEstado)) then
       FreeAndNil(oListaEstado);
@@ -178,8 +195,15 @@ end;
 procedure TBairroCadastroController.Salvar(Sender: TObject);
 var
   oComboBox: TComboBox;
-  iValidar, iSalvar: Integer;
+  iValidar, iSalvar, iIDValidarEstado: Integer;
 begin
+  iIDValidarEstado := Integer(frmBairroCadastro.cbEstado.Items.Objects
+    [frmBairroCadastro.cbEstado.ItemIndex]);
+  if (iIDValidarEstado <> iIDEstado) then
+  begin
+    frmBairroCadastro.cbMunicipio.Items.Clear;
+    frmBairroCadastro.cbMunicipio.Clear;
+  end;
   oComboBox := frmBairroCadastro.cbMunicipio;
   oBairroDTO.Descricao := frmBairroCadastro.edtBairro.Text;
   if (oComboBox.ItemIndex = -1) then

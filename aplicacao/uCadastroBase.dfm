@@ -15,8 +15,6 @@ object frmCadastroBase: TfrmCadastroBase
   OldCreateOrder = False
   Position = poMainFormCenter
   Visible = True
-  OnCreate = FormCreate
-  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 16
   object StatusBar1: TStatusBar
