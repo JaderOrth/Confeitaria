@@ -1,13 +1,13 @@
-unit uPedidoListagemModel;
+unit uUnidadeMedidaListagemModel;
 
 interface
 
 uses
   FireDAC.Comp.Client, System.SysUtils, Data.DB,
-  uInterfacePedidoListagem, uClassConexaoSingleton;
+  uInterfaceUnidadeMedidaListagemModel, uUnidadeMedidaDTO, uClassConexaoSingleton;
 
 type
-  TPedidoListagemModel = class(TInterfacedObject, IInterfacePedidoListagem)
+  TUnidadeMedidaListagemModel = class(TInterfacedObject, IInterfaceUnidadeMedidaListagemModel)
   public
     function MontarGrid(AMemTable: TFDMemTable): Boolean;
     function Excluir(const iID: Integer): Boolean;
@@ -15,17 +15,18 @@ type
 
 implementation
 
-{ TPedidoListagemModel }
+{ TUnidadeMedidaListagemModel }
 
-function TPedidoListagemModel.Excluir(const iID: Integer): Boolean;
+function TUnidadeMedidaListagemModel.Excluir(const iID: Integer): Boolean;
 var
   sSql: String;
 begin
-  sSql := 'DELETE FROM pedido WHERE idpedido = '+ IntToStr(iID);
+  sSql := 'DELETE FROM unidade_medida WHERE idunidade_medida = '+ IntToStr(iID);
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
-function TPedidoListagemModel.MontarGrid(AMemTable: TFDMemTable): Boolean;
+function TUnidadeMedidaListagemModel.MontarGrid(
+  AMemTable: TFDMemTable): Boolean;
 var
   oquery: TFDQuery;
 begin
@@ -33,7 +34,8 @@ begin
   try
     oquery := TFDQuery.Create(nil);
     oquery.Connection := TConexaoSingleton.GetInstancia;
-    oquery.Open('select * from pedido');
+    oquery.Open('SELECT idunidade_medida, descricao, sigla, permite_decimal '+
+                ' FROM unidade_medida');
     AMemTable.Data := oquery.Data;
     if (not(oquery.IsEmpty)) then
       Result := true;

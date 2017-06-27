@@ -16,8 +16,6 @@ type
     btnSair: TSpeedButton;
     panelCadastro: TPanel;
     btnNovo: TSpeedButton;
-    procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
@@ -49,6 +47,12 @@ begin
 
     if (Components[iIndiceComponente] is TComboBox) then
       (Components[iIndiceComponente] as TComboBox).ItemIndex := -1;
+
+    if (Components[iIndiceComponente] is TMemo) then
+      (Components[iIndiceComponente] as TMemo).Clear;
+
+    if (Components[iIndiceComponente] is TCheckBox) then
+      (Components[iIndiceComponente] as TCheckBox).State := cbUnchecked;
   end;
 end;
 
@@ -60,18 +64,6 @@ end;
 procedure TfrmCadastroBase.btnSalvarClick(Sender: TObject);
 begin
   oInterfaceCadastroController.Salvar(Sender);
-end;
-
-procedure TfrmCadastroBase.FormCreate(Sender: TObject);
-begin
-  if (Owner is TForm) then
-    (Owner as TForm).Enabled := False;
-end;
-
-procedure TfrmCadastroBase.FormDestroy(Sender: TObject);
-begin
-  if (Owner is TForm) then
-    (Owner as TForm).Enabled := True;
 end;
 
 end.

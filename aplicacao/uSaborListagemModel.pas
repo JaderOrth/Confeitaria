@@ -1,13 +1,13 @@
-unit uPedidoListagemModel;
+unit uSaborListagemModel;
 
 interface
 
 uses
   FireDAC.Comp.Client, System.SysUtils, Data.DB,
-  uInterfacePedidoListagem, uClassConexaoSingleton;
+  uInterfaceSaborListagemModel, uSaborDTO, uClassConexaoSingleton;
 
 type
-  TPedidoListagemModel = class(TInterfacedObject, IInterfacePedidoListagem)
+  TSaborListagemModel = class(TInterfacedObject, IInterfaceSaborListagemModel)
   public
     function MontarGrid(AMemTable: TFDMemTable): Boolean;
     function Excluir(const iID: Integer): Boolean;
@@ -15,17 +15,17 @@ type
 
 implementation
 
-{ TPedidoListagemModel }
+{ TSaborListagemModel }
 
-function TPedidoListagemModel.Excluir(const iID: Integer): Boolean;
+function TSaborListagemModel.Excluir(const iID: Integer): Boolean;
 var
   sSql: String;
 begin
-  sSql := 'DELETE FROM pedido WHERE idpedido = '+ IntToStr(iID);
+  sSql := 'DELETE FROM sabores WHERE idsabores = '+ IntToStr(iID);
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
-function TPedidoListagemModel.MontarGrid(AMemTable: TFDMemTable): Boolean;
+function TSaborListagemModel.MontarGrid(AMemTable: TFDMemTable): Boolean;
 var
   oquery: TFDQuery;
 begin
@@ -33,7 +33,8 @@ begin
   try
     oquery := TFDQuery.Create(nil);
     oquery.Connection := TConexaoSingleton.GetInstancia;
-    oquery.Open('select * from pedido');
+    oquery.Open('SELECT idsabores, descricao, ingredientes '+
+                ' FROM sabores');
     AMemTable.Data := oquery.Data;
     if (not(oquery.IsEmpty)) then
       Result := true;

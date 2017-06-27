@@ -89,7 +89,28 @@ uses
   uInterfacePedidoListagem in 'uInterfacePedidoListagem.pas',
   uPedidoCadastroRegra in 'uPedidoCadastroRegra.pas',
   uPedidoCadstroModel in 'uPedidoCadstroModel.pas',
-  uInterfacePedidoCadastroModel in 'uInterfacePedidoCadastroModel.pas';
+  uInterfacePedidoCadastroModel in 'uInterfacePedidoCadastroModel.pas',
+  uSabor in 'uSabor.pas' {frmSabor},
+  uSaborListagemController in 'uSaborListagemController.pas',
+  uInterfaceSaborListagemModel in 'uInterfaceSaborListagemModel.pas',
+  uSaborDTO in 'uSaborDTO.pas',
+  uSaborListagemRegra in 'uSaborListagemRegra.pas',
+  uSaborListagemModel in 'uSaborListagemModel.pas',
+  uSaborCadastroController in 'uSaborCadastroController.pas',
+  uSaborCadastro in 'uSaborCadastro.pas' {frmSaborCadastro},
+  uSaborCadastroRegra in 'uSaborCadastroRegra.pas',
+  uInterfaceSaborCadastroModel in 'uInterfaceSaborCadastroModel.pas',
+  uSaborCadastroModel in 'uSaborCadastroModel.pas',
+  uUnidadeMedida in 'uUnidadeMedida.pas' {frmUnidadeMedida},
+  uUnidadeMedidaCadastro in 'uUnidadeMedidaCadastro.pas' {frmUnidadeMedidaCadastro},
+  uUnidadeMedidaCadastroController in 'uUnidadeMedidaCadastroController.pas',
+  uUnidadeMedidaDTO in 'uUnidadeMedidaDTO.pas',
+  uUnidadeMedidaListagemController in 'uUnidadeMedidaListagemController.pas',
+  uUnidadeMedidaListagemModel in 'uUnidadeMedidaListagemModel.pas',
+  uUnidadeMedidaListagemRegra in 'uUnidadeMedidaListagemRegra.pas',
+  uUnidadeMedidaCadastroRegra in 'uUnidadeMedidaCadastroRegra.pas',
+  uInterfaceUnidadeMedidaCadastroModel in 'uInterfaceUnidadeMedidaCadastroModel.pas',
+  uUnidadeMedidaCadastroModel in 'uUnidadeMedidaCadastroModel.pas';
 
 {$R *.res}
 

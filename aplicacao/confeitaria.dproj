@@ -232,6 +232,35 @@
         <DCCReference Include="uPedidoCadastroRegra.pas"/>
         <DCCReference Include="uPedidoCadstroModel.pas"/>
         <DCCReference Include="uInterfacePedidoCadastroModel.pas"/>
+        <DCCReference Include="uSabor.pas">
+            <Form>frmSabor</Form>
+        </DCCReference>
+        <DCCReference Include="uSaborListagemController.pas"/>
+        <DCCReference Include="uInterfaceSaborListagemModel.pas"/>
+        <DCCReference Include="uSaborDTO.pas"/>
+        <DCCReference Include="uSaborListagemRegra.pas"/>
+        <DCCReference Include="uSaborListagemModel.pas"/>
+        <DCCReference Include="uSaborCadastroController.pas"/>
+        <DCCReference Include="uSaborCadastro.pas">
+            <Form>frmSaborCadastro</Form>
+        </DCCReference>
+        <DCCReference Include="uSaborCadastroRegra.pas"/>
+        <DCCReference Include="uInterfaceSaborCadastroModel.pas"/>
+        <DCCReference Include="uSaborCadastroModel.pas"/>
+        <DCCReference Include="uUnidadeMedida.pas">
+            <Form>frmUnidadeMedida</Form>
+        </DCCReference>
+        <DCCReference Include="uUnidadeMedidaCadastro.pas">
+            <Form>frmUnidadeMedidaCadastro</Form>
+        </DCCReference>
+        <DCCReference Include="uUnidadeMedidaCadastroController.pas"/>
+        <DCCReference Include="uUnidadeMedidaDTO.pas"/>
+        <DCCReference Include="uUnidadeMedidaListagemController.pas"/>
+        <DCCReference Include="uUnidadeMedidaListagemModel.pas"/>
+        <DCCReference Include="uUnidadeMedidaListagemRegra.pas"/>
+        <DCCReference Include="uUnidadeMedidaCadastroRegra.pas"/>
+        <DCCReference Include="uInterfaceUnidadeMedidaCadastroModel.pas"/>
+        <DCCReference Include="uUnidadeMedidaCadastroModel.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

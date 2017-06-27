@@ -18,6 +18,7 @@ type
     oClienteModel: TClienteCadastroModel;
     oClienteRegra: TClienteCadastroRegra;
     iIDAlterar: Integer;
+    iIdEstado: Integer;
     procedure ComboBox(Sender: TObject);
     procedure ComboBoxBairro(Sender: TObject);
   public
@@ -61,18 +62,27 @@ begin
     MessageDlg('Preencha o campo ESTADO corretamente!', mtWarning, [mbOK], 0);
     exit;
   end;
-  oComboBox := frmCadastroCliente.cbMunicipio;
-  oComboBox.Items.Clear;
-  oComboBox.Clear;
-  iId := Integer(frmCadastroCliente.cbEstado.Items.Objects
-    [frmCadastroCliente.cbEstado.ItemIndex]);
+
+  //if (frmCadastroCliente.cbBairro) then
+
   try
+    oComboBox := frmCadastroCliente.cbMunicipio;
+    if (oComboBox.ItemIndex <> -1) then
+    begin
+      frmCadastroCliente.cbBairro.Items.Clear;
+      frmCadastroCliente.cbBairro.Clear;
+    end;
+    oComboBox.Items.Clear;
+    oComboBox.Clear;
+    iId := Integer(frmCadastroCliente.cbEstado.Items.Objects
+      [frmCadastroCliente.cbEstado.ItemIndex]);
     oListaMunicipio := TMunicipioListaHash.Create([doOwnsValues]);
     oMunicipioModel := TMunicipioListagemModel.Create;
 
     if (oClienteRegra.ComboBomMunicipio(oListaMunicipio, iId, oMunicipioModel))
     then
     begin
+      iIdEstado := iId;
       for oMunicipioDTO in oListaMunicipio.Values do
       begin
         oComboBox.Items.AddObject(oMunicipioDTO.Descricao,
@@ -97,19 +107,24 @@ var
   oComboBox: TComboBox;
   iId: Integer;
 begin
+  oComboBox := frmCadastroCliente.cbBairro;
+
   if (frmCadastroCliente.cbMunicipio.ItemIndex = -1) then
   begin
     MessageDlg('Preencha o campo MUNICÍPIO corretamente!', mtWarning,
       [mbOK], 0);
     exit;
   end;
-  oComboBox := frmCadastroCliente.cbBairro;
-  oComboBox.Items.Clear;
+
   try
+    oComboBox.Items.Clear;
+    oComboBox.Clear;
+
     oBairroLista := TBairroListaHash.Create([doOwnsValues]);
     oBairroModel := TBairroListagemModel.Create;
     iId := Integer(frmCadastroCliente.cbMunicipio.Items.Objects
       [frmCadastroCliente.cbMunicipio.ItemIndex]);
+
     if (oClienteRegra.ComboBoxBairro(oBairroLista, iId, oBairroModel)) then
     begin
       for oBairroDTO in oBairroLista.Values do
@@ -117,7 +132,8 @@ begin
         oComboBox.Items.AddObject(oBairroDTO.Descricao,
           TObject(oBairroDTO.idBairro));
       end;
-    end
+    end;
+
   finally
     if (Assigned(oBairroLista)) then
       FreeAndNil(oBairroLista);
@@ -207,18 +223,31 @@ var
   oListaEstados: TEstadoListaHash;
   oEstadoListagem: TEstadoListagemModel;
   oComboBox: TComboBox;
+  iId: Integer;
 begin
-  oComboBox := frmCadastroCliente.cbEstado;
-  oComboBox.Items.Clear;
   try
+    oComboBox := frmCadastroCliente.cbEstado;
+
+    if (oComboBox.ItemIndex <> -1) then
+    begin
+      iId := Integer(oComboBox.Items.Objects[oComboBox.ItemIndex]);
+      oComboBox.SetFocus;
+    end
+    else
+      iId := -1;
+
+    oComboBox.Items.Clear;
     oEstadoListagem := TEstadoListagemModel.Create;
     oListaEstados := TEstadoListaHash.Create([doOwnsValues]);
-
     if oClienteRegra.ComboBox(oListaEstados, oEstadoListagem) then
     begin
       for oEstadoDTO in oListaEstados.Values do
         oComboBox.Items.AddObject(oEstadoDTO.Descricao, TObject(oEstadoDTO.ID));
-    end
+    end;
+
+    if (iId <> -1) then
+      oComboBox.ItemIndex := oComboBox.Items.IndexOfObject(TObject(iId));
+
   finally
     if (Assigned(oListaEstados)) then
       FreeAndNil(oListaEstados);
@@ -230,7 +259,7 @@ end;
 
 procedure TClienteCadastroController.Salvar(Sender: TObject);
 var
-  iValidar, iSalvar: Integer;
+  iValidar, iSalvar, iIdEstadoValidar: Integer;
 begin
   oClienteDTO.Endereco := frmCadastroCliente.edtEndereco.Text;
   oClienteDTO.Numero := frmCadastroCliente.edtNumero.Text;
@@ -240,6 +269,16 @@ begin
   oClienteDTO.CPF_CNPJ := StrToCurrDef(frmCadastroCliente.edtCPFCNPJ.Text, 0);
   oClienteDTO.Telefone := StrToCurrDef(frmCadastroCliente.edtTelefone.Text, 0);
   oClienteDTO.Celular := StrToCurrDef(frmCadastroCliente.edtCelular.Text, 0);
+  iIdEstadoValidar := Integer(frmCadastroCliente.cbEstado.Items.Objects
+    [frmCadastroCliente.cbEstado.ItemIndex]);
+  if (iIdEstado <> iIdEstadoValidar) then
+  begin
+    frmCadastroCliente.cbMunicipio.Items.Clear;
+    frmCadastroCliente.cbMunicipio.Clear;
+    frmCadastroCliente.cbBairro.Items.Clear;
+    frmCadastroCliente.cbBairro.Clear;
+  end;
+
   if (frmCadastroCliente.cbBairro.ItemIndex = -1) then
     oClienteDTO.idBairro := -1
   else
@@ -247,13 +286,6 @@ begin
       [frmCadastroCliente.cbBairro.ItemIndex]);
 
   iValidar := oClienteRegra.Validar(oClienteDTO);
-  // Endereço
-  if (iValidar = 1) then
-  begin
-    MessageDlg('Preencha o campo ENDEREÇO corretamente!', mtWarning, [mbOK], 0);
-    frmCadastroCliente.edtEndereco.SetFocus;
-    exit;
-  end;
   // Nome
   if (iValidar = 2) then
   begin
@@ -266,6 +298,13 @@ begin
   begin
     MessageDlg('Preencha o campo NÚMERO corretamente!', mtWarning, [mbOK], 0);
     frmCadastroCliente.edtNumero.SetFocus;
+    exit;
+  end;
+  // Endereço
+  if (iValidar = 1) then
+  begin
+    MessageDlg('Preencha o campo ENDEREÇO corretamente!', mtWarning, [mbOK], 0);
+    frmCadastroCliente.edtEndereco.SetFocus;
     exit;
   end;
   // Observação
