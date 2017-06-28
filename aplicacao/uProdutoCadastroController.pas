@@ -5,13 +5,17 @@ interface
 uses
   System.Classes, System.SysUtils, Vcl.StdCtrls, System.UITypes, Vcl.Dialogs,
   System.Generics.Collections, Vcl.Controls,
-  uInterfaceCadastroController,uProdutoCadastro;
+  uInterfaceCadastroController, uProdutoCadastro, uProdutoCadastroRegra,
+  uProdutoCadastroModel, uProdutoDTO,
+  uUnidadeMedidaListaHash, uUnidadeMedidaDTO, uUnidadeMedidaListagemModel;
 
 type
   TBairroCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
-
+    oProdutoDTO: TProdutoDTO;
+    oProdutoModel: TProdutoCadastroModel;
+    oProdutoRegra: TProdutoCadastroRegra;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -41,7 +45,9 @@ end;
 
 constructor TBairroCadastroController.Create;
 begin
-
+  oProdutoDTO := TProdutoDTO.Create;
+  oProdutoModel := TProdutoCadastroModel.Create;
+  oProdutoRegra := TProdutoCadastroRegra.Create;
 end;
 
 procedure TBairroCadastroController.CreateFormCadastro(AOwner: TComponent;
@@ -51,6 +57,8 @@ begin
     frmProdutoCadastro := TfrmProdutoCadastro.Create(AOwner);
   frmProdutoCadastro.oInterfaceCadastroController := oProdutoCadastroController;
   frmProdutoCadastro.Show;
+  frmProdutoCadastro.OnActivate := Pesquisar;
+  frmProdutoCadastro.OnActivate(nil);
 
   if (iId > 0) then
   begin
@@ -60,18 +68,52 @@ end;
 
 destructor TBairroCadastroController.Destroy;
 begin
+  if (Assigned(oProdutoDTO)) then
+    FreeAndNil(oProdutoDTO);
 
+  if (Assigned(oProdutoModel)) then
+    FreeAndNil(oProdutoModel);
+
+  if (Assigned(oProdutoRegra)) then
+    FreeAndNil(oProdutoRegra);
   inherited;
 end;
 
 procedure TBairroCadastroController.Novo(Sender: TObject);
 begin
-
+  oProdutoRegra.LimparDTO(oProdutoDTO);
 end;
 
 procedure TBairroCadastroController.Pesquisar(Sender: TObject);
+var
+  oUnidadeMedidaLista: TUnidadeMedidaListaHash;
+  oUnidadeMedidaModel: TUnidadeMedidaListagemModel;
+  oUnidadeMedidaDTO: TUnidadeMedidaDTO;
 begin
+  frmProdutoCadastro.cbUnidadeMedida.Items.Clear;
+  frmProdutoCadastro.cbUnidadeMedida.Clear;
+  try
+    oUnidadeMedidaLista := TUnidadeMedidaListaHash.Create([doOwnsValues]);
+    oUnidadeMedidaModel := TUnidadeMedidaListagemModel.Create;
 
+    if (oProdutoRegra.ComboBoxUnidadeMedida(oUnidadeMedidaLista,
+        oUnidadeMedidaModel))then
+    begin
+      for oUnidadeMedidaDTO in oUnidadeMedidaLista.Values do
+      begin
+        frmProdutoCadastro.cbUnidadeMedida.Items.AddObject
+          (oUnidadeMedidaDTO.descricao,
+          TObject(oUnidadeMedidaDTO.idunidade_medida));
+      end
+    end
+
+  finally
+    if (Assigned(oUnidadeMedidaModel)) then
+      FreeAndNil(oUnidadeMedidaModel);
+
+    if (Assigned(oUnidadeMedidaLista)) then
+      FreeAndNil(oUnidadeMedidaLista);
+  end;
 end;
 
 procedure TBairroCadastroController.Salvar(Sender: TObject);

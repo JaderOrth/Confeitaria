@@ -4,10 +4,10 @@ interface
 
 uses
   FireDAC.Comp.Client, System.SysUtils, Data.DB,
-  uInterfaceBairroCadastroModel, uProdutoDTO, uClassConexaoSingleton;
+  uInterfaceProdutoCadastroModel, uProdutoDTO, uClassConexaoSingleton;
 
 type
-  TProdutoCadastroModel = class(TInterfacedObject, IInterfaceBairroCadastroModel)
+  TProdutoCadastroModel = class(TInterfacedObject, IInterfaceProdutoCadastroModel)
   public
 
   end;

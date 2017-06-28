@@ -5,6 +5,7 @@ interface
 type
   TProdutoDTO = class
   private
+    Fsabor: String;
     Fpreco: Double;
     Fdescricao: string;
     FunidadeMedida: Integer;
@@ -14,16 +15,19 @@ type
     procedure SetidCategoria(const Value: Integer);
     procedure SetidProduto(const Value: Integer);
     procedure Setpreco(const Value: Double);
+    procedure Setsabor(const Value: String);
     procedure SetunidadeMedida(const Value: Integer);
   public
     property idProduto: Integer read FidProduto write SetidProduto;
     property descricao: string read Fdescricao write Setdescricao;
     property preco: Double read Fpreco write Setpreco;
+    property sabor: String read Fsabor write Setsabor;
     property idCategoria: Integer read FidCategoria write SetidCategoria;
     property unidadeMedida: Integer read FunidadeMedida write SetunidadeMedida;
   end;
 
 implementation
+
 
 { TProdutoDTO }
 
@@ -45,6 +49,11 @@ end;
 procedure TProdutoDTO.Setpreco(const Value: Double);
 begin
   Fpreco := Value;
+end;
+
+procedure TProdutoDTO.Setsabor(const Value: String);
+begin
+  Fsabor := Value;
 end;
 
 procedure TProdutoDTO.SetunidadeMedida(const Value: Integer);

@@ -107,7 +107,8 @@ var
 begin
   oUnidadeMedidaDTO.descricao := frmUnidadeMedidaCadastro.edtDescricao.Text;
   oUnidadeMedidaDTO.sigla := frmUnidadeMedidaCadastro.edtSigla.Text;
-  oUnidadeMedidaDTO.permite_decimal := ifthen(frmUnidadeMedidaCadastro.chkbDecimal.Checked, 'S', 'N');
+  oUnidadeMedidaDTO.permite_decimal :=
+    ifthen(frmUnidadeMedidaCadastro.chkbDecimal.Checked, 'S', 'N');
   iValidar := oUnidadeMedidaRegra.ValidarEdit(oUnidadeMedidaDTO);
   // descrição
   if (iValidar = 1) then

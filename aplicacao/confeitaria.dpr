@@ -121,7 +121,9 @@ uses
   uProdutoListagemController in 'uProdutoListagemController.pas',
   uProdutoCadastroRegra in 'uProdutoCadastroRegra.pas',
   uProdutoCadastroModel in 'uProdutoCadastroModel.pas',
-  uInterfaceProdutoCadastroModel in 'uInterfaceProdutoCadastroModel.pas';
+  uInterfaceProdutoCadastroModel in 'uInterfaceProdutoCadastroModel.pas',
+  uCategoriaListaHash in 'uCategoriaListaHash.pas',
+  uUnidadeMedidaListaHash in 'uUnidadeMedidaListaHash.pas';
 
 {$R *.res}
 
