@@ -17,7 +17,7 @@ type
     oBairroModel: TBairroCadastroModel;
     oBairroRegra: TBairroCadastroRegra;
     oBairroDTO: TBairroDTO;
-    iIdAlterar, iIDEstado: Integer;
+    iIDEstado: Integer;
     procedure ComboBox(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
@@ -120,7 +120,6 @@ begin
     oCbMunicipio := frmBairroCadastro.cbMunicipio;
     iIdEstado := 0;
     oBairroDTO.idBairro := iId;
-    iIdAlterar := iId;
     oBairroRegra.SelectUpdate(oBairroDTO, iIdEstado, oBairroModel);
     frmBairroCadastro.edtBairro.Text := oBairroDTO.Descricao;
     oCbEstado.ItemIndex := oCbEstado.Items.IndexOfObject(TObject(iIdEstado));
