@@ -4,7 +4,7 @@ interface
 
 uses
   System.Classes, System.SysUtils, Vcl.StdCtrls, System.UITypes, Vcl.Dialogs,
-  System.Generics.Collections, Vcl.Controls,
+  System.Generics.Collections, Vcl.Controls, System.StrUtils,
   uInterfaceCadastroController, uProdutoCadastro, uProdutoCadastroRegra,
   uProdutoCadastroModel, uProdutoDTO,
   uUnidadeMedidaListaHash, uUnidadeMedidaDTO, uUnidadeMedidaListagemModel,
@@ -57,12 +57,11 @@ begin
     oCategoriaLista := TCategoriaListaHash.Create([doOwnsValues]);
     oCategoriaModel := TCategoriasListagemModel.Create;
 
-    if (oProdutoRegra.ComboBoxCategoria(oCategoriaLista, oCategoriaModel))then
+    if (oProdutoRegra.ComboBoxCategoria(oCategoriaLista, oCategoriaModel)) then
     begin
       for oCategoriaDTO in oCategoriaLista.Values do
       begin
-        frmProdutoCadastro.cbCategoria.Items.AddObject
-          (oCategoriaDTO.descricao,
+        frmProdutoCadastro.cbCategoria.Items.AddObject(oCategoriaDTO.descricao,
           TObject(oCategoriaDTO.idcategoria));
       end
     end
@@ -122,9 +121,9 @@ var
   oUnidadeMedidaModel: TUnidadeMedidaListagemModel;
   oUnidadeMedidaDTO: TUnidadeMedidaDTO;
 begin
-  //monta o ComboBox Categoria no  onActivate
+  // monta o ComboBox Categoria no  onActivate
   ComboBoxCategoria(Sender);
-  //monta o comboBox UnidadeMedida
+  // monta o comboBox UnidadeMedida
   frmProdutoCadastro.cbUnidadeMedida.Items.Clear;
   frmProdutoCadastro.cbUnidadeMedida.Clear;
   try
@@ -132,7 +131,7 @@ begin
     oUnidadeMedidaModel := TUnidadeMedidaListagemModel.Create;
 
     if (oProdutoRegra.ComboBoxUnidadeMedida(oUnidadeMedidaLista,
-        oUnidadeMedidaModel))then
+      oUnidadeMedidaModel)) then
     begin
       for oUnidadeMedidaDTO in oUnidadeMedidaLista.Values do
       begin
@@ -152,7 +151,32 @@ begin
 end;
 
 procedure TBairroCadastroController.Salvar(Sender: TObject);
+var
+  iValidar, iSalvar: Integer;
 begin
+  oProdutoDTO.descricao := frmProdutoCadastro.edtProduto.Text;
+  oProdutoDTO.preco := StrToInt(frmProdutoCadastro.edtPreco.Text);
+  oProdutoDTO.sabor := ifthen(frmProdutoCadastro.chkbSabores.Checked, 'S', 'N');
+  if (frmProdutoCadastro.cbCategoria.ItemIndex <> -1) then
+  begin
+    oProdutoDTO.idcategoria :=
+      Integer(frmProdutoCadastro.cbCategoria.Items.Objects
+      [frmProdutoCadastro.cbCategoria.ItemIndex]);
+  end
+  else
+    oProdutoDTO.idCategoria := -1;
+
+  if (frmProdutoCadastro.cbUnidadeMedida.ItemIndex <> -1) then
+  begin
+    oProdutoDTO.unidadeMedida :=
+      Integer(frmProdutoCadastro.cbUnidadeMedida.Items.Objects
+      [frmProdutoCadastro.cbUnidadeMedida.ItemIndex]);
+  end
+  else
+    oProdutoDTO.unidadeMedida := -1;
+
+  iValidar := oProdutoRegra.Validar(oProdutoDTO);
+
 
 end;
 

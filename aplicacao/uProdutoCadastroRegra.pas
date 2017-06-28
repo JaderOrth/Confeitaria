@@ -15,7 +15,9 @@ type
       const aModel: IInterfaceUnidadeMedidaListagemModel): Boolean;
      function ComboBoxCategoria(var aLista: TCategoriaListaHash;
       const aModel: IInterfaceCategoriasListagemModel): Boolean;
-
+     function Validar(const aProdutoDTO: TProdutoDTO): integer;
+     function Salvar(const aProdutoDTO: TProdutoDTO;
+      const aModel: IInterfaceProdutoCadastroModel): integer;
   end;
 
 implementation
@@ -44,6 +46,17 @@ begin
   aProdutoDTO.sabor := EmptyStr;
   aProdutoDTO.idCategoria := 0;
   aProdutoDTO.unidadeMedida:= 0;
+end;
+
+function TProdutoCadastroRegra.Salvar(const aProdutoDTO: TProdutoDTO;
+  const aModel: IInterfaceProdutoCadastroModel): integer;
+begin
+
+end;
+
+function TProdutoCadastroRegra.Validar(const aProdutoDTO: TProdutoDTO): integer;
+begin
+
 end;
 
 end.
