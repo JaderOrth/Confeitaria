@@ -8,7 +8,8 @@ uses
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
   uClassConexaoSingleton, uEstadoListagemController, uMunicipioListagemController,
   uBairroListagemController, uClienteListagemController, uUsuarioListagemController,
-  uCategoriasListagemController, uSaborListagemController, uUnidadeMedidaListagemController;
+  uPedidoListagemController, uCategoriasListagemController,
+  uSaborListagemController, uUnidadeMedidaListagemController;
 
 type
   TfrmPrincipal = class(TForm)
@@ -33,6 +34,7 @@ type
     btnProdutos: TSpeedButton;
     btnClientes: TSpeedButton;
     btnSair: TSpeedButton;
+    Pedido1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Estado1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -43,6 +45,8 @@ type
     procedure btnClientesClick(Sender: TObject);
     procedure Usurio1Click(Sender: TObject);
     procedure Categorias1Click(Sender: TObject);
+    procedure Pedido1Click(Sender: TObject);
+    procedure btnPedidosClick(Sender: TObject);
     procedure Sabores1Click(Sender: TObject);
     procedure UnidadedeMedida1Click(Sender: TObject);
   private
@@ -71,6 +75,13 @@ begin
   if (not(Assigned(oClienteListagemController))) then
     oClienteListagemController := TClienteListagemController.Create;
   oClienteListagemController.CreateFormListagem(Self);
+end;
+
+procedure TfrmPrincipal.btnPedidosClick(Sender: TObject);
+begin
+  if (not(Assigned(oPedidoListagemController))) then
+    oPedidoListagemController := TPedidoListagemController.Create;
+  oPedidoListagemController.CreateFormListagem(Self);
 end;
 
 procedure TfrmPrincipal.btnSairClick(Sender: TObject);
@@ -121,6 +132,11 @@ begin
   if (not(Assigned(oMunicipioListagemController))) then
     oMunicipioListagemController := TMunicipioListagemController.Create;
   oMunicipioListagemController.CreateFormListagem(Self);
+end;
+
+procedure TfrmPrincipal.Pedido1Click(Sender: TObject);
+begin
+  btnPedidosClick(Sender);
 end;
 
 procedure TfrmPrincipal.Sabores1Click(Sender: TObject);
