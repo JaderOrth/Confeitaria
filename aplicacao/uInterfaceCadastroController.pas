@@ -13,7 +13,6 @@ type
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
-
   end;
 
 implementation

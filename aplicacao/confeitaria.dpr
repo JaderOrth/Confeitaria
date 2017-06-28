@@ -110,7 +110,15 @@ uses
   uUnidadeMedidaListagemRegra in 'uUnidadeMedidaListagemRegra.pas',
   uUnidadeMedidaCadastroRegra in 'uUnidadeMedidaCadastroRegra.pas',
   uInterfaceUnidadeMedidaCadastroModel in 'uInterfaceUnidadeMedidaCadastroModel.pas',
-  uUnidadeMedidaCadastroModel in 'uUnidadeMedidaCadastroModel.pas';
+  uUnidadeMedidaCadastroModel in 'uUnidadeMedidaCadastroModel.pas',
+  uProduto in 'uProduto.pas' {frmProduto},
+  uProdutoListagemRegra in 'uProdutoListagemRegra.pas',
+  uProdutoListagemModel in 'uProdutoListagemModel.pas',
+  uInterfaceProdutoListagemModel in 'uInterfaceProdutoListagemModel.pas',
+  uProdutoDTO in 'uProdutoDTO.pas',
+  uProdutoCadastroController in 'uProdutoCadastroController.pas',
+  uProdutoCadastro in 'uProdutoCadastro.pas' {frmProdutoCadastro},
+  uProdutoListagemController in 'uProdutoListagemController.pas';
 
 {$R *.res}
 

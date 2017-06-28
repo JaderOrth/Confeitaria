@@ -469,6 +469,7 @@ object frmPrincipal: TfrmPrincipal
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       Layout = blGlyphTop
       NumGlyphs = 2
+      OnClick = btnProdutosClick
       ExplicitLeft = 99
       ExplicitHeight = 71
     end
@@ -942,6 +943,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object Produtos1: TMenuItem
         Caption = '&Produtos'
+        OnClick = Produtos1Click
       end
       object Cliente1: TMenuItem
         Caption = 'C&liente'
