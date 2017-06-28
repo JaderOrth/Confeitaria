@@ -7,7 +7,8 @@ uses
   System.Generics.Collections, Vcl.Controls,
   uInterfaceCadastroController, uProdutoCadastro, uProdutoCadastroRegra,
   uProdutoCadastroModel, uProdutoDTO,
-  uUnidadeMedidaListaHash, uUnidadeMedidaDTO, uUnidadeMedidaListagemModel;
+  uUnidadeMedidaListaHash, uUnidadeMedidaDTO, uUnidadeMedidaListagemModel,
+  uCategoriaListaHash, uCategoriasDTO, uCategoriasListagemModel;
 
 type
   TBairroCadastroController = class(TInterfacedObject,
@@ -16,6 +17,7 @@ type
     oProdutoDTO: TProdutoDTO;
     oProdutoModel: TProdutoCadastroModel;
     oProdutoRegra: TProdutoCadastroRegra;
+    procedure ComboBoxCategoria(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -43,6 +45,37 @@ begin
   FreeAndNil(frmProdutoCadastro);
 end;
 
+procedure TBairroCadastroController.ComboBoxCategoria(Sender: TObject);
+var
+  oCategoriaLista: TCategoriaListaHash;
+  oCategoriaModel: TCategoriasListagemModel;
+  oCategoriaDTO: TCategoriasDTO;
+begin
+  frmProdutoCadastro.cbCategoria.Items.Clear;
+  frmProdutoCadastro.cbCategoria.Clear;
+  try
+    oCategoriaLista := TCategoriaListaHash.Create([doOwnsValues]);
+    oCategoriaModel := TCategoriasListagemModel.Create;
+
+    if (oProdutoRegra.ComboBoxCategoria(oCategoriaLista, oCategoriaModel))then
+    begin
+      for oCategoriaDTO in oCategoriaLista.Values do
+      begin
+        frmProdutoCadastro.cbCategoria.Items.AddObject
+          (oCategoriaDTO.descricao,
+          TObject(oCategoriaDTO.idcategoria));
+      end
+    end
+
+  finally
+    if (Assigned(oCategoriaModel)) then
+      FreeAndNil(oCategoriaModel);
+
+    if (Assigned(oCategoriaLista)) then
+      FreeAndNil(oCategoriaLista);
+  end;
+end;
+
 constructor TBairroCadastroController.Create;
 begin
   oProdutoDTO := TProdutoDTO.Create;
@@ -57,7 +90,6 @@ begin
     frmProdutoCadastro := TfrmProdutoCadastro.Create(AOwner);
   frmProdutoCadastro.oInterfaceCadastroController := oProdutoCadastroController;
   frmProdutoCadastro.Show;
-  frmProdutoCadastro.OnActivate := Pesquisar;
   frmProdutoCadastro.OnActivate(nil);
 
   if (iId > 0) then
@@ -90,6 +122,9 @@ var
   oUnidadeMedidaModel: TUnidadeMedidaListagemModel;
   oUnidadeMedidaDTO: TUnidadeMedidaDTO;
 begin
+  //monta o ComboBox Categoria no  onActivate
+  ComboBoxCategoria(Sender);
+  //monta o comboBox UnidadeMedida
   frmProdutoCadastro.cbUnidadeMedida.Items.Clear;
   frmProdutoCadastro.cbUnidadeMedida.Clear;
   try

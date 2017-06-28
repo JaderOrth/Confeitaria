@@ -2,6 +2,8 @@ inherited frmProdutoCadastro: TfrmProdutoCadastro
   Caption = 'Cadastro de produto'
   ClientHeight = 274
   ClientWidth = 533
+  OnActivate = FormActivate
+  OnCreate = FormCreate
   ExplicitWidth = 549
   ExplicitHeight = 312
   PixelsPerInch = 96
@@ -9,20 +11,20 @@ inherited frmProdutoCadastro: TfrmProdutoCadastro
   inherited StatusBar1: TStatusBar
     Top = 255
     Width = 533
-    ExplicitWidth = 691
+    ExplicitTop = 255
+    ExplicitWidth = 533
   end
   inherited Panel1: TPanel
     Left = 430
     Height = 255
-    ExplicitLeft = 588
+    ExplicitLeft = 430
+    ExplicitHeight = 255
   end
   inherited panelCadastro: TPanel
     Width = 430
     Height = 255
-    ExplicitLeft = 8
-    ExplicitTop = -6
-    ExplicitWidth = 482
-    ExplicitHeight = 269
+    ExplicitWidth = 430
+    ExplicitHeight = 255
     object Label1: TLabel
       Left = 16
       Top = 24
