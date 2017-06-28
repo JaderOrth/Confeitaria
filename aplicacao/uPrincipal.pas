@@ -8,7 +8,7 @@ uses
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
   uClassConexaoSingleton, uEstadoListagemController, uMunicipioListagemController,
   uBairroListagemController, uClienteListagemController, uUsuarioListagemController,
-  uPedidoListagemController, uCategoriasListagemController,uPrdutoLisatagemController,
+  uPedidoListagemController, uCategoriasListagemController,uProdutoListagemController,
   uSaborListagemController, uUnidadeMedidaListagemController;
 
 type

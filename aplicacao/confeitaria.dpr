@@ -118,7 +118,10 @@ uses
   uProdutoDTO in 'uProdutoDTO.pas',
   uProdutoCadastroController in 'uProdutoCadastroController.pas',
   uProdutoCadastro in 'uProdutoCadastro.pas' {frmProdutoCadastro},
-  uProdutoListagemController in 'uProdutoListagemController.pas';
+  uProdutoListagemController in 'uProdutoListagemController.pas',
+  uProdutoCadastroRegra in 'uProdutoCadastroRegra.pas',
+  uProdutoCadastroModel in 'uProdutoCadastroModel.pas',
+  uInterfaceProdutoCadastroModel in 'uInterfaceProdutoCadastroModel.pas';
 
 {$R *.res}
 

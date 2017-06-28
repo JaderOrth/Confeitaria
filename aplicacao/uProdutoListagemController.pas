@@ -38,7 +38,9 @@ implementation
 procedure TProdutoListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := '''%'+APesquisa+'%''';
+  aMemTable.Filter := 'descricao like ''%'+APesquisa+'%'''+
+                      ' or preco like ''%'+APesquisa+'%'''+
+                      ' or tipo  like ''%'+APesquisa+'%''';
   aMemTable.Filtered := true;
 end;
 
@@ -105,12 +107,12 @@ begin
   if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
     [mbYes, mbNo], 0) = mrYes) then
   begin
-    iId := oMemTable.FieldByName('idbairro').AsInteger;
+    iId := oMemTable.FieldByName('idproduto').AsInteger;
     if (oProdutoRegra.Excluir(iId, oProdutoModel)) then
     begin
       MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
       //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
-      oMemTable.Locate('idbairro', iId);
+      oMemTable.Locate('idproduto', iId);
       oMemTable.Delete;
     end
     else

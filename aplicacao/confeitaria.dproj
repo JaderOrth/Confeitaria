@@ -276,7 +276,10 @@
             <Form>frmProdutoCadastro</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="uProdutoLisatagemController.pas"/>
+        <DCCReference Include="uProdutoListagemController.pas"/>
+        <DCCReference Include="uProdutoCadastroRegra.pas"/>
+        <DCCReference Include="uProdutoCadastroModel.pas"/>
+        <DCCReference Include="uInterfaceProdutoCadastroModel.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
