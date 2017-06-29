@@ -8,8 +8,7 @@ uses
   uInterfaceCadastroController, uProdutoCadastro, uProdutoCadastroRegra,
   uProdutoCadastroModel, uProdutoDTO,
   uUnidadeMedidaListaHash, uUnidadeMedidaDTO, uUnidadeMedidaListagemModel,
-  uCategoriaListaHash, uCategoriasDTO, uCategoriasListagemModel,
-  uSaborListaHash, uSaborDTO, uSaborListagemModel;
+  uCategoriaListaHash, uCategoriasDTO, uCategoriasListagemModel;
 
 type
   TBairroCadastroController = class(TInterfacedObject,
@@ -19,8 +18,6 @@ type
     oProdutoModel: TProdutoCadastroModel;
     oProdutoRegra: TProdutoCadastroRegra;
     procedure ComboBoxCategoria(Sender: TObject);
-    procedure CheckSabor(Sender: TObject);
-    procedure ComboBoxUnidadeMedida(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -39,35 +36,6 @@ var
 implementation
 
 { TBairroCadastroController }
-
-procedure TBairroCadastroController.CheckSabor(Sender: TObject);
-var
-  oSaborLista: TSaborListaHash;
-  oSaborModel: TSaborListagemModel;
-  oSaborDTO: TSaborDTO;
-begin
-  frmProdutoCadastro.clkSabores.Clear;
-  try
-    oSaborLista := TSaborListaHash.Create([doOwnsValues]);
-    oSaborModel := TSaborListagemModel.Create;
-
-    if (oProdutoRegra.CheckSabor(oSaborLista, oSaborModel)) then
-    begin
-      for oSaborDTO in oSaborLista.Values do
-      begin
-        frmProdutoCadastro.clkSabores.Items.AddObject(oSaborDTO.descricao,
-          TObject(oSaborDTO.idsabores));
-      end
-    end
-
-  finally
-    if (Assigned(oSaborModel)) then
-      FreeAndNil(oSaborModel);
-
-    if (Assigned(oSaborLista)) then
-      FreeAndNil(oSaborLista);
-  end;
-end;
 
 procedure TBairroCadastroController.CloseFormCadastro(Sender: TObject);
 begin
@@ -104,38 +72,6 @@ begin
 
     if (Assigned(oCategoriaLista)) then
       FreeAndNil(oCategoriaLista);
-  end;
-end;
-
-procedure TBairroCadastroController.ComboBoxUnidadeMedida(Sender: TObject);
-var
-  oUnidadeMedidaLista: TUnidadeMedidaListaHash;
-  oUnidadeMedidaModel: TUnidadeMedidaListagemModel;
-  oUnidadeMedidaDTO: TUnidadeMedidaDTO;
-begin
-  frmProdutoCadastro.cbUnidadeMedida.Items.Clear;
-  frmProdutoCadastro.cbUnidadeMedida.Clear;
-  try
-    oUnidadeMedidaLista := TUnidadeMedidaListaHash.Create([doOwnsValues]);
-    oUnidadeMedidaModel := TUnidadeMedidaListagemModel.Create;
-
-    if (oProdutoRegra.ComboBoxUnidadeMedida(oUnidadeMedidaLista,
-      oUnidadeMedidaModel)) then
-    begin
-      for oUnidadeMedidaDTO in oUnidadeMedidaLista.Values do
-      begin
-        frmProdutoCadastro.cbUnidadeMedida.Items.AddObject
-          (oUnidadeMedidaDTO.descricao,
-          TObject(oUnidadeMedidaDTO.idunidade_medida));
-      end
-    end
-
-  finally
-    if (Assigned(oUnidadeMedidaModel)) then
-      FreeAndNil(oUnidadeMedidaModel);
-
-    if (Assigned(oUnidadeMedidaLista)) then
-      FreeAndNil(oUnidadeMedidaLista);
   end;
 end;
 
@@ -180,13 +116,38 @@ begin
 end;
 
 procedure TBairroCadastroController.Pesquisar(Sender: TObject);
+var
+  oUnidadeMedidaLista: TUnidadeMedidaListaHash;
+  oUnidadeMedidaModel: TUnidadeMedidaListagemModel;
+  oUnidadeMedidaDTO: TUnidadeMedidaDTO;
 begin
   // monta o ComboBox Categoria no  onActivate
   ComboBoxCategoria(Sender);
-  //monta o ComboBox do UnidadeMedida
-  ComboBoxUnidadeMedida(Sender);
-  //Monta o Check dos Sabores
-  CheckSabor(Sender);
+  // monta o comboBox UnidadeMedida
+  frmProdutoCadastro.cbUnidadeMedida.Items.Clear;
+  frmProdutoCadastro.cbUnidadeMedida.Clear;
+  try
+    oUnidadeMedidaLista := TUnidadeMedidaListaHash.Create([doOwnsValues]);
+    oUnidadeMedidaModel := TUnidadeMedidaListagemModel.Create;
+
+    if (oProdutoRegra.ComboBoxUnidadeMedida(oUnidadeMedidaLista,
+      oUnidadeMedidaModel)) then
+    begin
+      for oUnidadeMedidaDTO in oUnidadeMedidaLista.Values do
+      begin
+        frmProdutoCadastro.cbUnidadeMedida.Items.AddObject
+          (oUnidadeMedidaDTO.descricao,
+          TObject(oUnidadeMedidaDTO.idunidade_medida));
+      end
+    end
+
+  finally
+    if (Assigned(oUnidadeMedidaModel)) then
+      FreeAndNil(oUnidadeMedidaModel);
+
+    if (Assigned(oUnidadeMedidaLista)) then
+      FreeAndNil(oUnidadeMedidaLista);
+  end;
 end;
 
 procedure TBairroCadastroController.Salvar(Sender: TObject);
@@ -194,8 +155,8 @@ var
   iValidar, iSalvar: Integer;
 begin
   oProdutoDTO.descricao := frmProdutoCadastro.edtProduto.Text;
-  oProdutoDTO.preco := StrToCurrDef(frmProdutoCadastro.edtPreco.Text, 0);
-  oProdutoDTO.sabor := ifthen(frmProdutoCadastro.ckbSabor.Checked, 'S', 'N');
+  oProdutoDTO.preco := StrToInt(frmProdutoCadastro.edtPreco.Text);
+  oProdutoDTO.sabor := ifthen(frmProdutoCadastro.chkbSabores.Checked, 'S', 'N');
   if (frmProdutoCadastro.cbCategoria.ItemIndex <> -1) then
   begin
     oProdutoDTO.idcategoria :=
@@ -215,8 +176,6 @@ begin
     oProdutoDTO.unidadeMedida := -1;
 
   iValidar := oProdutoRegra.Validar(oProdutoDTO);
-
-//  frmProdutoCadastro.clkSabores.Items.Objects[frmProdutoCadastro.clkSabores.ItemIndex];
 
 
 end;

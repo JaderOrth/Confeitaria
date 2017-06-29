@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroBase, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.CheckLst;
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.StdCtrls;
 
 type
   TfrmProdutoCadastro = class(TfrmCadastroBase)
@@ -15,12 +15,9 @@ type
     Label1: TLabel;
     Label2: TLabel;
     edtPreco: TLabeledEdit;
-    GroupBox1: TGroupBox;
-    clkSabores: TCheckListBox;
-    ckbSabor: TCheckBox;
+    chkbSabores: TCheckBox;
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure clkSaboresClick(Sender: TObject);
   private
     { Private declarations }
     bValidar: Boolean;
@@ -34,12 +31,6 @@ var
 implementation
 
 {$R *.dfm}
-
-procedure TfrmProdutoCadastro.clkSaboresClick(Sender: TObject);
-begin
-  inherited;
-  clkSabores.Checked[clkSabores.ItemIndex] := not(clkSabores.Checked[clkSabores.ItemIndex]);
-end;
 
 procedure TfrmProdutoCadastro.FormActivate(Sender: TObject);
 begin
