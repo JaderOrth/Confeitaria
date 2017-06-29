@@ -14,7 +14,6 @@ uses
 type
   TfrmPrincipal = class(TForm)
     MainMenu1: TMainMenu;
-    Funes1: TMenuItem;
     Sair1: TMenuItem;
     StatusBar1: TStatusBar;
     Cadastros1: TMenuItem;
@@ -29,12 +28,15 @@ type
     UnidadedeMedida1: TMenuItem;
     LargeImages: TImageList;
     SmallImages: TImageList;
+    Pedido1: TMenuItem;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    N3: TMenuItem;
     Panel1: TPanel;
     btnPedidos: TSpeedButton;
     btnProdutos: TSpeedButton;
     btnClientes: TSpeedButton;
     btnSair: TSpeedButton;
-    Pedido1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Estado1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -49,6 +51,7 @@ type
     procedure btnPedidosClick(Sender: TObject);
     procedure Sabores1Click(Sender: TObject);
     procedure UnidadedeMedida1Click(Sender: TObject);
+    procedure Sair1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -144,6 +147,11 @@ begin
   if (not(Assigned(oSaborListagemController))) then
     oSaborListagemController := TSaborListagemController.Create;
   oSaborListagemController.CreateFormListagem(Self);
+end;
+
+procedure TfrmPrincipal.Sair1Click(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TfrmPrincipal.UnidadedeMedida1Click(Sender: TObject);

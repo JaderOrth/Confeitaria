@@ -920,32 +920,12 @@ object frmPrincipal: TfrmPrincipal
     Top = 80
     object Cadastros1: TMenuItem
       Caption = '&Cadastros'
-      object Usurio1: TMenuItem
-        Caption = '&Usu'#225'rio'
-        OnClick = Usurio1Click
-      end
-      object Pedido1: TMenuItem
-        Caption = 'Ped&ido'
-        OnClick = Pedido1Click
-      end
-      object UnidadedeMedida1: TMenuItem
-        Caption = 'U&nidade de Medida'
-        OnClick = UnidadedeMedida1Click
-      end
-      object Sabores1: TMenuItem
-        Caption = 'Sabo&res'
-        OnClick = Sabores1Click
-      end
-      object Categorias1: TMenuItem
-        Caption = 'Ca&tegorias'
-        OnClick = Categorias1Click
-      end
-      object Produtos1: TMenuItem
-        Caption = '&Produtos'
-      end
       object Cliente1: TMenuItem
         Caption = 'C&liente'
         OnClick = Cliente1Click
+      end
+      object N3: TMenuItem
+        Caption = '-'
       end
       object Estado1: TMenuItem
         Caption = '&Estado'
@@ -959,12 +939,39 @@ object frmPrincipal: TfrmPrincipal
         Caption = '&Bairro'
         OnClick = Bairro1Click
       end
-    end
-    object Funes1: TMenuItem
-      Caption = '&Fun'#231#245'es'
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object Pedido1: TMenuItem
+        Caption = 'Ped&ido'
+        OnClick = Pedido1Click
+      end
+      object Produtos1: TMenuItem
+        Caption = '&Produtos'
+      end
+      object UnidadedeMedida1: TMenuItem
+        Caption = 'U&nidade de Medida'
+        OnClick = UnidadedeMedida1Click
+      end
+      object Categorias1: TMenuItem
+        Caption = 'Ca&tegorias'
+        OnClick = Categorias1Click
+      end
+      object Sabores1: TMenuItem
+        Caption = 'Sabo&res'
+        OnClick = Sabores1Click
+      end
+      object N2: TMenuItem
+        Caption = '-'
+      end
+      object Usurio1: TMenuItem
+        Caption = '&Usu'#225'rio'
+        OnClick = Usurio1Click
+      end
     end
     object Sair1: TMenuItem
       Caption = '&Sair'
+      OnClick = Sair1Click
     end
   end
   object LargeImages: TImageList

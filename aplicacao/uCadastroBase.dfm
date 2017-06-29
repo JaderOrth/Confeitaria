@@ -1,6 +1,7 @@
 object frmCadastroBase: TfrmCadastroBase
   Left = 0
   Top = 0
+  Anchors = [akLeft, akTop, akRight, akBottom]
   BorderIcons = []
   Caption = 'Cadastro Base'
   ClientHeight = 427
@@ -13,7 +14,7 @@ object frmCadastroBase: TfrmCadastroBase
   Font.Style = []
   FormStyle = fsMDIChild
   OldCreateOrder = False
-  Position = poMainFormCenter
+  Position = poOwnerFormCenter
   Visible = True
   PixelsPerInch = 96
   TextHeight = 16

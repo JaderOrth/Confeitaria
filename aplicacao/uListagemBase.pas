@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  uInterfaceListagemController;
+  uInterfaceListagemController, uPrincipal;
 
 type
   TfrmListagemBase = class(TForm)
@@ -22,7 +22,6 @@ type
     edtPesquisa: TEdit;
     Panel3: TPanel;
     StatusBar1: TStatusBar;
-    btnAjuda: TSpeedButton;
     src_listagem: TDataSource;
     FDMemTable_listagem: TFDMemTable;
     btnExcluir: TSpeedButton;
@@ -105,6 +104,8 @@ end;
 procedure TfrmListagemBase.FormCreate(Sender: TObject);
 begin
   bGrid := false;
+  Self.Width :=
+  Self.Height :=
 end;
 
 end.
