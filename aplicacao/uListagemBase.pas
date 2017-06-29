@@ -10,7 +10,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  uInterfaceListagemController, uPrincipal;
+  uInterfaceListagemController;
 
 type
   TfrmListagemBase = class(TForm)
@@ -104,8 +104,9 @@ end;
 procedure TfrmListagemBase.FormCreate(Sender: TObject);
 begin
   bGrid := false;
-  Self.Width :=
+  {Self.Width :=
   Self.Height :=
+  }
 end;
 
 end.
