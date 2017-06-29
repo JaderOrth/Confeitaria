@@ -5,7 +5,8 @@ uses
   System.SysUtils,
   uInterfaceProdutoCadastroModel, uProdutoDTO, uUnidadeMedidaListaHash,
   uInterfaceUnidadeMedidaListagemModel, uCategoriaListaHash,
-  uInterfaceCategoriaListagemModel;
+  uInterfaceCategoriaListagemModel, uSaborListaHash,
+  uInterfaceSaborListagemModel;
 
 type
   TProdutoCadastroRegra = class
@@ -18,11 +19,19 @@ type
      function Validar(const aProdutoDTO: TProdutoDTO): integer;
      function Salvar(const aProdutoDTO: TProdutoDTO;
       const aModel: IInterfaceProdutoCadastroModel): integer;
+     function CheckSabor(var aLista: TSaborListaHash;
+      const aModel: IInterfaceSaborListagemModel): Boolean;
   end;
 
 implementation
 
 { TProdutoCadastroRegra }
+
+function TProdutoCadastroRegra.CheckSabor(var aLista: TSaborListaHash;
+  const aModel: IInterfaceSaborListagemModel): Boolean;
+begin
+  Result := aModel.CheckSabor(aLista);
+end;
 
 function TProdutoCadastroRegra.ComboBoxCategoria(
   var aLista: TCategoriaListaHash;

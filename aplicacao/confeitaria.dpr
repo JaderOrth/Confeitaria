@@ -123,7 +123,8 @@ uses
   uProdutoCadastroModel in 'uProdutoCadastroModel.pas',
   uInterfaceProdutoCadastroModel in 'uInterfaceProdutoCadastroModel.pas',
   uCategoriaListaHash in 'uCategoriaListaHash.pas',
-  uUnidadeMedidaListaHash in 'uUnidadeMedidaListaHash.pas';
+  uUnidadeMedidaListaHash in 'uUnidadeMedidaListaHash.pas',
+  uSaborListaHash in 'uSaborListaHash.pas';
 
 {$R *.res}
 
