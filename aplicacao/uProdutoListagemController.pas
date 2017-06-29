@@ -73,7 +73,7 @@ var
 begin
   if (not(Assigned(oProdutoCadastroController))) then
     oProdutoCadastroController := TBairroCadastroController.Create;
-  iID := oMemTable.FieldByName('idproduto').AsInteger;
+  iID := oMemTable.FieldByName('idprodutos').AsInteger;
   oProdutoCadastroController.CreateFormCadastro(frmProduto, Sender, iID);
 
 end;
@@ -107,12 +107,12 @@ begin
   if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
     [mbYes, mbNo], 0) = mrYes) then
   begin
-    iId := oMemTable.FieldByName('idproduto').AsInteger;
+    iId := oMemTable.FieldByName('idprodutos').AsInteger;
     if (oProdutoRegra.Excluir(iId, oProdutoModel)) then
     begin
       MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
       //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
-      oMemTable.Locate('idproduto', iId);
+      oMemTable.Locate('idprodutos', iId);
       oMemTable.Delete;
     end
     else
@@ -133,7 +133,7 @@ end;
 
 procedure TProdutoListagemController.MontarGrid(oMemTable: TFDMemTable);
 begin
-oMemTable.Close;
+  oMemTable.Close;
   if (oProdutoRegra.MontarGrid(oMemTable, oProdutoModel)) then
   begin
     oMemTable.Open;

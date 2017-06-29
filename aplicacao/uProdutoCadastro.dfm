@@ -101,6 +101,7 @@ inherited frmProdutoCadastro: TfrmProdutoCadastro
         BorderStyle = bsNone
         Color = clBtnFace
         Columns = 3
+        Sorted = True
         TabOrder = 0
         OnClick = clkSaboresClick
       end

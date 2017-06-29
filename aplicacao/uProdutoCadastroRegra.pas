@@ -21,11 +21,20 @@ type
       const aModel: IInterfaceProdutoCadastroModel): integer;
      function CheckSabor(var aLista: TSaborListaHash;
       const aModel: IInterfaceSaborListagemModel): Boolean;
+     function BuscarUpdate(var aProdutoDTO: TProdutoDTO;
+      const aModel: IInterfaceProdutoCadastroModel): Boolean;
+     function ValidarSabor(const Sabor: String): Boolean;
   end;
 
 implementation
 
 { TProdutoCadastroRegra }
+
+function TProdutoCadastroRegra.BuscarUpdate(var aProdutoDTO: TProdutoDTO;
+  const aModel: IInterfaceProdutoCadastroModel): Boolean;
+begin
+  Result := aModel.BuscarUpdate(aProdutoDTO);
+end;
 
 function TProdutoCadastroRegra.CheckSabor(var aLista: TSaborListaHash;
   const aModel: IInterfaceSaborListagemModel): Boolean;
@@ -60,11 +69,66 @@ end;
 function TProdutoCadastroRegra.Salvar(const aProdutoDTO: TProdutoDTO;
   const aModel: IInterfaceProdutoCadastroModel): integer;
 begin
-
+  Result := 0;
+  if (aProdutoDTO.idProduto > 0) then
+  begin
+    if (not(aModel.Update(aProdutoDTO))) then
+    begin
+      Result := 1;
+      exit;
+    end;
+  end
+  else
+  begin
+    aProdutoDTO.idProduto := aModel.BuscarID;
+    if (not(aModel.Insert(aProdutoDTO))) then
+    begin
+      Result := 2;
+      exit;
+    end;
+  end;
 end;
 
 function TProdutoCadastroRegra.Validar(const aProdutoDTO: TProdutoDTO): integer;
 begin
+  Result := 0;
+  if (Trim(aProdutoDTO.descricao).IsEmpty) then
+  begin
+    Result := 1;
+    exit;
+  end;
+
+  if (aProdutoDTO.idCategoria = -1) then
+  begin
+    Result := 2;
+    exit;
+  end;
+
+  if (aProdutoDTO.unidadeMedida = -1) then
+  begin
+    Result := 3;
+    exit;
+  end;
+
+   if (aProdutoDTO.preco = 0)  then
+  begin
+    Result := 4;
+    exit;
+  end;
+end;
+
+function TProdutoCadastroRegra.ValidarSabor(const Sabor: String): Boolean;
+begin
+  if (Sabor = 'S') then
+  begin
+    Result := True;
+    exit;
+  end;
+  if (Sabor = 'N') then
+  begin
+    Result := False;
+    exit;
+  end;
 
 end;
 

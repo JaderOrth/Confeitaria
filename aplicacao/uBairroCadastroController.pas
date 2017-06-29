@@ -17,7 +17,7 @@ type
     oBairroModel: TBairroCadastroModel;
     oBairroRegra: TBairroCadastroRegra;
     oBairroDTO: TBairroDTO;
-    iIdAlterar, iIDEstado: Integer;
+    iIDEstado: Integer;
     procedure ComboBox(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
@@ -120,13 +120,19 @@ begin
     oCbMunicipio := frmBairroCadastro.cbMunicipio;
     iIdEstado := 0;
     oBairroDTO.idBairro := iId;
-    iIdAlterar := iId;
-    oBairroRegra.SelectUpdate(oBairroDTO, iIdEstado, oBairroModel);
-    frmBairroCadastro.edtBairro.Text := oBairroDTO.Descricao;
-    oCbEstado.ItemIndex := oCbEstado.Items.IndexOfObject(TObject(iIdEstado));
-    ComboBox(Sender);
-    oCbMunicipio.ItemIndex := oCbMunicipio.Items.IndexOfObject
-      (TObject(oBairroDTO.IdMunicipio));
+    if (oBairroRegra.SelectUpdate(oBairroDTO, iIdEstado, oBairroModel)) then
+    begin
+      frmBairroCadastro.edtBairro.Text := oBairroDTO.Descricao;
+      oCbEstado.ItemIndex := oCbEstado.Items.IndexOfObject(TObject(iIdEstado));
+      ComboBox(Sender);
+      oCbMunicipio.ItemIndex := oCbMunicipio.Items.IndexOfObject
+        (TObject(oBairroDTO.IdMunicipio));
+    end
+    else
+    begin
+      MessageDlg('Erro ao retornar os valor do banco!', mtError, [mbOK], 0);
+      exit;
+    end;
   end;
 end;
 

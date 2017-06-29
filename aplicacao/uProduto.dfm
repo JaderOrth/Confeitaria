@@ -6,13 +6,14 @@ inherited frmProduto: TfrmProduto
   TextHeight = 14
   inherited Panel2: TPanel
     Width = 1093
+    ExplicitWidth = 1093
   end
   inherited StatusBar1: TStatusBar
     Width = 1093
+    ExplicitWidth = 1093
   end
   inherited DBGridListagem: TDBGrid
     Width = 908
-    DataSource = nil
     Columns = <
       item
         Expanded = False
@@ -21,22 +22,28 @@ inherited frmProduto: TfrmProduto
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'descricao'
+        Title.Alignment = taCenter
         Title.Caption = 'Descri'#231#227'o'
         Width = 200
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'preco'
+        Title.Alignment = taCenter
         Title.Caption = 'Pre'#231'o'
         Width = 100
         Visible = True
       end
       item
+        Alignment = taCenter
         Expanded = False
         FieldName = 'tipo'
+        Title.Alignment = taCenter
         Title.Caption = 'Categoria'
         Width = 150
         Visible = True
