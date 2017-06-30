@@ -13,6 +13,8 @@ type
     function Update(const aProdutoDTO: TProdutoDTO): Boolean;
     function Insert(const aProdutoDTO: TProdutoDTO): Boolean;
     function BuscarUpdate(var aProdutoDTO: TProdutoDTO): Boolean;
+    function SalvarCheck(const aCheck: array of integer;
+      const aIdProduto: Integer): Boolean;
   end;
 
 implementation
@@ -67,7 +69,6 @@ begin
   end;
 end;
 
-
 function TProdutoCadastroModel.Insert(const aProdutoDTO: TProdutoDTO): Boolean;
 var
   sSql: String;
@@ -82,6 +83,21 @@ begin
           IntToStr(aProdutoDTO.unidadeMedida)+')';
 
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+end;
+
+function TProdutoCadastroModel.SalvarCheck(const aCheck: array of integer;
+  const aIdProduto: Integer): Boolean;
+var
+  sSql: String;
+  iCount: Integer;
+begin
+  for iCount := 0 to (Length(aCheck) -1) do
+  begin
+    sSql := 'INSERT INTO sabores_produto(idprodutos, idsabores) VALUES('+
+          IntToStr(aIdProduto)+','+
+          IntToStr(aCheck[iCount])+')';
+    Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+  end;
 end;
 
 function TProdutoCadastroModel.Update(const aProdutoDTO: TProdutoDTO): Boolean;

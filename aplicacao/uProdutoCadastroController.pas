@@ -244,7 +244,8 @@ end;
 
 procedure TBairroCadastroController.Salvar(Sender: TObject);
 var
-  iValidar, iSalvar, I: Integer;
+  iValidar, iSalvar, I, iChecked, iCont: Integer;
+  aCheck: array of Integer;
 begin
   oProdutoDTO.descricao := frmProdutoCadastro.edtProduto.Text;
   oProdutoDTO.preco := StrToCurrDef(frmProdutoCadastro.edtPreco.Text, 0);
@@ -295,7 +296,18 @@ begin
     Exit;
   end;
 
-  iSalvar := oProdutoRegra.Salvar(oProdutoDTO, oProdutoModel);
+  SetLength(aCheck, 0);
+  for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+  begin
+    if (frmProdutoCadastro.clkSabores.Checked[I]) then
+    begin
+      iCont := Length(aCheck);
+      SetLength(aCheck, iCont + 1);
+      aCheck[iCont] := Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
+    end;
+  end;
+
+  iSalvar := oProdutoRegra.Salvar(oProdutoDTO, aCheck, oProdutoModel);
   // Update False
   if (iSalvar = 1) then
   begin
@@ -308,20 +320,15 @@ begin
     MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     Exit;
   end;
-
-
-
-
-
-  for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+  // Insert do Sabor
+  if (iSalvar = 3) then
   begin
-    if (frmProdutoCadastro.clkSabores.Checked[I]) then
-    begin
-      iValidar := Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
-     // frmProdutoCadastro.clkSabores.State[I];
-    end;
-
+    MessageDlg('Erro ao salvar os sabores do Produto!', mtError, [mbOK], 0);
+    Exit;
   end;
+
+
+
 
 end;
 

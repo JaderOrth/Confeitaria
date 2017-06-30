@@ -18,6 +18,7 @@ type
       const aModel: IInterfaceCategoriasListagemModel): Boolean;
      function Validar(const aProdutoDTO: TProdutoDTO): integer;
      function Salvar(const aProdutoDTO: TProdutoDTO;
+      const aCheck: array of integer;
       const aModel: IInterfaceProdutoCadastroModel): integer;
      function CheckSabor(var aLista: TSaborListaHash;
       const aModel: IInterfaceSaborListagemModel): Boolean;
@@ -67,6 +68,7 @@ begin
 end;
 
 function TProdutoCadastroRegra.Salvar(const aProdutoDTO: TProdutoDTO;
+  const aCheck: array of integer;
   const aModel: IInterfaceProdutoCadastroModel): integer;
 begin
   Result := 0;
@@ -81,7 +83,15 @@ begin
   else
   begin
     aProdutoDTO.idProduto := aModel.BuscarID;
-    if (not(aModel.Insert(aProdutoDTO))) then
+    if (aModel.Insert(aProdutoDTO)) then
+    begin
+      if (not(aModel.SalvarCheck(aCheck, aProdutoDTO.idProduto))) then
+      begin
+        Result := 3;
+        exit;
+      end;
+    end
+    else
     begin
       Result := 2;
       exit;
