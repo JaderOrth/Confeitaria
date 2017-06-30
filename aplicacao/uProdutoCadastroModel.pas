@@ -16,10 +16,9 @@ type
     function BuscarUpdate(var aProdutoDTO: TProdutoDTO): Boolean;
     function SalvarCheck(const aCheck: array of Integer;
       const aIdProduto: Integer): Boolean;
-    function UpdateCheck(const aCheck: array of Integer;
-      const aIdProduto: Integer): Boolean;
-    function RetornarIdSAbor(var aSabor: array of Integer;
+    function RetornarIdSAbor(var aSabor: TArray<Integer>;
       const aId: Integer): Boolean;
+    function ExcluiCheck(const aId: Integer): Boolean;
   end;
 
 implementation
@@ -73,6 +72,30 @@ begin
   end;
 end;
 
+function TProdutoCadastroModel.ExcluiCheck(const aId: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+  iId: Integer;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT id FROM sabores_produto'+
+                ' WHERE idprodutos = '+ IntToStr(aId));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      iId := oQuery.FieldByName('id').AsInteger;
+      Result := oQuery.ExecSQL('DELETE FROM sabores_produto WHERE id = '
+                               + IntToStr(iId))> 0;
+    end;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+
+end;
+
 function TProdutoCadastroModel.Insert(const aProdutoDTO: TProdutoDTO): Boolean;
 var
   sSql: String;
@@ -87,7 +110,7 @@ begin
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
-function TProdutoCadastroModel.RetornarIdSAbor(var aSabor: array of Integer;
+function TProdutoCadastroModel.RetornarIdSAbor(var aSabor: TArray<Integer>;
   const aId: Integer): Boolean;
 var
   oQuery: TFDQuery;
@@ -102,17 +125,19 @@ begin
     if (not(oQuery.IsEmpty)) then
     begin
       oQuery.First;
-     // SetLength(aSabor, 0);
+      SetLength(aSabor, 0);
       while (not(oQuery.Eof)) do
       begin
         icont := Length(aSabor);
-       // SetLength(aSabor, icont +1);
+        SetLength(aSabor, icont +1);
         aSabor[icont] := oQuery.FieldByName('idsabores').AsInteger;
         oQuery.Next;
       end;
+      Result := True;
     end;
   finally
-
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
   end;
 
 end;
@@ -143,12 +168,6 @@ begin
     IntToStr(aProdutoDTO.unidadeMedida) + ' WHERE idprodutos = ' +
     IntToStr(aProdutoDTO.idProduto);
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
-end;
-
-function TProdutoCadastroModel.UpdateCheck(const aCheck: array of Integer;
-  const aIdProduto: Integer): Boolean;
-begin
-
 end;
 
 end.

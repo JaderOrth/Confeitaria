@@ -26,7 +26,7 @@ type
     function BuscarUpdate(var aProdutoDTO: TProdutoDTO;
       const aModel: IInterfaceProdutoCadastroModel): Boolean;
     function ValidarSabor(const Sabor: String): Boolean;
-    function RetornarIdSAbor(var aSabor: array of integer; const aId: integer;
+    function RetornarIdSAbor(var aSabor: TArray<Integer>; const aId: integer;
       const aModel: IInterfaceProdutoCadastroModel): Boolean;
   end;
 
@@ -70,7 +70,7 @@ begin
   aProdutoDTO.unidadeMedida := 0;
 end;
 
-function TProdutoCadastroRegra.RetornarIdSAbor(var aSabor: array of integer;
+function TProdutoCadastroRegra.RetornarIdSAbor(var aSabor: TArray<Integer>;
   const aId: integer; const aModel: IInterfaceProdutoCadastroModel): Boolean;
 begin
   Result := aModel.RetornarIdSAbor(aSabor, aId);
@@ -81,16 +81,23 @@ function TProdutoCadastroRegra.Salvar(const aProdutoDTO: TProdutoDTO;
   const aModel: IInterfaceProdutoCadastroModel): integer;
 begin
   Result := 0;
+  //Editar
   if (aProdutoDTO.idProduto > 0) then
   begin
+    //salva o produto
     if (aModel.Update(aProdutoDTO)) then
     begin
       if (Length(aCheck) <> 0) then
       begin
-        if (not(aModel.UpdateCheck(aCheck, aProdutoDTO.idProduto))) then
+        //excluir do banco tudo o sabor que esta salvo com o idProduto
+        if (aModel.ExcluiCheck(aProdutoDTO.idProduto)) then
         begin
-          Result := 2;
-          exit;
+        //salva todo os registro novamenete
+         if (not(aModel.SalvarCheck(aCheck, aProdutoDTO.idProduto))) then
+          begin
+            Result := 2;
+            exit;
+          end;
         end;
       end;
     end
@@ -99,8 +106,10 @@ begin
       Result := 1;
       exit;
     end;
-  end
-  else
+  end;
+
+  //Salvar
+  if (aProdutoDTO.idProduto = 0) then
   begin
     aProdutoDTO.idProduto := aModel.BuscarID;
     if (aModel.Insert(aProdutoDTO)) then
@@ -120,6 +129,7 @@ begin
       exit;
     end;
   end;
+
 end;
 
 function TProdutoCadastroRegra.Validar(const aProdutoDTO: TProdutoDTO): integer;

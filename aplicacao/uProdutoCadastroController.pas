@@ -218,7 +218,8 @@ end;
 procedure TBairroCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
 var
-  aIdSabor: array of Integer;
+  aIdSabor: TArray<Integer>;
+  iCount, I, J, iValor, iValorArray: Integer;
 begin
   if (not(Assigned(frmProdutoCadastro))) then
     frmProdutoCadastro := TfrmProdutoCadastro.Create(AOwner);
@@ -247,11 +248,23 @@ begin
         frmProdutoCadastro.cbUnidadeMedida.Items.IndexOfObject
         (TObject(oProdutoDTO.unidadeMedida));
 
-     // if (oProdutoRegra.RetornarIdSAbor(aIdSabor, iId, oProdutoModel)) then
-     // begin
-        // oCbEstado.Items.IndexOfObject(TObject(iIdEstado));
-
-      //end;
+      if (oProdutoRegra.RetornarIdSAbor(aIdSabor, iId, oProdutoModel)) then
+      begin
+         for I := 0 to frmProdutoCadastro.clkSabores.Items.Count -1 do
+          begin
+          iCount := Length(aIdSabor);
+          for J := 0 to iCount do
+          begin
+            iValor := Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
+            iValorArray := aIdSabor[iCount];
+            if (iValorArray = iValor) then
+            begin
+              frmProdutoCadastro.clkSabores.Checked[I] := true;
+            end;
+            iCount := iCount -1;
+          end;
+        end;
+      end;
     end
     else
     begin
@@ -368,6 +381,13 @@ begin
         aCheck[iCont] :=
           Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
       end;
+    end;
+  end
+  else
+  begin
+       for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+    begin
+      frmProdutoCadastro.clkSabores.Checked[I] := false;
     end;
   end;
 
