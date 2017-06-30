@@ -7,9 +7,12 @@ uses
   System.Classes,
   System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, System.UITypes,
   uEstadoCadastro, uInterfaceCadastroController, uEstadoDTO,
+  FireDAC.Comp.Client,
   uEstadoCadastroRegra, uEstadoCadastroModel;
 
 type
+  TMontarGrid = procedure of object;                                            ///
+
   TEstadoCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
@@ -17,6 +20,8 @@ type
     oEstadoRegra: TEstadoCadastroRegra;
     oEstadoModel: TEstadoCadastroModel;
     frmEstadoCadastro: TfrmEstadoCadastro;
+
+    oMontarGrid: TMontarGrid;                                                /////
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -25,7 +30,7 @@ type
     procedure Novo(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);             ////
     destructor Destroy; override;
   end;
 
@@ -34,8 +39,9 @@ var
 
 implementation
 
-constructor TEstadoCadastroController.Create;
+constructor TEstadoCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);   ///
 begin
+  oMontarGrid := AProcedimentoMontarGrid;                               ///
   oEstadoRegra := TEstadoCadastroRegra.Create;
   oEstadoDTO := TEstadoDTO.Create;
   oEstadoModel := TEstadoCadastroModel.Create;
@@ -126,6 +132,7 @@ begin
   if (iSalvar = 1) then
   begin
     MessageDlg('Registro Alterado com sucesso!', mtInformation, [mbOK], 0);
+    oMontarGrid;
     exit;
   end;
   // Erro ao Alterar
@@ -138,6 +145,7 @@ begin
   if (iSalvar = 3) then
   begin
     MessageDlg('Registro Cadastrado com sucesso!', mtInformation, [mbOK], 0);
+    oMontarGrid;
     exit;
   end;
   // Erro ao Salvar

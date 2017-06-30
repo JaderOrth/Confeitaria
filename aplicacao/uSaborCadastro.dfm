@@ -3,6 +3,7 @@ inherited frmSaborCadastro: TfrmSaborCadastro
   Caption = 'Cadastro Sabor'
   ClientHeight = 233
   ClientWidth = 519
+  KeyPreview = True
   ExplicitWidth = 525
   ExplicitHeight = 261
   PixelsPerInch = 96
@@ -40,7 +41,6 @@ inherited frmSaborCadastro: TfrmSaborCadastro
       EditLabel.Height = 16
       EditLabel.Caption = 'Sabor'
       TabOrder = 0
-      OnKeyPress = edtSaborKeyPress
     end
     object edtIngredientes: TMemo
       Left = 22
@@ -48,7 +48,6 @@ inherited frmSaborCadastro: TfrmSaborCadastro
       Width = 369
       Height = 89
       TabOrder = 1
-      OnKeyPress = edtIngredientesKeyPress
     end
   end
 end

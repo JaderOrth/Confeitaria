@@ -5,8 +5,8 @@ object frmCadastroBase: TfrmCadastroBase
   BorderIcons = []
   BorderStyle = bsSingle
   Caption = 'Cadastro Base'
-  ClientHeight = 437
-  ClientWidth = 894
+  ClientHeight = 247
+  ClientWidth = 365
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,33 +14,35 @@ object frmCadastroBase: TfrmCadastroBase
   Font.Name = 'Tahoma'
   Font.Style = []
   FormStyle = fsMDIChild
+  KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
   Visible = True
+  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 16
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 418
-    Width = 894
+    Top = 228
+    Width = 365
     Height = 19
     Panels = <>
-    ExplicitTop = 408
-    ExplicitWidth = 884
+    ExplicitTop = 418
+    ExplicitWidth = 894
   end
   object Panel1: TPanel
-    Left = 791
+    Left = 262
     Top = 0
     Width = 103
-    Height = 418
+    Height = 228
     Align = alRight
     BevelInner = bvRaised
     BevelOuter = bvLowered
     Color = clWhite
     ParentBackground = False
-    TabOrder = 1
-    ExplicitLeft = 781
-    ExplicitHeight = 408
+    TabOrder = 2
+    ExplicitLeft = 791
+    ExplicitHeight = 418
     object btnSalvar: TSpeedButton
       Left = 2
       Top = 72
@@ -49,7 +51,7 @@ object frmCadastroBase: TfrmCadastroBase
       Cursor = crHandPoint
       Hint = 'Salvar registro'
       Align = alTop
-      Caption = 'Salvar'
+      Caption = '&Salvar'
       Flat = True
       Glyph.Data = {
         360C0000424D360C000000000000360000002800000020000000200000000100
@@ -489,13 +491,13 @@ object frmCadastroBase: TfrmCadastroBase
   object panelCadastro: TPanel
     Left = 0
     Top = 0
-    Width = 791
-    Height = 418
+    Width = 262
+    Height = 228
     Align = alClient
     BevelInner = bvRaised
     BevelOuter = bvLowered
-    TabOrder = 2
-    ExplicitWidth = 781
-    ExplicitHeight = 408
+    TabOrder = 0
+    ExplicitWidth = 791
+    ExplicitHeight = 418
   end
 end

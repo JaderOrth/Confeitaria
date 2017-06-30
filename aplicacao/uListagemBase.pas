@@ -29,7 +29,6 @@ type
     procedure btnNovoClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure btnAjudaClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -50,11 +49,6 @@ type
 implementation
 
 {$R *.dfm}
-
-procedure TfrmListagemBase.btnAjudaClick(Sender: TObject);
-begin
-  oListagemBase.Help(Sender);
-end;
 
 procedure TfrmListagemBase.btnEditarClick(Sender: TObject);
 begin
@@ -92,7 +86,7 @@ procedure TfrmListagemBase.FormActivate(Sender: TObject);
 begin
   if (bGrid) then
   begin
-    oListagemBase.MontarGrid(FDMemTable_listagem)
+    oListagemBase.MontarGrid;
   end;
   bGrid := true;
 end;
