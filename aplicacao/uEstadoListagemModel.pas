@@ -13,7 +13,6 @@ type
     function Excluir(const iID: Integer): Boolean;
     function MontarGrid(oMemTable: TFDMemTable): Boolean;
     function ComboBox(var ALista: TEstadoListaHash): Boolean;
-
   end;
 
 implementation
@@ -55,7 +54,6 @@ var
   sSql: string;
 begin
   sSql := 'DELETE FROM uf WHERE iduf = ' + IntToStr(iID);
-
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 

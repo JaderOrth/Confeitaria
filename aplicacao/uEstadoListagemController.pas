@@ -15,8 +15,6 @@ type
     oEstadoModel: TEstadoListagemModel;
     oEstadoDTO: TEstadoDTO;
     oEstadoRegra: TEstadoListagemRegra;
-
-    frmEstado: TfrmEstado;
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
@@ -57,7 +55,7 @@ procedure TEstadoListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oEstadoCadastroController))) then
     oEstadoCadastroController := TEstadoCadastroController.Create;
-  // passa 0 porque quando o usuario clicar em editar iá passar o ID
+  // passa 0 porque quando o usuario clicar em editar irá passar o ID
   oEstadoCadastroController.CreateFormCadastro(frmEstado, Sender, 0);
 end;
 
@@ -99,7 +97,6 @@ begin
 
   if (Assigned(oEstadoRegra)) then
     FreeAndNil(oEstadoRegra);
-
   inherited;
 end;
 

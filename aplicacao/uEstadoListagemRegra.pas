@@ -13,7 +13,8 @@ type
   public
     function MontarGrid(oMemTable: TFDMeMTable;
       const AModel: IInterfaceListagemModel): Boolean;
-    function Excluir(const iId: Integer; const AModel: IInterfaceListagemModel): Boolean;
+    function Excluir(const iId: Integer;
+      const AModel: IInterfaceListagemModel): Boolean;
   end;
 
 implementation
