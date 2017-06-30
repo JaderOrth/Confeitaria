@@ -25,6 +25,7 @@ type
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
+    procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
     constructor Create;
@@ -196,6 +197,11 @@ begin
     if (Assigned(oEstadoModel)) then
       FreeAndNil(oEstadoModel);
   end;
+end;
+
+procedure TBairroCadastroController.RetornarValorEdit(Sender: TObject);
+begin
+
 end;
 
 procedure TBairroCadastroController.Salvar(Sender: TObject);

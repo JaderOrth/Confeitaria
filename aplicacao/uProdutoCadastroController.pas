@@ -28,6 +28,7 @@ type
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
+    procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
     constructor Create;
@@ -294,6 +295,11 @@ begin
   ComboBoxUnidadeMedida(Sender);
   // Monta o Check dos Sabores
   CheckSabor(Sender);
+end;
+
+procedure TBairroCadastroController.RetornarValorEdit(Sender: TObject);
+begin
+
 end;
 
 procedure TBairroCadastroController.Salvar(Sender: TObject);

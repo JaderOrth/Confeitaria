@@ -21,6 +21,7 @@ type
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
+    procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
     constructor Create;
@@ -85,6 +86,11 @@ begin
 end;
 
 procedure TUsuarioCadastroController.Pesquisar(Sender: TObject);
+begin
+
+end;
+
+procedure TUsuarioCadastroController.RetornarValorEdit(Sender: TObject);
 begin
 
 end;
