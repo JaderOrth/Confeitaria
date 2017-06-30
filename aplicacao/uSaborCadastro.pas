@@ -12,6 +12,8 @@ type
     edtSabor: TLabeledEdit;
     edtIngredientes: TMemo;
     Label1: TLabel;
+    procedure edtSaborKeyPress(Sender: TObject; var Key: Char);
+    procedure edtIngredientesKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -24,5 +26,20 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmSaborCadastro.edtIngredientesKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  inherited;
+  if Key = #13 then
+    btnSalvarClick(Sender);
+end;
+
+procedure TfrmSaborCadastro.edtSaborKeyPress(Sender: TObject; var Key: Char);
+begin
+  inherited;
+  if Key = #13 then
+    edtIngredientes.SetFocus;
+end;
 
 end.

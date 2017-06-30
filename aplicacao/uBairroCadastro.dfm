@@ -1,4 +1,5 @@
 inherited frmBairroCadastro: TfrmBairroCadastro
+  ActiveControl = edtBairro
   Caption = 'Cadastro de Bairro'
   ClientHeight = 235
   ClientWidth = 490
@@ -11,20 +12,20 @@ inherited frmBairroCadastro: TfrmBairroCadastro
   inherited StatusBar1: TStatusBar
     Top = 216
     Width = 490
-    ExplicitTop = 278
-    ExplicitWidth = 582
+    ExplicitTop = 216
+    ExplicitWidth = 490
   end
   inherited Panel1: TPanel
     Left = 387
     Height = 216
-    ExplicitLeft = 479
-    ExplicitHeight = 278
+    ExplicitLeft = 387
+    ExplicitHeight = 216
   end
   inherited panelCadastro: TPanel
     Width = 387
     Height = 216
-    ExplicitWidth = 479
-    ExplicitHeight = 278
+    ExplicitWidth = 387
+    ExplicitHeight = 216
     object Label1: TLabel
       Left = 24
       Top = 78

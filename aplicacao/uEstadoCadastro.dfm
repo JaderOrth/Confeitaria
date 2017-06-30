@@ -1,4 +1,5 @@
 inherited frmEstadoCadastro: TfrmEstadoCadastro
+  ActiveControl = edtSigla
   Caption = 'Cadastro estado'
   ClientHeight = 237
   ClientWidth = 490

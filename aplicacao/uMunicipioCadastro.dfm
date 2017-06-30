@@ -1,4 +1,5 @@
 inherited frmMunicipioCadastro: TfrmMunicipioCadastro
+  ActiveControl = edtMunicipio
   Caption = 'Cadastro de Munic'#237'pio'
   ClientHeight = 233
   ClientWidth = 491
@@ -9,20 +10,20 @@ inherited frmMunicipioCadastro: TfrmMunicipioCadastro
   inherited StatusBar1: TStatusBar
     Top = 214
     Width = 491
-    ExplicitTop = 311
-    ExplicitWidth = 639
+    ExplicitTop = 214
+    ExplicitWidth = 491
   end
   inherited Panel1: TPanel
     Left = 388
     Height = 214
-    ExplicitLeft = 536
-    ExplicitHeight = 311
+    ExplicitLeft = 388
+    ExplicitHeight = 214
   end
   inherited panelCadastro: TPanel
     Width = 388
     Height = 214
-    ExplicitWidth = 536
-    ExplicitHeight = 311
+    ExplicitWidth = 388
+    ExplicitHeight = 214
     object Label1: TLabel
       Left = 24
       Top = 102
