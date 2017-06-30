@@ -11,10 +11,10 @@ type
   TEstadoCadastroModel = class(TInterfacedObject, IIntrefaceCadastroModel)
   public
     function BuscarUpdate(var aEstado: TEstadoDTO): Boolean;
-    function Salvar(const aEstado: TEstadoDTO):Boolean;
+    function Salvar(const aEstado: TEstadoDTO): Boolean;
     function Update(const aEstado: TEstadoDTO): Boolean;
-    function ValidarUF(const aEstado: TEstadoDTO): Boolean;
-    function BuscarID:Integer;
+    function ValidarUF(var aEstado: TEstadoDTO): Boolean;
+    function BuscarID: Integer;
 
   end;
 
@@ -22,7 +22,7 @@ implementation
 
 function TEstadoCadastroModel.BuscarID: Integer;
 var
-  oQuery : TFDQuery;
+  oQuery: TFDQuery;
 begin
   Result := 1;
   oQuery := TFDQuery.Create(nil);
@@ -33,7 +33,7 @@ begin
 
     if (not(oQuery.IsEmpty)) then
     begin
-      Result := oQuery.FieldByName('ID').AsInteger +1;
+      Result := oQuery.FieldByName('ID').AsInteger + 1;
     end;
 
   finally
@@ -52,8 +52,8 @@ begin
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT descricao, sigla_uf FROM uf where iduf = '
-                + IntToStr(aEstado.ID));
+    oQuery.Open('SELECT descricao, sigla_uf FROM uf where iduf = ' +
+      IntToStr(aEstado.ID));
     if (not(oQuery.IsEmpty)) then
     begin
       aEstado.UF := oQuery.FieldByName('sigla_uf').AsString;
@@ -68,13 +68,11 @@ end;
 
 function TEstadoCadastroModel.Salvar(const aEstado: TEstadoDTO): Boolean;
 var
-  sSql : string;
+  sSql: string;
 begin
-  sSql := 'INSERT INTO uf (iduf, descricao, sigla_uf) ' +
-          'VALUES (' +
-          IntToStr(aEstado.ID)+','+
-          QuotedStr(aEstado.Descricao)+' ,'+
-          QuotedStr(aEstado.UF)+')';
+  sSql := 'INSERT INTO uf (iduf, descricao, sigla_uf) ' + 'VALUES (' +
+    IntToStr(aEstado.ID) + ',' + QuotedStr(aEstado.Descricao) + ' ,' +
+    QuotedStr(aEstado.UF) + ')';
 
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 
@@ -84,24 +82,26 @@ function TEstadoCadastroModel.Update(const aEstado: TEstadoDTO): Boolean;
 var
   sSql: String;
 begin
-  sSql := 'UPDATE uf SET descricao = '+ QuotedStr(aEstado.Descricao)
-                     +', sigla_uf =  '+ QuotedStr(aEstado.UF)
-                     +' WHERE iduf = '+ IntToStr(aEstado.ID);
+  sSql := 'UPDATE uf SET descricao = ' + QuotedStr(aEstado.Descricao) +
+    ', sigla_uf =  ' + QuotedStr(aEstado.UF) + ' WHERE iduf = ' +
+    IntToStr(aEstado.ID);
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
-function TEstadoCadastroModel.ValidarUF(const aEstado: TEstadoDTO): Boolean;
+function TEstadoCadastroModel.ValidarUF(var aEstado: TEstadoDTO): Boolean;
 var
   oQuery: TFDQuery;
 begin
-  Result := False;
+  Result := false;
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT descricao FROM uf where sigla_uf = '+ QuotedStr(aEstado.UF));
+    oQuery.Open('SELECT descricao FROM uf where sigla_uf = ' +
+      QuotedStr(aEstado.UF));
     if (not(oQuery.IsEmpty)) then
     begin
-      Result := True;
+      aEstado.Descricao := oQuery.FieldByName('descricao').AsString;
+      Result := true;
     end;
   finally
     if (Assigned(oQuery)) then
