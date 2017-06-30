@@ -40,6 +40,7 @@ type
   private
     { Private declarations }
     bGrid: Boolean;
+
   public
     { Public declarations }
     oListagemBase: IInterfaceListagemController;
@@ -104,9 +105,11 @@ end;
 procedure TfrmListagemBase.FormCreate(Sender: TObject);
 begin
   bGrid := false;
-  {Self.Width :=
-  Self.Height :=
-  }
+  Self.Width := Screen.Width-4;
+  Self.Height := Screen.Height-170;
+  Constraints.MaxWidth := Screen.Width-4;
+  Constraints.MaxHeight := Screen.Height-170;
+  Constraints.MinWidth := Screen.Width-4;
+  Constraints.MinHeight := Screen.Height-170;
 end;
-
 end.

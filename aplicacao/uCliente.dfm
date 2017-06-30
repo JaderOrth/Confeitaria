@@ -1,15 +1,16 @@
 inherited frmCliente: TfrmCliente
   Caption = 'Listagem de clientes'
   ClientWidth = 1016
-  Position = poDesigned
   ExplicitWidth = 1032
   PixelsPerInch = 96
   TextHeight = 14
   inherited Panel2: TPanel
     Width = 1016
+    ExplicitWidth = 1016
   end
   inherited StatusBar1: TStatusBar
     Width = 1016
+    ExplicitWidth = 1016
   end
   inherited DBGridListagem: TDBGrid
     Width = 831

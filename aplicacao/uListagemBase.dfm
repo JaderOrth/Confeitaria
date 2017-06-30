@@ -1,12 +1,13 @@
 object frmListagemBase: TfrmListagemBase
   Left = 0
   Top = 0
-  Anchors = [akLeft, akTop, akRight, akBottom]
   BorderIcons = []
+  BorderStyle = bsSingle
   Caption = 'Listagem Base'
-  ClientHeight = 506
-  ClientWidth = 1001
+  ClientHeight = 516
+  ClientWidth = 1011
   Color = clBtnFace
+  DragMode = dmAutomatic
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
@@ -14,7 +15,7 @@ object frmListagemBase: TfrmListagemBase
   Font.Style = []
   FormStyle = fsMDIChild
   OldCreateOrder = False
-  Position = poMainFormCenter
+  Position = poDesigned
   Visible = True
   OnActivate = FormActivate
   OnClose = FormClose
@@ -25,12 +26,13 @@ object frmListagemBase: TfrmListagemBase
     Left = 0
     Top = 56
     Width = 185
-    Height = 431
+    Height = 441
     Align = alLeft
     BevelInner = bvRaised
     BevelOuter = bvLowered
     ParentBackground = False
     TabOrder = 0
+    ExplicitHeight = 431
     object edtPesquisa: TEdit
       Left = 5
       Top = 27
@@ -62,7 +64,7 @@ object frmListagemBase: TfrmListagemBase
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 1001
+    Width = 1011
     Height = 56
     Align = alTop
     BevelInner = bvRaised
@@ -70,6 +72,7 @@ object frmListagemBase: TfrmListagemBase
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
+    ExplicitWidth = 1001
     object btnEditar: TSpeedButton
       Left = 54
       Top = 2
@@ -935,16 +938,18 @@ object frmListagemBase: TfrmListagemBase
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 487
-    Width = 1001
+    Top = 497
+    Width = 1011
     Height = 19
     Panels = <>
+    ExplicitTop = 487
+    ExplicitWidth = 1001
   end
   object DBGridListagem: TDBGrid
     Left = 185
     Top = 56
-    Width = 816
-    Height = 431
+    Width = 826
+    Height = 441
     Align = alClient
     DataSource = src_listagem
     Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
