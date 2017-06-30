@@ -1,24 +1,32 @@
 inherited frmEstadoCadastro: TfrmEstadoCadastro
   Caption = 'Cadastro estado'
-  ClientWidth = 647
-  ExplicitWidth = 663
+  ClientHeight = 237
+  ClientWidth = 490
+  ExplicitWidth = 496
+  ExplicitHeight = 265
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
-    Width = 647
-    ExplicitWidth = 647
+    Top = 218
+    Width = 490
+    ExplicitTop = 218
+    ExplicitWidth = 490
   end
   inherited Panel1: TPanel
-    Left = 544
-    ExplicitLeft = 544
+    Left = 387
+    Height = 218
+    ExplicitLeft = 387
+    ExplicitHeight = 218
   end
   inherited panelCadastro: TPanel
-    Width = 544
-    ExplicitWidth = 544
+    Width = 387
+    Height = 218
+    ExplicitWidth = 387
+    ExplicitHeight = 218
     object edtEstado: TLabeledEdit
-      Left = 80
-      Top = 88
-      Width = 425
+      Left = 26
+      Top = 116
+      Width = 337
       Height = 24
       BiDiMode = bdLeftToRight
       CharCase = ecUpperCase
@@ -27,24 +35,20 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
       EditLabel.BiDiMode = bdLeftToRight
       EditLabel.Caption = 'Estado'
       EditLabel.ParentBiDiMode = False
-      LabelPosition = lpLeft
       ParentBiDiMode = False
       TabOrder = 1
-      TextHint = 'Descri'#231#227'o UF'
     end
     object edtSigla: TLabeledEdit
-      Left = 80
-      Top = 58
+      Left = 26
+      Top = 70
       Width = 121
       Height = 24
       CharCase = ecUpperCase
-      EditLabel.Width = 28
+      EditLabel.Width = 57
       EditLabel.Height = 16
-      EditLabel.Caption = 'Sigla'
-      LabelPosition = lpLeft
+      EditLabel.Caption = 'Sigla (UF)'
       MaxLength = 2
       TabOrder = 0
-      TextHint = 'UF'
     end
   end
 end

@@ -32,7 +32,6 @@ object frmListagemBase: TfrmListagemBase
     BevelOuter = bvLowered
     ParentBackground = False
     TabOrder = 0
-    ExplicitHeight = 431
     object edtPesquisa: TEdit
       Left = 5
       Top = 27
@@ -46,6 +45,7 @@ object frmListagemBase: TfrmListagemBase
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+      TextHint = 'Pesquise aqui'
       OnKeyUp = edtPesquisaKeyUp
     end
     object Panel3: TPanel
@@ -55,7 +55,7 @@ object frmListagemBase: TfrmListagemBase
       Height = 19
       Align = alTop
       BevelOuter = bvNone
-      Caption = 'Op'#231#245'es de Pesquisa'
+      Caption = 'Pesquisa'
       Color = 15000804
       ParentBackground = False
       TabOrder = 1
@@ -72,7 +72,6 @@ object frmListagemBase: TfrmListagemBase
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 1001
     object btnEditar: TSpeedButton
       Left = 54
       Top = 2
@@ -942,8 +941,6 @@ object frmListagemBase: TfrmListagemBase
     Width = 1011
     Height = 19
     Panels = <>
-    ExplicitTop = 487
-    ExplicitWidth = 1001
   end
   object DBGridListagem: TDBGrid
     Left = 185
