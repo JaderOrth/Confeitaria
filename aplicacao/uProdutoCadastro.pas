@@ -15,7 +15,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     edtPreco: TLabeledEdit;
-    GroupBox1: TGroupBox;
+    GroupSabores: TGroupBox;
     clkSabores: TCheckListBox;
     ckbSabor: TCheckBox;
     procedure FormActivate(Sender: TObject);

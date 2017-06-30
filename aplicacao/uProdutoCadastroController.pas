@@ -21,6 +21,7 @@ type
     procedure ComboBoxCategoria(Sender: TObject);
     procedure CheckSabor(Sender: TObject);
     procedure ComboBoxUnidadeMedida(Sender: TObject);
+    procedure EnableCheck(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -45,7 +46,24 @@ var
   oSaborLista: TSaborListaHash;
   oSaborModel: TSaborListagemModel;
   oSaborDTO: TSaborDTO;
+  iCount, I, J, iValor, iValorArray: Integer;
+  aSabor: array of Integer;
 begin
+  if (frmProdutoCadastro.GroupSabores.Enabled = True) then
+  begin
+    SetLength(aSabor, 0);
+    for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+    begin
+      if (frmProdutoCadastro.clkSabores.Checked[I]) then
+      begin
+        iCount := Length(aSabor);
+        SetLength(aSabor, iCount + 1);
+        aSabor[iCount] :=
+          Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
+      end;
+    end;
+  end;
+
   frmProdutoCadastro.clkSabores.Clear;
   try
     oSaborLista := TSaborListaHash.Create([doOwnsValues]);
@@ -57,8 +75,26 @@ begin
       begin
         frmProdutoCadastro.clkSabores.Items.AddObject(oSaborDTO.descricao,
           TObject(oSaborDTO.idsabores));
-      end
-    end
+      end;
+    end;
+
+    if (Length(aSabor) > 0) then
+    begin
+      for I := 0 to frmProdutoCadastro.clkSabores.Items.Count -1 do
+      begin
+        iCount := Length(aSabor);
+        for J := 0 to iCount do
+        begin
+          iValor := Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
+          iValorArray := aSabor[iCount];
+          if (iValorArray = iValor) then
+          begin
+            frmProdutoCadastro.clkSabores.Checked[I] := true;
+          end;
+          iCount := iCount -1;
+        end;
+      end;
+    end;
 
   finally
     if (Assigned(oSaborModel)) then
@@ -75,6 +111,7 @@ begin
     Exit;
   frmProdutoCadastro.Close;
   FreeAndNil(frmProdutoCadastro);
+  oProdutoRegra.LimparDTO(oProdutoDTO);
 end;
 
 procedure TBairroCadastroController.ComboBoxCategoria(Sender: TObject);
@@ -179,12 +216,15 @@ end;
 
 procedure TBairroCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
+var
+  aIdSabor: array of Integer;
 begin
   if (not(Assigned(frmProdutoCadastro))) then
     frmProdutoCadastro := TfrmProdutoCadastro.Create(AOwner);
   frmProdutoCadastro.oInterfaceCadastroController := oProdutoCadastroController;
   frmProdutoCadastro.Show;
   frmProdutoCadastro.OnActivate(nil);
+  frmProdutoCadastro.ckbSabor.OnClick := EnableCheck;
 
   if (iId > 0) then
   begin
@@ -205,6 +245,12 @@ begin
       frmProdutoCadastro.cbUnidadeMedida.ItemIndex :=
         frmProdutoCadastro.cbUnidadeMedida.Items.IndexOfObject
         (TObject(oProdutoDTO.unidadeMedida));
+
+     // if (oProdutoRegra.RetornarIdSAbor(aIdSabor, iId, oProdutoModel)) then
+     // begin
+        // oCbEstado.Items.IndexOfObject(TObject(iIdEstado));
+
+      //end;
     end
     else
     begin
@@ -225,6 +271,14 @@ begin
   if (Assigned(oProdutoRegra)) then
     FreeAndNil(oProdutoRegra);
   inherited;
+end;
+
+procedure TBairroCadastroController.EnableCheck(Sender: TObject);
+begin
+  if (frmProdutoCadastro.GroupSabores.Enabled <> True) then
+    frmProdutoCadastro.GroupSabores.Enabled := True
+  else
+    frmProdutoCadastro.GroupSabores.Enabled := False;
 end;
 
 procedure TBairroCadastroController.Novo(Sender: TObject);
@@ -296,14 +350,18 @@ begin
     Exit;
   end;
 
-  SetLength(aCheck, 0);
-  for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+  if (frmProdutoCadastro.GroupSabores.Enabled = True) then
   begin
-    if (frmProdutoCadastro.clkSabores.Checked[I]) then
+    SetLength(aCheck, 0);
+    for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
     begin
-      iCont := Length(aCheck);
-      SetLength(aCheck, iCont + 1);
-      aCheck[iCont] := Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
+      if (frmProdutoCadastro.clkSabores.Checked[I]) then
+      begin
+        iCont := Length(aCheck);
+        SetLength(aCheck, iCont + 1);
+        aCheck[iCont] :=
+          Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
+      end;
     end;
   end;
 
@@ -314,21 +372,24 @@ begin
     MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     Exit;
   end;
-  // Insert False
+  // Update do Sabor
   if (iSalvar = 2) then
+  begin
+    MessageDlg('Erro ao alterar os sabores do Produto!', mtError, [mbOK], 0);
+    Exit;
+  end;
+  // Insert False
+  if (iSalvar = 3) then
   begin
     MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     Exit;
   end;
   // Insert do Sabor
-  if (iSalvar = 3) then
+  if (iSalvar = 4) then
   begin
     MessageDlg('Erro ao salvar os sabores do Produto!', mtError, [mbOK], 0);
     Exit;
   end;
-
-
-
 
 end;
 

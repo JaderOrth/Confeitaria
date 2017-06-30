@@ -7,18 +7,22 @@ uses
   uInterfaceProdutoCadastroModel, uProdutoDTO, uClassConexaoSingleton;
 
 type
-  TProdutoCadastroModel = class(TInterfacedObject, IInterfaceProdutoCadastroModel)
+  TProdutoCadastroModel = class(TInterfacedObject,
+    IInterfaceProdutoCadastroModel)
   public
     function BuscarID: Integer;
     function Update(const aProdutoDTO: TProdutoDTO): Boolean;
     function Insert(const aProdutoDTO: TProdutoDTO): Boolean;
     function BuscarUpdate(var aProdutoDTO: TProdutoDTO): Boolean;
-    function SalvarCheck(const aCheck: array of integer;
+    function SalvarCheck(const aCheck: array of Integer;
       const aIdProduto: Integer): Boolean;
+    function UpdateCheck(const aCheck: array of Integer;
+      const aIdProduto: Integer): Boolean;
+    function RetornarIdSAbor(var aSabor: array of Integer;
+      const aId: Integer): Boolean;
   end;
 
 implementation
-
 
 { TProdutoCadastroModel }
 
@@ -41,8 +45,8 @@ begin
   end;
 end;
 
-function TProdutoCadastroModel.BuscarUpdate(
-  var aProdutoDTO: TProdutoDTO): Boolean;
+function TProdutoCadastroModel.BuscarUpdate(var aProdutoDTO
+  : TProdutoDTO): Boolean;
 var
   oQuery: TFDQuery;
 begin
@@ -50,17 +54,17 @@ begin
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT descricao, preco, sabor, idunidade_medida,'+
-                'idcategorias FROM produtos where idprodutos = '+
-                IntToStr(aProdutoDTO.idProduto));
+    oQuery.Open('SELECT descricao, preco, sabor, idunidade_medida,' +
+      'idcategorias FROM produtos where idprodutos = ' +
+      IntToStr(aProdutoDTO.idProduto));
     if (not(oQuery.IsEmpty)) then
     begin
       aProdutoDTO.descricao := oQuery.FieldByName('descricao').AsString;
       aProdutoDTO.preco := oQuery.FieldByName('preco').AsCurrency;
       aProdutoDTO.sabor := oQuery.FieldByName('sabor').AsString;
       aProdutoDTO.idCategoria := oQuery.FieldByName('idcategorias').AsInteger;
-      aProdutoDTO.unidadeMedida :=
-        oQuery.FieldByName('idunidade_medida').AsInteger;
+      aProdutoDTO.unidadeMedida := oQuery.FieldByName('idunidade_medida')
+        .AsInteger;
       Result := True;
     end;
   finally
@@ -73,29 +77,57 @@ function TProdutoCadastroModel.Insert(const aProdutoDTO: TProdutoDTO): Boolean;
 var
   sSql: String;
 begin
-  sSql := 'INSERT INTO produtos(idprodutos, descricao, preco, sabor,'+
-          ' idcategorias, idunidade_medida) VALUES('+
-          IntToStr(aProdutoDTO.idProduto)+', '+
-          QuotedStr(aProdutoDTO.descricao)+', '+
-          CurrToStr(aProdutoDTO.preco)+', '+
-          QuotedStr(aProdutoDTO.sabor)+', '+
-          IntToStr(aProdutoDTO.idCategoria)+', '+
-          IntToStr(aProdutoDTO.unidadeMedida)+')';
+  sSql := 'INSERT INTO produtos(idprodutos, descricao, preco, sabor,' +
+    ' idcategorias, idunidade_medida) VALUES(' + IntToStr(aProdutoDTO.idProduto)
+    + ', ' + QuotedStr(aProdutoDTO.descricao) + ', ' +
+    CurrToStr(aProdutoDTO.preco) + ', ' + QuotedStr(aProdutoDTO.sabor) + ', ' +
+    IntToStr(aProdutoDTO.idCategoria) + ', ' +
+    IntToStr(aProdutoDTO.unidadeMedida) + ')';
 
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
-function TProdutoCadastroModel.SalvarCheck(const aCheck: array of integer;
+function TProdutoCadastroModel.RetornarIdSAbor(var aSabor: array of Integer;
+  const aId: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+  icont: Integer;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT idsabores FROM sabores_produto'+
+                ' WHERE idprodutos = '+ IntToStr(aId));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      oQuery.First;
+     // SetLength(aSabor, 0);
+      while (not(oQuery.Eof)) do
+      begin
+        icont := Length(aSabor);
+       // SetLength(aSabor, icont +1);
+        aSabor[icont] := oQuery.FieldByName('idsabores').AsInteger;
+        oQuery.Next;
+      end;
+    end;
+  finally
+
+  end;
+
+end;
+
+function TProdutoCadastroModel.SalvarCheck(const aCheck: array of Integer;
   const aIdProduto: Integer): Boolean;
 var
   sSql: String;
   iCount: Integer;
 begin
-  for iCount := 0 to (Length(aCheck) -1) do
+  Result := False;
+  for iCount := 0 to (Length(aCheck) - 1) do
   begin
-    sSql := 'INSERT INTO sabores_produto(idprodutos, idsabores) VALUES('+
-          IntToStr(aIdProduto)+','+
-          IntToStr(aCheck[iCount])+')';
+    sSql := 'INSERT INTO sabores_produto(idprodutos, idsabores) VALUES(' +
+      IntToStr(aIdProduto) + ',' + IntToStr(aCheck[iCount]) + ')';
     Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
   end;
 end;
@@ -104,13 +136,19 @@ function TProdutoCadastroModel.Update(const aProdutoDTO: TProdutoDTO): Boolean;
 var
   sSql: String;
 begin
-  sSql := 'UPDATE produtos SET descricao = '+ QuotedStr(aProdutoDTO.descricao)+
-          ', preco = '+ CurrToStr(aProdutoDTO.preco)+
-          ', sabor = '+ QuotedStr(aProdutoDTO.sabor)+
-          ', idcategorias = '+ IntToStr(aProdutoDTO.idCategoria)+
-          ', idunidade_medida = '+ IntToStr(aProdutoDTO.unidadeMedida)+
-          ' WHERE idprodutos = '+ IntToStr(aProdutoDTO.idProduto);
+  sSql := 'UPDATE produtos SET descricao = ' + QuotedStr(aProdutoDTO.descricao)
+    + ', preco = ' + CurrToStr(aProdutoDTO.preco) + ', sabor = ' +
+    QuotedStr(aProdutoDTO.sabor) + ', idcategorias = ' +
+    IntToStr(aProdutoDTO.idCategoria) + ', idunidade_medida = ' +
+    IntToStr(aProdutoDTO.unidadeMedida) + ' WHERE idprodutos = ' +
+    IntToStr(aProdutoDTO.idProduto);
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+end;
+
+function TProdutoCadastroModel.UpdateCheck(const aCheck: array of Integer;
+  const aIdProduto: Integer): Boolean;
+begin
+
 end;
 
 end.

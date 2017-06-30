@@ -1,6 +1,7 @@
 unit uProdutoCadastroRegra;
 
 interface
+
 uses
   System.SysUtils,
   uInterfaceProdutoCadastroModel, uProdutoDTO, uUnidadeMedidaListaHash,
@@ -11,20 +12,22 @@ uses
 type
   TProdutoCadastroRegra = class
   public
-     procedure LimparDTO(aProdutoDTO: TProdutoDTO);
-     function ComboBoxUnidadeMedida(var aLista: TUnidadeMedidaListaHash;
+    procedure LimparDTO(aProdutoDTO: TProdutoDTO);
+    function ComboBoxUnidadeMedida(var aLista: TUnidadeMedidaListaHash;
       const aModel: IInterfaceUnidadeMedidaListagemModel): Boolean;
-     function ComboBoxCategoria(var aLista: TCategoriaListaHash;
+    function ComboBoxCategoria(var aLista: TCategoriaListaHash;
       const aModel: IInterfaceCategoriasListagemModel): Boolean;
-     function Validar(const aProdutoDTO: TProdutoDTO): integer;
-     function Salvar(const aProdutoDTO: TProdutoDTO;
+    function Validar(const aProdutoDTO: TProdutoDTO): integer;
+    function Salvar(const aProdutoDTO: TProdutoDTO;
       const aCheck: array of integer;
       const aModel: IInterfaceProdutoCadastroModel): integer;
-     function CheckSabor(var aLista: TSaborListaHash;
+    function CheckSabor(var aLista: TSaborListaHash;
       const aModel: IInterfaceSaborListagemModel): Boolean;
-     function BuscarUpdate(var aProdutoDTO: TProdutoDTO;
+    function BuscarUpdate(var aProdutoDTO: TProdutoDTO;
       const aModel: IInterfaceProdutoCadastroModel): Boolean;
-     function ValidarSabor(const Sabor: String): Boolean;
+    function ValidarSabor(const Sabor: String): Boolean;
+    function RetornarIdSAbor(var aSabor: array of integer; const aId: integer;
+      const aModel: IInterfaceProdutoCadastroModel): Boolean;
   end;
 
 implementation
@@ -43,15 +46,15 @@ begin
   Result := aModel.CheckSabor(aLista);
 end;
 
-function TProdutoCadastroRegra.ComboBoxCategoria(
-  var aLista: TCategoriaListaHash;
+function TProdutoCadastroRegra.ComboBoxCategoria
+  (var aLista: TCategoriaListaHash;
   const aModel: IInterfaceCategoriasListagemModel): Boolean;
 begin
   Result := aModel.ComboBoxCategoria(aLista);
 end;
 
-function TProdutoCadastroRegra.ComboBoxUnidadeMedida(
-  var aLista: TUnidadeMedidaListaHash;
+function TProdutoCadastroRegra.ComboBoxUnidadeMedida
+  (var aLista: TUnidadeMedidaListaHash;
   const aModel: IInterfaceUnidadeMedidaListagemModel): Boolean;
 begin
   Result := aModel.ComboBoxUnidadeMedida(aLista);
@@ -62,9 +65,15 @@ begin
   aProdutoDTO.idProduto := 0;
   aProdutoDTO.descricao := EmptyStr;
   aProdutoDTO.preco := 0;
-  aProdutoDTO.sabor := EmptyStr;
+  aProdutoDTO.Sabor := EmptyStr;
   aProdutoDTO.idCategoria := 0;
-  aProdutoDTO.unidadeMedida:= 0;
+  aProdutoDTO.unidadeMedida := 0;
+end;
+
+function TProdutoCadastroRegra.RetornarIdSAbor(var aSabor: array of integer;
+  const aId: integer; const aModel: IInterfaceProdutoCadastroModel): Boolean;
+begin
+  Result := aModel.RetornarIdSAbor(aSabor, aId);
 end;
 
 function TProdutoCadastroRegra.Salvar(const aProdutoDTO: TProdutoDTO;
@@ -74,7 +83,18 @@ begin
   Result := 0;
   if (aProdutoDTO.idProduto > 0) then
   begin
-    if (not(aModel.Update(aProdutoDTO))) then
+    if (aModel.Update(aProdutoDTO)) then
+    begin
+      if (Length(aCheck) <> 0) then
+      begin
+        if (not(aModel.UpdateCheck(aCheck, aProdutoDTO.idProduto))) then
+        begin
+          Result := 2;
+          exit;
+        end;
+      end;
+    end
+    else
     begin
       Result := 1;
       exit;
@@ -85,15 +105,18 @@ begin
     aProdutoDTO.idProduto := aModel.BuscarID;
     if (aModel.Insert(aProdutoDTO)) then
     begin
-      if (not(aModel.SalvarCheck(aCheck, aProdutoDTO.idProduto))) then
+      if (Length(aCheck) <> 0) then
       begin
-        Result := 3;
-        exit;
+        if (not(aModel.SalvarCheck(aCheck, aProdutoDTO.idProduto))) then
+        begin
+          Result := 4;
+          exit;
+        end;
       end;
     end
     else
     begin
-      Result := 2;
+      Result := 3;
       exit;
     end;
   end;
@@ -120,7 +143,7 @@ begin
     exit;
   end;
 
-   if (aProdutoDTO.preco = 0)  then
+  if (aProdutoDTO.preco = 0) then
   begin
     Result := 4;
     exit;
