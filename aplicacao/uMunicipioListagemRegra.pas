@@ -13,7 +13,7 @@ type
     function MontarGrid(AMemtable: TFDMemTable;
       const AModel: IInterfaceMunicipioListagemModel): Boolean;
     function Excluir(const iId: Integer;
-      const AModel: IInterfaceMunicipioListagemModel): Boolean;
+      const AModel: IInterfaceMunicipioListagemModel): Integer;
   end;
 
 implementation
@@ -21,9 +21,19 @@ implementation
 { TMunicipioListagemRegra }
 
 function TMunicipioListagemRegra.Excluir(const iId: Integer;
-  const AModel: IInterfaceMunicipioListagemModel): Boolean;
+  const AModel: IInterfaceMunicipioListagemModel): Integer;
 begin
-  Result := AModel.Excluir(iId);
+  if (not(AModel.ValidarExcluir(iId))) then
+  begin
+    if (AModel.Excluir(iId)) then
+      Result := 1
+    else
+      Result := 2;
+  end
+  else
+    Result := 3;
+
+
 end;
 
 function TMunicipioListagemRegra.MontarGrid(AMemtable: TFDMemTable;

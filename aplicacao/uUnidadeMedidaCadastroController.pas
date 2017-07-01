@@ -56,7 +56,8 @@ procedure TUnidadeMedidaCadastroController.CreateFormCadastro(AOwner: TComponent
 begin
   if (not(Assigned(frmUnidadeMedidaCadastro))) then
     frmUnidadeMedidaCadastro := TfrmUnidadeMedidaCadastro.Create(AOwner);
-  frmUnidadeMedidaCadastro.oInterfaceCadastroController := oUnidadeMedidaCadastroController;
+  frmUnidadeMedidaCadastro.oInterfaceCadastroController :=
+    oUnidadeMedidaCadastroController;
 
   frmUnidadeMedidaCadastro.Show;
 

@@ -11,6 +11,7 @@ type
   TMunicipioListagemModel = class(TInterfacedObject,
     IInterfaceMunicipioListagemModel)
   public
+    function ValidarExcluir(const iID: Integer): Boolean;
     function Excluir(const iID: Integer): Boolean;
     function MontarGrid(oMemTable: TFDMemTable): Boolean;
     function ComboBox(var aLista: TMunicipioListaHash; iID: Integer): Boolean;
@@ -38,7 +39,6 @@ begin
       while (not(oQuery.Eof)) do
       begin
         oMunicipioDTO := TMunicipioDTO.Create;
-
         oMunicipioDTO.IdMunicipio :=
           oQuery.FieldByName('idmunicipio').AsInteger;
         oMunicipioDTO.Descricao := oQuery.FieldByName('descricao').AsString;
@@ -78,6 +78,25 @@ begin
       Result := True;
   finally
     if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
+
+function TMunicipioListagemModel.ValidarExcluir(const iID: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('select mu.idmunicipio from municipio as mu'+
+                ' inner join bairro as ba on ba.idmunicipio = mu.idmunicipio'+
+                ' where mu.idmunicipio = '+ IntToStr(iID));
+    if (not(oQuery.IsEmpty)) then
+      Result := True;
+  finally
+    if Assigned(oQuery) then
       FreeAndNil(oQuery);
   end;
 end;

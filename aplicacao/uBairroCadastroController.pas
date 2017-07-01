@@ -189,7 +189,6 @@ begin
     begin
       cbEstado.ItemIndex := cbEstado.Items.IndexOfObject(TObject(iId));
     end;
-
   finally
     if (Assigned(oListaEstado)) then
       FreeAndNil(oListaEstado);

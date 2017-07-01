@@ -52,6 +52,9 @@ begin
 
   frmEstadoCadastro.edtSigla.OnExit := Pesquisar;
 
+  frmEstadoCadastro.btnSalvar.Enabled := True;
+  frmEstadoCadastro.btnNovo.Enabled := False;
+
   if (iId > 0) then
   begin
     oEstadoDTO.ID := iId;

@@ -29,12 +29,12 @@ begin
     if (not(AModel.ValidarExcluir(iId))) then
     begin
       if (AModel.Excluir(iId)) then
-        Result := 2
+        Result := 1
       else
-        Result := 3;
+        Result := 2;
     end
     else
-      Result := 1;
+      Result := 3;
   end;
 end;
 

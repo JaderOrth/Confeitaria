@@ -73,9 +73,14 @@ end;
 
 constructor TEstadoListagemController.Create;
 begin
-  oEstadoModel := TEstadoListagemModel.Create;
-  oEstadoDTO := TEstadoDTO.Create;
-  oEstadoRegra := TEstadoListagemRegra.Create;
+  if (not(Assigned(oEstadoModel))) then
+    oEstadoModel := TEstadoListagemModel.Create;
+
+  if (not(Assigned(oEstadoDTO))) then
+    oEstadoDTO := TEstadoDTO.Create;
+
+  if (not(Assigned(oEstadoRegra))) then
+    oEstadoRegra := TEstadoListagemRegra.Create;
 end;
 
 procedure TEstadoListagemController.CreateFormListagem(AOwner: TComponent);
@@ -110,25 +115,24 @@ begin
     iID := oMemTable.FieldByName('iduf').AsInteger;
     iValidar := oEstadoRegra.Excluir(iID, oEstadoModel);
 
-     if (iValidar = 1) then
-    begin
-      MessageDlg('Erro ao deletar este registro, está associado ao MUNICÍPIO',
-        mtWarning, mbOKCancel, 0);
-      exit;
-    end;
-
-    if (iValidar = 2) then
+    if (iValidar = 1) then
     begin
       MessageDlg('Registro deletado com sucesso!', mtInformation, [mbOK], 0);
       //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
       oMemTable.Locate('iduf', iID);
       oMemTable.Delete;
-
     end;
 
-    if (iValidar = 3) then
+    if (iValidar = 2) then
     begin
       MessageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
+      exit;
+    end;
+
+     if (iValidar = 3) then
+    begin
+      MessageDlg('Erro ao deletar este registro, está associado ao MUNICÍPIO',
+        mtWarning, mbOKCancel, 0);
       exit;
     end;
   end;
