@@ -22,7 +22,7 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable);
+    procedure MontarGrid;
     procedure Excluir(oMemtable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
@@ -76,7 +76,7 @@ end;
 procedure TCategoriasListagemController.ControlerCadastro(Sender: TObject);
 begin
 if (not(Assigned(oCategoriasCadastroController))) then
-    oCategoriasCadastroController := TCategoriasCadastroController.Create;
+    oCategoriasCadastroController := TCategoriasCadastroController.Create(MontarGrid);
   oCategoriasCadastroController.CreateFormCadastro(frmCategorias, Sender, 0);
 end;
 
@@ -86,7 +86,7 @@ var
   iID: Integer;
 begin
   if (not(Assigned(oCategoriasCadastroController))) then
-    oCategoriasCadastroController := TCategoriasCadastroController.Create;
+    oCategoriasCadastroController := TCategoriasCadastroController.Create(MontarGrid);
   iID := oMemTable.FieldByName('idcategorias').AsInteger;
   oCategoriasCadastroController.CreateFormCadastro(frmCategorias, Sender, iID);
 end;
@@ -130,12 +130,11 @@ begin
 
 end;
 
-procedure TCategoriasListagemController.MontarGrid(oMemtable: TFDMemTable);
+procedure TCategoriasListagemController.MontarGrid;
 begin
-  oMemTable.Close;
-  if (oCategoriasRegra.MontarGrid(oMemTable, oCategoriasModel)) then
+  frmCategorias.FDMemTable_listagem.Close;
+  if (oCategoriasRegra.MontarGrid(frmCategorias.FDMemTable_listagem, oCategoriasModel)) then
   begin
-    oMemTable.Open;
     frmCategorias.bClick := True;
     frmCategorias.btnEditar.Enabled := True;
     frmCategorias.btnExcluir.Enabled := True;

@@ -9,12 +9,15 @@ uses
   uPedidoCadstroModel, uPedidoDTO;
 
 type
+  TMontarGrid = procedure of object;
   TPedidoCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
     oPedidoDTO: TPedidoDTO;
     oPedidoRegra: TPedidoCadastroRegra;
     oPedidoModel: TPedidoCadastroModel;
+
+    oMontarGrid: TMontarGrid;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -24,7 +27,7 @@ type
     procedure Pesquisar(Sender: TObject);
 
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 var
@@ -42,8 +45,9 @@ begin
   FreeAndNil(frmPedidoCadastro);
 end;
 
-constructor TPedidoCadastroController.Create;
+constructor TPedidoCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oPedidoDTO := TPedidoDTO.Create;
   oPedidoRegra := TPedidoCadastroRegra.Create;
   oPedidoModel := TPedidoCadastroModel.Create;

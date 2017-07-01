@@ -9,6 +9,8 @@ uses
   uCategoriasCadastro;
 
 type
+  TMontarGrid = procedure of object;
+
   TCategoriasCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
@@ -16,6 +18,8 @@ type
     oCategoriasRegra: TCategoriaCadastroRegra;
     oCategoriasDTO: TCategoriasDTO;
     iIdAlterar: Integer;
+
+    oMontarGrid: TMontarGrid;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -24,7 +28,7 @@ type
     procedure Novo(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 
@@ -35,8 +39,9 @@ implementation
 
 { TCategoriasCadastroController }
 
-constructor TCategoriasCadastroController.Create;
+constructor TCategoriasCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oCategoriasDTO := TCategoriasDTO.Create;
   oCategoriasModel := TCategoriasCadastroModel.Create;
   oCategoriasRegra := TCategoriaCadastroRegra.Create;

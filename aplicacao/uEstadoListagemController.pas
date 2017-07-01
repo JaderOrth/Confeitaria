@@ -56,7 +56,7 @@ end;
 procedure TEstadoListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oEstadoCadastroController))) then
-    oEstadoCadastroController := TEstadoCadastroController.Create(MontarGridTest);  ////
+    oEstadoCadastroController := TEstadoCadastroController.Create(MontarGrid);  ////
   // passa 0 porque quando o usuario clicar em editar iá passar o ID
   oEstadoCadastroController.CreateFormCadastro(frmEstado, Sender, 0);
 end;
@@ -67,7 +67,7 @@ var
   iId: Integer;
 begin
   if (not(Assigned(oEstadoCadastroController))) then
-    oEstadoCadastroController := TEstadoCadastroController.Create(MontarGridTest);   /////
+    oEstadoCadastroController := TEstadoCadastroController.Create(MontarGrid);   /////
 
   iId := oMemTable.FieldByName('iduf').AsInteger;
   oEstadoCadastroController.CreateFormCadastro(frmEstado, Sender, iId);
@@ -135,8 +135,8 @@ end;
 
 procedure TEstadoListagemController.MontarGrid; ////
 begin
-  frmEstado.FDMemTable_listagem.Close;
-  if oEstadoRegra.MontarGrid(frmEstado.FDMemTable_listagem, oEstadoModel) then
+  frmEstado.FDMemTable_listagem.Close;               /////
+  if oEstadoRegra.MontarGrid(frmEstado.FDMemTable_listagem, oEstadoModel) then    ////
   begin
     frmEstado.FDMemTable_listagem.Open;
     frmEstado.btnExcluir.Enabled := True;

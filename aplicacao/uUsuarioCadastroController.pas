@@ -9,12 +9,16 @@ uses
 
 
 type
+  TMontarGrid = procedure of object;
+
   TUsuarioCadastroController = class(
     TInterfacedObject, IInterfaceCadastroController)
   private
     oUsuarioDTO: TUsuarioDTO;
     oUsuarioModel: TUsuarioCadastroModel;
     oUsuarioRegra: TUsuarioCadastroRegra;
+
+    oMontarGrid: TMontarGrid;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -23,7 +27,7 @@ type
     procedure Novo(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 var
@@ -41,8 +45,9 @@ begin
   oUsuarioRegra.LimparDTO(oUsuarioDTO);
 end;
 
-constructor TUsuarioCadastroController.Create;
+constructor TUsuarioCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oUsuarioDTO := TUsuarioDTO.Create;
   oUsuarioModel := TUsuarioCadastroModel.Create;
   oUsuarioRegra := TUsuarioCadastroRegra.Create;

@@ -21,7 +21,7 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable);
+    procedure MontarGrid;
     procedure Excluir(oMemtable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
@@ -59,7 +59,7 @@ end;
 procedure TClienteListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oClienteCadastroController))) then
-    oClienteCadastroController := TClienteCadastroController.Create;
+    oClienteCadastroController := TClienteCadastroController.Create(MontarGrid);
   oClienteCadastroController.CreateFormCadastro(frmCliente, Sender, 0);
 end;
 
@@ -76,7 +76,7 @@ var
   iID: Integer;
 begin
   if (not(Assigned(oClienteCadastroController))) then
-    oClienteCadastroController := TClienteCadastroController.Create;
+    oClienteCadastroController := TClienteCadastroController.Create(MontarGrid);
   iID := oMemTable.FieldByName('idcliente').AsInteger;
   oClienteCadastroController.CreateFormCadastro(frmCliente, Sender, iID);
 end;
@@ -134,12 +134,11 @@ begin
 {}
 end;
 
-procedure TClienteListagemController.MontarGrid(oMemtable: TFDMemTable);
+procedure TClienteListagemController.MontarGrid;
 begin
-  oMemtable.Close;
-  if (oClienteRegra.MontarGrid(oMemtable, oClienteModel)) then
+  frmCliente.FDMemTable_listagem.Close;
+  if (oClienteRegra.MontarGrid(frmCliente.FDMemTable_listagem, oClienteModel)) then
    begin
-    oMemTable.Open;
     frmCliente.bClick := True;
     frmCliente.btnEditar.Enabled := True;
     frmCliente.btnExcluir.Enabled := True;

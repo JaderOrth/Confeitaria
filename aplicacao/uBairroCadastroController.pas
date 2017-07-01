@@ -11,6 +11,8 @@ uses
   uMunicipioListaHash;
 
 type
+  TMontarGrid = procedure of object;
+
   TBairroCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
@@ -18,6 +20,8 @@ type
     oBairroRegra: TBairroCadastroRegra;
     oBairroDTO: TBairroDTO;
     iIDEstado: Integer;
+
+    oMontarGrid: TMontarGrid;
     procedure ComboBox(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
@@ -27,7 +31,7 @@ type
     procedure Novo(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 
@@ -90,8 +94,9 @@ begin
     raise Exception.Create('Selecione um ESTADO primeiro!');
 end;
 
-constructor TBairroCadastroController.Create;
+constructor TBairroCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oBairroDTO := TBairroDTO.Create;
   oBairroModel := TBairroCadastroModel.Create;
   oBairroRegra := TBairroCadastroRegra.Create;

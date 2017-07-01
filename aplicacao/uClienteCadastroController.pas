@@ -11,6 +11,8 @@ uses
   uMunicipioListagemModel, uBairroListagemModel, uBairroDTO, uBairroListaHash;
 
 type
+  TMontarGrid = procedure of object;
+
   TClienteCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
@@ -19,6 +21,7 @@ type
     oClienteRegra: TClienteCadastroRegra;
     iIDAlterar: Integer;
     iIdEstado: Integer;
+    oMontarGrid: TMontarGrid;
     procedure ComboBox(Sender: TObject);
     procedure ComboBoxBairro(Sender: TObject);
   public
@@ -29,7 +32,7 @@ type
     procedure Novo(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 
@@ -143,8 +146,9 @@ begin
   end;
 end;
 
-constructor TClienteCadastroController.Create;
+constructor TClienteCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oClienteDTO := TClienteDTO.Create;
   oClienteModel := TClienteCadastroModel.Create;
   oClienteRegra := TClienteCadastroRegra.Create;

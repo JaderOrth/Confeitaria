@@ -21,7 +21,7 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure MontarGrid;
     procedure Excluir(oMemTable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
@@ -55,7 +55,7 @@ end;
 procedure TSaborListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oSaborCadastroController))) then
-    oSaborCadastroController := TSaborCadastroController.Create;
+    oSaborCadastroController := TSaborCadastroController.Create(MontarGrid);
   oSaborCadastroController.CreateFormCadastro(frmSabor, Sender, 0);
 end;
 
@@ -72,7 +72,7 @@ var
   iID: Integer;
 begin
   if (not(Assigned(oSaborCadastroController))) then
-    oSaborCadastroController := TSaborCadastroController.Create;
+    oSaborCadastroController := TSaborCadastroController.Create(MontarGrid);
   iID := oMemTable.FieldByName('idsabores').AsInteger;
   oSaborCadastroController.CreateFormCadastro(frmSabor, Sender, iID);
 end;
@@ -130,12 +130,11 @@ begin
 
 end;
 
-procedure TSaborListagemController.MontarGrid(oMemTable: TFDMemTable);
+procedure TSaborListagemController.MontarGrid;
 begin
-  oMemTable.Close;
-  if (oSaborRegra.MontarGrid(oMemTable, oSaborModel)) then
+  frmSabor.FDMemTable_listagem.Close;
+  if (oSaborRegra.MontarGrid(frmSabor.FDMemTable_listagem, oSaborModel)) then
   begin
-    oMemTable.Open;
     frmSabor.bClick := True;
     frmSabor.btnEditar.Enabled := True;
     frmSabor.btnExcluir.Enabled := True;

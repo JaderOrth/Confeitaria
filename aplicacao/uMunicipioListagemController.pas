@@ -18,10 +18,9 @@ type
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
-    procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure MontarGrid;
     procedure Excluir(oMemTable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
@@ -57,7 +56,7 @@ end;
 procedure TMunicipioListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oMunicipioCadastroController))) then
-    oMunicipioCadastroController := TMunicipioCadastroController.Create;
+    oMunicipioCadastroController := TMunicipioCadastroController.Create(MontarGrid);
   oMunicipioCadastroController.CreateFormCadastro(frmMunicipio, Sender, 0);
 end;
 
@@ -72,7 +71,8 @@ procedure TMunicipioListagemController.CreateFormEdit(Sender: TObject;
   oMemTable: TFDMemTable);
 begin
   if (not(Assigned(oMunicipioCadastroController))) then
-    oMunicipioCadastroController := TMunicipioCadastroController.Create;
+    oMunicipioCadastroController := TMunicipioCadastroController.Create(MontarGrid);
+
   oMunicipioCadastroController.CreateFormCadastro(frmMunicipio, Sender,
     oMemTable.FieldByName('idmunicipio').AsInteger);
 end;
@@ -126,17 +126,11 @@ begin
 
 end;
 
-procedure TMunicipioListagemController.Help(Sender: TObject);
+procedure TMunicipioListagemController.MontarGrid;
 begin
-  {  }
-end;
-
-procedure TMunicipioListagemController.MontarGrid(oMemTable: TFDMemTable);
-begin
-  oMemTable.Close;
-  if (oMunicipioRegra.MontarGrid(oMemTable, oMunicipioModel)) then
+  frmMunicipio.FDMemTable_listagem.Close;
+  if (oMunicipioRegra.MontarGrid(frmMunicipio.FDMemTable_listagem, oMunicipioModel)) then
   begin
-    oMemTable.Open;
     frmMunicipio.btnEditar.Enabled := True;
     frmMunicipio.btnExcluir.Enabled := True;
     frmMunicipio.bClick := true;

@@ -10,6 +10,8 @@ uses
   uEstadoDTO, uEstadoListagemModel;
 
 type
+  TMontarGrid = procedure of object;
+
   TMunicipioCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
@@ -18,6 +20,8 @@ type
     oMunicipioModel: TMunicipioCadastroModel;
     oEstadoListagemModel: TEstadoListagemModel;
     iIdAlterar: Integer;
+
+    oMontarGrid: TMontarGrid;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -26,7 +30,7 @@ type
     procedure Novo(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 
@@ -68,8 +72,9 @@ begin
 
 end;
 
-constructor TMunicipioCadastroController.Create;
+constructor TMunicipioCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oMunicipioDTO := TMunicipioDTO.Create;
   oMunicipioRegra := TMunicipioCadastroRegra.Create;
   oMunicipioModel := TMunicipioCadastroModel.Create;
