@@ -8,8 +8,6 @@ uses
 
 type
   TEstadoCadastroRegra = class
-  private
-
   public
     function BuscarUpdate(var AEstado: TEstadoDTO;
       const AEstadoModel: IIntrefaceCadastroModel): boolean;

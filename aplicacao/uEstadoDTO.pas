@@ -2,7 +2,6 @@ unit uEstadoDTO;
 
 interface
 
-
 type
   TEstadoDTO = class
   private

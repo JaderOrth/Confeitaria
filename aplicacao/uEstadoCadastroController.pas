@@ -54,21 +54,8 @@ begin
 
   if (iId > 0) then
   begin
-    frmEstadoCadastro.edtEstado.Clear;
-    frmEstadoCadastro.edtSigla.Clear;
     oEstadoDTO.ID := iId;
-    if (oEstadoRegra.BuscarUpdate(oEstadoDTO, oEstadoModel)) then
-    begin
-      frmEstadoCadastro.edtEstado.Text := oEstadoDTO.Descricao;
-      frmEstadoCadastro.edtSigla.Text := oEstadoDTO.UF;
-      frmEstadoCadastro.edtSigla.Enabled := False;
-      frmEstadoCadastro.edtEstado.SetFocus;
-    end
-    else
-    begin
-      MessageDlg('Erro ao trazer o Registro do banco!', mtError, [mbOK], 0);
-      exit;
-    end;
+    RetornarValorEdit(Sender);
   end
   else
   begin
@@ -115,6 +102,21 @@ end;
 
 procedure TEstadoCadastroController.RetornarValorEdit(Sender: TObject);
 begin
+  frmEstadoCadastro.edtEstado.Clear;
+  frmEstadoCadastro.edtSigla.Clear;
+
+  if (oEstadoRegra.BuscarUpdate(oEstadoDTO, oEstadoModel)) then
+  begin
+    frmEstadoCadastro.edtEstado.Text := oEstadoDTO.Descricao;
+    frmEstadoCadastro.edtSigla.Text := oEstadoDTO.UF;
+    frmEstadoCadastro.edtSigla.Enabled := False;
+    frmEstadoCadastro.edtEstado.SetFocus;
+  end
+  else
+  begin
+    MessageDlg('Erro ao trazer o Registro do banco!', mtError, [mbOK], 0);
+    exit;
+  end;
 
 end;
 

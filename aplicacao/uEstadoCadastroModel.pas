@@ -15,7 +15,6 @@ type
     function Update(const aEstado: TEstadoDTO): Boolean;
     function ValidarUF(var aEstado: TEstadoDTO): Boolean;
     function BuscarID: Integer;
-
   end;
 
 implementation
@@ -26,21 +25,16 @@ var
 begin
   Result := 1;
   oQuery := TFDQuery.Create(nil);
-
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
     oQuery.Open('SELECT MAX(iduf) as ID FROM uf');
-
     if (not(oQuery.IsEmpty)) then
     begin
       Result := oQuery.FieldByName('ID').AsInteger + 1;
     end;
-
   finally
     if Assigned(oQuery) then
-    begin
       FreeAndNil(oQuery);
-    end;
   end;
 end;
 
@@ -73,9 +67,7 @@ begin
   sSql := 'INSERT INTO uf (iduf, descricao, sigla_uf) ' + 'VALUES (' +
     IntToStr(aEstado.ID) + ',' + QuotedStr(aEstado.Descricao) + ' ,' +
     QuotedStr(aEstado.UF) + ')';
-
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
-
 end;
 
 function TEstadoCadastroModel.Update(const aEstado: TEstadoDTO): Boolean;
