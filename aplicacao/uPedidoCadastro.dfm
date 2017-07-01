@@ -1,28 +1,26 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
   Caption = 'Cadastro do pedido'
   ClientHeight = 595
-  ClientWidth = 866
-  ExplicitWidth = 882
+  ClientWidth = 937
+  ExplicitWidth = 953
   ExplicitHeight = 633
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
     Top = 576
-    Width = 866
-    ExplicitTop = 408
-    ExplicitWidth = 884
+    Width = 937
+    ExplicitTop = 576
+    ExplicitWidth = 866
   end
   inherited Panel1: TPanel
-    Left = 763
+    Left = 834
     Height = 576
-    ExplicitLeft = 781
-    ExplicitHeight = 408
+    ExplicitLeft = 763
+    ExplicitHeight = 576
   end
   inherited panelCadastro: TPanel
-    Width = 763
+    Width = 834
     Height = 576
-    ExplicitLeft = -4
-    ExplicitTop = -6
     ExplicitWidth = 763
     ExplicitHeight = 576
     object TLabel
@@ -81,7 +79,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     end
     object DateTimePicker2: TDateTimePicker
       Left = 18
-      Top = 130
+      Top = 133
       Width = 224
       Height = 24
       Date = 42907.912224652780000000
@@ -110,7 +108,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       Left = 18
       Top = 177
       Width = 224
-      Height = 25
+      Height = 24
       EditLabel.Width = 97
       EditLabel.Height = 16
       EditLabel.Caption = 'Total do pedido*'

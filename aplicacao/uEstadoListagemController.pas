@@ -102,20 +102,31 @@ end;
 
 procedure TEstadoListagemController.Excluir(oMemTable: TFDMemTable);
 var
-  iID: Integer;
+  iID, iValidar: Integer;
 begin
   if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
     [mbYes, mbNo], 0) = mrYes) then
   begin
     iID := oMemTable.FieldByName('iduf').AsInteger;
-    if oEstadoRegra.Excluir(iID, oEstadoModel) then
+    iValidar := oEstadoRegra.Excluir(iID, oEstadoModel);
+
+     if (iValidar = 1) then
+    begin
+      MessageDlg('Erro ao deletar este registro, está associado ao MUNICÍPIO',
+        mtWarning, mbOKCancel, 0);
+      exit;
+    end;
+
+    if (iValidar = 2) then
     begin
       MessageDlg('Registro deletado com sucesso!', mtInformation, [mbOK], 0);
       //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
       oMemTable.Locate('iduf', iID);
       oMemTable.Delete;
-    end
-    else
+
+    end;
+
+    if (iValidar = 3) then
     begin
       MessageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
       exit;
