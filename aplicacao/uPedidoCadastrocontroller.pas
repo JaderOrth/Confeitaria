@@ -6,7 +6,7 @@ uses
   System.Classes, System.SysUtils, Vcl.StdCtrls, System.UITypes, Vcl.Dialogs,
   System.Generics.Collections,
   uInterfaceCadastroController, uPedidoCadastro, uPedidoCadastroRegra,
-  uPedidoCadstroModel, uPedidoDTO;
+  uPedidoCadastroModel, uPedidoDTO;
 
 type
   TPedidoCadastroController = class(TInterfacedObject,

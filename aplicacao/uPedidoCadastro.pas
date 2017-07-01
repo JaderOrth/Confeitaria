@@ -5,23 +5,50 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroBase, Vcl.Buttons,
-  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.StdCtrls;
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.StdCtrls, IWVCLBaseControl, IWBaseControl,
+  IWBaseHTMLControl, IWControl, IWCompListbox, Vcl.CheckLst, Data.DB,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.Grids, Vcl.DBGrids;
 
 type
   TfrmPedidoCadastro = class(TfrmCadastroBase)
-    DateTimePicker1: TDateTimePicker;
-    LabeledEdit1: TLabeledEdit;
+    PageControlPedido: TPageControl;
+    tsPedido: TTabSheet;
+    Label6: TLabel;
     Label1: TLabel;
-    ComboBox1: TComboBox;
     Label2: TLabel;
     Label3: TLabel;
-    DateTimePicker2: TDateTimePicker;
-    LabeledEdit2: TLabeledEdit;
+    Label4: TLabel;
+    Label5: TLabel;
+    xx: TLabel;
+    dtDataHoraEntrega: TDateTimePicker;
+    cbEstado: TComboBox;
+    dtDataPedido: TDateTimePicker;
+    edtTotalPedido: TLabeledEdit;
+    edtResponsavelPedido: TLabeledEdit;
+    edtEnderecoEntrega: TLabeledEdit;
     ComboBox2: TComboBox;
-    LabeledEdit3: TLabeledEdit;
+    edtNumeroEntrega: TLabeledEdit;
     LabeledEdit4: TLabeledEdit;
-    LabeledEdit5: TLabeledEdit;
-    LabeledEdit6: TLabeledEdit;
+    mObservacao: TMemo;
+    cbBairro: TComboBox;
+    edtComplemento: TLabeledEdit;
+    tsItensPedido: TTabSheet;
+    cbProduto: TComboBox;
+    Label7: TLabel;
+    edtqauntidade: TLabeledEdit;
+    edtValor: TLabeledEdit;
+    mObservacaoItensPedido: TMemo;
+    Label8: TLabel;
+    CheckListBox1: TCheckListBox;
+    Label9: TLabel;
+    btnSalvarItens: TButton;
+    btnEditarItens: TButton;
+    btnExcluiItens: TButton;
+    dbItensListagem: TDBGrid;
+    fdMemTable: TFDMemTable;
+    DataSource: TDataSource;
   private
     { Private declarations }
   public

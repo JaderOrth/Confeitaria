@@ -88,7 +88,6 @@ uses
   uPedidoListagemModel in 'uPedidoListagemModel.pas',
   uInterfacePedidoListagem in 'uInterfacePedidoListagem.pas',
   uPedidoCadastroRegra in 'uPedidoCadastroRegra.pas',
-  uPedidoCadstroModel in 'uPedidoCadstroModel.pas',
   uInterfacePedidoCadastroModel in 'uInterfacePedidoCadastroModel.pas',
   uSabor in 'uSabor.pas' {frmSabor},
   uSaborListagemController in 'uSaborListagemController.pas',
@@ -124,7 +123,8 @@ uses
   uInterfaceProdutoCadastroModel in 'uInterfaceProdutoCadastroModel.pas',
   uCategoriaListaHash in 'uCategoriaListaHash.pas',
   uUnidadeMedidaListaHash in 'uUnidadeMedidaListaHash.pas',
-  uSaborListaHash in 'uSaborListaHash.pas';
+  uSaborListaHash in 'uSaborListaHash.pas',
+  uPedidoCadastroModel in 'uPedidoCadastroModel.pas';
 
 {$R *.res}
 

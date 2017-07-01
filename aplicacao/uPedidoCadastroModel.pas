@@ -1,4 +1,4 @@
-unit uPedidoCadstroModel;
+unit uPedidoCadastroModel;
 
 interface
 
