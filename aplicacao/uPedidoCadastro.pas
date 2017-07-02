@@ -36,7 +36,7 @@ type
     tsItensPedido: TTabSheet;
     cbProduto: TComboBox;
     Label7: TLabel;
-    edtqauntidade: TLabeledEdit;
+    edtQuantidade: TLabeledEdit;
     edtValor: TLabeledEdit;
     mObservacaoItensPedido: TMemo;
     Label8: TLabel;
@@ -48,6 +48,7 @@ type
     dbItensListagem: TDBGrid;
     fdMemTable: TFDMemTable;
     DataSource: TDataSource;
+    fdMemTableproduto: TStringField;
   private
     { Private declarations }
   public

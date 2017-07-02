@@ -14,4 +14,7 @@ type
   end;
 implementation
 
+{ TPedidoCadastroModel }
+
+
 end.

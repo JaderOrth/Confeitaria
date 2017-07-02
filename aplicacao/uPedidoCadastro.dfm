@@ -9,20 +9,20 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
   inherited StatusBar1: TStatusBar
     Top = 441
     Width = 821
-    ExplicitTop = 484
+    ExplicitTop = 441
     ExplicitWidth = 821
   end
   inherited Panel1: TPanel
     Left = 718
     Height = 441
     ExplicitLeft = 718
-    ExplicitHeight = 484
+    ExplicitHeight = 441
   end
   inherited panelCadastro: TPanel
     Width = 718
     Height = 441
     ExplicitWidth = 718
-    ExplicitHeight = 484
+    ExplicitHeight = 441
     object TLabel
       Left = 33
       Top = 10
@@ -37,12 +37,10 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       ActivePage = tsItensPedido
       Align = alClient
       TabOrder = 0
-      ExplicitHeight = 480
       object tsPedido: TTabSheet
         Caption = '   &Pedido    '
         DoubleBuffered = False
         ParentDoubleBuffered = False
-        ExplicitHeight = 449
         object Label6: TLabel
           Left = 395
           Top = 55
@@ -194,7 +192,6 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       object tsItensPedido: TTabSheet
         Caption = 'Itens Pedido'
         ImageIndex = 1
-        ExplicitHeight = 449
         object Label7: TLabel
           Left = 14
           Top = 13
@@ -223,7 +220,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Height = 24
           TabOrder = 0
         end
-        object edtqauntidade: TLabeledEdit
+        object edtQuantidade: TLabeledEdit
           Left = 367
           Top = 31
           Width = 145
@@ -285,17 +282,24 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           TabOrder = 7
         end
         object dbItensListagem: TDBGrid
-          Left = 14
+          Left = 13
           Top = 239
           Width = 676
           Height = 207
           DataSource = DataSource
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 8
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -13
           TitleFont.Name = 'Tahoma'
           TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'produto'
+              Visible = True
+            end>
         end
       end
     end
@@ -310,6 +314,9 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     UpdateOptions.AutoCommitUpdates = True
     Left = 758
     Top = 293
+    object fdMemTableproduto: TStringField
+      FieldName = 'produto'
+    end
   end
   object DataSource: TDataSource
     DataSet = fdMemTable

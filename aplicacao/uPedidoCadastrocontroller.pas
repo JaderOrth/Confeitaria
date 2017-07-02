@@ -4,7 +4,7 @@ interface
 
 uses
   System.Classes, System.SysUtils, Vcl.StdCtrls, System.UITypes, Vcl.Dialogs,
-  System.Generics.Collections,
+  System.Generics.Collections, data.db, System.Rtti,FireDAC.Comp.Client, Winapi.Windows,
   uInterfaceCadastroController, uPedidoCadastro, uPedidoCadastroRegra,
   uPedidoCadastroModel, uPedidoDTO;
 
@@ -25,10 +25,10 @@ type
     procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-
     constructor Create;
     destructor Destroy; override;
   end;
+
 var
   oPedidoCadastroController: IInterfaceCadastroController;
 
@@ -98,13 +98,16 @@ end;
 
 procedure TPedidoCadastroController.Salvar(Sender: TObject);
 begin
-  //dtDataHoraEntrega.DateTime := now;
-//  ShowMessage(DateTimeToStr(frmPedidoCadastro.dtDataHoraEntrega.DateTime));
+  // dtDataHoraEntrega.DateTime := now;
+  // ShowMessage(DateTimeToStr(frmPedidoCadastro.dtDataHoraEntrega.DateTime));
 end;
 
 procedure TPedidoCadastroController.SalvarItens(Sender: TObject);
 begin
-  ShowMessage('asass');
+frmPedidoCadastro.fdMemTable.CreateDataSet;
+frmPedidoCadastro.fdMemTable.insert;
+frmPedidoCadastro.fdMemTableproduto.AsString := 'asasas';
+frmPedidoCadastro.fdMemTable.Post;
 end;
 
 end.
