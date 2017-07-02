@@ -1,30 +1,28 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
   Caption = 'Cadastro do pedido'
-  ClientHeight = 503
+  ClientHeight = 460
   ClientWidth = 821
   ExplicitWidth = 837
-  ExplicitHeight = 541
+  ExplicitHeight = 498
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
-    Top = 484
+    Top = 441
     Width = 821
-    ExplicitTop = 576
-    ExplicitWidth = 937
+    ExplicitTop = 484
+    ExplicitWidth = 821
   end
   inherited Panel1: TPanel
     Left = 718
-    Height = 484
-    ExplicitLeft = 834
-    ExplicitHeight = 576
+    Height = 441
+    ExplicitLeft = 718
+    ExplicitHeight = 484
   end
   inherited panelCadastro: TPanel
     Width = 718
-    Height = 484
-    ExplicitLeft = -4
-    ExplicitTop = -6
-    ExplicitWidth = 736
-    ExplicitHeight = 463
+    Height = 441
+    ExplicitWidth = 718
+    ExplicitHeight = 484
     object TLabel
       Left = 33
       Top = 10
@@ -35,20 +33,16 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       Left = 2
       Top = 2
       Width = 714
-      Height = 480
+      Height = 437
       ActivePage = tsItensPedido
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 732
-      ExplicitHeight = 732
+      ExplicitHeight = 480
       object tsPedido: TTabSheet
         Caption = '   &Pedido    '
         DoubleBuffered = False
         ParentDoubleBuffered = False
-        ExplicitLeft = 44
-        ExplicitTop = 67
-        ExplicitWidth = 724
-        ExplicitHeight = 254
+        ExplicitHeight = 449
         object Label6: TLabel
           Left = 395
           Top = 55
@@ -103,8 +97,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Top = 122
           Width = 224
           Height = 24
-          Date = 42907.912224652780000000
-          Time = 42907.912224652780000000
+          Date = 42907.912222222220000000
+          Time = 42907.912222222220000000
           TabOrder = 0
         end
         object cbEstado: TComboBox
@@ -170,16 +164,6 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           EditLabel.Caption = 'N'#250'mero da entrega*'
           TabOrder = 7
         end
-        object LabeledEdit4: TLabeledEdit
-          Left = 53
-          Top = 444
-          Width = 293
-          Height = 24
-          EditLabel.Width = 151
-          EditLabel.Height = 16
-          EditLabel.Caption = 'Complementos da entrega'
-          TabOrder = 8
-        end
         object mObservacao: TMemo
           Left = 13
           Top = 282
@@ -187,14 +171,14 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Height = 119
           Lines.Strings = (
             'Memo1')
-          TabOrder = 9
+          TabOrder = 8
         end
         object cbBairro: TComboBox
           Left = 13
           Top = 172
           Width = 358
           Height = 24
-          TabOrder = 10
+          TabOrder = 9
         end
         object edtComplemento: TLabeledEdit
           Left = 395
@@ -204,14 +188,13 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           EditLabel.Width = 85
           EditLabel.Height = 16
           EditLabel.Caption = 'Complementos'
-          TabOrder = 11
+          TabOrder = 10
         end
       end
       object tsItensPedido: TTabSheet
         Caption = 'Itens Pedido'
         ImageIndex = 1
-        ExplicitTop = 8
-        ExplicitHeight = 436
+        ExplicitHeight = 449
         object Label7: TLabel
           Left = 14
           Top = 13

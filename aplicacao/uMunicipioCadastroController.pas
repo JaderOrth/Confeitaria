@@ -115,16 +115,17 @@ procedure TMunicipioCadastroController.CreateFormCadastro(AOwner: TComponent;
 begin
   if (not(Assigned(frmMunicipioCadastro))) then
     frmMunicipioCadastro := TfrmMunicipioCadastro.Create(AOwner);
-
-  frmMunicipioCadastro.OnActivate := Pesquisar;
-  frmMunicipioCadastro.oInterfaceCadastroController :=
-    oMunicipioCadastroController;
   frmMunicipioCadastro.Show;
-  frmMunicipioCadastro.OnActivate(nil);
 
   frmMunicipioCadastro.btnSalvar.Enabled := True;
   frmMunicipioCadastro.btnNovo.Enabled := False;
   frmMunicipioCadastro.edtMunicipio.Clear;
+  frmMunicipioCadastro.cbEstado.Clear;
+
+  frmMunicipioCadastro.OnActivate := Pesquisar;
+  frmMunicipioCadastro.oInterfaceCadastroController :=
+    oMunicipioCadastroController;
+  frmMunicipioCadastro.OnActivate(nil);
 
   if (iId > 0) then
   begin

@@ -15,6 +15,7 @@ type
     oPedidoDTO: TPedidoDTO;
     oPedidoRegra: TPedidoCadastroRegra;
     oPedidoModel: TPedidoCadastroModel;
+    procedure SalvarItens(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -58,6 +59,13 @@ begin
 
   frmPedidoCadastro.oInterfaceCadastroController := oPedidoCadastroController;
   frmPedidoCadastro.Show;
+  frmPedidoCadastro.btnSalvarItens.OnClick := SalvarItens;
+
+  if (iId > 0) then
+  begin
+    oPedidoDTO.idPedido := iId;
+    RetornarValorEdit(Sender);
+  end;
 end;
 
 destructor TPedidoCadastroController.Destroy;
@@ -90,7 +98,13 @@ end;
 
 procedure TPedidoCadastroController.Salvar(Sender: TObject);
 begin
+  //dtDataHoraEntrega.DateTime := now;
+//  ShowMessage(DateTimeToStr(frmPedidoCadastro.dtDataHoraEntrega.DateTime));
+end;
 
+procedure TPedidoCadastroController.SalvarItens(Sender: TObject);
+begin
+  ShowMessage('asass');
 end;
 
 end.

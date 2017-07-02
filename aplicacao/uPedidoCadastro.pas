@@ -30,7 +30,6 @@ type
     edtEnderecoEntrega: TLabeledEdit;
     ComboBox2: TComboBox;
     edtNumeroEntrega: TLabeledEdit;
-    LabeledEdit4: TLabeledEdit;
     mObservacao: TMemo;
     cbBairro: TComboBox;
     edtComplemento: TLabeledEdit;
