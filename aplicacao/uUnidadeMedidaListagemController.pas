@@ -18,7 +18,6 @@ type
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
-    procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
     procedure MontarGrid;
@@ -124,11 +123,6 @@ begin
     frmUnidadeMedida.btnEditar.Enabled := false;
     frmUnidadeMedida.btnExcluir.Enabled := false;
   end;
-end;
-
-procedure TUnidadeMedidaListagemController.Help(Sender: TObject);
-begin
-
 end;
 
 procedure TUnidadeMedidaListagemController.MontarGrid;
