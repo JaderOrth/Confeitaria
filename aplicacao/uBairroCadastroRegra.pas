@@ -50,6 +50,7 @@ end;
 function TBairroCadastroRegra.Salvar(const aBairroDTO: TBairroDTO;
   const aModel: IInterfaceBairroCadastroModel): Integer;
 begin
+  Result := 0;
   if (aBairroDTO.idBairro > 0) then
   begin
     if (not(aModel.update(aBairroDTO))) then

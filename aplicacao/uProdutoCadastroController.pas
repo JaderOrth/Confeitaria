@@ -317,7 +317,7 @@ end;
 
 procedure TBairroCadastroController.Salvar(Sender: TObject);
 var
-  iValidar, iSalvar, I, iChecked, iCont: Integer;
+  iValidar, iSalvar, I, iCont: Integer;
   aCheck: array of Integer;
 begin
   oProdutoDTO.descricao := frmProdutoCadastro.edtProduto.Text;

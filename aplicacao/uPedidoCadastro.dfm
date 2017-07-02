@@ -1,27 +1,27 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
   Caption = 'Cadastro do pedido'
-  ClientHeight = 461
+  ClientHeight = 509
   ClientWidth = 821
   ExplicitWidth = 837
-  ExplicitHeight = 499
+  ExplicitHeight = 547
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
-    Top = 442
+    Top = 490
     Width = 821
     ExplicitTop = 441
     ExplicitWidth = 821
   end
   inherited Panel1: TPanel
     Left = 718
-    Height = 442
+    Height = 490
     ExplicitLeft = 685
     ExplicitTop = 8
     ExplicitHeight = 442
   end
   inherited panelCadastro: TPanel
     Width = 718
-    Height = 442
+    Height = 490
     ExplicitWidth = 718
     ExplicitHeight = 441
     object TLabel
@@ -34,8 +34,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       Left = 2
       Top = 2
       Width = 714
-      Height = 438
-      ActivePage = tsPedido
+      Height = 486
+      ActivePage = tsItensPedido
       Align = alClient
       TabOrder = 0
       ExplicitHeight = 437
@@ -43,8 +43,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
         Caption = '   &Pedido    '
         DoubleBuffered = False
         ParentDoubleBuffered = False
-        ExplicitLeft = -2
-        ExplicitTop = 43
+        ExplicitLeft = 31
+        ExplicitHeight = 444
         object Label6: TLabel
           Left = 395
           Top = 55
@@ -88,11 +88,18 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Caption = 'Bairro*'
         end
         object xx: TLabel
-          Left = 14
-          Top = 262
+          Left = 3
+          Top = 303
           Width = 73
           Height = 16
           Caption = 'Observa'#231#245'es'
+        end
+        object Label10: TLabel
+          Left = 14
+          Top = 202
+          Width = 47
+          Height = 16
+          Caption = 'Cliente*'
         end
         object dtDataHoraEntrega: TDateTimePicker
           Left = 395
@@ -141,7 +148,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
         end
         object edtEnderecoEntrega: TLabeledEdit
           Left = 14
-          Top = 222
+          Top = 273
           Width = 607
           Height = 24
           EditLabel.Width = 127
@@ -167,8 +174,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           TabOrder = 7
         end
         object mObservacao: TMemo
-          Left = 13
-          Top = 282
+          Left = 3
+          Top = 325
           Width = 357
           Height = 119
           Lines.Strings = (
@@ -183,14 +190,21 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           TabOrder = 9
         end
         object edtComplemento: TLabeledEdit
-          Left = 395
-          Top = 282
+          Left = 397
+          Top = 220
           Width = 226
           Height = 24
           EditLabel.Width = 85
           EditLabel.Height = 16
           EditLabel.Caption = 'Complementos'
           TabOrder = 10
+        end
+        object cbCliente: TComboBox
+          Left = 14
+          Top = 220
+          Width = 358
+          Height = 24
+          TabOrder = 11
         end
       end
       object tsItensPedido: TTabSheet
@@ -329,7 +343,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
               Expanded = False
               FieldName = 'observacao'
               Title.Caption = 'Observa'#231#227'o'
-              Width = 250
+              Width = 248
               Visible = True
             end>
         end
@@ -353,10 +367,12 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       FieldName = 'quantidade'
     end
     object fdMemTableobservacao: TStringField
+      DisplayWidth = 80
       FieldName = 'observacao'
       Size = 255
     end
     object fdMemTableproduto: TStringField
+      DisplayWidth = 50
       FieldName = 'produto'
       Size = 100
     end

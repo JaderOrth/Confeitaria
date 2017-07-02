@@ -162,6 +162,7 @@ end;
 
 function TProdutoCadastroRegra.ValidarSabor(const Sabor: String): Boolean;
 begin
+  Result := False;
   if (Sabor = 'S') then
   begin
     Result := True;

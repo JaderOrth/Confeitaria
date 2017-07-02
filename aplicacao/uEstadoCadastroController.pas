@@ -3,8 +3,7 @@ unit uEstadoCadastroController;
 interface
 
 uses
-  Vcl.Controls,
-  System.Classes,
+  Vcl.Controls,   System.Classes,
   System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, System.UITypes,
   uEstadoCadastro, uInterfaceCadastroController, uEstadoDTO,
   uEstadoCadastroRegra, uEstadoCadastroModel;
@@ -63,8 +62,6 @@ begin
   else
   begin
     frmEstadoCadastro.edtSigla.Enabled := True;
-    frmEstadoCadastro.edtEstado.Clear;
-    frmEstadoCadastro.edtSigla.Clear;
     frmEstadoCadastro.edtSigla.SetFocus
   end;
 end;

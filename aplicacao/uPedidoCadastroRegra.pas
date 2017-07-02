@@ -6,7 +6,7 @@ uses
   uInterfacePedidoCadastroModel, uProdutoListaHash,
   uInterfaceProdutoListagemModel, uInterfaceListagemModel, uEstadoListaHash,
   uMunicipioListaHash, uInterfaceMunicipioListagemModel, uBairroListaHash,
-  uInterfaceBairroListagemModel;
+  uInterfaceBairroListagemModel, uInterfaceClienteModel, uClienteListaHash;
 
 type
   TPedidoCadastroRegra = class
@@ -20,6 +20,8 @@ type
       const aModel: IInterfaceMunicipioListagemModel): Boolean;
     function ComboBoxBairro(out aLista: TBairroListaHash; const aId: Integer;
       const aModel: IInterfaceBairroListagemModel): Boolean;
+    function ComboBoxCliente(out aLista: TClienteListaHash;
+      const aModel: IInterfaceClienteModel): Boolean;
   end;
 
 implementation
@@ -36,6 +38,12 @@ function TPedidoCadastroRegra.ComboBoxBairro(out aLista: TBairroListaHash;
   const aId: Integer; const aModel: IInterfaceBairroListagemModel): Boolean;
 begin
   Result := aModel.ComboBoxBairro(aLista, aId);
+end;
+
+function TPedidoCadastroRegra.ComboBoxCliente(out aLista: TClienteListaHash;
+  const aModel: IInterfaceClienteModel): Boolean;
+begin
+  Result := aModel.ComboBoxCliente(aLista);
 end;
 
 function TPedidoCadastroRegra.ComboBoxEstado(out aLista: TEstadoListaHash;

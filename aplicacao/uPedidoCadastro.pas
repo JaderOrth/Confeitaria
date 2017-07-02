@@ -52,6 +52,8 @@ type
     fdMemTablequantidade: TFloatField;
     fdMemTableobservacao: TStringField;
     fdMemTableproduto: TStringField;
+    cbCliente: TComboBox;
+    Label10: TLabel;
     fdMemTablevalorTotal: TCurrencyField;
   private
     { Private declarations }

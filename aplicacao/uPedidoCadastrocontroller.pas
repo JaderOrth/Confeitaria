@@ -5,12 +5,12 @@ interface
 uses
   System.Classes, System.SysUtils, Vcl.StdCtrls, System.UITypes, Vcl.Dialogs,
   System.Generics.Collections, data.db, System.Rtti, FireDAC.Comp.Client,
-  Winapi.Windows,
   uInterfaceCadastroController, uPedidoCadastro, uPedidoCadastroRegra,
   uPedidoCadastroModel, uPedidoDTO, uProdutoListaHash, uProdutoListagemModel,
   uProdutoDTO, uEstadoDTO, uEstadoListaHash, uEstadoListagemModel,
   uMunicipioDTO,uMunicipioListagemModel, uMunicipioListaHash, uBairroDTO,
-  uBairroListagemModel, uBairroListaHash;
+  uBairroListagemModel, uBairroListaHash, uClienteListaHash,
+  uClienteListagemModel, uClienteDTO;
 
 type
   TPedidoCadastroController = class(TInterfacedObject,
@@ -21,10 +21,13 @@ type
     oPedidoModel: TPedidoCadastroModel;
     iIdEstado: Integer;
     procedure SalvarItens(Sender: TObject);
+    procedure ExcluirItens(Sender: TObject);
+    procedure EditarItens(Sender: TObject);
     procedure OnActivateForm(Sender: TObject);
     procedure ComboBoxProduto(Sender: TObject);
     procedure ComboBoxMunicipio(Sender: TObject);
     procedure ComboBoxBairro(Sender: TObject);
+    procedure ComboBoxCliente(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -91,6 +94,46 @@ begin
 
     if (Assigned(oBairroModel)) then
       FreeAndNil(oBairroModel);
+  end;
+end;
+
+procedure TPedidoCadastroController.ComboBoxCliente(Sender: TObject);
+var
+  oClienteDTO: TClienteDTO;
+  oListacliente: TClienteListaHash;
+  oClienteListagem: TClienteListagemModel;
+  iId: Integer;
+begin
+  try
+    if (frmPedidoCadastro.cbCliente.ItemIndex <> -1) then
+    begin
+      iId := Integer(frmPedidoCadastro.cbCliente.Items.Objects
+        [frmPedidoCadastro.cbCliente.ItemIndex]);
+    end
+    else
+      iId := -1;
+
+    frmPedidoCadastro.cbCliente.Items.Clear;
+    oClienteListagem := TClienteListagemModel.Create;
+    oListacliente := TClienteListaHash.Create([doOwnsValues]);
+
+    if oPedidoRegra.ComboBoxCliente(oListacliente, oClienteListagem) then
+    begin
+      for oClienteDTO in oListacliente.Values do
+        frmPedidoCadastro.cbCliente.Items.AddObject(oClienteDTO.Nome,
+          TObject(oClienteDTO.IdCliente));
+    end;
+
+    if (iId <> -1) then
+      frmPedidoCadastro.cbCliente.ItemIndex :=
+        frmPedidoCadastro.cbCliente.Items.IndexOfObject(TObject(iId));
+
+  finally
+    if (Assigned(oListacliente)) then
+      FreeAndNil(oListacliente);
+
+    if (Assigned(oClienteListagem)) then
+      FreeAndNil(oClienteListagem);
   end;
 end;
 
@@ -199,6 +242,8 @@ begin
   frmPedidoCadastro.Show;
 
   frmPedidoCadastro.btnSalvarItens.OnClick := SalvarItens;
+  frmPedidoCadastro.btnExcluiItens.OnClick := ExcluirItens;
+  frmPedidoCadastro.btnEditarItens.OnClick := EditarItens;
   frmPedidoCadastro.OnActivate := OnActivateForm;
   frmPedidoCadastro.OnActivate(nil);
   frmPedidoCadastro.cbMunicipio.OnEnter := ComboBoxMunicipio;
@@ -224,6 +269,36 @@ begin
   inherited;
 end;
 
+procedure TPedidoCadastroController.EditarItens(Sender: TObject);
+var
+  iID: Integer;
+begin
+  if (not(frmPedidoCadastro.fdMemTable.IsEmpty)) then
+  begin
+    frmPedidoCadastro.fdMemTable.Edit;
+
+    frmPedidoCadastro.cbProduto.ItemIndex :=
+      frmPedidoCadastro.fdMemTable.FieldByName('idproduto').AsInteger;
+    frmPedidoCadastro.edtValor.Text :=
+     CurrToStr(frmPedidoCadastro.fdMemTable.FieldByName('valorTotal').AsCurrency);
+
+    frmPedidoCadastro.fdMemTable.Post;
+  end;
+end;
+
+procedure TPedidoCadastroController.ExcluirItens(Sender: TObject);
+var
+  iId: Integer;
+begin
+  if (messageDlg('Deseja relmente excluir este registro', mtConfirmation,
+    [mbYes, mbNo], 0) = mrYes) then
+  begin
+    iId := frmPedidoCadastro.fdMemTable.FieldByName('idproduto').AsInteger;
+    frmPedidoCadastro.fdMemTable.Locate('idproduto', iId);
+    frmPedidoCadastro.fdMemTable.Delete;
+  end;
+end;
+
 procedure TPedidoCadastroController.Novo(Sender: TObject);
 begin
 
@@ -235,9 +310,12 @@ begin
   ComboBoxProduto(Sender);
   // ComboBox do Estado
   Pesquisar(Sender);
-
+  //comboBox Cliente
+  ComboBoxCliente(Sender);
   //Mostrar da data e horas atualizadas
   frmPedidoCadastro.dtDataHoraEntrega.DateTime := now;
+
+  frmPedidoCadastro.fdMemTable.CreateDataSet;
 end;
 
 procedure TPedidoCadastroController.Pesquisar(Sender: TObject);
@@ -253,7 +331,8 @@ begin
     begin
       iId := Integer(frmPedidoCadastro.cbEstado.Items.Objects
         [frmPedidoCadastro.cbEstado.ItemIndex]);
-      frmPedidoCadastro.cbEstado.SetFocus;
+      if (frmPedidoCadastro.PageControlPedido.ActivePageIndex = 0) then
+        frmPedidoCadastro.cbEstado.SetFocus;
     end
     else
       iId := -1;
@@ -312,23 +391,38 @@ begin
   oPedidoDTO.dataHoraEntrega := frmPedidoCadastro.dtDataHoraEntrega.DateTime;
   oPedidoDTO.observacao := frmPedidoCadastro.mObservacao.Text;
   oPedidoDTO.totalPedido := StrToCurrDef(frmPedidoCadastro.edtTotalPedido.Text, 0);
-  oPedidoDTO.idCliente
+  oPedidoDTO.idCliente := 1;
+  oPedidoDTO.entregaEndereco := frmPedidoCadastro.edtEnderecoEntrega.Text;
+  oPedidoDTO.entregaNumero := frmPedidoCadastro.edtNumeroEntrega.Text;
+  oPedidoDTO.entregaComplemento := frmPedidoCadastro.edtComplemento.Text;
+  if (frmPedidoCadastro.cbCliente.ItemIndex <> -1) then
+  begin
+    oPedidoDTO.idUsuario := Integer(frmPedidoCadastro.cbCliente.Items.Objects
+      [frmPedidoCadastro.cbCliente.ItemIndex]);
+  end
+  else
+    oPedidoDTO.idUsuario := -1;
 end;
 
 procedure TPedidoCadastroController.SalvarItens(Sender: TObject);
 begin
   // adiciona valor no memTable e irá mostrar na grid
-  frmPedidoCadastro.fdMemTable.CreateDataSet;
   frmPedidoCadastro.fdMemTable.insert;
   frmPedidoCadastro.fdMemTableidproduto.AsInteger :=
-    Integer(frmPedidoCadastro.cbEstado.Items.Objects
-    [frmPedidoCadastro.cbEstado.ItemIndex]);
+    Integer(frmPedidoCadastro.cbProduto.Items.Objects
+    [frmPedidoCadastro.cbProduto.ItemIndex]);
+  frmPedidoCadastro.fdMemTableproduto.AsString :=
+    frmPedidoCadastro.cbProduto.Items.Strings
+    [frmPedidoCadastro.cbProduto.ItemIndex];
   frmPedidoCadastro.fdMemTablequantidade.AsFloat :=
-    StrToFloat(frmPedidoCadastro.edtQuantidade.Text);
-  frmPedidoCadastro.fdMemTableobservacao :=
-    TStringField(frmPedidoCadastro.mObservacaoItensPedido.Text);
+    StrToFloatDef(frmPedidoCadastro.edtQuantidade.Text, 0);
+  frmPedidoCadastro.fdMemTablevalorTotal.AsCurrency :=
+    StrToCurrDef(frmPedidoCadastro.edtValor.Text, 0);
+  frmPedidoCadastro.fdMemTableobservacao.AsString :=
+    frmPedidoCadastro.mObservacaoItensPedido.Text;
 
   frmPedidoCadastro.fdMemTable.Post;
+  // frmPedidoCadastro.fdMemTable.open;
 end;
 
 end.

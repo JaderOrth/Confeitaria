@@ -119,8 +119,6 @@ begin
 
   frmMunicipioCadastro.btnSalvar.Enabled := True;
   frmMunicipioCadastro.btnNovo.Enabled := False;
-  frmMunicipioCadastro.edtMunicipio.Clear;
-  frmMunicipioCadastro.cbEstado.Clear;
 
   frmMunicipioCadastro.OnActivate := Pesquisar;
   frmMunicipioCadastro.oInterfaceCadastroController :=
