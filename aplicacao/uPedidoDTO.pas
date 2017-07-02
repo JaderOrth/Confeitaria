@@ -12,7 +12,7 @@ type
     FdataHoraEntrega: TDateTime;
     FresponsavelPedido: String;
     FidBairro: Integer;
-    FtotalPedido: Double;
+    FtotalPedido: Currency;
     FidPedido: Integer;
     FentregaNumero: String;
     FidCliente: Integer;
@@ -28,13 +28,13 @@ type
     procedure SetidUsuario(const Value: Integer);
     procedure Setobservacao(const Value: String);
     procedure SetresponsavelPedido(const Value: String);
-    procedure SettotalPedido(const Value: Double);
+    procedure SettotalPedido(const Value: Currency);
   public
     property idPedido: Integer read FidPedido write SetidPedido;
     property dataPedido: TDate read FdataPedido write SetdataPedido;
     property dataHoraEntrega: TDateTime read FdataHoraEntrega write SetdataHoraEntrega;
     property observacao: String read Fobservacao write Setobservacao;
-    property totalPedido: Double read FtotalPedido write SettotalPedido;
+    property totalPedido: Currency read FtotalPedido write SettotalPedido;
     property idCliente: Integer read FidCliente write SetidCliente;
     property entregaEndereco: String read FentregaEndereco write SetentregaEndereco;
     property entregaNumero: String read FentregaNumero write SetentregaNumero;
@@ -103,7 +103,7 @@ begin
   FresponsavelPedido := Value;
 end;
 
-procedure TPedidoDTO.SettotalPedido(const Value: Double);
+procedure TPedidoDTO.SettotalPedido(const Value: Currency);
 begin
   FtotalPedido := Value;
 end;

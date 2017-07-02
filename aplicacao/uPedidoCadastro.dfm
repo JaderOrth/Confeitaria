@@ -1,26 +1,27 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
   Caption = 'Cadastro do pedido'
-  ClientHeight = 460
+  ClientHeight = 461
   ClientWidth = 821
   ExplicitWidth = 837
-  ExplicitHeight = 498
+  ExplicitHeight = 499
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
-    Top = 441
+    Top = 442
     Width = 821
     ExplicitTop = 441
     ExplicitWidth = 821
   end
   inherited Panel1: TPanel
     Left = 718
-    Height = 441
-    ExplicitLeft = 718
-    ExplicitHeight = 441
+    Height = 442
+    ExplicitLeft = 685
+    ExplicitTop = 8
+    ExplicitHeight = 442
   end
   inherited panelCadastro: TPanel
     Width = 718
-    Height = 441
+    Height = 442
     ExplicitWidth = 718
     ExplicitHeight = 441
     object TLabel
@@ -33,14 +34,17 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       Left = 2
       Top = 2
       Width = 714
-      Height = 437
-      ActivePage = tsItensPedido
+      Height = 438
+      ActivePage = tsPedido
       Align = alClient
       TabOrder = 0
+      ExplicitHeight = 437
       object tsPedido: TTabSheet
         Caption = '   &Pedido    '
         DoubleBuffered = False
         ParentDoubleBuffered = False
+        ExplicitLeft = -2
+        ExplicitTop = 43
         object Label6: TLabel
           Left = 395
           Top = 55
@@ -145,8 +149,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           EditLabel.Caption = 'Endere'#231'o de entrega*'
           TabOrder = 5
         end
-        object ComboBox2: TComboBox
-          Left = 14
+        object cbMunicipio: TComboBox
+          Left = 13
           Top = 124
           Width = 358
           Height = 24
@@ -192,6 +196,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       object tsItensPedido: TTabSheet
         Caption = 'Itens Pedido'
         ImageIndex = 1
+        ExplicitHeight = 406
         object Label7: TLabel
           Left = 14
           Top = 13
@@ -284,8 +289,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
         object dbItensListagem: TDBGrid
           Left = 13
           Top = 239
-          Width = 676
-          Height = 207
+          Width = 660
+          Height = 162
           DataSource = DataSource
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
           TabOrder = 8
@@ -297,7 +302,34 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Columns = <
             item
               Expanded = False
+              FieldName = 'idproduto'
+              Visible = False
+            end
+            item
+              Expanded = False
+              FieldName = 'quantidade'
+              Title.Caption = 'Quantidade'
+              Width = 100
+              Visible = True
+            end
+            item
+              Expanded = False
               FieldName = 'produto'
+              Width = 200
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'valorTotal'
+              Title.Caption = 'Valor Total'
+              Width = 90
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'observacao'
+              Title.Caption = 'Observa'#231#227'o'
+              Width = 250
               Visible = True
             end>
         end
@@ -314,13 +346,27 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     UpdateOptions.AutoCommitUpdates = True
     Left = 758
     Top = 293
+    object fdMemTableidproduto: TIntegerField
+      FieldName = 'idproduto'
+    end
+    object fdMemTablequantidade: TFloatField
+      FieldName = 'quantidade'
+    end
+    object fdMemTableobservacao: TStringField
+      FieldName = 'observacao'
+      Size = 255
+    end
     object fdMemTableproduto: TStringField
       FieldName = 'produto'
+      Size = 100
+    end
+    object fdMemTablevalorTotal: TCurrencyField
+      FieldName = 'valorTotal'
     end
   end
   object DataSource: TDataSource
     DataSet = fdMemTable
     Left = 750
-    Top = 240
+    Top = 224
   end
 end

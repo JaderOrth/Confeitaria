@@ -14,7 +14,7 @@ type
   private
     oProdutoDTO: TProdutoDTO;
     oProdutoRegra: TProdutoListagemRegra;
-    oProdutoModel: TBairroListagemModel;
+    oProdutoModel: TProdutoListagemModel;
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
@@ -63,7 +63,7 @@ constructor TProdutoListagemController.Create;
 begin
   oProdutoDTO := TProdutoDTO.Create;
   oProdutoRegra := TProdutoListagemRegra.Create;
-  oProdutoModel := TBairroListagemModel.Create;
+  oProdutoModel := TProdutoListagemModel.Create;
 end;
 
 procedure TProdutoListagemController.CreateFormEdit(Sender: TObject;

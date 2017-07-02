@@ -124,7 +124,8 @@ uses
   uCategoriaListaHash in 'uCategoriaListaHash.pas',
   uUnidadeMedidaListaHash in 'uUnidadeMedidaListaHash.pas',
   uSaborListaHash in 'uSaborListaHash.pas',
-  uPedidoCadastroModel in 'uPedidoCadastroModel.pas';
+  uPedidoCadastroModel in 'uPedidoCadastroModel.pas',
+  uProdutoListaHash in 'uProdutoListaHash.pas';
 
 {$R *.res}
 

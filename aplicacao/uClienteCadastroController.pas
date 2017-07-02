@@ -55,7 +55,6 @@ var
   oMunicipioDTO: TMunicipioDTO;
   oListaMunicipio: TMunicipioListaHash;
   oMunicipioModel: TMunicipioListagemModel;
-  oComboBox: TComboBox;
   iId: Integer;
 begin
   if (frmCadastroCliente.cbEstado.ItemIndex = -1) then
@@ -64,17 +63,14 @@ begin
     exit;
   end;
 
-  //if (frmCadastroCliente.cbBairro) then
-
   try
-    oComboBox := frmCadastroCliente.cbMunicipio;
-    if (oComboBox.ItemIndex <> -1) then
+    if (frmCadastroCliente.cbMunicipio.ItemIndex <> -1) then
     begin
       frmCadastroCliente.cbBairro.Items.Clear;
       frmCadastroCliente.cbBairro.Clear;
     end;
-    oComboBox.Items.Clear;
-    oComboBox.Clear;
+    frmCadastroCliente.cbMunicipio.Items.Clear;
+    frmCadastroCliente.cbMunicipio.Clear;
     iId := Integer(frmCadastroCliente.cbEstado.Items.Objects
       [frmCadastroCliente.cbEstado.ItemIndex]);
     oListaMunicipio := TMunicipioListaHash.Create([doOwnsValues]);
@@ -86,7 +82,7 @@ begin
       iIdEstado := iId;
       for oMunicipioDTO in oListaMunicipio.Values do
       begin
-        oComboBox.Items.AddObject(oMunicipioDTO.Descricao,
+        frmCadastroCliente.cbMunicipio.Items.AddObject(oMunicipioDTO.Descricao,
           TObject(oMunicipioDTO.IdMunicipio));
       end;
     end;

@@ -28,7 +28,7 @@ type
     edtTotalPedido: TLabeledEdit;
     edtResponsavelPedido: TLabeledEdit;
     edtEnderecoEntrega: TLabeledEdit;
-    ComboBox2: TComboBox;
+    cbMunicipio: TComboBox;
     edtNumeroEntrega: TLabeledEdit;
     mObservacao: TMemo;
     cbBairro: TComboBox;
@@ -48,7 +48,11 @@ type
     dbItensListagem: TDBGrid;
     fdMemTable: TFDMemTable;
     DataSource: TDataSource;
+    fdMemTableidproduto: TIntegerField;
+    fdMemTablequantidade: TFloatField;
+    fdMemTableobservacao: TStringField;
     fdMemTableproduto: TStringField;
+    fdMemTablevalorTotal: TCurrencyField;
   private
     { Private declarations }
   public
