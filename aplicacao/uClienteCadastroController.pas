@@ -338,6 +338,7 @@ begin
   if (iSalvar = 1) then
   begin
     MessageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
+    oMontarGrid;
     exit;
   end;
   // Update False
@@ -350,6 +351,7 @@ begin
   if (iSalvar = 3) then
   begin
     MessageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
+    oMontarGrid;
     exit;
   end;
   // Insert False

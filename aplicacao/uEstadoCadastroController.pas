@@ -132,7 +132,7 @@ begin
   if (iSalvar = 1) then
   begin
     MessageDlg('Registro Alterado com sucesso!', mtInformation, [mbOK], 0);
-    oMontarGrid;
+    oMontarGrid;                                                                                  ////
     exit;
   end;
   // Erro ao Alterar
@@ -145,7 +145,7 @@ begin
   if (iSalvar = 3) then
   begin
     MessageDlg('Registro Cadastrado com sucesso!', mtInformation, [mbOK], 0);
-    oMontarGrid;
+    oMontarGrid;                                                                              ////
     exit;
   end;
   // Erro ao Salvar

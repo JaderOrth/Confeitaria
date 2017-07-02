@@ -163,6 +163,7 @@ begin
   if (iSalvar = 1) then
   begin
     MessageDlg('Resgistro alterado com sucesso!', mtInformation, [mbOK], 0);
+    oMontarGrid;
     exit;
   end;
   // update false
@@ -175,6 +176,7 @@ begin
   if (iSalvar = 3) then
   begin
     MessageDlg('Resgistro salvo com sucesso!', mtInformation, [mbOK], 0);
+    oMontarGrid;
     exit;
   end;
   // insert false
