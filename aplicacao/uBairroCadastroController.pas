@@ -106,6 +106,8 @@ begin
   frmBairroCadastro.Show;
   frmBairroCadastro.OnActivate(nil);
   frmBairroCadastro.cbMunicipio.OnEnter := ComboBox;
+  frmBairroCadastro.btnSalvar.Enabled := True;
+  frmBairroCadastro.btnNovo.Enabled := False;
 
   if (iId > 0) then
   begin
@@ -132,6 +134,8 @@ begin
   oBairroRegra.LimparDTO(oBairroDTO);
   frmBairroCadastro.cbEstado.ItemIndex := -1;
   frmBairroCadastro.cbMunicipio.Clear;
+  frmBairroCadastro.btnSalvar.Enabled := True;
+  frmBairroCadastro.btnNovo.Enabled := False;
 end;
 
 procedure TBairroCadastroController.Pesquisar(Sender: TObject);
@@ -200,14 +204,25 @@ procedure TBairroCadastroController.Salvar(Sender: TObject);
 var
   iValidar, iSalvar, iIDValidarEstado: Integer;
 begin
-  iIDValidarEstado := Integer(frmBairroCadastro.cbEstado.Items.Objects
-    [frmBairroCadastro.cbEstado.ItemIndex]);
+  if (frmBairroCadastro.cbEstado.ItemIndex <> -1) then
+  begin
+    iIDValidarEstado := Integer(frmBairroCadastro.cbEstado.Items.Objects
+      [frmBairroCadastro.cbEstado.ItemIndex]);
+  end
+  else
+  begin
+    MessageDlg('Preencha o campo ESTADO corretamente!', mtWarning, [mbOK], 0);
+    exit;
+  end;
+
   if (iIDValidarEstado <> iIDEstado) then
   begin
     frmBairroCadastro.cbMunicipio.Clear;
     frmBairroCadastro.cbMunicipio.Items.Clear;
   end;
+
   oBairroDTO.Descricao := frmBairroCadastro.edtBairro.Text;
+
   if (frmBairroCadastro.cbMunicipio.ItemIndex = -1) then
     oBairroDTO.IdMunicipio := -1
   else
@@ -243,6 +258,12 @@ begin
   begin
     MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
+  end;
+
+  if (iSalvar = 0) then
+  begin
+    frmBairroCadastro.btnSalvar.Enabled := False;
+    frmBairroCadastro.btnNovo.Enabled := True;
   end;
 end;
 

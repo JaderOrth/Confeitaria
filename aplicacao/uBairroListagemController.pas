@@ -39,8 +39,8 @@ implementation
 procedure TBairroListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'descricao like ''%'+APesquisa+'%'''+
-                      ' or municipio like ''%'+APesquisa+'%''';
+  aMemTable.Filter := 'descricao like ''%' + APesquisa + '%''' +
+    ' or municipio like ''%' + APesquisa + '%''';
   aMemTable.Filtered := true;
 end;
 
@@ -101,24 +101,38 @@ end;
 
 procedure TBairroListagemController.Excluir(oMemTable: TFDMemTable);
 var
-  iID: Integer;
+  iID, iValidar: Integer;
 begin
   if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
     [mbYes, mbNo], 0) = mrYes) then
   begin
-    iId := oMemTable.FieldByName('idbairro').AsInteger;
-    if (oBairroRegra.Excluir(iId, oBairroModel)) then
+    iID := oMemTable.FieldByName('idbairro').AsInteger;
+    iValidar := oBairroRegra.Excluir(iID, oBairroModel);
+
+    if (iValidar = 1) then
     begin
       MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
-      //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
-      oMemTable.Locate('idbairro', iId);
+      // deleta o registro do mentable sem ir no banco de dados para atualizar a grid
+      oMemTable.Locate('idbairro', iID);
       oMemTable.Delete;
-    end
-    else
-      raise Exception.Create('Error  ao deletar o Registro');
+    end;
+
+    if (iValidar = 2) then
+    begin
+      MessageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
+      exit;
+    end;
+
+    if (iValidar = 3) then
+    begin
+      MessageDlg('Erro ao deletar este registro, está associado ao CLIENTE ou PEDIDO',
+        mtWarning, mbOKCancel, 0);
+      exit;
+    end;
+
   end;
 
-  if (oMemtable.IsEmpty) then
+  if (oMemTable.IsEmpty) then
   begin
     frmBairro.btnEditar.Enabled := false;
     frmBairro.btnExcluir.Enabled := false;
@@ -136,15 +150,15 @@ begin
   if (oBairroRegra.MontarGrid(oMemTable, oBairroModel)) then
   begin
     oMemTable.Open;
-    frmBairro.bClick := True;
-    frmBairro.btnEditar.Enabled := True;
-    frmBairro.btnExcluir.Enabled := True;
+    frmBairro.bClick := true;
+    frmBairro.btnEditar.Enabled := true;
+    frmBairro.btnExcluir.Enabled := true;
   end
   else
   begin
-    frmBairro.bClick := False;
-    frmBairro.btnEditar.Enabled := False;
-    frmBairro.btnExcluir.Enabled := False;
+    frmBairro.bClick := false;
+    frmBairro.btnEditar.Enabled := false;
+    frmBairro.btnExcluir.Enabled := false;
   end;
 end;
 

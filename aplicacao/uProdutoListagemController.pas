@@ -31,6 +31,7 @@ type
 
 var
   oProdutoListagemController: IInterfaceListagemController;
+
 implementation
 
 { TProdutoListagemController }
@@ -38,9 +39,9 @@ implementation
 procedure TProdutoListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'descricao like ''%'+APesquisa+'%'''+
-                      ' or preco like ''%'+APesquisa+'%'''+
-                      ' or tipo  like ''%'+APesquisa+'%''';
+  aMemTable.Filter := 'descricao like ''%' + APesquisa + '%''' +
+    ' or preco like ''%' + APesquisa + '%''' + ' or tipo  like ''%' +
+    APesquisa + '%''';
   aMemTable.Filtered := true;
 end;
 
@@ -54,7 +55,7 @@ end;
 
 procedure TProdutoListagemController.ControlerCadastro(Sender: TObject);
 begin
-   if (not(Assigned(oProdutoCadastrocontroller))) then
+  if (not(Assigned(oProdutoCadastrocontroller))) then
     oProdutoCadastrocontroller := TBairroCadastroController.Create;
   oProdutoCadastrocontroller.CreateFormCadastro(frmProduto, Sender, 0);
 end;
@@ -71,10 +72,10 @@ procedure TProdutoListagemController.CreateFormEdit(Sender: TObject;
 var
   iID: Integer;
 begin
-  if (not(Assigned(oProdutoCadastroController))) then
-    oProdutoCadastroController := TBairroCadastroController.Create;
+  if (not(Assigned(oProdutoCadastrocontroller))) then
+    oProdutoCadastrocontroller := TBairroCadastroController.Create;
   iID := oMemTable.FieldByName('idprodutos').AsInteger;
-  oProdutoCadastroController.CreateFormCadastro(frmProduto, Sender, iID);
+  oProdutoCadastrocontroller.CreateFormCadastro(frmProduto, Sender, iID);
 
 end;
 
@@ -102,24 +103,36 @@ end;
 
 procedure TProdutoListagemController.Excluir(oMemTable: TFDMemTable);
 var
-  iID: Integer;
+  iID, iValidar: Integer;
 begin
   if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
     [mbYes, mbNo], 0) = mrYes) then
   begin
-    iId := oMemTable.FieldByName('idprodutos').AsInteger;
-    if (oProdutoRegra.Excluir(iId, oProdutoModel)) then
+    iID := oMemTable.FieldByName('idprodutos').AsInteger;
+    iValidar := oProdutoRegra.Excluir(iID, oProdutoModel);
+    if (iValidar = 1) then
     begin
       MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
-      //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
-      oMemTable.Locate('idprodutos', iId);
+      // deleta o registro do mentable sem ir no banco de dados para atualizar a grid
+      oMemTable.Locate('idprodutos', iID);
       oMemTable.Delete;
-    end
-    else
-      raise Exception.Create('Error  ao deletar o Registro');
+    end;
+
+    if (iValidar = 2) then
+    begin
+      MessageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
+      exit;
+    end;
+
+    if (iValidar = 3) then
+    begin
+      MessageDlg('Erro ao deletar este registro, está associado ao PEDIDO',
+        mtWarning, mbOKCancel, 0);
+      exit;
+    end;
   end;
 
-  if (oMemtable.IsEmpty) then
+  if (oMemTable.IsEmpty) then
   begin
     frmProduto.btnEditar.Enabled := false;
     frmProduto.btnExcluir.Enabled := false;
@@ -137,15 +150,15 @@ begin
   if (oProdutoRegra.MontarGrid(oMemTable, oProdutoModel)) then
   begin
     oMemTable.Open;
-    frmProduto.bClick := True;
-    frmProduto.btnEditar.Enabled := True;
-    frmProduto.btnExcluir.Enabled := True;
+    frmProduto.bClick := true;
+    frmProduto.btnEditar.Enabled := true;
+    frmProduto.btnExcluir.Enabled := true;
   end
   else
   begin
-    frmProduto.bClick := False;
-    frmProduto.btnEditar.Enabled := False;
-    frmProduto.btnExcluir.Enabled := False;
+    frmProduto.bClick := false;
+    frmProduto.btnEditar.Enabled := false;
+    frmProduto.btnExcluir.Enabled := false;
   end;
 end;
 

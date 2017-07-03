@@ -8,6 +8,7 @@ uses
 type
   IInterfaceSaborListagemModel = interface
     function MontarGrid(AMemTable: TFDMemTable): Boolean;
+    function ValidarExcluir(const aId: Integer): Boolean;
     function Excluir(const iID: Integer): Boolean;
     function CheckSabor(var aLista: TSaborListaHash): Boolean;
 end;

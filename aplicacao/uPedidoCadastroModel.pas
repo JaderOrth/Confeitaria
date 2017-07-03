@@ -32,8 +32,8 @@ begin
     oQuery.Open('SELECT sabor FROM produtos WHERE idprodutos = '+ IntToStr(aId));
     if (not(oQuery.IsEmpty)) then
     begin
-     sSabor := oQuery.FieldByName('sabor').AsString;
-     Result := True;
+      sSabor := oQuery.FieldByName('sabor').AsString;
+      Result := True;
     end;
   finally
     if (assigned(oQuery)) then

@@ -10,6 +10,7 @@ type
   TCategoriasListagemModel = class(TInterfacedObject, IInterfaceCategoriasListagemModel)
   public
     function MontarGrid(AMemTable: TFDMemTable): Boolean;
+    function ValidarExcluir(const aId: Integer): Boolean;
     function Excluir(const iID: Integer): Boolean;
     function ComboBoxCategoria(var aLista: TCategoriaListaHash): Boolean;
   end;
@@ -77,6 +78,26 @@ begin
   finally
     if (Assigned(oquery)) then
       FreeAndNil(oquery);
+  end;
+end;
+
+function TCategoriasListagemModel.ValidarExcluir(const aId: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT pr.idprodutos FROM categorias as ca'+
+                ' INNER JOIN produtos as pr'+
+                ' ON pr.idcategorias = ca.idcategorias'+
+                ' WHERE ca.idcategorias = '+ IntToStr(aId)+' limit 2');
+    if (not(oQuery.IsEmpty)) then
+      Result := True;
+  finally
+    if Assigned(oQuery) then
+      FreeAndNil(oQuery);
   end;
 end;
 

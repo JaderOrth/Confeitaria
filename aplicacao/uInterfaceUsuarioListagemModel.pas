@@ -9,6 +9,7 @@ uses
 type
   IInterfaceUsuarioListagemModel = interface
     function BuscarGrid(aMemTable: TFDMemTable): Boolean;
+    function ValidarExcluir(const aId: Integer): Boolean;
     function Excluir(aID: Integer): Boolean;
   end;
 

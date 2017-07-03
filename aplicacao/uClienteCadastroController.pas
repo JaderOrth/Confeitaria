@@ -158,6 +158,8 @@ begin
   frmCadastroCliente.OnActivate(nil);
   frmCadastroCliente.cbMunicipio.OnEnter := ComboBox;
   frmCadastroCliente.cbBairro.OnEnter := ComboBoxBairro;
+  frmCadastroCliente.btnSalvar.Enabled := True;
+  frmCadastroCliente.btnNovo.Enabled := False;
 
   if (iId > 0) then
   begin
@@ -182,6 +184,8 @@ end;
 procedure TClienteCadastroController.Novo(Sender: TObject);
 begin
   oClienteRegra.LimparDTO(oClienteDTO);
+  frmCadastroCliente.btnSalvar.Enabled := True;
+  frmCadastroCliente.btnNovo.Enabled := False;
 end;
 
 procedure TClienteCadastroController.Pesquisar(Sender: TObject);
@@ -244,7 +248,7 @@ begin
       frmCadastroCliente.cbEstado.Items.IndexOfObject(TObject(iIdEstado));
     // monta a grid Municipio
     ComboBox(Sender);
-    //seleciona o município no comboBox
+    // seleciona o município no comboBox
     frmCadastroCliente.cbMunicipio.ItemIndex :=
       frmCadastroCliente.cbMunicipio.Items.IndexOfObject(TObject(iIdMunicipio));
     ComboBoxBairro(Sender);
@@ -333,28 +337,23 @@ begin
   end;
 
   iSalvar := oClienteRegra.Salvar(oClienteDTO, oClienteModel);
-  if (iSalvar = 1) then
-  begin
-    MessageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
-    exit;
-  end;
   // Update False
-  if (iSalvar = 2) then
+  if (iSalvar = 1) then
   begin
     MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     exit;
   end;
-  // Insert True
-  if (iSalvar = 3) then
-  begin
-    MessageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
-    exit;
-  end;
   // Insert False
-  if (iSalvar = 4) then
+  if (iSalvar = 2) then
   begin
     MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
+  end;
+
+  if (iSalvar = 0) then
+  begin
+    frmCadastroCliente.btnSalvar.Enabled := False;
+    frmCadastroCliente.btnNovo.Enabled := True;
   end;
 
 end;

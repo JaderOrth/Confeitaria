@@ -10,6 +10,7 @@ type
   TClienteListagemModel = class(TInterfacedObject, IInterfaceClienteModel)
   public
     function MontarGrid(aMenTable: TFDMemTable): Boolean;
+    function ValidarExcluir(const aId: Integer): Boolean;
     function Excluir(const iID: Integer): Boolean;
     function ComboBoxCliente(out aLista: TClienteListaHash): Boolean;
   end;
@@ -75,6 +76,25 @@ begin
       Result := True;
   finally
     if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
+
+function TClienteListagemModel.ValidarExcluir(const aId: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT pe.idpedido FROM pedido as pe'+
+                ' INNER JOIN cliente as cli ON cli.idcliente = pe.idcliente'+
+                ' WHERE cli.idcliente = '+ IntToStr(aId)+' limit 2');
+    if (not(oQuery.IsEmpty)) then
+      Result := True;
+  finally
+    if Assigned(oQuery) then
       FreeAndNil(oQuery);
   end;
 end;

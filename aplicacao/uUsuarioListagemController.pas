@@ -22,15 +22,17 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable);
-    procedure Excluir(oMemtable: TFDMemTable);
+    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure Excluir(oMemTable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
     destructor Destroy; override;
   end;
+
 var
   oUsuarioListagemController: IInterfaceListagemController;
+
 implementation
 
 { TUsuarioListagemController }
@@ -38,7 +40,7 @@ implementation
 procedure TUsuarioListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'usuario like ''%'+APesquisa+'%''';
+  aMemTable.Filter := 'usuario like ''%' + APesquisa + '%''';
   aMemTable.Filtered := true;
 end;
 
@@ -98,24 +100,33 @@ begin
   inherited;
 end;
 
-procedure TUsuarioListagemController.Excluir(oMemtable: TFDMemTable);
+procedure TUsuarioListagemController.Excluir(oMemTable: TFDMemTable);
 var
-  iID: Integer;
+  iId, iValidar: Integer;
 begin
   if (messageDlg('Deseja realmente deletar esse registro?', mtConfirmation,
     [mbYes, mbNo], 0) = mrYes) then
   begin
-    iID := oMemtable.FieldByName('idusuario').AsInteger;
-    if (oUsuarioRegra.Excluir(iID, oUsuarioModel)) then
+    iId := oMemTable.FieldByName('idusuario').AsInteger;
+    iValidar := oUsuarioRegra.Excluir(iId, oUsuarioModel);
+    if (iValidar = 1) then
     begin
-      MessageDlg('Registro deletado com sucesso!', mtInformation, [mbOK], 0);
-      oMemtable.Locate('idusuario', iID);
-      oMemtable.Delete;
-    end
-    else
+      messageDlg('Registro deletado com sucesso!', mtInformation, [mbOK], 0);
+      oMemTable.Locate('idusuario', iId);
+      oMemTable.Delete;
+    end;
+
+    if (iValidar = 2) then
     begin
-      MessageDlg('Erro ao deletar o registro!', mtError, [mbOK], 0);
-      exit;
+      messageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
+      Exit;
+    end;
+
+    if (iValidar = 3) then
+    begin
+      messageDlg('Erro ao deletar este registro, está associado ao MUNICÍPIO',
+        mtWarning, [mbOK], 0);
+      Exit;
     end;
   end;
 end;
@@ -125,15 +136,15 @@ begin
 
 end;
 
-procedure TUsuarioListagemController.MontarGrid(oMemtable: TFDMemTable);
+procedure TUsuarioListagemController.MontarGrid(oMemTable: TFDMemTable);
 begin
-  oMemtable.Close;
-  if (oUsuarioRegra.BuscarGrid(oMemtable, oUsuarioModel)) then
-   begin
+  oMemTable.Close;
+  if (oUsuarioRegra.BuscarGrid(oMemTable, oUsuarioModel)) then
+  begin
     oMemTable.Open;
-    frmUsuario.bClick := True;
-    frmUsuario.btnEditar.Enabled := True;
-    frmUsuario.btnExcluir.Enabled := True;
+    frmUsuario.bClick := true;
+    frmUsuario.btnEditar.Enabled := true;
+    frmUsuario.btnExcluir.Enabled := true;
   end
   else
   begin

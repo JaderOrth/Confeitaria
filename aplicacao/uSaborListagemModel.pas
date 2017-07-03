@@ -11,6 +11,7 @@ type
   TSaborListagemModel = class(TInterfacedObject, IInterfaceSaborListagemModel)
   public
     function MontarGrid(AMemTable: TFDMemTable): Boolean;
+    function ValidarExcluir(const aId: Integer): Boolean;
     function Excluir(const iID: Integer): Boolean;
     function CheckSabor(var aLista: TSaborListaHash): Boolean;
   end;
@@ -75,6 +76,34 @@ begin
   finally
     if (Assigned(oquery)) then
       FreeAndNil(oquery);
+  end;
+end;
+
+function TSaborListagemModel.ValidarExcluir(const aId: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT sp.id FROM sabores_produto as sp'+
+                ' INNER JOIN sabores as sa ON sa.idsabores = sp.idsabores'+
+                ' WHERE sa.idsabores = ' + IntToStr(aId)+' limit 2');
+    if (oQuery.IsEmpty) then
+    begin
+      oQuery.Open('SELECT its.id FROM itemPedido_sabores as its' +
+                  ' INNER JOIN sabores as sa ON sa.idsabores = its.idsabores' +
+                  ' WHERE sa.idsabores = ' + IntToStr(aId)+' limit 2');
+      if (not(oQuery.IsEmpty)) then
+        Result := True;
+    end
+    else
+      Result := True;
+
+  finally
+    if Assigned(oQuery) then
+      FreeAndNil(oQuery);
   end;
 end;
 

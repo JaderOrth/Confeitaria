@@ -57,6 +57,8 @@ begin
     frmUsuarioCadastro := TfrmUsuarioCadastro.Create(AOwner);
   frmUsuarioCadastro.oInterfaceCadastroController := oUsuarioCadastroController;
   frmUsuarioCadastro.Show;
+  frmUsuarioCadastro.btnSalvar.Enabled := True;
+  frmUsuarioCadastro.btnNovo.Enabled := False;
 
   if (iId > 0) then
   begin
@@ -83,6 +85,8 @@ procedure TUsuarioCadastroController.Novo(Sender: TObject);
 begin
   oUsuarioRegra.LimparDTO(oUsuarioDTO);
   frmUsuarioCadastro.edtUsuario.SetFocus;
+  frmUsuarioCadastro.btnSalvar.Enabled := True;
+  frmUsuarioCadastro.btnNovo.Enabled := False;
 end;
 
 procedure TUsuarioCadastroController.Pesquisar(Sender: TObject);
@@ -100,7 +104,7 @@ begin
   else
   begin
     MessageDlg('Erro ao retornar os valor do banco!', mtError, [mbOK], 0);
-    Exit;
+    exit;
   end;
 end;
 
@@ -139,6 +143,12 @@ begin
   begin
     MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
+  end;
+
+  if (iSalvar = 0) then
+  begin
+    frmUsuarioCadastro.btnSalvar.Enabled := False;
+    frmUsuarioCadastro.btnNovo.Enabled := True;
   end;
 end;
 

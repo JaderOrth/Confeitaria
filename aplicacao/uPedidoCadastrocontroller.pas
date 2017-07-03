@@ -24,6 +24,7 @@ type
     procedure SalvarItens(Sender: TObject);
     procedure ExcluirItens(Sender: TObject);
     procedure EditarItens(Sender: TObject);
+    procedure NovoItens(Sender: TObject);
     procedure OnActivateForm(Sender: TObject);
     procedure ComboBoxProduto(Sender: TObject);
     procedure ComboBoxMunicipio(Sender: TObject);
@@ -314,6 +315,7 @@ begin
   frmPedidoCadastro.btnSalvarItens.OnClick := SalvarItens;
   frmPedidoCadastro.btnExcluiItens.OnClick := ExcluirItens;
   frmPedidoCadastro.btnEditarItens.OnClick := EditarItens;
+  frmPedidoCadastro.btnNovoItens.OnClick := NovoItens;
   frmPedidoCadastro.OnActivate := OnActivateForm;
   frmPedidoCadastro.OnActivate(nil);
   frmPedidoCadastro.cbMunicipio.OnEnter := ComboBoxMunicipio;
@@ -367,18 +369,35 @@ procedure TPedidoCadastroController.ExcluirItens(Sender: TObject);
 var
   iId: Integer;
 begin
-  if (messageDlg('Deseja relmente excluir este registro', mtConfirmation,
-    [mbYes, mbNo], 0) = mrYes) then
-  begin
-    iId := frmPedidoCadastro.fdMemTable.FieldByName('idproduto').AsInteger;
-    frmPedidoCadastro.fdMemTable.Locate('idproduto', iId);
-    frmPedidoCadastro.fdMemTable.Delete;
+  if (not(frmPedidoCadastro.fdMemTable.IsEmpty)) then
+    begin
+    if (messageDlg('Deseja relmente excluir este registro', mtConfirmation,
+      [mbYes, mbNo], 0) = mrYes) then
+    begin
+      iId := frmPedidoCadastro.fdMemTable.FieldByName('idproduto').AsInteger;
+      frmPedidoCadastro.fdMemTable.Locate('idproduto', iId);
+      frmPedidoCadastro.fdMemTable.Delete;
+    end
   end;
 end;
 
 procedure TPedidoCadastroController.Novo(Sender: TObject);
 begin
 
+end;
+
+procedure TPedidoCadastroController.NovoItens(Sender: TObject);
+var
+  I: Integer;
+begin
+  frmPedidoCadastro.cbProduto.ItemIndex := -1;
+  frmPedidoCadastro.mObservacaoItensPedido.Clear;
+  frmPedidoCadastro.edtQuantidade.Clear;
+  frmPedidoCadastro.edtValor.Clear;
+  for I := 0 to frmPedidoCadastro.clkSabores.Items.Count - 1 do
+  begin
+      frmPedidoCadastro.clkSabores.Checked[I] := False;
+  end;
 end;
 
 procedure TPedidoCadastroController.OnActivateForm(Sender: TObject);
@@ -425,9 +444,10 @@ begin
     end;
 
     if (iId <> -1) then
+    begin
       frmPedidoCadastro.cbEstado.ItemIndex :=
         frmPedidoCadastro.cbEstado.Items.IndexOfObject(TObject(iId));
-
+    end;
   finally
     if (Assigned(oListaEstados)) then
       FreeAndNil(oListaEstados);

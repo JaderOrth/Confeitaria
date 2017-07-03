@@ -59,8 +59,9 @@ begin
     frmUnidadeMedidaCadastro := TfrmUnidadeMedidaCadastro.Create(AOwner);
   frmUnidadeMedidaCadastro.oInterfaceCadastroController :=
     oUnidadeMedidaCadastroController;
-
   frmUnidadeMedidaCadastro.Show;
+  frmUnidadeMedidaCadastro.btnSalvar.Enabled := True;
+  frmUnidadeMedidaCadastro.btnNovo.Enabled := False;
 
   if (iId > 0) then
   begin
@@ -85,6 +86,8 @@ end;
 procedure TUnidadeMedidaCadastroController.Novo(Sender: TObject);
 begin
   oUnidadeMedidaRegra.LimparDTO(oUnidadeMedidaDTO);
+  frmUnidadeMedidaCadastro.btnSalvar.Enabled := True;
+  frmUnidadeMedidaCadastro.btnNovo.Enabled := False;
 end;
 
 procedure TUnidadeMedidaCadastroController.Pesquisar(Sender: TObject);
@@ -153,6 +156,12 @@ begin
   begin
     MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
+  end;
+
+  if (iSalvar = 0) then
+  begin
+    frmUnidadeMedidaCadastro.btnSalvar.Enabled := False;
+    frmUnidadeMedidaCadastro.btnNovo.Enabled := True;
   end;
 end;
 

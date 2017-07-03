@@ -11,6 +11,7 @@ type
     IInterfaceUsuarioListagemModel)
   public
     function BuscarGrid(aMemTable: TFDMemTable): Boolean;
+    function ValidarExcluir(const aId: Integer): Boolean;
     function Excluir(aID: Integer): Boolean;
   end;
 
@@ -45,4 +46,24 @@ begin
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
+function TUsuarioListagemModel.ValidarExcluir(const aId: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT pe.idusuario FROM pedido as pe'+
+                ' INNER JOIN usuario as us'+
+                ' ON us.idusuario = pe.idusuario'+
+                ' WHERE us.idusuario = '+
+                IntToStr(aId)+' limit 2');
+    if (not(oQuery.IsEmpty)) then
+      Result := True;
+  finally
+    if Assigned(oQuery) then
+      FreeAndNil(oQuery);
+  end;
+end;
 end.

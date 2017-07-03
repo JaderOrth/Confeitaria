@@ -12,6 +12,7 @@ type
   TProdutoListagemModel = class(TInterfacedObject, IInterfaceProdutoListagemModel)
   public
     function MontarGrid(AMemTable: TFDMemTable): Boolean;
+    function ValdiarExcluir(const aID: Integer): Boolean;
     function Excluir(const iID: Integer): Boolean;
     function ComboBoxProduto(out aLista: TProdutoListaHash): Boolean;
   end;
@@ -54,7 +55,7 @@ function TProdutoListagemModel.Excluir(const iID: Integer): Boolean;
 var
   sSql: String;
 begin
-  sSql := 'DELETE FROM produto WHERE idproduto = '+ IntToStr(iID);
+  sSql := 'DELETE FROM produto WHERE idprodutos = '+ IntToStr(iID);
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
@@ -76,6 +77,35 @@ begin
   finally
     if (Assigned(oquery)) then
       FreeAndNil(oquery);
+  end;
+end;
+
+function TProdutoListagemModel.ValdiarExcluir(const aID: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT ipe.iditens_pedido FROM  itens_pedido as ipe'+
+                ' INNER JOIN produtos as pro'+
+                ' ON pro.idprodutos  = ipe.idprodutos'+
+                ' WHERE pro.idprodutos = '+ IntToStr(aID)+' limit 2');
+    if (oQuery.IsEmpty) then
+    begin
+      oQuery.Open('SELECT sp.idprodutos FROM produtos as pr'+
+                  ' INNER JOIN sabores_produto as sp'+
+                  ' ON sp.idprodutos = pr.idprodutos'+
+                  ' WHERE pr.idprodutos =  '+ IntToStr(aID)+' limit 2');
+      if (not(oQuery.IsEmpty)) then
+        Result := true;
+    end
+    else
+      Result := True;
+  finally
+    if Assigned(oQuery) then
+      FreeAndNil(oQuery);
   end;
 end;
 

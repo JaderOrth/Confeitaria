@@ -92,7 +92,7 @@ begin
     oQuery.Connection := TConexaoSingleton.GetInstancia;
     oQuery.Open('select mu.idmunicipio from municipio as mu'+
                 ' inner join bairro as ba on ba.idmunicipio = mu.idmunicipio'+
-                ' where mu.idmunicipio = '+ IntToStr(iID));
+                ' where mu.idmunicipio = '+ IntToStr(iID)+' limit 2');
     if (not(oQuery.IsEmpty)) then
       Result := True;
   finally

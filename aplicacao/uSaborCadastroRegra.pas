@@ -34,7 +34,7 @@ begin
   Result := 0;
   if (aSaborDTO.idsabores > 0) then
   begin
-    if ((aModel.update(aSaborDTO))) then
+    if (not(aModel.update(aSaborDTO))) then
     begin
       Result := 1;
       exit;

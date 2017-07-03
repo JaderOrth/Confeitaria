@@ -86,7 +86,8 @@ begin
     oQuery := TFDQuery.Create(nil);
     oQuery.Connection := TConexaoSingleton.GetInstancia;
     oQuery.Open('select uf.iduf from uf inner join municipio as mu'+
-                ' on mu.iduf = uf.iduf where uf.iduf = '+ IntToStr(iID));
+                ' on mu.iduf = uf.iduf where uf.iduf = '+
+                IntToStr(iID)+' limit 2');
     if (not(oQuery.IsEmpty)) then
       Result := True;
   finally

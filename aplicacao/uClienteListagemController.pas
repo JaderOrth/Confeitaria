@@ -21,8 +21,8 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable);
-    procedure Excluir(oMemtable: TFDMemTable);
+    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure Excluir(oMemTable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
@@ -39,12 +39,11 @@ implementation
 procedure TClienteListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := ' endereco like ''%'+APesquisa+'%'''+
-                      ' or numero like ''%'+APesquisa+'%'''+
-                      ' or telefone like ''%'+APesquisa+'%'''+
-                      ' or celular like ''%'+APesquisa+'%'''+
-                      ' or descricao like ''%'+APesquisa+'%'''+
-                      ' or municipio like ''%'+APesquisa+'%''';
+  aMemTable.Filter := ' endereco like ''%' + APesquisa + '%''' +
+    ' or numero like ''%' + APesquisa + '%''' + ' or telefone like ''%' +
+    APesquisa + '%''' + ' or celular like ''%' + APesquisa + '%''' +
+    ' or descricao like ''%' + APesquisa + '%''' + ' or municipio like ''%' +
+    APesquisa + '%''';
   aMemTable.Filtered := true;
 end;
 
@@ -103,25 +102,38 @@ begin
   inherited;
 end;
 
-procedure TClienteListagemController.Excluir(oMemtable: TFDMemTable);
+procedure TClienteListagemController.Excluir(oMemTable: TFDMemTable);
 var
-  iID: Integer;
+  iID, iValidar: Integer;
 begin
   if (MessageDlg('Deseja realmente deletar esse registro?', mtConfirmation,
-  [mbYes, mbNo], 0 ) = mrYes) then
+    [mbYes, mbNo], 0) = mrYes) then
   begin
-    iID := oMemtable.FieldByName('idcliente').AsInteger;
-    if (oClienteRegra.Excluir(iID, oClienteModel)) then
+    iID := oMemTable.FieldByName('idcliente').AsInteger;
+    iValidar := oClienteRegra.Excluir(iID, oClienteModel);
+
+    if (iValidar = 1) then
     begin
       MessageDlg('Resgistro deletado com sucesso', mtInformation, [mbOK], 0);
-      oMemtable.Locate('idcliente', iID);
-      oMemtable.Delete;
-    end
-    else
-      MessageDlg('Erro ao deletar este registro!', mtError, [mbOK], 0);
+      oMemTable.Locate('idcliente', iID);
+      oMemTable.Delete;
+    end;
+
+    if (iValidar = 2) then
+    begin
+      MessageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
+      exit;
+    end;
+
+    if (iValidar = 3) then
+    begin
+      MessageDlg('Erro ao deletar este registro, está associado ao MUNICÍPIO',
+        mtWarning, mbOKCancel, 0);
+      exit;
+    end;
   end;
 
-  if (oMemtable.IsEmpty) then
+  if (oMemTable.IsEmpty) then
   begin
     frmCliente.btnEditar.Enabled := false;
     frmCliente.btnExcluir.Enabled := false;
@@ -131,24 +143,24 @@ end;
 
 procedure TClienteListagemController.Help(Sender: TObject);
 begin
-{}
+  { }
 end;
 
-procedure TClienteListagemController.MontarGrid(oMemtable: TFDMemTable);
+procedure TClienteListagemController.MontarGrid(oMemTable: TFDMemTable);
 begin
-  oMemtable.Close;
-  if (oClienteRegra.MontarGrid(oMemtable, oClienteModel)) then
-   begin
+  oMemTable.Close;
+  if (oClienteRegra.MontarGrid(oMemTable, oClienteModel)) then
+  begin
     oMemTable.Open;
-    frmCliente.bClick := True;
-    frmCliente.btnEditar.Enabled := True;
-    frmCliente.btnExcluir.Enabled := True;
+    frmCliente.bClick := true;
+    frmCliente.btnEditar.Enabled := true;
+    frmCliente.btnExcluir.Enabled := true;
   end
   else
   begin
-    frmCliente.bClick := False;
-    frmCliente.btnEditar.Enabled := False;
-    frmCliente.btnExcluir.Enabled := False;
+    frmCliente.bClick := false;
+    frmCliente.btnEditar.Enabled := false;
+    frmCliente.btnExcluir.Enabled := false;
   end;
 end;
 

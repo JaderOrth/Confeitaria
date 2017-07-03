@@ -222,6 +222,8 @@ begin
     frmProdutoCadastro := TfrmProdutoCadastro.Create(AOwner);
   frmProdutoCadastro.oInterfaceCadastroController := oProdutoCadastroController;
   frmProdutoCadastro.Show;
+  frmProdutoCadastro.btnSalvar.Enabled := True;
+  frmProdutoCadastro.btnNovo.Enabled := False;
   frmProdutoCadastro.OnActivate(nil);
   frmProdutoCadastro.ckbSabor.OnClick := EnableCheck;
 
@@ -254,8 +256,16 @@ begin
 end;
 
 procedure TBairroCadastroController.Novo(Sender: TObject);
+var
+  I: Integer;
 begin
   oProdutoRegra.LimparDTO(oProdutoDTO);
+  frmProdutoCadastro.btnSalvar.Enabled := True;
+  frmProdutoCadastro.btnNovo.Enabled := False;
+  for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+  begin
+    frmProdutoCadastro.clkSabores.Checked[I] := False;
+  end;
 end;
 
 procedure TBairroCadastroController.Pesquisar(Sender: TObject);
@@ -424,6 +434,12 @@ begin
   begin
     MessageDlg('Erro ao salvar os sabores do Produto!', mtError, [mbOK], 0);
     Exit;
+  end;
+
+  if (iSalvar = 0) then
+  begin
+    frmProdutoCadastro.btnSalvar.Enabled := False;
+    frmProdutoCadastro.btnNovo.Enabled := True;
   end;
 
 end;

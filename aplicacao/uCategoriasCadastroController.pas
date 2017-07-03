@@ -73,8 +73,9 @@ begin
     frmCategoriasCadastro := TfrmCategoriasCadastro.Create(AOwner);
   frmCategoriasCadastro.oInterfaceCadastroController :=
     oCategoriasCadastroController;
-
   frmCategoriasCadastro.Show;
+  frmCategoriasCadastro.btnSalvar.Enabled := True;
+  frmCategoriasCadastro.btnNovo.Enabled := False;
 
   if (iId > 0) then
   begin
@@ -86,6 +87,8 @@ end;
 procedure TCategoriasCadastroController.Novo(Sender: TObject);
 begin
   oCategoriasRegra.LimparDTO(oCategoriasDTO);
+  frmCategoriasCadastro.btnSalvar.Enabled := True;
+  frmCategoriasCadastro.btnNovo.Enabled := False;
 end;
 
 procedure TCategoriasCadastroController.Pesquisar(Sender: TObject);
@@ -124,16 +127,22 @@ begin
 
   iSalvar := oCategoriasRegra.Salvar(oCategoriasDTO, oCategoriasModel);
   // Update False
-  if (iSalvar = 2) then
+  if (iSalvar = 1) then
   begin
     MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     exit;
   end;
   // Insert False
-  if (iSalvar = 4) then
+  if (iSalvar = 2) then
   begin
     MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
+  end;
+
+  if (iSalvar = 0) then
+  begin
+    frmCategoriasCadastro.btnSalvar.Enabled := False;
+    frmCategoriasCadastro.btnNovo.Enabled := True;
   end;
 end;
 

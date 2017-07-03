@@ -8,9 +8,10 @@ uses
 type
   IInterfaceBairroListagemModel = interface
     function MontarGrid(AMemTable: TFDMemTable): Boolean;
+    function ValidarExcluir(const aId: Integer): Boolean;
     function Excluir(const iID: Integer): Boolean;
     function ComboBoxBairro(var aLista: TBairroListaHash;
-      const aID: Integer): Boolean;
+      const aId: Integer): Boolean;
   end;
 
 implementation

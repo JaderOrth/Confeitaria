@@ -58,7 +58,8 @@ begin
   frmSaborCadastro.oInterfaceCadastroController := oSaborCadastroController;
 
   frmSaborCadastro.Show;
-
+  frmSaborCadastro.btnSalvar.Enabled := True;
+  frmSaborCadastro.btnNovo.Enabled := False;
   if (iId > 0) then
   begin
     oSaborDTO.idsabores := iId;
@@ -82,6 +83,8 @@ end;
 procedure TSaborCadastroController.Novo(Sender: TObject);
 begin
   oSaborRegra.LimparDTO(oSaborDTO);
+  frmSaborCadastro.btnSalvar.Enabled := True;
+  frmSaborCadastro.btnNovo.Enabled := False;
 end;
 
 procedure TSaborCadastroController.Pesquisar(Sender: TObject);
@@ -129,17 +132,24 @@ begin
 
   iSalvar := oSaborRegra.Salvar(oSaborDTO, oSaborModel);
   // Update False
-  if (iSalvar = 2) then
+  if (iSalvar = 1) then
   begin
     messageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     exit;
   end;
   // Insert False
-  if (iSalvar = 4) then
+  if (iSalvar = 2) then
   begin
     messageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
   end;
+
+  if (iSalvar = 0) then
+  begin
+    frmSaborCadastro.btnSalvar.Enabled := False;
+    frmSaborCadastro.btnNovo.Enabled := True;;
+  end;
+
 end;
 
 end.
