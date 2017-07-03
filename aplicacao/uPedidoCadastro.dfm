@@ -9,21 +9,20 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
   inherited StatusBar1: TStatusBar
     Top = 490
     Width = 821
-    ExplicitTop = 441
+    ExplicitTop = 490
     ExplicitWidth = 821
   end
   inherited Panel1: TPanel
     Left = 718
     Height = 490
-    ExplicitLeft = 685
-    ExplicitTop = 8
-    ExplicitHeight = 442
+    ExplicitLeft = 718
+    ExplicitHeight = 490
   end
   inherited panelCadastro: TPanel
     Width = 718
     Height = 490
     ExplicitWidth = 718
-    ExplicitHeight = 441
+    ExplicitHeight = 490
     object TLabel
       Left = 33
       Top = 10
@@ -38,13 +37,10 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       ActivePage = tsItensPedido
       Align = alClient
       TabOrder = 0
-      ExplicitHeight = 437
       object tsPedido: TTabSheet
         Caption = '   &Pedido    '
         DoubleBuffered = False
         ParentDoubleBuffered = False
-        ExplicitLeft = 31
-        ExplicitHeight = 444
         object Label6: TLabel
           Left = 395
           Top = 55
@@ -114,7 +110,9 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Left = 13
           Top = 75
           Width = 359
-          Height = 24
+          Height = 22
+          Style = csOwnerDrawFixed
+          Sorted = True
           TabOrder = 1
         end
         object dtDataPedido: TDateTimePicker
@@ -122,8 +120,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Top = 72
           Width = 224
           Height = 24
-          Date = 42907.912224652780000000
-          Time = 42907.912224652780000000
+          Date = 42907.912224652770000000
+          Time = 42907.912224652770000000
           TabOrder = 2
         end
         object edtTotalPedido: TLabeledEdit
@@ -160,7 +158,9 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Left = 13
           Top = 124
           Width = 358
-          Height = 24
+          Height = 22
+          Style = csOwnerDrawFixed
+          Sorted = True
           TabOrder = 6
         end
         object edtNumeroEntrega: TLabeledEdit
@@ -186,7 +186,9 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Left = 13
           Top = 172
           Width = 358
-          Height = 24
+          Height = 22
+          Style = csOwnerDrawFixed
+          Sorted = True
           TabOrder = 9
         end
         object edtComplemento: TLabeledEdit
@@ -203,14 +205,15 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Left = 14
           Top = 220
           Width = 358
-          Height = 24
+          Height = 22
+          Style = csOwnerDrawFixed
+          Sorted = True
           TabOrder = 11
         end
       end
       object tsItensPedido: TTabSheet
         Caption = 'Itens Pedido'
         ImageIndex = 1
-        ExplicitHeight = 406
         object Label7: TLabel
           Left = 14
           Top = 13
@@ -225,18 +228,13 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Height = 16
           Caption = 'Observa'#231#245'es'
         end
-        object Label9: TLabel
-          Left = 13
-          Top = 61
-          Width = 47
-          Height = 16
-          Caption = 'Sabores'
-        end
         object cbProduto: TComboBox
           Left = 13
           Top = 35
           Width = 324
-          Height = 24
+          Height = 22
+          Style = csOwnerDrawFixed
+          Sorted = True
           TabOrder = 0
         end
         object edtQuantidade: TLabeledEdit
@@ -268,37 +266,29 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
             'Memo1')
           TabOrder = 3
         end
-        object CheckListBox1: TCheckListBox
-          Left = 13
-          Top = 83
-          Width = 348
-          Height = 110
-          Columns = 2
-          TabOrder = 4
-        end
         object btnSalvarItens: TButton
           Left = 14
           Top = 208
           Width = 75
           Height = 25
           Caption = 'Salvar'
-          TabOrder = 5
+          TabOrder = 4
         end
         object btnEditarItens: TButton
-          Left = 104
+          Left = 95
           Top = 208
           Width = 75
           Height = 25
           Caption = 'Editar'
-          TabOrder = 6
+          TabOrder = 5
         end
         object btnExcluiItens: TButton
-          Left = 196
+          Left = 176
           Top = 208
           Width = 75
           Height = 25
           Caption = 'Excluir'
-          TabOrder = 7
+          TabOrder = 6
         end
         object dbItensListagem: TDBGrid
           Left = 13
@@ -307,7 +297,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Height = 162
           DataSource = DataSource
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-          TabOrder = 8
+          TabOrder = 7
           TitleFont.Charset = DEFAULT_CHARSET
           TitleFont.Color = clWindowText
           TitleFont.Height = -13
@@ -346,6 +336,43 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
               Width = 248
               Visible = True
             end>
+        end
+        object btnNovoItens: TButton
+          Left = 257
+          Top = 208
+          Width = 75
+          Height = 25
+          Caption = 'Novo'
+          TabOrder = 8
+        end
+        object GroupSabores: TGroupBox
+          Left = 14
+          Top = 67
+          Width = 317
+          Height = 132
+          Caption = 'Sabores'
+          Enabled = False
+          Padding.Left = 10
+          TabOrder = 9
+          object clkSabores: TCheckListBox
+            Left = 12
+            Top = 18
+            Width = 303
+            Height = 112
+            Cursor = crHandPoint
+            Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            Color = clBtnFace
+            Columns = 3
+            Sorted = True
+            TabOrder = 0
+            ExplicitLeft = 172
+            ExplicitTop = 17
+            ExplicitWidth = 353
+            ExplicitHeight = 159
+          end
         end
       end
     end

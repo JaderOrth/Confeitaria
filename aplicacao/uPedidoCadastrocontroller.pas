@@ -10,7 +10,8 @@ uses
   uProdutoDTO, uEstadoDTO, uEstadoListaHash, uEstadoListagemModel,
   uMunicipioDTO,uMunicipioListagemModel, uMunicipioListaHash, uBairroDTO,
   uBairroListagemModel, uBairroListaHash, uClienteListaHash,
-  uClienteListagemModel, uClienteDTO;
+  uClienteListagemModel, uClienteDTO, uSaborListaHash, uSaborDTO,
+  uSaborListagemModel;
 
 type
   TPedidoCadastroController = class(TInterfacedObject,
@@ -19,7 +20,7 @@ type
     oPedidoDTO: TPedidoDTO;
     oPedidoRegra: TPedidoCadastroRegra;
     oPedidoModel: TPedidoCadastroModel;
-    iIdEstado: Integer;
+    iIdEstado, iIDProduto: Integer;
     procedure SalvarItens(Sender: TObject);
     procedure ExcluirItens(Sender: TObject);
     procedure EditarItens(Sender: TObject);
@@ -28,6 +29,8 @@ type
     procedure ComboBoxMunicipio(Sender: TObject);
     procedure ComboBoxBairro(Sender: TObject);
     procedure ComboBoxCliente(Sender: TObject);
+    procedure CheckSabor(Sender: TObject);
+    procedure ValidarCamposItensPedido(Sender: TObject);
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -47,6 +50,70 @@ var
 implementation
 
 { TPedidoCadastroController }
+
+procedure TPedidoCadastroController.CheckSabor(Sender: TObject);
+var
+  oSaborLista: TSaborListaHash;
+  oSaborModel: TSaborListagemModel;
+  oSaborDTO: TSaborDTO;
+  iCount, I, J, iValor, iValorArray: Integer;
+  aSabor: array of Integer;
+begin
+  if (frmPedidoCadastro.GroupSabores.Enabled = True) then
+  begin
+    SetLength(aSabor, 0);
+    for I := 0 to frmPedidoCadastro.clkSabores.Items.Count - 1 do
+    begin
+      if (frmPedidoCadastro.clkSabores.Checked[I]) then
+      begin
+        iCount := Length(aSabor);
+        SetLength(aSabor, iCount + 1);
+        aSabor[iCount] :=
+          Integer(frmPedidoCadastro.clkSabores.Items.Objects[I]);
+      end;
+    end;
+  end;
+
+  frmPedidoCadastro.clkSabores.Clear;
+  try
+    oSaborLista := TSaborListaHash.Create([doOwnsValues]);
+    oSaborModel := TSaborListagemModel.Create;
+
+    if (oPedidoRegra.CheckSabor(oSaborLista, oSaborModel)) then
+    begin
+      for oSaborDTO in oSaborLista.Values do
+      begin
+        frmPedidoCadastro.clkSabores.Items.AddObject(oSaborDTO.descricao,
+          TObject(oSaborDTO.idsabores));
+      end;
+    end;
+
+    if (Length(aSabor) > 0) then
+    begin
+      for I := 0 to frmPedidoCadastro.clkSabores.Items.Count -1 do
+      begin
+        iCount := Length(aSabor);
+        for J := 0 to iCount do
+        begin
+          iValor := Integer(frmPedidoCadastro.clkSabores.Items.Objects[I]);
+          iValorArray := aSabor[iCount];
+          if (iValorArray = iValor) then
+          begin
+            frmPedidoCadastro.clkSabores.Checked[I] := true;
+          end;
+          iCount := iCount -1;
+        end;
+      end;
+    end;
+
+  finally
+    if (Assigned(oSaborModel)) then
+      FreeAndNil(oSaborModel);
+
+    if (Assigned(oSaborLista)) then
+      FreeAndNil(oSaborLista);
+  end;
+end;
 
 procedure TPedidoCadastroController.CloseFormCadastro(Sender: TObject);
 begin
@@ -236,7 +303,10 @@ procedure TPedidoCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
 begin
   if (not(Assigned(frmPedidoCadastro))) then
+  begin
     frmPedidoCadastro := TfrmPedidoCadastro.Create(AOwner);
+    frmPedidoCadastro.fdMemTable.CreateDataSet;
+  end;
 
   frmPedidoCadastro.oInterfaceCadastroController := oPedidoCadastroController;
   frmPedidoCadastro.Show;
@@ -248,6 +318,7 @@ begin
   frmPedidoCadastro.OnActivate(nil);
   frmPedidoCadastro.cbMunicipio.OnEnter := ComboBoxMunicipio;
   frmPedidoCadastro.cbBairro.OnEnter := ComboBoxBairro;
+  frmPedidoCadastro.cbProduto.OnSelect := ValidarCamposItensPedido;
 
   if (iId > 0) then
   begin
@@ -277,12 +348,18 @@ begin
   begin
     frmPedidoCadastro.fdMemTable.Edit;
 
+    iID := frmPedidoCadastro.fdMemTable.FieldByName('idproduto').AsInteger;
     frmPedidoCadastro.cbProduto.ItemIndex :=
-      frmPedidoCadastro.fdMemTable.FieldByName('idproduto').AsInteger;
+      frmPedidoCadastro.cbProduto.Items.IndexOfObject(TObject(iID));
     frmPedidoCadastro.edtValor.Text :=
      CurrToStr(frmPedidoCadastro.fdMemTable.FieldByName('valorTotal').AsCurrency);
+    frmPedidoCadastro.edtQuantidade.Text :=
+      FloatToStr(frmPedidoCadastro.fdMemTable.FieldByName('quantidade').AsFloat);
+    frmPedidoCadastro.mObservacaoItensPedido.Text :=
+      frmPedidoCadastro.fdMemTable.FieldByName('observacao').AsString;
 
     frmPedidoCadastro.fdMemTable.Post;
+    iIDProduto := iID;
   end;
 end;
 
@@ -314,8 +391,8 @@ begin
   ComboBoxCliente(Sender);
   //Mostrar da data e horas atualizadas
   frmPedidoCadastro.dtDataHoraEntrega.DateTime := now;
-
-  frmPedidoCadastro.fdMemTable.CreateDataSet;
+  //montar o checkBoxlist
+  CheckSabor(Sender);
 end;
 
 procedure TPedidoCadastroController.Pesquisar(Sender: TObject);
@@ -407,7 +484,14 @@ end;
 procedure TPedidoCadastroController.SalvarItens(Sender: TObject);
 begin
   // adiciona valor no memTable e irá mostrar na grid
-  frmPedidoCadastro.fdMemTable.insert;
+  if (iIDProduto > 0) then
+  begin
+    frmPedidoCadastro.fdMemTable.Edit;
+  end
+  else
+  begin
+    frmPedidoCadastro.fdMemTable.insert;
+  end;
   frmPedidoCadastro.fdMemTableidproduto.AsInteger :=
     Integer(frmPedidoCadastro.cbProduto.Items.Objects
     [frmPedidoCadastro.cbProduto.ItemIndex]);
@@ -423,6 +507,21 @@ begin
 
   frmPedidoCadastro.fdMemTable.Post;
   // frmPedidoCadastro.fdMemTable.open;
+end;
+
+procedure TPedidoCadastroController.ValidarCamposItensPedido(Sender: TObject);
+var
+  iId: Integer;
+begin
+  if (frmPedidoCadastro.cbProduto.ItemIndex <> -1) then
+  begin
+    iId := Integer(frmPedidoCadastro.cbProduto.Items.Objects
+      [frmPedidoCadastro.cbProduto.ItemIndex]);
+    if (not(oPedidoRegra.ValidarCamposItensPedido(iId, oPedidoModel))) then
+    begin
+      frmPedidoCadastro.GroupSabores.Enabled := True;
+    end;
+  end;
 end;
 
 end.

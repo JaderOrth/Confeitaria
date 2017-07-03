@@ -6,7 +6,8 @@ uses
   uInterfacePedidoCadastroModel, uProdutoListaHash,
   uInterfaceProdutoListagemModel, uInterfaceListagemModel, uEstadoListaHash,
   uMunicipioListaHash, uInterfaceMunicipioListagemModel, uBairroListaHash,
-  uInterfaceBairroListagemModel, uInterfaceClienteModel, uClienteListaHash;
+  uInterfaceBairroListagemModel, uInterfaceClienteModel, uClienteListaHash,
+  uInterfaceSaborListagemModel, uSaborListaHash;
 
 type
   TPedidoCadastroRegra = class
@@ -22,6 +23,10 @@ type
       const aModel: IInterfaceBairroListagemModel): Boolean;
     function ComboBoxCliente(out aLista: TClienteListaHash;
       const aModel: IInterfaceClienteModel): Boolean;
+    function CheckSabor(var aLista: TSaborListaHash;
+      const aModel: IInterfaceSaborListagemModel): Boolean;
+    function ValidarCamposItensPedido(const aId: Integer;
+      const aModel: IInterfacePedidoCadastroModel): Boolean;
   end;
 
 implementation
@@ -32,6 +37,12 @@ function TPedidoCadastroRegra.ComboBoxMunicipio(out aLista: TMunicipioListaHash;
   const aId: Integer; const aModel: IInterfaceMunicipioListagemModel): Boolean;
 begin
   Result := aModel.ComboBox(aLista, aId);
+end;
+
+function TPedidoCadastroRegra.CheckSabor(var aLista: TSaborListaHash;
+  const aModel: IInterfaceSaborListagemModel): Boolean;
+begin
+  Result := aModel.CheckSabor(aLista);
 end;
 
 function TPedidoCadastroRegra.ComboBoxBairro(out aLista: TBairroListaHash;
@@ -56,6 +67,20 @@ function TPedidoCadastroRegra.ComboBoxProduto(out aLista: TProdutoListaHash;
   const aModel: IInterfaceProdutoListagemModel): Boolean;
 begin
   Result := aModel.ComboBoxProduto(aLista);
+end;
+
+function TPedidoCadastroRegra.ValidarCamposItensPedido(const aId: Integer;
+  const aModel: IInterfacePedidoCadastroModel): Boolean;
+var
+  sSabor: String;
+begin
+  Result := False;
+  if (aModel.ValidarCamposItensPedido(aId, sSabor)) then
+  begin
+    if (sSabor = 'S') then
+    Result := True;
+  end;
+
 end;
 
 end.

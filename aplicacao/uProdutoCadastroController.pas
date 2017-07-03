@@ -385,7 +385,7 @@ begin
   end
   else
   begin
-       for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+    for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
     begin
       frmProdutoCadastro.clkSabores.Checked[I] := false;
     end;

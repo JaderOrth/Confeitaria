@@ -40,8 +40,6 @@ type
     edtValor: TLabeledEdit;
     mObservacaoItensPedido: TMemo;
     Label8: TLabel;
-    CheckListBox1: TCheckListBox;
-    Label9: TLabel;
     btnSalvarItens: TButton;
     btnEditarItens: TButton;
     btnExcluiItens: TButton;
@@ -55,6 +53,9 @@ type
     cbCliente: TComboBox;
     Label10: TLabel;
     fdMemTablevalorTotal: TCurrencyField;
+    btnNovoItens: TButton;
+    GroupSabores: TGroupBox;
+    clkSabores: TCheckListBox;
   private
     { Private declarations }
   public
