@@ -217,6 +217,8 @@ end;
 
 procedure TBairroCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
+var
+  I: Integer;
 begin
   if (not(Assigned(frmProdutoCadastro))) then
     frmProdutoCadastro := TfrmProdutoCadastro.Create(AOwner);
@@ -226,6 +228,11 @@ begin
   frmProdutoCadastro.btnNovo.Enabled := False;
   frmProdutoCadastro.OnActivate(nil);
   frmProdutoCadastro.ckbSabor.OnClick := EnableCheck;
+
+  for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+  begin
+    frmProdutoCadastro.clkSabores.Checked[I] := False;
+  end;
 
   if (iId > 0) then
   begin

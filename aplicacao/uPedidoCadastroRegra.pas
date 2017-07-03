@@ -3,7 +3,7 @@ unit uPedidoCadastroRegra;
 interface
 
 uses
-  uInterfacePedidoCadastroModel, uProdutoListaHash,
+  uInterfacePedidoCadastroModel, uProdutoListaHash, uPedidoDTO,
   uInterfaceProdutoListagemModel, uInterfaceListagemModel, uEstadoListaHash,
   uMunicipioListaHash, uInterfaceMunicipioListagemModel, uBairroListaHash,
   uInterfaceBairroListagemModel, uInterfaceClienteModel, uClienteListaHash,
@@ -27,6 +27,7 @@ type
       const aModel: IInterfaceSaborListagemModel): Boolean;
     function ValidarCamposItensPedido(const aId: Integer;
       const aModel: IInterfacePedidoCadastroModel): Boolean;
+    function ValidarSalvar(const aPedidoDTO: TPedidoDTO): Integer;
   end;
 
 implementation
@@ -78,9 +79,18 @@ begin
   if (aModel.ValidarCamposItensPedido(aId, sSabor)) then
   begin
     if (sSabor = 'S') then
-    Result := True;
+      Result := True;
   end;
 
+end;
+
+function TPedidoCadastroRegra.ValidarSalvar(const aPedidoDTO
+  : TPedidoDTO): Integer;
+begin
+  Result := 0;
+
+//  if (Length(aPedidoDTO.dataHoraEntrega) = 0) then
+  
 end;
 
 end.

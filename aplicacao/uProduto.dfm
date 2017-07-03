@@ -19,7 +19,7 @@ inherited frmProduto: TfrmProduto
         Expanded = False
         FieldName = 'idprodutos'
         Title.Caption = 'ID'
-        Visible = True
+        Visible = False
       end
       item
         Alignment = taCenter

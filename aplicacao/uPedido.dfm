@@ -2,14 +2,69 @@ inherited frmPedido: TfrmPedido
   Caption = 'Listagem de pedidos'
   PixelsPerInch = 96
   TextHeight = 14
-  inherited Panel1: TPanel
-    ExplicitHeight = 431
-  end
-  inherited Panel2: TPanel
-    ExplicitWidth = 1001
-  end
-  inherited StatusBar1: TStatusBar
-    ExplicitTop = 487
-    ExplicitWidth = 1001
+  inherited DBGridListagem: TDBGrid
+    Columns = <
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'idpedido'
+        Title.Alignment = taCenter
+        Title.Caption = 'ID'
+        Visible = False
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'total_pedido'
+        Title.Alignment = taCenter
+        Title.Caption = 'Valor'
+        Width = 100
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'datahora_entrega'
+        Title.Alignment = taCenter
+        Title.Caption = 'Entrega Hora e Data'
+        Width = 140
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'descricao'
+        Title.Alignment = taCenter
+        Title.Caption = 'Bairro'
+        Width = 200
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'entrega_endereco'
+        Title.Alignment = taCenter
+        Title.Caption = 'Endere'#231'o'
+        Width = 200
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'entrega_numero'
+        Title.Alignment = taCenter
+        Title.Caption = 'N'#250'mero'
+        Width = 80
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'responsavel_pedido'
+        Title.Alignment = taCenter
+        Title.Caption = 'Nome do cliente'
+        Width = 200
+        Visible = True
+      end>
   end
 end

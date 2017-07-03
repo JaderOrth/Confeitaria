@@ -409,7 +409,7 @@ begin
   //comboBox Cliente
   ComboBoxCliente(Sender);
   //Mostrar da data e horas atualizadas
-  frmPedidoCadastro.dtDataHoraEntrega.DateTime := now;
+  frmPedidoCadastro.dtDataEntrega.Date := now;
   //montar o checkBoxlist
   CheckSabor(Sender);
 end;
@@ -484,21 +484,29 @@ begin
   end
   else
     oPedidoDTO.idBairro :=  -1;
-  oPedidoDTO.dataPedido := frmPedidoCadastro.dtDataPedido.Date;
-  oPedidoDTO.dataHoraEntrega := frmPedidoCadastro.dtDataHoraEntrega.DateTime;
+  if (frmPedidoCadastro.dtDataPedido.Date > 0) then
+     oPedidoDTO.dataPedido := frmPedidoCadastro.dtDataPedido.Date
+  else
+  begin
+
+  end;
+  if (frmPedidoCadastro.dtDataEntrega.Date > 0) then
+    oPedidoDTO.dataHoraEntrega := frmPedidoCadastro.dtDataEntrega.Date;
   oPedidoDTO.observacao := frmPedidoCadastro.mObservacao.Text;
   oPedidoDTO.totalPedido := StrToCurrDef(frmPedidoCadastro.edtTotalPedido.Text, 0);
-  oPedidoDTO.idCliente := 1;
+  oPedidoDTO.idUsuario := 1;
   oPedidoDTO.entregaEndereco := frmPedidoCadastro.edtEnderecoEntrega.Text;
   oPedidoDTO.entregaNumero := frmPedidoCadastro.edtNumeroEntrega.Text;
   oPedidoDTO.entregaComplemento := frmPedidoCadastro.edtComplemento.Text;
   if (frmPedidoCadastro.cbCliente.ItemIndex <> -1) then
   begin
-    oPedidoDTO.idUsuario := Integer(frmPedidoCadastro.cbCliente.Items.Objects
+    oPedidoDTO.idCliente := Integer(frmPedidoCadastro.cbCliente.Items.Objects
       [frmPedidoCadastro.cbCliente.ItemIndex]);
   end
   else
     oPedidoDTO.idUsuario := -1;
+
+
 end;
 
 procedure TPedidoCadastroController.SalvarItens(Sender: TObject);
@@ -512,19 +520,64 @@ begin
   begin
     frmPedidoCadastro.fdMemTable.insert;
   end;
-  frmPedidoCadastro.fdMemTableidproduto.AsInteger :=
-    Integer(frmPedidoCadastro.cbProduto.Items.Objects
-    [frmPedidoCadastro.cbProduto.ItemIndex]);
+
+  if (frmPedidoCadastro.cbProduto.ItemIndex <> -1) then
+  begin
+    frmPedidoCadastro.fdMemTableidproduto.AsInteger :=
+      Integer(frmPedidoCadastro.cbProduto.Items.Objects
+      [frmPedidoCadastro.cbProduto.ItemIndex]);
+  end
+  else
+  begin
+    MessageDlg('Preencha o campo PRODUTO!', mtWarning, [mbOK], 0);
+    frmPedidoCadastro.cbProduto.SetFocus;
+    exit;
+  end;
   frmPedidoCadastro.fdMemTableproduto.AsString :=
     frmPedidoCadastro.cbProduto.Items.Strings
     [frmPedidoCadastro.cbProduto.ItemIndex];
+
+  if (Length(Trim(frmPedidoCadastro.edtQuantidade.Text)) > 0) then
+  begin
   frmPedidoCadastro.fdMemTablequantidade.AsFloat :=
     StrToFloatDef(frmPedidoCadastro.edtQuantidade.Text, 0);
+  end
+  else
+  begin
+    MessageDlg('Preencha o campo QUANTIDADE!', mtWarning, [mbOK], 0);
+    frmPedidoCadastro.edtQuantidade.SetFocus;
+    exit;
+  end;
   frmPedidoCadastro.fdMemTablevalorTotal.AsCurrency :=
     StrToCurrDef(frmPedidoCadastro.edtValor.Text, 0);
   frmPedidoCadastro.fdMemTableobservacao.AsString :=
     frmPedidoCadastro.mObservacaoItensPedido.Text;
 
+  //  if (frmPedidoCadastro.GroupSabores.Enabled = True) then
+//  begin
+//    SetLength(aCheck, 0);
+//    for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+//    begin
+//      if (frmProdutoCadastro.clkSabores.Checked[I]) then
+//      begin
+//        iCont := Length(aCheck);
+//        SetLength(aCheck, iCont + 1);
+//        aCheck[iCont] :=
+//          Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
+//      end;
+//    end;
+//  end
+//  else
+//  begin
+//    for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+//    begin
+//      frmProdutoCadastro.clkSabores.Checked[I] := False;
+//    end;
+//    if (oProdutoDTO.idProduto > 0) then
+//    begin
+//      oProdutoRegra.ExcluirSabores(oProdutoDTO.idProduto, oProdutoModel);
+//    end;
+//  end;
   frmPedidoCadastro.fdMemTable.Post;
   // frmPedidoCadastro.fdMemTable.open;
 end;
