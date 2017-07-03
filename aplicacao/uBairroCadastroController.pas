@@ -152,6 +152,8 @@ begin
   oBairroRegra.LimparDTO(oBairroDTO);
   frmBairroCadastro.cbEstado.ItemIndex := -1;
   frmBairroCadastro.cbMunicipio.Clear;
+  frmBairroCadastro.btnSalvar.Enabled := True;
+  frmBairroCadastro.btnNovo.Enabled := False;
 end;
 
 procedure TBairroCadastroController.Pesquisar(Sender: TObject);
@@ -238,6 +240,8 @@ begin
   begin
     messageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
     oMontarGrid;
+    frmBairroCadastro.btnSalvar.Enabled := False;
+    frmBairroCadastro.btnNovo.Enabled := True;
     exit;
   end;
   // Update False
@@ -251,6 +255,8 @@ begin
   begin
     messageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
     oMontarGrid;
+    frmBairroCadastro.btnSalvar.Enabled := False;
+    frmBairroCadastro.btnNovo.Enabled := True;
     exit;
   end;
   // Insert False

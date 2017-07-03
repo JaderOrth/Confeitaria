@@ -87,6 +87,8 @@ end;
 procedure TUsuarioCadastroController.Novo(Sender: TObject);
 begin
   oUsuarioRegra.LimparDTO(oUsuarioDTO);
+  frmUsuarioCadastro.btnSalvar.Enabled := True;
+  frmUsuarioCadastro.btnNovo.Enabled := False;
 end;
 
 procedure TUsuarioCadastroController.Pesquisar(Sender: TObject);
@@ -123,6 +125,8 @@ begin
   begin
     messageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
     oMontarGrid;
+    frmUsuarioCadastro.btnSalvar.Enabled := False;
+    frmUsuarioCadastro.btnNovo.Enabled := True;
     exit;
   end;
   // Update False
@@ -136,6 +140,8 @@ begin
   begin
     messageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
     oMontarGrid;
+    frmUsuarioCadastro.btnSalvar.Enabled := False;
+    frmUsuarioCadastro.btnNovo.Enabled := True;
     exit;
   end;
   // Insert False
