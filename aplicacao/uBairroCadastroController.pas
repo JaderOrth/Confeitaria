@@ -97,8 +97,6 @@ end;
 
 procedure TBairroCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
-var
-  iEstado: Integer;
 begin
   if (not(Assigned(frmBairroCadastro))) then
     frmBairroCadastro := TfrmBairroCadastro.Create(AOwner);
@@ -111,23 +109,8 @@ begin
 
   if (iId > 0) then
   begin
-    iIdEstado := 0;
     oBairroDTO.idBairro := iId;
-    if (oBairroRegra.SelectUpdate(oBairroDTO, iEstado, oBairroModel)) then
-    begin
-      frmBairroCadastro.edtBairro.Text := oBairroDTO.Descricao;
-      frmBairroCadastro.cbEstado.ItemIndex :=
-        frmBairroCadastro.cbEstado.Items.IndexOfObject(TObject(iEstado));
-      ComboBox(Sender);
-      frmBairroCadastro.cbMunicipio.ItemIndex :=
-        frmBairroCadastro.cbMunicipio.Items.IndexOfObject
-        (TObject(oBairroDTO.IdMunicipio));
-    end
-    else
-    begin
-      MessageDlg('Erro ao retornar os valor do banco!', mtError, [mbOK], 0);
-      exit;
-    end;
+    RetornarValorEdit(Sender);
   end;
 end;
 
@@ -193,8 +176,24 @@ begin
 end;
 
 procedure TBairroCadastroController.RetornarValorEdit(Sender: TObject);
+var
+  iEstado: Integer;
 begin
-
+  if (oBairroRegra.SelectUpdate(oBairroDTO, iEstado, oBairroModel)) then
+  begin
+    frmBairroCadastro.edtBairro.Text := oBairroDTO.Descricao;
+    frmBairroCadastro.cbEstado.ItemIndex :=
+      frmBairroCadastro.cbEstado.Items.IndexOfObject(TObject(iEstado));
+    ComboBox(Sender);
+    frmBairroCadastro.cbMunicipio.ItemIndex :=
+      frmBairroCadastro.cbMunicipio.Items.IndexOfObject
+      (TObject(oBairroDTO.IdMunicipio));
+  end
+  else
+  begin
+    MessageDlg('Erro ao retornar os valor do banco!', mtError, [mbOK], 0);
+    exit;
+  end;
 end;
 
 procedure TBairroCadastroController.Salvar(Sender: TObject);
@@ -214,20 +213,20 @@ begin
   else
     oBairroDTO.IdMunicipio :=
       Integer(frmBairroCadastro.cbMunicipio.Items.Objects
-        [frmBairroCadastro.cbMunicipio.ItemIndex]);
+      [frmBairroCadastro.cbMunicipio.ItemIndex]);
 
   iValidar := oBairroRegra.ValidarEdit(oBairroDTO);
   // descrição
   if (iValidar = 1) then
   begin
-    messageDlg('Preencha o campo DESCRICÃO corretamente!', mtWarning,
+    MessageDlg('Preencha o campo DESCRICÃO corretamente!', mtWarning,
       [mbOK], 0);
     exit;
   end;
   // idMunicipio
   if (iValidar = 2) then
   begin
-    messageDlg('Preencha o campo MUNICÍPIO corretamente!', mtWarning,
+    MessageDlg('Preencha o campo MUNICÍPIO corretamente!', mtWarning,
       [mbOK], 0);
     exit;
   end;
@@ -236,13 +235,13 @@ begin
   // Update False
   if (iSalvar = 1) then
   begin
-    messageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
+    MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     exit;
   end;
   // Insert False
   if (iSalvar = 2) then
   begin
-    messageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
+    MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
   end;
 end;

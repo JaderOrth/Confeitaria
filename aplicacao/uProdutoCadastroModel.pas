@@ -73,27 +73,9 @@ begin
 end;
 
 function TProdutoCadastroModel.ExcluiCheck(const aId: Integer): Boolean;
-var
-  oQuery: TFDQuery;
-  iId: Integer;
 begin
-  Result := False;
-  try
-    oQuery := TFDQuery.Create(nil);
-    oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT id FROM sabores_produto'+
-                ' WHERE idprodutos = '+ IntToStr(aId));
-    if (not(oQuery.IsEmpty)) then
-    begin
-      iId := oQuery.FieldByName('id').AsInteger;
-      Result := oQuery.ExecSQL('DELETE FROM sabores_produto WHERE id = '
-                               + IntToStr(iId))> 0;
-    end;
-  finally
-    if (Assigned(oQuery)) then
-      FreeAndNil(oQuery);
-  end;
-
+  Result := TConexaoSingleton.GetInstancia.ExecSQL
+    ('DELETE FROM sabores_produto WHERE idprodutos = ' + IntToStr(aId)) > 0;
 end;
 
 function TProdutoCadastroModel.Insert(const aProdutoDTO: TProdutoDTO): Boolean;
@@ -120,8 +102,8 @@ begin
   try
     oQuery := TFDQuery.Create(nil);
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT idsabores FROM sabores_produto'+
-                ' WHERE idprodutos = '+ IntToStr(aId));
+    oQuery.Open('SELECT idsabores FROM sabores_produto' + ' WHERE idprodutos = '
+      + IntToStr(aId));
     if (not(oQuery.IsEmpty)) then
     begin
       oQuery.First;
@@ -129,7 +111,7 @@ begin
       while (not(oQuery.Eof)) do
       begin
         icont := Length(aSabor);
-        SetLength(aSabor, icont +1);
+        SetLength(aSabor, icont + 1);
         aSabor[icont] := oQuery.FieldByName('idsabores').AsInteger;
         oQuery.Next;
       end;

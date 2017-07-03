@@ -81,7 +81,7 @@ begin
 
     if (Length(aSabor) > 0) then
     begin
-      for I := 0 to frmProdutoCadastro.clkSabores.Items.Count -1 do
+      for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
       begin
         iCount := Length(aSabor);
         for J := 0 to iCount do
@@ -90,9 +90,9 @@ begin
           iValorArray := aSabor[iCount];
           if (iValorArray = iValor) then
           begin
-            frmProdutoCadastro.clkSabores.Checked[I] := true;
+            frmProdutoCadastro.clkSabores.Checked[I] := True;
           end;
-          iCount := iCount -1;
+          iCount := iCount - 1;
         end;
       end;
     end;
@@ -217,9 +217,6 @@ end;
 
 procedure TBairroCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
-var
-  aIdSabor: TArray<Integer>;
-  iCount, I, J, iValor, iValorArray: Integer;
 begin
   if (not(Assigned(frmProdutoCadastro))) then
     frmProdutoCadastro := TfrmProdutoCadastro.Create(AOwner);
@@ -231,46 +228,7 @@ begin
   if (iId > 0) then
   begin
     oProdutoDTO.idProduto := iId;
-    if (oProdutoRegra.BuscarUpdate(oProdutoDTO, oProdutoModel)) then
-    begin
-      frmProdutoCadastro.edtProduto.Text := oProdutoDTO.descricao;
-      frmProdutoCadastro.edtPreco.Text := CurrToStr(oProdutoDTO.preco);
-
-      if (oProdutoRegra.ValidarSabor(oProdutoDTO.sabor)) then
-        frmProdutoCadastro.ckbSabor.State := cbChecked
-      else
-        frmProdutoCadastro.ckbSabor.State := cbUnchecked;
-
-      frmProdutoCadastro.cbCategoria.ItemIndex :=
-        frmProdutoCadastro.cbCategoria.Items.IndexOfObject
-        (TObject(oProdutoDTO.idcategoria));
-      frmProdutoCadastro.cbUnidadeMedida.ItemIndex :=
-        frmProdutoCadastro.cbUnidadeMedida.Items.IndexOfObject
-        (TObject(oProdutoDTO.unidadeMedida));
-
-      if (oProdutoRegra.RetornarIdSAbor(aIdSabor, iId, oProdutoModel)) then
-      begin
-         for I := 0 to frmProdutoCadastro.clkSabores.Items.Count -1 do
-          begin
-          iCount := Length(aIdSabor);
-          for J := 0 to iCount do
-          begin
-            iValor := Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
-            iValorArray := aIdSabor[iCount];
-            if (iValorArray = iValor) then
-            begin
-              frmProdutoCadastro.clkSabores.Checked[I] := true;
-            end;
-            iCount := iCount -1;
-          end;
-        end;
-      end;
-    end
-    else
-    begin
-      MessageDlg('Erro ao retornar os valor do banco!', mtError, [mbOK], 0);
-      Exit;
-    end;
+    RetornarValorEdit(Sender);
   end;
 end;
 
@@ -311,8 +269,51 @@ begin
 end;
 
 procedure TBairroCadastroController.RetornarValorEdit(Sender: TObject);
+var
+  aIdSabor: TArray<Integer>;
+  iCount, I, J, iValor, iValorArray: Integer;
 begin
+  if (oProdutoRegra.BuscarUpdate(oProdutoDTO, oProdutoModel)) then
+  begin
+    frmProdutoCadastro.edtProduto.Text := oProdutoDTO.descricao;
+    frmProdutoCadastro.edtPreco.Text := CurrToStr(oProdutoDTO.preco);
 
+    if (oProdutoRegra.ValidarSabor(oProdutoDTO.sabor)) then
+      frmProdutoCadastro.ckbSabor.State := cbChecked
+    else
+      frmProdutoCadastro.ckbSabor.State := cbUnchecked;
+
+    frmProdutoCadastro.cbCategoria.ItemIndex :=
+      frmProdutoCadastro.cbCategoria.Items.IndexOfObject
+      (TObject(oProdutoDTO.idcategoria));
+    frmProdutoCadastro.cbUnidadeMedida.ItemIndex :=
+      frmProdutoCadastro.cbUnidadeMedida.Items.IndexOfObject
+      (TObject(oProdutoDTO.unidadeMedida));
+
+    if (oProdutoRegra.RetornarIdSAbor(aIdSabor, oProdutoDTO.idProduto,
+      oProdutoModel)) then
+    begin
+      for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+      begin
+        iCount := Length(aIdSabor);
+        for J := 0 to iCount do
+        begin
+          iValor := Integer(frmProdutoCadastro.clkSabores.Items.Objects[I]);
+          iValorArray := aIdSabor[iCount];
+          if (iValorArray = iValor) then
+          begin
+            frmProdutoCadastro.clkSabores.Checked[I] := True;
+          end;
+          iCount := iCount - 1;
+        end;
+      end;
+    end;
+  end
+  else
+  begin
+    MessageDlg('Erro ao retornar os valor do banco!', mtError, [mbOK], 0);
+    Exit;
+  end;
 end;
 
 procedure TBairroCadastroController.Salvar(Sender: TObject);
@@ -346,6 +347,7 @@ begin
   if (iValidar = 1) then
   begin
     MessageDlg('Preencha o campo PRODUTO corretamente!', mtWarning, [mbOK], 0);
+    frmProdutoCadastro.edtProduto.SetFocus;
     Exit;
   end;
 
@@ -353,6 +355,7 @@ begin
   begin
     MessageDlg('Preencha o campo CATEGORIA corretamente!', mtWarning,
       [mbOK], 0);
+    frmProdutoCadastro.cbCategoria.SetFocus;
     Exit;
   end;
 
@@ -360,12 +363,14 @@ begin
   begin
     MessageDlg('Preencha o campo UNIDADE MEDIDA corretamente!', mtWarning,
       [mbOK], 0);
+    frmProdutoCadastro.cbUnidadeMedida.SetFocus;
     Exit;
   end;
 
   if (iValidar = 4) then
   begin
     MessageDlg('Preencha o campo PREÇO corretamente!', mtWarning, [mbOK], 0);
+    frmProdutoCadastro.edtPreco.SetFocus;
     Exit;
   end;
 
@@ -387,7 +392,11 @@ begin
   begin
     for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
     begin
-      frmProdutoCadastro.clkSabores.Checked[I] := false;
+      frmProdutoCadastro.clkSabores.Checked[I] := False;
+    end;
+    if (oProdutoDTO.idProduto > 0) then
+    begin
+      oProdutoRegra.ExcluirSabores(oProdutoDTO.idProduto, oProdutoModel);
     end;
   end;
 
@@ -398,7 +407,7 @@ begin
     MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     Exit;
   end;
-  // Update do Sabor
+  // Update do Sabor  False
   if (iSalvar = 2) then
   begin
     MessageDlg('Erro ao alterar os sabores do Produto!', mtError, [mbOK], 0);
@@ -410,7 +419,7 @@ begin
     MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     Exit;
   end;
-  // Insert do Sabor
+  // Insert do Sabor False
   if (iSalvar = 4) then
   begin
     MessageDlg('Erro ao salvar os sabores do Produto!', mtError, [mbOK], 0);

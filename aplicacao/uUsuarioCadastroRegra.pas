@@ -37,30 +37,21 @@ end;
 function TUsuarioCadastroRegra.Salvar(const aUsuarioDTO: TUsuarioDTO;
   const aModel: IInterfaceUsuarioCadastroModel): Integer;
 begin
+  Result := 0;
   if (aUsuarioDTO.idUsuario > 0) then
   begin
-    if (aModel.Update(aUsuarioDTO)) then
+    if (not(aModel.Update(aUsuarioDTO))) then
     begin
       Result := 1;
-      exit;
-    end
-    else
-    begin
-      Result := 2;
       exit;
     end;
   end
   else
   begin
     aUsuarioDTO.idUsuario := aModel.BuscarID;
-    if (aModel.Insert(aUsuarioDTO)) then
+    if (not(aModel.Insert(aUsuarioDTO))) then
     begin
-      Result := 3;
-      exit;
-    end
-    else
-    begin
-      Result := 4;
+      Result := 2;
       exit;
     end;
   end;

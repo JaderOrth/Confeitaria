@@ -17,7 +17,6 @@ type
     oClienteDTO: TClienteDTO;
     oClienteModel: TClienteCadastroModel;
     oClienteRegra: TClienteCadastroRegra;
-    iIDAlterar: Integer;
     iIdEstado: Integer;
     procedure ComboBox(Sender: TObject);
     procedure ComboBoxBairro(Sender: TObject);
@@ -149,9 +148,6 @@ end;
 
 procedure TClienteCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
-var
-  iIdMunicipio, iIdEstado: Integer;
-  oCbEstado, oCbMunicipio, oCbBairro: TComboBox;
 begin
   if (not(Assigned(frmCadastroCliente))) then
     frmCadastroCliente := TfrmCadastroCliente.Create(AOwner);
@@ -165,34 +161,8 @@ begin
 
   if (iId > 0) then
   begin
-    iIDAlterar := iId;
     oClienteDTO.IdCliente := iId;
-    if (oClienteRegra.BuscarUpdate(oClienteDTO, iIdMunicipio, iIdEstado,
-      oClienteModel)) then
-    begin
-      frmCadastroCliente.edtNome.Text := oClienteDTO.Nome;
-      frmCadastroCliente.edtEndereco.Text := oClienteDTO.Endereco;
-      frmCadastroCliente.edtNumero.Text := oClienteDTO.Numero;
-      frmCadastroCliente.edtObservacao.Text := oClienteDTO.Observacao;
-      frmCadastroCliente.edtComplemento.Text := oClienteDTO.Complemento;
-      frmCadastroCliente.edtCPFCNPJ.Text := CurrToStr(oClienteDTO.CPF_CNPJ);
-      frmCadastroCliente.edtTelefone.Text := CurrToStr(oClienteDTO.Telefone);
-      frmCadastroCliente.edtCelular.Text := CurrToStr(oClienteDTO.Celular);
-      // selecione o estado no comboBox
-      oCbEstado := frmCadastroCliente.cbEstado;
-      oCbEstado.ItemIndex := oCbEstado.Items.IndexOfObject(TObject(iIdEstado));
-      // monta a grid Municipio
-      ComboBox(Sender);
-      oCbMunicipio := frmCadastroCliente.cbMunicipio;
-      oCbMunicipio.ItemIndex := oCbMunicipio.Items.IndexOfObject
-        (TObject(iIdMunicipio));
-      ComboBoxBairro(Sender);
-      oCbBairro := frmCadastroCliente.cbBairro;
-      oCbBairro.ItemIndex := oCbBairro.Items.IndexOfObject
-        (TObject(oClienteDTO.idBairro));
-    end
-    else
-      raise Exception.Create('Error ao retornar valor do banco de dados!');
+    RetornarValorEdit(Sender);
   end;
 end;
 
@@ -255,8 +225,38 @@ begin
 end;
 
 procedure TClienteCadastroController.RetornarValorEdit(Sender: TObject);
+var
+  iIdMunicipio, iIdEstado: Integer;
 begin
-
+  if (oClienteRegra.BuscarUpdate(oClienteDTO, iIdMunicipio, iIdEstado,
+    oClienteModel)) then
+  begin
+    frmCadastroCliente.edtNome.Text := oClienteDTO.Nome;
+    frmCadastroCliente.edtEndereco.Text := oClienteDTO.Endereco;
+    frmCadastroCliente.edtNumero.Text := oClienteDTO.Numero;
+    frmCadastroCliente.edtObservacao.Text := oClienteDTO.Observacao;
+    frmCadastroCliente.edtComplemento.Text := oClienteDTO.Complemento;
+    frmCadastroCliente.edtCPFCNPJ.Text := CurrToStr(oClienteDTO.CPF_CNPJ);
+    frmCadastroCliente.edtTelefone.Text := CurrToStr(oClienteDTO.Telefone);
+    frmCadastroCliente.edtCelular.Text := CurrToStr(oClienteDTO.Celular);
+    // selecione o estado no comboBox
+    frmCadastroCliente.cbEstado.ItemIndex :=
+      frmCadastroCliente.cbEstado.Items.IndexOfObject(TObject(iIdEstado));
+    // monta a grid Municipio
+    ComboBox(Sender);
+    //seleciona o município no comboBox
+    frmCadastroCliente.cbMunicipio.ItemIndex :=
+      frmCadastroCliente.cbMunicipio.Items.IndexOfObject(TObject(iIdMunicipio));
+    ComboBoxBairro(Sender);
+    frmCadastroCliente.cbBairro.ItemIndex :=
+      frmCadastroCliente.cbBairro.Items.IndexOfObject
+      (TObject(oClienteDTO.idBairro));
+  end
+  else
+  begin
+    MessageDlg('Erro ao trazer o Registro do banco!', mtError, [mbOK], 0);
+    exit;
+  end;
 end;
 
 procedure TClienteCadastroController.Salvar(Sender: TObject);

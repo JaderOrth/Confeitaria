@@ -28,6 +28,8 @@ type
     function ValidarSabor(const Sabor: String): Boolean;
     function RetornarIdSAbor(var aSabor: TArray<Integer>; const aId: integer;
       const aModel: IInterfaceProdutoCadastroModel): Boolean;
+    function ExcluirSabores(const aId: Integer;
+      const aModel: IInterfaceProdutoCadastroModel): Boolean;
   end;
 
 implementation
@@ -60,6 +62,12 @@ begin
   Result := aModel.ComboBoxUnidadeMedida(aLista);
 end;
 
+function TProdutoCadastroRegra.ExcluirSabores(const aId: Integer;
+  const aModel: IInterfaceProdutoCadastroModel): Boolean;
+begin
+  Result := aModel.ExcluiCheck(aId);
+end;
+
 procedure TProdutoCadastroRegra.LimparDTO(aProdutoDTO: TProdutoDTO);
 begin
   aProdutoDTO.idProduto := 0;
@@ -90,14 +98,12 @@ begin
       if (Length(aCheck) <> 0) then
       begin
         //excluir do banco tudo o sabor que esta salvo com o idProduto
-        if (aModel.ExcluiCheck(aProdutoDTO.idProduto)) then
-        begin
+        aModel.ExcluiCheck(aProdutoDTO.idProduto);
         //salva todo os registro novamenete
-         if (not(aModel.SalvarCheck(aCheck, aProdutoDTO.idProduto))) then
-          begin
-            Result := 2;
-            exit;
-          end;
+       if (not(aModel.SalvarCheck(aCheck, aProdutoDTO.idProduto))) then
+        begin
+          Result := 2;
+          exit;
         end;
       end;
     end

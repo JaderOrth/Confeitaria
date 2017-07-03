@@ -5,7 +5,8 @@ interface
 uses
   System.Classes, System.SysUtils, Vcl.StdCtrls, System.UITypes, Vcl.Dialogs,
   System.Generics.Collections,
-  uInterfaceCadastroController, uCategoriasDTO, uCategoriasCadastroModel, uCategoriasCadastroRegra,
+  uInterfaceCadastroController, uCategoriasDTO, uCategoriasCadastroModel,
+  uCategoriasCadastroRegra,
   uCategoriasCadastro;
 
 type
@@ -15,7 +16,6 @@ type
     oCategoriasModel: TCategoriasCadastroModel;
     oCategoriasRegra: TCategoriaCadastroRegra;
     oCategoriasDTO: TCategoriasDTO;
-    iIdAlterar: Integer;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -79,9 +79,7 @@ begin
   if (iId > 0) then
   begin
     oCategoriasDTO.idcategoria := iId;
-    iIdAlterar := iId;
-    oCategoriasRegra.SelectUpdate(oCategoriasDTO, oCategoriasModel);
-    frmCategoriasCadastro.edtCategoria.Text := oCategoriasDTO.descricao;
+    RetornarValorEdit(Sender);
   end;
 end;
 
@@ -92,11 +90,20 @@ end;
 
 procedure TCategoriasCadastroController.Pesquisar(Sender: TObject);
 begin
-
+ {}
 end;
 
 procedure TCategoriasCadastroController.RetornarValorEdit(Sender: TObject);
 begin
+  if (oCategoriasRegra.SelectUpdate(oCategoriasDTO, oCategoriasModel)) then
+  begin
+    frmCategoriasCadastro.edtCategoria.Text := oCategoriasDTO.descricao;
+  end
+  else
+  begin
+    MessageDlg('Erro ao trazer o Registro do banco!', mtError, [mbOK], 0);
+    exit;
+  end;
 
 end;
 
@@ -109,35 +116,23 @@ begin
   // descrição
   if (iValidar = 1) then
   begin
-    messageDlg('Preencha o campo CATEGORIA corretamente!', mtWarning,
+    MessageDlg('Preencha o campo CATEGORIA corretamente!', mtWarning,
       [mbOK], 0);
     frmCategoriasCadastro.edtCategoria.SetFocus;
     exit;
   end;
 
   iSalvar := oCategoriasRegra.Salvar(oCategoriasDTO, oCategoriasModel);
-  // Update True
-  if (iSalvar = 1) then
-  begin
-    messageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
-    exit;
-  end;
   // Update False
   if (iSalvar = 2) then
   begin
-    messageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
-    exit;
-  end;
-  // Insert True
-  if (iSalvar = 3) then
-  begin
-    messageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
+    MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     exit;
   end;
   // Insert False
   if (iSalvar = 4) then
   begin
-    messageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
+    MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
   end;
 end;

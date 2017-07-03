@@ -56,6 +56,7 @@ type
     btnNovoItens: TButton;
     GroupSabores: TGroupBox;
     clkSabores: TCheckListBox;
+    procedure clkSaboresClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,5 +69,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmPedidoCadastro.clkSaboresClick(Sender: TObject);
+begin
+  inherited;
+  clkSabores.Checked[clkSabores.ItemIndex] := not(clkSabores.Checked[clkSabores.ItemIndex]);
+end;
 
 end.

@@ -49,30 +49,21 @@ function TUnidadeMedidaCadastroRegra.Salvar(
   const aUnidadeMedidaDTO: TUnidadeMedidaDTO;
   const aModel: IInterfaceUnidadeMedidaCadastroModel): Integer;
 begin
+  Result := 0;
   if (aUnidadeMedidaDTO.idunidade_medida > 0) then
   begin
-    if (aModel.update(aUnidadeMedidaDTO)) then
+    if (not(aModel.update(aUnidadeMedidaDTO))) then
     begin
       Result := 1;
-      exit;
-    end
-    else
-    begin
-      Result := 2;
       exit;
     end;
   end
   else
   begin
     aUnidadeMedidaDTO.idunidade_medida := aModel.BuscarID;
-    if (aModel.Insert(aUnidadeMedidaDTO)) then
+    if (not(aModel.Insert(aUnidadeMedidaDTO))) then
     begin
-      Result := 3;
-      exit;
-    end
-    else
-    begin
-      Result := 4;
+      Result := 2;
       exit;
     end;
   end;

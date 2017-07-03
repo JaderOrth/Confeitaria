@@ -14,7 +14,6 @@ type
     oSaborModel: TSaborCadastroModel;
     oSaborRegra: TSaborCadastroRegra;
     oSaborDTO: TSaborDTO;
-    iIdAlterar: Integer;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -63,10 +62,7 @@ begin
   if (iId > 0) then
   begin
     oSaborDTO.idsabores := iId;
-    iIdAlterar := iId;
-    oSaborRegra.SelectUpdate(oSaborDTO, oSaborModel);
-    frmSaborCadastro.edtSabor.Text := oSaborDTO.descricao;
-    frmSaborCadastro.edtIngredientes.Text := oSaborDTO.ingredientes;
+    RetornarValorEdit(Sender);
   end;
 end;
 
@@ -95,13 +91,23 @@ end;
 
 procedure TSaborCadastroController.RetornarValorEdit(Sender: TObject);
 begin
-
+  if (oSaborRegra.SelectUpdate(oSaborDTO, oSaborModel)) then
+  begin
+    frmSaborCadastro.edtSabor.Text := oSaborDTO.descricao;
+    frmSaborCadastro.edtIngredientes.Text := oSaborDTO.ingredientes;
+  end
+  else
+  begin
+    MessageDlg('Erro ao retornar os valor do banco!', mtError, [mbOK], 0);
+    Exit;
+  end;
 end;
 
 procedure TSaborCadastroController.Salvar(Sender: TObject);
 var
   iValidar, iSalvar: Integer;
 begin
+  oSaborDTO.ingredientes := frmSaborCadastro.edtIngredientes.Text;
   oSaborDTO.descricao := frmSaborCadastro.edtSabor.Text;
   iValidar := oSaborRegra.ValidarEdit(oSaborDTO);
   // descrição
@@ -112,9 +118,6 @@ begin
     frmSaborCadastro.edtSabor.SetFocus;
     exit;
   end;
-
-  oSaborDTO.ingredientes := frmSaborCadastro.edtIngredientes.Text;
-  iValidar := oSaborRegra.ValidarEdit(oSaborDTO);
   //ingredientes
   if (iValidar = 2) then
   begin
@@ -125,22 +128,10 @@ begin
   end;
 
   iSalvar := oSaborRegra.Salvar(oSaborDTO, oSaborModel);
-  // Update True
-  if (iSalvar = 1) then
-  begin
-    messageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
-    exit;
-  end;
   // Update False
   if (iSalvar = 2) then
   begin
     messageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
-    exit;
-  end;
-  // Insert True
-  if (iSalvar = 3) then
-  begin
-    messageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
     exit;
   end;
   // Insert False

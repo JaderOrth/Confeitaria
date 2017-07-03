@@ -1,25 +1,25 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
   Caption = 'Cadastro do pedido'
   ClientHeight = 509
-  ClientWidth = 821
-  ExplicitWidth = 837
+  ClientWidth = 860
+  ExplicitWidth = 876
   ExplicitHeight = 547
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
     Top = 490
-    Width = 821
+    Width = 860
     ExplicitTop = 490
     ExplicitWidth = 821
   end
   inherited Panel1: TPanel
-    Left = 718
+    Left = 757
     Height = 490
     ExplicitLeft = 718
     ExplicitHeight = 490
   end
   inherited panelCadastro: TPanel
-    Width = 718
+    Width = 757
     Height = 490
     ExplicitWidth = 718
     ExplicitHeight = 490
@@ -32,15 +32,17 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     object PageControlPedido: TPageControl
       Left = 2
       Top = 2
-      Width = 714
+      Width = 753
       Height = 486
       ActivePage = tsItensPedido
       Align = alClient
       TabOrder = 0
+      ExplicitWidth = 714
       object tsPedido: TTabSheet
         Caption = '   &Pedido    '
         DoubleBuffered = False
         ParentDoubleBuffered = False
+        ExplicitWidth = 706
         object Label6: TLabel
           Left = 395
           Top = 55
@@ -214,9 +216,10 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       object tsItensPedido: TTabSheet
         Caption = 'Itens Pedido'
         ImageIndex = 1
+        ExplicitWidth = 706
         object Label7: TLabel
           Left = 14
-          Top = 13
+          Top = 5
           Width = 52
           Height = 16
           Caption = 'Produto*'
@@ -230,7 +233,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
         end
         object cbProduto: TComboBox
           Left = 13
-          Top = 35
+          Top = 24
           Width = 324
           Height = 22
           Style = csOwnerDrawFixed
@@ -239,7 +242,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
         end
         object edtQuantidade: TLabeledEdit
           Left = 367
-          Top = 31
+          Top = 20
           Width = 145
           Height = 24
           EditLabel.Width = 73
@@ -249,7 +252,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
         end
         object edtValor: TLabeledEdit
           Left = 568
-          Top = 35
+          Top = 24
           Width = 122
           Height = 24
           EditLabel.Width = 30
@@ -346,10 +349,10 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           TabOrder = 8
         end
         object GroupSabores: TGroupBox
-          Left = 14
-          Top = 67
-          Width = 317
-          Height = 132
+          Left = 3
+          Top = 46
+          Width = 334
+          Height = 156
           Caption = 'Sabores'
           Enabled = False
           Padding.Left = 10
@@ -357,21 +360,20 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           object clkSabores: TCheckListBox
             Left = 12
             Top = 18
-            Width = 303
-            Height = 112
+            Width = 320
+            Height = 136
             Cursor = crHandPoint
             Align = alClient
             BevelInner = bvNone
             BevelOuter = bvNone
             BorderStyle = bsNone
             Color = clBtnFace
-            Columns = 3
+            Columns = 2
             Sorted = True
             TabOrder = 0
-            ExplicitLeft = 172
-            ExplicitTop = 17
-            ExplicitWidth = 353
-            ExplicitHeight = 159
+            OnClick = clkSaboresClick
+            ExplicitWidth = 303
+            ExplicitHeight = 112
           end
         end
       end
