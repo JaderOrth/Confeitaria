@@ -25,25 +25,7 @@ object frmPrincipal: TfrmPrincipal
     Top = 411
     Width = 766
     Height = 19
-    Panels = <
-      item
-        Bevel = pbNone
-        Text = 'Usu'#225'rio conectado:'
-        Width = 110
-      end
-      item
-        Bevel = pbNone
-        Width = 120
-      end
-      item
-        Bevel = pbNone
-        Text = 'Data e hora da conex'#227'o:'
-        Width = 135
-      end
-      item
-        Bevel = pbNone
-        Width = 150
-      end>
+    Panels = <>
   end
   object Panel1: TPanel
     Left = 0

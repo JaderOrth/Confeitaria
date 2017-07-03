@@ -9,7 +9,8 @@ uses
   uClassConexaoSingleton, uEstadoListagemController, uMunicipioListagemController,
   uBairroListagemController, uClienteListagemController, uUsuarioListagemController,
   uPedidoListagemController, uCategoriasListagemController,
-  uSaborListagemController, uUnidadeMedidaListagemController;
+  uSaborListagemController, uUnidadeMedidaListagemController,
+  Vcl.Imaging.pngimage;
 
 type
   TfrmPrincipal = class(TForm)
