@@ -51,6 +51,7 @@ procedure TPedidoListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmPedido))) then
     exit;
+  oPedidoCadastroController.CloseFormCadastro(Sender);
   frmPedido.Close;
   FreeAndNil(frmPedido);
 end;

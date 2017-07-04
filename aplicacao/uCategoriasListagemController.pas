@@ -70,6 +70,7 @@ procedure TCategoriasListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmCategorias))) then
     exit;
+  oCategoriasCadastroController.CloseFormCadastro(Sender);
   frmCategorias.Close;
   FreeAndNil(frmCategorias);
 end;

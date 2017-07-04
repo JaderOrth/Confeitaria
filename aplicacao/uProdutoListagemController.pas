@@ -49,6 +49,7 @@ procedure TProdutoListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmProduto))) then
     exit;
+  oProdutoCadastroController.CloseFormCadastro(Sender);
   frmProduto.Close;
   FreeAndNil(frmProduto);
 end;

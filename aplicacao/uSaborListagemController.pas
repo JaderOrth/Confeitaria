@@ -49,6 +49,7 @@ procedure TSaborListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmSabor))) then
     exit;
+  oSaborCadastroController.CloseFormCadastro(Sender);
   frmSabor.Close;
   FreeAndNil(frmSabor);
 end;

@@ -49,6 +49,7 @@ procedure TUnidadeMedidaListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmUnidadeMedida))) then
     exit;
+  oUnidadeMedidaCadastroController.CloseFormCadastro(Sender);
   frmUnidadeMedida.Close;
   FreeAndNil(frmUnidadeMedida);
 end;

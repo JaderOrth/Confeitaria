@@ -49,6 +49,7 @@ procedure TMunicipioListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmMunicipio))) then
     exit;
+  oMunicipioCadastroController.CloseFormCadastro(Sender);
   frmMunicipio.Close;
   FreeAndNil(frmMunicipio);
 end;

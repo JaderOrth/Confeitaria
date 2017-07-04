@@ -48,6 +48,7 @@ procedure TBairroListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmBairro))) then
     exit;
+  oBairroCadastroController.CloseFormCadastro(Sender);
   frmBairro.Close;
   FreeAndNil(frmBairro);
 end;
