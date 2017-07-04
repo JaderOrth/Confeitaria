@@ -110,7 +110,10 @@ uses
   uUnidadeMedidaListagemRegra in 'uUnidadeMedidaListagemRegra.pas',
   uUnidadeMedidaCadastroRegra in 'uUnidadeMedidaCadastroRegra.pas',
   uInterfaceUnidadeMedidaCadastroModel in 'uInterfaceUnidadeMedidaCadastroModel.pas',
-  uUnidadeMedidaCadastroModel in 'uUnidadeMedidaCadastroModel.pas';
+  uUnidadeMedidaCadastroModel in 'uUnidadeMedidaCadastroModel.pas',
+  uRelListagemController in 'uRelListagemController.pas',
+  uRelListagemModel in 'uRelListagemModel.pas',
+  uRel in 'uRel.pas' {frmRel};
 
 {$R *.res}
 

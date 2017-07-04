@@ -10,7 +10,8 @@ uses
   uBairroListagemController, uClienteListagemController, uUsuarioListagemController,
   uPedidoListagemController, uCategoriasListagemController,
   uSaborListagemController, uUnidadeMedidaListagemController,
-  Vcl.Imaging.pngimage, frxClass, frxDBSet;
+  Vcl.Imaging.pngimage, frxClass, frxDBSet,
+  uRelListagemController;
 
 type
   TfrmPrincipal = class(TForm)
@@ -40,6 +41,7 @@ type
     btnSair: TSpeedButton;
     Image1: TImage;
     Image2: TImage;
+    Relatrios1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Estado1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -55,6 +57,7 @@ type
     procedure Sabores1Click(Sender: TObject);
     procedure UnidadedeMedida1Click(Sender: TObject);
     procedure Sair1Click(Sender: TObject);
+    procedure Relatrios1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -143,6 +146,13 @@ end;
 procedure TfrmPrincipal.Pedido1Click(Sender: TObject);
 begin
   btnPedidosClick(Sender);
+end;
+
+procedure TfrmPrincipal.Relatrios1Click(Sender: TObject);
+begin
+  if (not(Assigned(TRelListagemController))) then
+    TRelListagemController := TRelListagemController.Create;
+  TRelListagemController.CreateFormListagem(Self);
 end;
 
 procedure TfrmPrincipal.Sabores1Click(Sender: TObject);
