@@ -10,7 +10,7 @@ uses
   uBairroListagemController, uClienteListagemController, uUsuarioListagemController,
   uPedidoListagemController, uCategoriasListagemController,
   uSaborListagemController, uUnidadeMedidaListagemController,
-  Vcl.Imaging.pngimage;
+  Vcl.Imaging.pngimage, frxClass, frxDBSet;
 
 type
   TfrmPrincipal = class(TForm)
@@ -38,6 +38,8 @@ type
     btnProdutos: TSpeedButton;
     btnClientes: TSpeedButton;
     btnSair: TSpeedButton;
+    Image1: TImage;
+    Image2: TImage;
     procedure FormCreate(Sender: TObject);
     procedure Estado1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
