@@ -26,9 +26,9 @@ type
     function BuscarUpdate(var aProdutoDTO: TProdutoDTO;
       const aModel: IInterfaceProdutoCadastroModel): Boolean;
     function ValidarSabor(const Sabor: String): Boolean;
-    function RetornarIdSAbor(var aSabor: TArray<Integer>; const aId: integer;
+    function RetornarIdSAbor(var aSabor: TArray<integer>; const aId: integer;
       const aModel: IInterfaceProdutoCadastroModel): Boolean;
-    function ExcluirSabores(const aId: Integer;
+    function ExcluirSabores(const aId: integer;
       const aModel: IInterfaceProdutoCadastroModel): Boolean;
   end;
 
@@ -62,7 +62,7 @@ begin
   Result := aModel.ComboBoxUnidadeMedida(aLista);
 end;
 
-function TProdutoCadastroRegra.ExcluirSabores(const aId: Integer;
+function TProdutoCadastroRegra.ExcluirSabores(const aId: integer;
   const aModel: IInterfaceProdutoCadastroModel): Boolean;
 begin
   Result := aModel.ExcluiCheck(aId);
@@ -72,13 +72,13 @@ procedure TProdutoCadastroRegra.LimparDTO(aProdutoDTO: TProdutoDTO);
 begin
   aProdutoDTO.idProduto := 0;
   aProdutoDTO.descricao := EmptyStr;
-  aProdutoDTO.preco := 0;
+  aProdutoDTO.preco := EmptyStr;
   aProdutoDTO.Sabor := EmptyStr;
   aProdutoDTO.idCategoria := 0;
   aProdutoDTO.unidadeMedida := 0;
 end;
 
-function TProdutoCadastroRegra.RetornarIdSAbor(var aSabor: TArray<Integer>;
+function TProdutoCadastroRegra.RetornarIdSAbor(var aSabor: TArray<integer>;
   const aId: integer; const aModel: IInterfaceProdutoCadastroModel): Boolean;
 begin
   Result := aModel.RetornarIdSAbor(aSabor, aId);
@@ -89,18 +89,18 @@ function TProdutoCadastroRegra.Salvar(const aProdutoDTO: TProdutoDTO;
   const aModel: IInterfaceProdutoCadastroModel): integer;
 begin
   Result := 0;
-  //Editar
+  // Editar
   if (aProdutoDTO.idProduto > 0) then
   begin
-    //salva o produto
+    // salva o produto
     if (aModel.Update(aProdutoDTO)) then
     begin
       if (Length(aCheck) <> 0) then
       begin
-        //excluir do banco tudo o sabor que esta salvo com o idProduto
+        // excluir do banco tudo o sabor que esta salvo com o idProduto
         aModel.ExcluiCheck(aProdutoDTO.idProduto);
-        //salva todo os registro novamenete
-       if (not(aModel.SalvarCheck(aCheck, aProdutoDTO.idProduto))) then
+        // salva todo os registro novamenete
+        if (not(aModel.SalvarCheck(aCheck, aProdutoDTO.idProduto))) then
         begin
           Result := 2;
           exit;
@@ -114,7 +114,7 @@ begin
     end;
   end;
 
-  //Salvar
+  // Salvar
   if (aProdutoDTO.idProduto = 0) then
   begin
     aProdutoDTO.idProduto := aModel.BuscarID;
@@ -159,7 +159,7 @@ begin
     exit;
   end;
 
-  if (aProdutoDTO.preco = 0) then
+  if (aProdutoDTO.preco = '') then
   begin
     Result := 4;
     exit;

@@ -25,7 +25,7 @@ type
       const aModel: IInterfaceClienteModel): Boolean;
     function CheckSabor(var aLista: TSaborListaHash;
       const aModel: IInterfaceSaborListagemModel): Boolean;
-    function ValidarCamposItensPedido(const aId: Integer;
+    function ValidarCamposItensPedido(const aId: Integer; out aValor: Double;
       const aModel: IInterfacePedidoCadastroModel): Boolean;
     function ValidarSalvar(const aPedidoDTO: TPedidoDTO): Integer;
   end;
@@ -71,12 +71,12 @@ begin
 end;
 
 function TPedidoCadastroRegra.ValidarCamposItensPedido(const aId: Integer;
-  const aModel: IInterfacePedidoCadastroModel): Boolean;
+  out aValor: Double; const aModel: IInterfacePedidoCadastroModel): Boolean;
 var
   sSabor: String;
 begin
   Result := False;
-  if (aModel.ValidarCamposItensPedido(aId, sSabor)) then
+  if (aModel.ValidarCamposItensPedido(aId, sSabor, aValor)) then
   begin
     if (sSabor = 'S') then
       Result := True;

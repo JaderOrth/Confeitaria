@@ -10,7 +10,7 @@ type
   TPedidoCadastroModel = class(TInterfacedObject, IInterfacePedidoCadastroModel)
   public
     function ValidarCamposItensPedido(const aId: Integer;
-      out sSabor: String): Boolean;
+      out sSabor: String; out aValor: Double): Boolean;
 
   end;
 
@@ -21,7 +21,7 @@ implementation
 { TPedidoCadastroModel }
 
 function TPedidoCadastroModel.ValidarCamposItensPedido
-  (const aId: Integer; out sSabor: String): Boolean;
+  (const aId: Integer; out sSabor: String; out aValor: Double): Boolean;
 var
   oQuery: TFDQuery;
 begin
@@ -29,10 +29,11 @@ begin
   try
     oQuery := TFDQuery.Create(nil);
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT sabor FROM produtos WHERE idprodutos = '+ IntToStr(aId));
+    oQuery.Open('SELECT sabor, preco FROM produtos WHERE idprodutos = '+ IntToStr(aId));
     if (not(oQuery.IsEmpty)) then
     begin
       sSabor := oQuery.FieldByName('sabor').AsString;
+      aValor := oQuery.FieldByName('preco').AsFloat;
       Result := True;
     end;
   finally

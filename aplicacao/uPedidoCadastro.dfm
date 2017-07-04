@@ -1,5 +1,5 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
-  ActiveControl = cbProduto
+  ActiveControl = cbEstado
   Caption = 'Cadastro do pedido'
   ClientHeight = 502
   ClientWidth = 824
@@ -52,7 +52,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       Top = 0
       Width = 721
       Height = 483
-      ActivePage = tsItensPedido
+      ActivePage = tsPedido
       Align = alClient
       TabOrder = 0
       object tsPedido: TTabSheet
@@ -60,7 +60,6 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
         DoubleBuffered = False
         ImageIndex = 1
         ParentDoubleBuffered = False
-        ExplicitTop = 25
         object xx: TLabel
           Left = 416
           Top = 247
@@ -277,8 +276,6 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       end
       object tsItensPedido: TTabSheet
         Caption = 'Itens Pedido'
-        ExplicitLeft = -116
-        ExplicitTop = 187
         object GroupBox4: TGroupBox
           Left = 12
           Top = 13
@@ -529,35 +526,24 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
             Sorted = True
             TabOrder = 0
           end
-          object edtQuantidade: TLabeledEdit
-            Left = 314
-            Top = 41
-            Width = 113
-            Height = 24
-            EditLabel.Width = 73
-            EditLabel.Height = 16
-            EditLabel.Caption = 'Quantidade*'
-            NumbersOnly = True
-            TabOrder = 1
-          end
           object edtValor: TLabeledEdit
-            Left = 446
+            Left = 483
             Top = 41
-            Width = 122
+            Width = 85
             Height = 24
             Color = clBtnFace
             EditLabel.Width = 30
             EditLabel.Height = 16
             EditLabel.Caption = 'Valor'
             Enabled = False
-            TabOrder = 4
+            TabOrder = 3
           end
           object mObservacaoItensPedido: TMemo
             Left = 314
             Top = 95
             Width = 254
             Height = 129
-            TabOrder = 3
+            TabOrder = 2
           end
           object GroupSabores: TGroupBox
             Left = 18
@@ -567,7 +553,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
             Caption = '  Sabores  '
             Enabled = False
             Padding.Left = 10
-            TabOrder = 2
+            TabOrder = 1
             object clkSabores: TCheckListBox
               Left = 12
               Top = 18
@@ -583,7 +569,6 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
               Sorted = True
               TabOrder = 0
               OnClick = clkSaboresClick
-              ExplicitHeight = 123
             end
           end
           object dbItensListagem: TDBGrid
@@ -594,7 +579,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
             Cursor = crHandPoint
             DataSource = DataSource
             Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-            TabOrder = 5
+            TabOrder = 4
             TitleFont.Charset = DEFAULT_CHARSET
             TitleFont.Color = clWindowText
             TitleFont.Height = -13
@@ -611,7 +596,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
                 FieldName = 'produto'
                 Title.Alignment = taCenter
                 Title.Caption = 'Produto'
-                Width = 417
+                Width = 357
                 Visible = True
               end
               item
@@ -619,15 +604,21 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
                 FieldName = 'quantidade'
                 Title.Alignment = taCenter
                 Title.Caption = 'Quantidade'
-                Width = 84
+                Width = 124
                 Visible = True
+              end
+              item
+                Alignment = taCenter
+                FieldName = 'sabores'
+                Title.Alignment = taCenter
+                Visible = False
               end
               item
                 Expanded = False
                 FieldName = 'valorTotal'
                 Title.Alignment = taCenter
                 Title.Caption = 'Valor'
-                Width = 105
+                Width = 127
                 Visible = True
               end
               item
@@ -637,6 +628,26 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
                 Title.Caption = 'Observa'#231#227'o'
                 Visible = False
               end>
+          end
+          object edtValorUnitario: TLabeledEdit
+            Left = 392
+            Top = 41
+            Width = 85
+            Height = 24
+            EditLabel.Width = 30
+            EditLabel.Height = 16
+            EditLabel.Caption = 'Valor'
+            TabOrder = 5
+          end
+          object edtQuantidade: TLabeledEdit
+            Left = 316
+            Top = 41
+            Width = 68
+            Height = 24
+            EditLabel.Width = 73
+            EditLabel.Height = 16
+            EditLabel.Caption = 'Quantidade*'
+            TabOrder = 6
           end
         end
       end
@@ -671,8 +682,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     object fdMemTablevalorTotal: TCurrencyField
       FieldName = 'valorTotal'
     end
-    object fdMemTableteste: TIntegerField
-      FieldName = 'teste'
+    object fdMemTablesabores: TArrayField
+      FieldName = 'sabores'
     end
   end
   object DataSource: TDataSource

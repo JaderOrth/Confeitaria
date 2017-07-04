@@ -24,10 +24,19 @@ inherited frmPedido: TfrmPedido
       item
         Alignment = taCenter
         Expanded = False
-        FieldName = 'datahora_entrega'
+        FieldName = 'data_entrega'
         Title.Alignment = taCenter
-        Title.Caption = 'Entrega Hora e Data'
-        Width = 140
+        Title.Caption = 'Data'
+        Width = 77
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'hora_entrega'
+        Title.Alignment = taCenter
+        Title.Caption = 'Hora '
+        Width = 82
         Visible = True
       end
       item

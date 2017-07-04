@@ -50,7 +50,6 @@ type
     GroupBox4: TGroupBox;
     Label7: TLabel;
     cbProduto: TComboBox;
-    edtQuantidade: TLabeledEdit;
     edtValor: TLabeledEdit;
     mObservacaoItensPedido: TMemo;
     Label8: TLabel;
@@ -62,7 +61,9 @@ type
     btnSalvarItens: TSpeedButton;
     btnEditarItens: TSpeedButton;
     btnExcluiItens: TSpeedButton;
-    fdMemTableteste: TIntegerField;
+    edtValorUnitario: TLabeledEdit;
+    edtQuantidade: TLabeledEdit;
+    fdMemTablesabores: TArrayField;
     procedure clkSaboresClick(Sender: TObject);
   private
     { Private declarations }

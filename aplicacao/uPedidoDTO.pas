@@ -14,7 +14,7 @@ type
     FdataPedido: TDate;
     FentregaEndereco: String;
     FidUsuario: Integer;
-    FdataHoraEntrega: TDateTime;
+    FdataEntrega: TDateTime;
     FresponsavelPedido: String;
     FidBairro: Integer;
     FtotalPedido: Currency;
@@ -22,9 +22,10 @@ type
     FentregaNumero: String;
     FidCliente: Integer;
     FentregaComplemento: String;
+    FhoraEntrega: TTime;
     FitensPedido: TItensPedidoListaHash;
 
-    procedure SetdataHoraEntrega(const Value: TDateTime);
+    procedure SetdataEntrega(const Value: TDateTime);
     procedure SetdataPedido(const Value: TDate);
     procedure SetentregaComplemento(const Value: String);
     procedure SetentregaEndereco(const Value: String);
@@ -36,12 +37,13 @@ type
     procedure Setobservacao(const Value: String);
     procedure SetresponsavelPedido(const Value: String);
     procedure SettotalPedido(const Value: Currency);
+    procedure SethoraEntrega(const Value: TTime);
     procedure SetitensPedido(const Value: TItensPedidoListaHash);
   public
     property idPedido: Integer read FidPedido write SetidPedido;
     property dataPedido: TDate read FdataPedido write SetdataPedido;
-    property dataHoraEntrega: TDateTime read FdataHoraEntrega
-      write SetdataHoraEntrega;
+    property dataEntrega: TDateTime read FdataEntrega
+      write SetdataEntrega;
     property observacao: String read Fobservacao write Setobservacao;
     property totalPedido: Currency read FtotalPedido write SettotalPedido;
     property idCliente: Integer read FidCliente write SetidCliente;
@@ -54,6 +56,7 @@ type
     property responsavelPedido: String read FresponsavelPedido
       write SetresponsavelPedido;
     property idUsuario: Integer read FidUsuario write SetidUsuario;
+    property horaEntrega: TTime read FhoraEntrega write SethoraEntrega;
     property ItensPedido: TItensPedidoListaHash read FitensPedido
       write SetitensPedido;
 
@@ -77,9 +80,9 @@ begin
   inherited;
 end;
 
-procedure TPedidoDTO.SetdataHoraEntrega(const Value: TDateTime);
+procedure TPedidoDTO.SetdataEntrega(const Value: TDateTime);
 begin
-  FdataHoraEntrega := Value;
+  FdataEntrega := Value;
 end;
 
 procedure TPedidoDTO.SetdataPedido(const Value: TDate);
@@ -100,6 +103,11 @@ end;
 procedure TPedidoDTO.SetentregaNumero(const Value: String);
 begin
   FentregaNumero := Value;
+end;
+
+procedure TPedidoDTO.SethoraEntrega(const Value: TTime);
+begin
+  FhoraEntrega := Value;
 end;
 
 procedure TPedidoDTO.SetidBairro(const Value: Integer);

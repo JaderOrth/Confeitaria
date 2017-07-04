@@ -293,7 +293,7 @@ begin
   if (oProdutoRegra.BuscarUpdate(oProdutoDTO, oProdutoModel)) then
   begin
     frmProdutoCadastro.edtProduto.Text := oProdutoDTO.descricao;
-    frmProdutoCadastro.edtPreco.Text := CurrToStr(oProdutoDTO.preco);
+    frmProdutoCadastro.edtPreco.Text := oProdutoDTO.preco;
 
     if (oProdutoRegra.ValidarSabor(oProdutoDTO.sabor)) then
       frmProdutoCadastro.ckbSabor.State := cbChecked
@@ -337,9 +337,11 @@ procedure TBairroCadastroController.Salvar(Sender: TObject);
 var
   iValidar, iSalvar, I, iCont: Integer;
   aCheck: array of Integer;
+  sValor: String;
 begin
   oProdutoDTO.descricao := frmProdutoCadastro.edtProduto.Text;
-  oProdutoDTO.preco := StrToCurrDef(frmProdutoCadastro.edtPreco.Text, 0);
+  oProdutoDTO.preco := StringReplace(frmProdutoCadastro.edtPreco.Text,
+    ',', '.', [rfReplaceAll]);
   oProdutoDTO.sabor := ifthen(frmProdutoCadastro.ckbSabor.Checked, 'S', 'N');
   if (frmProdutoCadastro.cbCategoria.ItemIndex <> -1) then
   begin
@@ -417,6 +419,10 @@ begin
     end;
   end;
 
+
+ // sValor := CurrToStr(oProdutoDTO.preco);
+  //if (oProdutoRegra.ValidarPreco(sValor)) then
+   // oProdutoDTO.preco := StrToFloat(sValor);
   iSalvar := oProdutoRegra.Salvar(oProdutoDTO, aCheck, oProdutoModel);
   // Update False
   if (iSalvar = 1) then

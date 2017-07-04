@@ -47,6 +47,7 @@ procedure TEstadoListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmEstado))) then
     exit;
+  oEstadoCadastroController.CloseFormCadastro(Sender);
   frmEstado.Close;
   FreeAndNil(frmEstado);
 end;

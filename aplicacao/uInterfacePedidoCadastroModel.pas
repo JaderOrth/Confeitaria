@@ -4,8 +4,9 @@ interface
 
 type
   IInterfacePedidoCadastroModel = interface
-    function ValidarCamposItensPedido(const aId: Integer;
-      out sSabor: String): Boolean;
+    function ValidarCamposItensPedido(const aId: Integer; out sSabor: String;
+      out aValor: Double): Boolean;
+
   end;
 
 implementation
