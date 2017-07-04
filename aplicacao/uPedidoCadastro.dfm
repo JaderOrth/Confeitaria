@@ -1,5 +1,5 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
-  ActiveControl = cbCliente
+  ActiveControl = cbProduto
   Caption = 'Cadastro do pedido'
   ClientHeight = 502
   ClientWidth = 824
@@ -52,7 +52,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       Top = 0
       Width = 721
       Height = 483
-      ActivePage = tsPedido
+      ActivePage = tsItensPedido
       Align = alClient
       TabOrder = 0
       object tsPedido: TTabSheet
@@ -670,6 +670,9 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     end
     object fdMemTablevalorTotal: TCurrencyField
       FieldName = 'valorTotal'
+    end
+    object fdMemTableteste: TIntegerField
+      FieldName = 'teste'
     end
   end
   object DataSource: TDataSource

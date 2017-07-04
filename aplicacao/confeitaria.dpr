@@ -125,7 +125,9 @@ uses
   uUnidadeMedidaListaHash in 'uUnidadeMedidaListaHash.pas',
   uSaborListaHash in 'uSaborListaHash.pas',
   uPedidoCadastroModel in 'uPedidoCadastroModel.pas',
-  uProdutoListaHash in 'uProdutoListaHash.pas';
+  uProdutoListaHash in 'uProdutoListaHash.pas',
+  uIntensPedidoDTO in 'uIntensPedidoDTO.pas',
+  uITensPedidoListaHash in 'uITensPedidoListaHash.pas';
 
 {$R *.res}
 

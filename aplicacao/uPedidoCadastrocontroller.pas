@@ -485,13 +485,14 @@ begin
   else
     oPedidoDTO.idBairro :=  -1;
   if (frmPedidoCadastro.dtDataPedido.Date > 0) then
-     oPedidoDTO.dataPedido := frmPedidoCadastro.dtDataPedido.Date
+     oPedidoDTO.dataPedido := frmPedidoCadastro.dtDataPedido.Date;
+  if (frmPedidoCadastro.dtDataEntrega.Date > 0) then
+    oPedidoDTO.dataHoraEntrega := frmPedidoCadastro.dtDataEntrega.Date
   else
   begin
-
+    MessageDlg('Informe data de entrega corretamente!', mtWarning, [mbOK], 0);
+    exit;
   end;
-  if (frmPedidoCadastro.dtDataEntrega.Date > 0) then
-    oPedidoDTO.dataHoraEntrega := frmPedidoCadastro.dtDataEntrega.Date;
   oPedidoDTO.observacao := frmPedidoCadastro.mObservacao.Text;
   oPedidoDTO.totalPedido := StrToCurrDef(frmPedidoCadastro.edtTotalPedido.Text, 0);
   oPedidoDTO.idUsuario := 1;

@@ -62,6 +62,7 @@ type
     btnSalvarItens: TSpeedButton;
     btnEditarItens: TSpeedButton;
     btnExcluiItens: TSpeedButton;
+    fdMemTableteste: TIntegerField;
     procedure clkSaboresClick(Sender: TObject);
   private
     { Private declarations }

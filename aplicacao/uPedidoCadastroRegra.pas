@@ -88,8 +88,6 @@ function TPedidoCadastroRegra.ValidarSalvar(const aPedidoDTO
   : TPedidoDTO): Integer;
 begin
   Result := 0;
-
-//  if (Length(aPedidoDTO.dataHoraEntrega) = 0) then
   
 end;
 

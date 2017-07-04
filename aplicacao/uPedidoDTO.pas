@@ -2,6 +2,11 @@ unit uPedidoDTO;
 
 interface
 
+uses
+  uITensPedidoListaHash, System.Classes, System.SysUtils, Vcl.StdCtrls,
+  System.UITypes, Vcl.Dialogs,
+  System.Generics.Collections, Vcl.Controls;
+
 type
   TPedidoDTO = class
   private
@@ -17,6 +22,8 @@ type
     FentregaNumero: String;
     FidCliente: Integer;
     FentregaComplemento: String;
+    FitensPedido: TItensPedidoListaHash;
+
     procedure SetdataHoraEntrega(const Value: TDateTime);
     procedure SetdataPedido(const Value: TDate);
     procedure SetentregaComplemento(const Value: String);
@@ -29,24 +36,46 @@ type
     procedure Setobservacao(const Value: String);
     procedure SetresponsavelPedido(const Value: String);
     procedure SettotalPedido(const Value: Currency);
+    procedure SetitensPedido(const Value: TItensPedidoListaHash);
   public
     property idPedido: Integer read FidPedido write SetidPedido;
     property dataPedido: TDate read FdataPedido write SetdataPedido;
-    property dataHoraEntrega: TDateTime read FdataHoraEntrega write SetdataHoraEntrega;
+    property dataHoraEntrega: TDateTime read FdataHoraEntrega
+      write SetdataHoraEntrega;
     property observacao: String read Fobservacao write Setobservacao;
     property totalPedido: Currency read FtotalPedido write SettotalPedido;
     property idCliente: Integer read FidCliente write SetidCliente;
-    property entregaEndereco: String read FentregaEndereco write SetentregaEndereco;
+    property entregaEndereco: String read FentregaEndereco
+      write SetentregaEndereco;
     property entregaNumero: String read FentregaNumero write SetentregaNumero;
-    property entregaComplemento: String read FentregaComplemento write SetentregaComplemento;
+    property entregaComplemento: String read FentregaComplemento
+      write SetentregaComplemento;
     property idBairro: Integer read FidBairro write SetidBairro;
-    property responsavelPedido: String read FresponsavelPedido write SetresponsavelPedido;
+    property responsavelPedido: String read FresponsavelPedido
+      write SetresponsavelPedido;
     property idUsuario: Integer read FidUsuario write SetidUsuario;
+    property ItensPedido: TItensPedidoListaHash read FitensPedido
+      write SetitensPedido;
+
+    constructor Create;
+    destructor Destroy; override;
   end;
 
 implementation
 
 { TPedidoDTO }
+
+constructor TPedidoDTO.Create;
+begin
+  FitensPedido := TItensPedidoListaHash.Create([doOwnsValues]);
+end;
+
+destructor TPedidoDTO.Destroy;
+begin
+  if (Assigned(FitensPedido)) then
+    FreeAndNil(FitensPedido);
+  inherited;
+end;
 
 procedure TPedidoDTO.SetdataHoraEntrega(const Value: TDateTime);
 begin
@@ -91,6 +120,11 @@ end;
 procedure TPedidoDTO.SetidUsuario(const Value: Integer);
 begin
   FidUsuario := Value;
+end;
+
+procedure TPedidoDTO.SetitensPedido(const Value: TItensPedidoListaHash);
+begin
+  FitensPedido := Value;
 end;
 
 procedure TPedidoDTO.Setobservacao(const Value: String);
