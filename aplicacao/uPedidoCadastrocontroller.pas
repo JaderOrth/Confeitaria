@@ -22,6 +22,7 @@ type
     oPedidoModel: TPedidoCadastroModel;
     oItensPedidoDTO: TItensPedidoDTO;
     iIdEstado, iIDProduto: Integer;
+    dEditarValorTotal: Double;
     procedure SalvarItens(Sender: TObject);
     procedure ExcluirItens(Sender: TObject);
     procedure EditarItens(Sender: TObject);
@@ -299,7 +300,7 @@ begin
   oPedidoDTO := TPedidoDTO.Create;
   oPedidoRegra := TPedidoCadastroRegra.Create;
   oPedidoModel := TPedidoCadastroModel.Create;
-   oItensPedidoDTO := TItensPedidoDTO.Create;
+  oItensPedidoDTO := TItensPedidoDTO.Create;
 end;
 
 procedure TPedidoCadastroController.CreateFormCadastro(AOwner: TComponent;
@@ -361,9 +362,9 @@ begin
     frmPedidoCadastro.edtValor.Text :=
       CurrToStr(frmPedidoCadastro.fdMemTable.FieldByName('valorTotal')
       .AsCurrency);
-    frmPedidoCadastro.edtQuantidade.Text :=
-      FloatToStr(frmPedidoCadastro.fdMemTable.FieldByName('quantidade')
-      .AsFloat);
+    dEditarValorTotal := frmPedidoCadastro.fdMemTable.FieldByName
+      ('quantidade').AsFloat;
+    frmPedidoCadastro.edtQuantidade.Text := FloatToStr(dEditarValorTotal);
     frmPedidoCadastro.mObservacaoItensPedido.Text :=
       frmPedidoCadastro.fdMemTable.FieldByName('observacao').AsString;
 
@@ -473,13 +474,14 @@ end;
 
 procedure TPedidoCadastroController.Salvar(Sender: TObject);
 var
-  iIdEstadoValidar: Integer;
+  iIdEstadoValidar, iValidar, iSalvar: Integer;
 begin
-  //Responsavel pedido
+  // Responsavel pedido
   oPedidoDTO.responsavelPedido := frmPedidoCadastro.edtResponsavelPedido.Text;
-  //validação se ele informou certo o o bairro
-  iIdEstadoValidar := Integer(frmPedidoCadastro.cbEstado.Items.Objects
-    [frmPedidoCadastro.cbEstado.ItemIndex]);
+  // validação se ele informou certo o o bairro
+  if (frmPedidoCadastro.cbEstado.ItemIndex <> -1) then
+    iIdEstadoValidar := Integer(frmPedidoCadastro.cbEstado.Items.Objects
+      [frmPedidoCadastro.cbEstado.ItemIndex]);
   if (iIdEstado <> iIdEstadoValidar) then
   begin
     frmPedidoCadastro.cbMunicipio.Items.Clear;
@@ -495,10 +497,10 @@ begin
   end
   else
     oPedidoDTO.idBairro := -1;
-  //data do pedido
+  // data do pedido
   if (frmPedidoCadastro.dtDataPedido.Date > 0) then
     oPedidoDTO.dataPedido := frmPedidoCadastro.dtDataPedido.Date;
-  //data de entrega
+  // data de entrega
   if (frmPedidoCadastro.dtDataEntrega.Date > 0) then
     oPedidoDTO.dataEntrega := frmPedidoCadastro.dtDataEntrega.Date
   else
@@ -506,7 +508,7 @@ begin
     MessageDlg('Informe data de entrega corretamente!', mtWarning, [mbOK], 0);
     exit;
   end;
-  //hora da entrega
+  // hora da entrega
   if (frmPedidoCadastro.dtHoraEntrega.Time > 0) then
     oPedidoDTO.horaEntrega := frmPedidoCadastro.dtHoraEntrega.Time
   else
@@ -514,50 +516,89 @@ begin
     MessageDlg('Informe data de entrega corretamente!', mtWarning, [mbOK], 0);
     exit;
   end;
-  //observações do pedido
+  // observações do pedido
   oPedidoDTO.observacao := frmPedidoCadastro.mObservacao.Text;
-  //Valor total do pedido
+  // Valor total do pedido
   oPedidoDTO.totalPedido :=
     StrToCurrDef(frmPedidoCadastro.edtTotalPedido.Text, 0);
-    //id usuario
+  // id usuario
   oPedidoDTO.idUsuario := 1;
-  //Endereço de entrega
+  // Endereço de entrega
   oPedidoDTO.entregaEndereco := frmPedidoCadastro.edtEnderecoEntrega.Text;
-  //número da casa
+  // número da casa
   oPedidoDTO.entregaNumero := frmPedidoCadastro.edtNumeroEntrega.Text;
-  //complemento da entrega
+  // complemento da entrega
   oPedidoDTO.entregaComplemento := frmPedidoCadastro.edtComplemento.Text;
-  //nome do cliente
+  // nome do cliente
   if (frmPedidoCadastro.cbCliente.ItemIndex <> -1) then
   begin
     oPedidoDTO.IdCliente := Integer(frmPedidoCadastro.cbCliente.Items.Objects
       [frmPedidoCadastro.cbCliente.ItemIndex]);
   end
   else
-    oPedidoDTO.idCliente := -1;
+    oPedidoDTO.IdCliente := -1;
 
+  // validar os campos antes de salvar
+  iValidar := oPedidoRegra.ValidarSalvar(oPedidoDTO);
+  if (iValidar = 1) then
+  begin
+    MessageDlg('Preencha o campo Nome corretamente!', mtWarning, [mbOK], 0);
+    exit;
+  end;
+  if (iValidar = 2) then
+  begin
+    MessageDlg('Preencha o campo Responsavel pelo Pedido corretamente!',
+      mtWarning, [mbOK], 0);
+    exit;
+  end;
+  if (iValidar = 3) then
+  begin
+    MessageDlg('Preencha o campo Bairro corretamente!', mtWarning, [mbOK], 0);
+    exit;
+  end;
+  if (iValidar = 4) then
+  begin
+    MessageDlg('Preencha o campo Rua corretamente!', mtWarning, [mbOK], 0);
+    exit;
+  end;
+  if (iValidar = 5) then
+  begin
+    MessageDlg('Preencha o campo Número de entrega corretamente!', mtWarning,
+      [mbOK], 0);
+    exit;
+  end;
+  if (iValidar = 6) then
+  begin
+    MessageDlg('Erro ao Valor do Pedido!', mtError, [mbOK], 0);
+    exit;
+  end;
+  iSalvar := oPedidoRegra.SalvarPedido(oPedidoDTO, oPedidoModel);
 
 end;
 
 procedure TPedidoCadastroController.SalvarItens(Sender: TObject);
 var
-  dQuantidade, dValor, dResultado: Double;
+  dValorUnitario, dValorTotal, dEditarValor: Double;
   I, iCont: Integer;
-  aCheck: array of integer;
+  aCheck: array of Integer;
 begin
   // adiciona valor no memTable e irá mostrar na grid
   if (iIDProduto > 0) then
   begin
     frmPedidoCadastro.fdMemTable.Edit;
+    dEditarValor := StrToFloatDef(frmPedidoCadastro.edtTotalPedido.Text, 0);
+    dEditarValor := dEditarValor - dEditarValorTotal;
+    frmPedidoCadastro.edtTotalPedido.Text := FloatToStr(dEditarValor);
   end
   else
   begin
     frmPedidoCadastro.fdMemTable.insert;
   end;
 
+  // Validação se o usuário preencheu o campo produto
   if (frmPedidoCadastro.cbProduto.ItemIndex <> -1) then
   begin
-    frmPedidoCadastro.fdMemTableidproduto.AsInteger :=
+    oItensPedidoDTO.idProduto :=
       Integer(frmPedidoCadastro.cbProduto.Items.Objects
       [frmPedidoCadastro.cbProduto.ItemIndex]);
   end
@@ -567,24 +608,32 @@ begin
     frmPedidoCadastro.cbProduto.SetFocus;
     exit;
   end;
+
+  frmPedidoCadastro.fdMemTableidproduto.AsInteger := oItensPedidoDTO.idProduto;
+
+  // nome do produto para mostrar no Memtable
   frmPedidoCadastro.fdMemTableproduto.AsString :=
     frmPedidoCadastro.cbProduto.Items.Strings
     [frmPedidoCadastro.cbProduto.ItemIndex];
-  //calculo de valor do produto
-  dValor := StrToFloatDef(frmPedidoCadastro.edtValorUnitario.Text, 0);
-  dQuantidade := StrToFloatDef(frmPedidoCadastro.edtQuantidade.Text, 0);
-  dResultado := dValor * dQuantidade;
-  frmPedidoCadastro.edtValor.Text := FloatToStr(dResultado);
-  frmPedidoCadastro.fdMemTablequantidade.AsFloat := dQuantidade;
+  // calculo de valor do produto
+  dValorUnitario := StrToFloatDef(frmPedidoCadastro.edtValorUnitario.Text, 0);
+  oItensPedidoDTO.quantidade :=
+    StrToFloatDef(frmPedidoCadastro.edtQuantidade.Text, 0);
+  oItensPedidoDTO.valorTotal := dValorUnitario * oItensPedidoDTO.quantidade;
+  frmPedidoCadastro.edtValor.Text := FloatToStr(oItensPedidoDTO.valorTotal);
+  frmPedidoCadastro.fdMemTablequantidade.AsFloat := oItensPedidoDTO.quantidade;
   frmPedidoCadastro.fdMemTablevalorTotal.AsCurrency :=
     StrToCurr(frmPedidoCadastro.edtValor.Text);
+  // faz a soma dos valos para ser inserido no ValorTotal do pedido
+  dValorTotal := StrToFloatDef(frmPedidoCadastro.edtTotalPedido.Text, 0);
+  frmPedidoCadastro.edtTotalPedido.Text :=
+    FloatToStr(oItensPedidoDTO.valorTotal + dValorTotal);
+  // observação do itens pedido
+  oItensPedidoDTO.observacao := frmPedidoCadastro.mObservacaoItensPedido.Text;
+  frmPedidoCadastro.fdMemTableobservacao.AsString := oItensPedidoDTO.observacao;
 
-  frmPedidoCadastro.fdMemTablevalorTotal.AsCurrency :=
-    StrToCurrDef(frmPedidoCadastro.edtValor.Text, 0);
-  frmPedidoCadastro.fdMemTableobservacao.AsString :=
-    frmPedidoCadastro.mObservacaoItensPedido.Text;
-
-   if (frmPedidoCadastro.GroupSabores.Enabled = True) then
+  // inserção dos sabores num array
+  if (frmPedidoCadastro.GroupSabores.Enabled = True) then
   begin
     SetLength(aCheck, 0);
     for I := 0 to frmPedidoCadastro.clkSabores.Items.Count - 1 do
@@ -593,23 +642,25 @@ begin
       begin
         iCont := Length(aCheck);
         SetLength(aCheck, iCont + 1);
-        aCheck[iCont] :=
-          Integer(frmPedidoCadastro.clkSabores.Items.Objects[I]);
+        aCheck[iCont] := Integer(frmPedidoCadastro.clkSabores.Items.Objects[I]);
       end;
     end;
   end;
-//  else
-//  begin
-//    for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
-//    begin
-//      frmProdutoCadastro.clkSabores.Checked[I] := False;
-//    end;
-//    if (oProdutoDTO.idProduto > 0) then
-//    begin
-//      oProdutoRegra.ExcluirSabores(oProdutoDTO.idProduto, oProdutoModel);
-//    end;
-//  end;
+  // else
+  // begin
+  // for I := 0 to frmProdutoCadastro.clkSabores.Items.Count - 1 do
+  // begin
+  // frmProdutoCadastro.clkSabores.Checked[I] := False;
+  // end;
+  // if (oProdutoDTO.idProduto > 0) then
+  // begin
+  // oProdutoRegra.ExcluirSabores(oProdutoDTO.idProduto, oProdutoModel);
+  // end;
+  // end;
+
+  // salva no MemTable
   frmPedidoCadastro.fdMemTable.Post;
+
 end;
 
 procedure TPedidoCadastroController.ValidarCamposItensPedido(Sender: TObject);

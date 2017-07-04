@@ -527,19 +527,19 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
             TabOrder = 0
           end
           object edtValor: TLabeledEdit
-            Left = 483
+            Left = 486
             Top = 41
             Width = 85
             Height = 24
             Color = clBtnFace
-            EditLabel.Width = 30
+            EditLabel.Width = 61
             EditLabel.Height = 16
-            EditLabel.Caption = 'Valor'
+            EditLabel.Caption = 'Valor Final'
             Enabled = False
             TabOrder = 3
           end
           object mObservacaoItensPedido: TMemo
-            Left = 314
+            Left = 317
             Top = 95
             Width = 254
             Height = 129
@@ -569,6 +569,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
               Sorted = True
               TabOrder = 0
               OnClick = clkSaboresClick
+              ExplicitLeft = 72
+              ExplicitTop = -6
             end
           end
           object dbItensListagem: TDBGrid
@@ -630,19 +632,19 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
               end>
           end
           object edtValorUnitario: TLabeledEdit
-            Left = 392
+            Left = 402
             Top = 41
-            Width = 85
+            Width = 76
             Height = 24
-            EditLabel.Width = 30
+            EditLabel.Width = 38
             EditLabel.Height = 16
-            EditLabel.Caption = 'Valor'
+            EditLabel.Caption = 'Valor*'
             TabOrder = 5
           end
           object edtQuantidade: TLabeledEdit
-            Left = 316
+            Left = 314
             Top = 41
-            Width = 68
+            Width = 79
             Height = 24
             EditLabel.Width = 73
             EditLabel.Height = 16

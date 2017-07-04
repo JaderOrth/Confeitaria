@@ -3,6 +3,7 @@ unit uPedidoCadastroRegra;
 interface
 
 uses
+  System.SysUtils, System.Classes,
   uInterfacePedidoCadastroModel, uProdutoListaHash, uPedidoDTO,
   uInterfaceProdutoListagemModel, uInterfaceListagemModel, uEstadoListaHash,
   uMunicipioListaHash, uInterfaceMunicipioListagemModel, uBairroListaHash,
@@ -28,6 +29,8 @@ type
     function ValidarCamposItensPedido(const aId: Integer; out aValor: Double;
       const aModel: IInterfacePedidoCadastroModel): Boolean;
     function ValidarSalvar(const aPedidoDTO: TPedidoDTO): Integer;
+    function SalvarPedido(const aPedidoDTO: TPedidoDTO; 
+      const aModel: IInterfacePedidoCadastroModel): Integer;
   end;
 
 implementation
@@ -70,6 +73,26 @@ begin
   Result := aModel.ComboBoxProduto(aLista);
 end;
 
+function TPedidoCadastroRegra.SalvarPedido(const aPedidoDTO: TPedidoDTO;
+  const aModel: IInterfacePedidoCadastroModel): Integer;
+begin
+  Result := 0;
+  if (aPedidoDTO.idPedido > 0) then
+  begin
+  
+  end
+  else
+  begin
+    aPedidoDTO.idPedido := aModel.BurscarIdPedido;
+    if (aModel.InsertPedido(aPedidoDTO)) then
+    begin
+    
+    end
+    else
+      Result := 4;
+  end;
+end;
+
 function TPedidoCadastroRegra.ValidarCamposItensPedido(const aId: Integer;
   out aValor: Double; const aModel: IInterfacePedidoCadastroModel): Boolean;
 var
@@ -88,7 +111,37 @@ function TPedidoCadastroRegra.ValidarSalvar(const aPedidoDTO
   : TPedidoDTO): Integer;
 begin
   Result := 0;
-  
+  if (aPedidoDTO.idCliente = -1) then
+  begin
+    Result := 1;
+    exit;
+  end;
+  if (Length(Trim(aPedidoDTO.responsavelPedido)) = 0) then
+  begin
+    Result := 2;
+    exit;
+  end;
+  if (aPedidoDTO.idBairro = -1) then
+  begin
+    Result := 3;
+    exit;
+  end;
+  if (Length(Trim(aPedidoDTO.entregaEndereco)) = 0) then
+  begin
+    Result := 4;
+    exit;
+  end;
+  if (Length(Trim(aPedidoDTO.entregaNumero)) = 0) then
+  begin
+    Result := 5;
+    exit;
+  end;
+  if (aPedidoDTO.totalPedido = 0) then
+  begin
+    Result := 6;
+    exit;
+  end;
+
 end;
 
 end.

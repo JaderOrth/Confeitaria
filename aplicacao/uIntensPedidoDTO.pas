@@ -7,18 +7,21 @@ type
   TItensPedidoDTO = class
   private
     Fobservacao: String;
+    Fsabores: TArray<Integer>;
     FidProduto: Integer;
-    FvalorTotal: Currency;
+    FvalorTotal: Double;
     Fquantidade: Double;
     procedure SetidProduto(const Value: Integer);
     procedure Setobservacao(const Value: String);
     procedure Setquantidade(const Value: Double);
-    procedure SetvalorTotal(const Value: Currency);
+    procedure Setsabores(const Value: TArray<Integer>);
+    procedure SetvalorTotal(const Value: Double);
   public
     property idProduto: Integer read FidProduto write SetidProduto;
     property quantidade: Double read Fquantidade write Setquantidade;
     property observacao: String read Fobservacao write Setobservacao;
-    property valorTotal: Currency read FvalorTotal write SetvalorTotal;
+    property valorTotal: Double read FvalorTotal write SetvalorTotal;
+    property sabores: TArray<Integer> read Fsabores write Setsabores;
   end;
 
 implementation
@@ -40,7 +43,12 @@ begin
   Fquantidade := Value;
 end;
 
-procedure TItensPedidoDTO.SetvalorTotal(const Value: Currency);
+procedure TItensPedidoDTO.Setsabores(const Value: TArray<Integer>);
+begin
+  Fsabores := Value;
+end;
+
+procedure TItensPedidoDTO.SetvalorTotal(const Value: Double);
 begin
   FvalorTotal := Value;
 end;
