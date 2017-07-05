@@ -531,8 +531,8 @@ begin
   // observações do pedido
   oPedidoDTO.observacao := frmPedidoCadastro.mObservacao.Text;
   // Valor total do pedido
-  oPedidoDTO.totalPedido :=
-    StrToCurrDef(frmPedidoCadastro.edtTotalPedido.Text, 0);
+//  oPedidoDTO.totalPedido :=
+//    StrToCurrDef(frmPedidoCadastro.edtTotalPedido.Text, 0);
   // id usuario
   oPedidoDTO.idUsuario := 1;
   // Endereço de entrega
