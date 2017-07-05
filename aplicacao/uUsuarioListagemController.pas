@@ -19,11 +19,10 @@ type
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
-    procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemTable: TFDMemTable);
-    procedure Excluir(oMemTable: TFDMemTable);
+    procedure MontarGrid;
+    procedure Excluir(oMemtable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
@@ -56,7 +55,7 @@ end;
 procedure TUsuarioListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oUsuarioCadastroController))) then
-    oUsuarioCadastroController := TUsuarioCadastroController.Create;
+    oUsuarioCadastroController := TUsuarioCadastroController.Create(MontarGrid);
   oUsuarioCadastroController.CreateFormCadastro(frmUsuario, Sender, 0);
 end;
 
@@ -73,7 +72,7 @@ var
   iId: Integer;
 begin
   if (not(Assigned(oUsuarioCadastroController))) then
-    oUsuarioCadastroController := TUsuarioCadastroController.Create;
+    oUsuarioCadastroController := TUsuarioCadastroController.Create(MontarGrid);
   iId := oMemTable.FieldByName('idusuario').AsInteger;
   oUsuarioCadastroController.CreateFormCadastro(frmUsuario, Sender, iId);
 end;
@@ -132,20 +131,14 @@ begin
   end;
 end;
 
-procedure TUsuarioListagemController.Help(Sender: TObject);
+procedure TUsuarioListagemController.MontarGrid;
 begin
-
-end;
-
-procedure TUsuarioListagemController.MontarGrid(oMemTable: TFDMemTable);
-begin
-  oMemTable.Close;
-  if (oUsuarioRegra.BuscarGrid(oMemTable, oUsuarioModel)) then
-  begin
-    oMemTable.Open;
-    frmUsuario.bClick := true;
-    frmUsuario.btnEditar.Enabled := true;
-    frmUsuario.btnExcluir.Enabled := true;
+    frmUsuario.FDMemTable_listagem.Close;
+  if (oUsuarioRegra.BuscarGrid(frmUsuario.FDMemTable_listagem, oUsuarioModel)) then
+   begin
+    frmUsuario.bClick := True;
+    frmUsuario.btnEditar.Enabled := True;
+    frmUsuario.btnExcluir.Enabled := True;
   end
   else
   begin

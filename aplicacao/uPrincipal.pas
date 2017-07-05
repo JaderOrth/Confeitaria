@@ -8,13 +8,14 @@ uses
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
   uClassConexaoSingleton, uEstadoListagemController, uMunicipioListagemController,
   uBairroListagemController, uClienteListagemController, uUsuarioListagemController,
-  uPedidoListagemController, uCategoriasListagemController,uProdutoListagemController,
-  uSaborListagemController, uUnidadeMedidaListagemController;
+  uPedidoListagemController, uCategoriasListagemController, uProdutoListagemController,
+  uSaborListagemController, uUnidadeMedidaListagemController,
+  Vcl.Imaging.pngimage, frxClass, frxDBSet,
+  uRelController;
 
 type
   TfrmPrincipal = class(TForm)
     MainMenu1: TMainMenu;
-    Funes1: TMenuItem;
     Sair1: TMenuItem;
     StatusBar1: TStatusBar;
     Cadastros1: TMenuItem;
@@ -29,12 +30,18 @@ type
     UnidadedeMedida1: TMenuItem;
     LargeImages: TImageList;
     SmallImages: TImageList;
+    Pedido1: TMenuItem;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    N3: TMenuItem;
     Panel1: TPanel;
     btnPedidos: TSpeedButton;
     btnProdutos: TSpeedButton;
     btnClientes: TSpeedButton;
     btnSair: TSpeedButton;
-    Pedido1: TMenuItem;
+    Image1: TImage;
+    Image2: TImage;
+    Relatrios1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure Estado1Click(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
@@ -51,6 +58,8 @@ type
     procedure UnidadedeMedida1Click(Sender: TObject);
     procedure btnProdutosClick(Sender: TObject);
     procedure Produtos1Click(Sender: TObject);
+    procedure Sair1Click(Sender: TObject);
+    procedure Relatrios1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -152,12 +161,23 @@ procedure TfrmPrincipal.Produtos1Click(Sender: TObject);
 begin
   btnProdutosClick(Sender);
 end;
+procedure TfrmPrincipal.Relatrios1Click(Sender: TObject);
+begin
+  if (not(Assigned(oRelController))) then
+    oRelController := TRelController.Create;
+  oRelController.CreateFormListagem(Self);
+end;
 
 procedure TfrmPrincipal.Sabores1Click(Sender: TObject);
 begin
   if (not(Assigned(oSaborListagemController))) then
     oSaborListagemController := TSaborListagemController.Create;
   oSaborListagemController.CreateFormListagem(Self);
+end;
+
+procedure TfrmPrincipal.Sair1Click(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TfrmPrincipal.UnidadedeMedida1Click(Sender: TObject);

@@ -1,57 +1,59 @@
 inherited frmBairroCadastro: TfrmBairroCadastro
+  ActiveControl = edtBairro
   Caption = 'Cadastro de Bairro'
-  ClientHeight = 297
-  ClientWidth = 582
+  ClientHeight = 235
+  ClientWidth = 490
   OnActivate = FormActivate
   OnCreate = FormCreate
-  ExplicitWidth = 598
-  ExplicitHeight = 335
+  ExplicitWidth = 496
+  ExplicitHeight = 263
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
-    Top = 278
-    Width = 582
-    ExplicitTop = 278
-    ExplicitWidth = 582
+    Top = 216
+    Width = 490
+    ExplicitTop = 216
+    ExplicitWidth = 490
   end
   inherited Panel1: TPanel
-    Left = 479
-    Height = 278
-    ExplicitLeft = 479
-    ExplicitHeight = 278
+    Left = 387
+    Height = 216
+    ExplicitLeft = 387
+    ExplicitHeight = 216
   end
   inherited panelCadastro: TPanel
-    Width = 479
-    Height = 278
-    ExplicitWidth = 479
-    ExplicitHeight = 278
+    Width = 387
+    Height = 216
+    ExplicitWidth = 387
+    ExplicitHeight = 216
     object Label1: TLabel
-      Left = 40
-      Top = 106
+      Left = 24
+      Top = 78
       Width = 38
       Height = 16
       Caption = 'Estado'
     end
     object Label2: TLabel
-      Left = 40
-      Top = 158
+      Left = 24
+      Top = 125
       Width = 53
       Height = 16
       Caption = 'Municipio'
     end
     object edtBairro: TLabeledEdit
-      Left = 40
-      Top = 73
+      Left = 24
+      Top = 48
       Width = 337
       Height = 24
+      CharCase = ecUpperCase
       EditLabel.Width = 34
       EditLabel.Height = 16
       EditLabel.Caption = 'Bairro'
       TabOrder = 0
     end
     object cbEstado: TComboBox
-      Left = 40
-      Top = 125
+      Left = 24
+      Top = 97
       Width = 337
       Height = 22
       Style = csOwnerDrawFixed
@@ -60,8 +62,8 @@ inherited frmBairroCadastro: TfrmBairroCadastro
       TabOrder = 1
     end
     object cbMunicipio: TComboBox
-      Left = 40
-      Top = 177
+      Left = 24
+      Top = 144
       Width = 337
       Height = 22
       Style = csOwnerDrawFixed

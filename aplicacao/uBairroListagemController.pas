@@ -18,10 +18,9 @@ type
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
-    procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure MontarGrid;
     procedure Excluir(oMemTable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
@@ -56,7 +55,7 @@ end;
 procedure TBairroListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oBairroCadastroController))) then
-    oBairroCadastroController := TBairroCadastroController.Create;
+    oBairroCadastroController := TBairroCadastroController.Create(MontarGrid);
   oBairroCadastroController.CreateFormCadastro(frmBairro, Sender, 0);
 end;
 
@@ -73,7 +72,7 @@ var
   iID: Integer;
 begin
   if (not(Assigned(oBairroCadastroController))) then
-    oBairroCadastroController := TBairroCadastroController.Create;
+    oBairroCadastroController := TBairroCadastroController.Create(MontarGrid);
   iID := oMemTable.FieldByName('idbairro').AsInteger;
   oBairroCadastroController.CreateFormCadastro(frmBairro, Sender, iID);
 end;
@@ -140,17 +139,12 @@ begin
   end;
 end;
 
-procedure TBairroListagemController.Help(Sender: TObject);
+procedure TBairroListagemController.MontarGrid;
 begin
-
-end;
-
-procedure TBairroListagemController.MontarGrid(oMemTable: TFDMemTable);
-begin
-  oMemTable.Close;
-  if (oBairroRegra.MontarGrid(oMemTable, oBairroModel)) then
+  frmBairro.FDMemTable_listagem.Close;
+  if (oBairroRegra.MontarGrid(frmBairro.FDMemTable_listagem, oBairroModel)) then
   begin
-    oMemTable.Open;
+    //oMemTable.Open;
     frmBairro.bClick := true;
     frmBairro.btnEditar.Enabled := true;
     frmBairro.btnExcluir.Enabled := true;

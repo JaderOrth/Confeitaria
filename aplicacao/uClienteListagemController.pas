@@ -18,11 +18,10 @@ type
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
-    procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemTable: TFDMemTable);
-    procedure Excluir(oMemTable: TFDMemTable);
+    procedure MontarGrid;
+    procedure Excluir(oMemtable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
@@ -59,7 +58,7 @@ end;
 procedure TClienteListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oClienteCadastroController))) then
-    oClienteCadastroController := TClienteCadastroController.Create;
+    oClienteCadastroController := TClienteCadastroController.Create(MontarGrid);
   oClienteCadastroController.CreateFormCadastro(frmCliente, Sender, 0);
 end;
 
@@ -76,7 +75,7 @@ var
   iID: Integer;
 begin
   if (not(Assigned(oClienteCadastroController))) then
-    oClienteCadastroController := TClienteCadastroController.Create;
+    oClienteCadastroController := TClienteCadastroController.Create(MontarGrid);
   iID := oMemTable.FieldByName('idcliente').AsInteger;
   oClienteCadastroController.CreateFormCadastro(frmCliente, Sender, iID);
 end;
@@ -142,20 +141,14 @@ begin
 
 end;
 
-procedure TClienteListagemController.Help(Sender: TObject);
+procedure TClienteListagemController.MontarGrid;
 begin
-  { }
-end;
-
-procedure TClienteListagemController.MontarGrid(oMemTable: TFDMemTable);
-begin
-  oMemTable.Close;
-  if (oClienteRegra.MontarGrid(oMemTable, oClienteModel)) then
-  begin
-    oMemTable.Open;
-    frmCliente.bClick := true;
-    frmCliente.btnEditar.Enabled := true;
-    frmCliente.btnExcluir.Enabled := true;
+  frmCliente.FDMemTable_listagem.Close;
+  if (oClienteRegra.MontarGrid(frmCliente.FDMemTable_listagem, oClienteModel)) then
+   begin
+    frmCliente.bClick := True;
+    frmCliente.btnEditar.Enabled := True;
+    frmCliente.btnExcluir.Enabled := True;
   end
   else
   begin

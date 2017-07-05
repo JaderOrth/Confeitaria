@@ -1,0 +1,49 @@
+SELECT pe.idpedido, pe.data_pedido, pe.total_pedido, 
+ip.quantidade, ip.valor_total as valor_total_itens, pr.descricao as produto, pr.preco, ca.descricao as categoria, 
+um.sigla, cl.nome, cl.cpf_cnpj, cl.telefone, cl.celular,
+mu.descricao as municipio, uf.descricao as estado
+FROM pedido AS pe
+INNER JOIN cliente AS cl ON pe.idcliente = cl.idcliente
+INNER JOIN itens_pedido AS ip ON pe.idpedido = ip.pedido_idpedido
+INNER JOIN produtos AS pr ON ip.idprodutos = pr.idprodutos 
+INNER JOIN categorias AS ca ON pr.idcategorias = ca.idcategorias
+INNER JOIN unidade_medida AS um ON pr.idunidade_medida = um.idunidade_medida
+INNER JOIN bairro AS br ON pe.idbairro = br.idbairro
+INNER JOIN municipio AS mu ON br.idmunicipio = mu.idmunicipio
+INNER JOIN uf ON mu.iduf = uf.iduf
+
+
+
+pedido
+  idpedido
+  data_pedido
+  total_pedido
+
+itens_pedido
+  quantidade
+  valor_total
+
+produtos
+  descricao
+  preco
+  
+categoria
+  descricao
+
+unidade_medida
+  sigla
+
+cliente
+  nome
+  cpf_cnpj
+  telefone
+  celular
+
+municipio
+  descricao
+
+uf
+  descricao
+
+
+  

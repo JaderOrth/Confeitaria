@@ -8,12 +8,15 @@ uses
   uInterfaceCadastroController, uSaborCadastro, uSaborDTO, uSaborCadastroRegra, uSaborCadastroModel;
 
 type
+  TMontarGrid = procedure of object;
+
   TSaborCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
     oSaborModel: TSaborCadastroModel;
     oSaborRegra: TSaborCadastroRegra;
     oSaborDTO: TSaborDTO;
+    oMontarGrid: TMontarGrid;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -23,7 +26,7 @@ type
     procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 
@@ -43,8 +46,9 @@ begin
   oSaborRegra.LimparDTO(oSaborDTO);
 end;
 
-constructor TSaborCadastroController.Create;
+constructor TSaborCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oSaborDTO := TSaborDTO.Create;
   oSaborModel := TSaborCadastroModel.Create;
   oSaborRegra := TSaborCadastroRegra.Create;
@@ -131,6 +135,7 @@ begin
   end;
 
   iSalvar := oSaborRegra.Salvar(oSaborDTO, oSaborModel);
+
   // Update False
   if (iSalvar = 1) then
   begin

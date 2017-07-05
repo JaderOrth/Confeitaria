@@ -6,9 +6,12 @@ uses
   Vcl.Controls,   System.Classes,
   System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, System.UITypes,
   uEstadoCadastro, uInterfaceCadastroController, uEstadoDTO,
+  FireDAC.Comp.Client,
   uEstadoCadastroRegra, uEstadoCadastroModel;
 
 type
+  TMontarGrid = procedure of object;                                            ///
+
   TEstadoCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
@@ -16,6 +19,8 @@ type
     oEstadoRegra: TEstadoCadastroRegra;
     oEstadoModel: TEstadoCadastroModel;
     frmEstadoCadastro: TfrmEstadoCadastro;
+
+    oMontarGrid: TMontarGrid;                                                /////
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -25,7 +30,7 @@ type
     procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);             ////
     destructor Destroy; override;
   end;
 
@@ -34,8 +39,9 @@ var
 
 implementation
 
-constructor TEstadoCadastroController.Create;
+constructor TEstadoCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);   ///
 begin
+  oMontarGrid := AProcedimentoMontarGrid;                               ///
   oEstadoRegra := TEstadoCadastroRegra.Create;
   oEstadoDTO := TEstadoDTO.Create;
   oEstadoModel := TEstadoCadastroModel.Create;
@@ -146,13 +152,13 @@ begin
   iSalvar := oEstadoRegra.Salvar(oEstadoDTO, oEstadoModel);
 
   // Erro ao Alterar
-  if (iSalvar = 2) then
+  if (iSalvar = 1) then
   begin
     MessageDlg('Erro ao Alterar o regristro!', mtWarning, [mbOK], 0);
     exit;
   end;
   // Erro ao Salvar
-  if (iSalvar = 4) then
+  if (iSalvar = 2) then
   begin
     MessageDlg('Erro ao Salvar o regristro!', mtWarning, [mbOK], 0);
     exit;

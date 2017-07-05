@@ -20,11 +20,10 @@ type
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
-    procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemTable: TFDMemTable);
-    procedure Excluir(oMemTable: TFDMemTable);
+    procedure MontarGrid;
+    procedure Excluir(oMemtable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
@@ -78,7 +77,7 @@ end;
 procedure TCategoriasListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oCategoriasCadastroController))) then
-    oCategoriasCadastroController := TCategoriasCadastroController.Create;
+    oCategoriasCadastroController := TCategoriasCadastroController.Create(MontarGrid);
   oCategoriasCadastroController.CreateFormCadastro(frmCategorias, Sender, 0);
 end;
 
@@ -88,7 +87,7 @@ var
   iID: Integer;
 begin
   if (not(Assigned(oCategoriasCadastroController))) then
-    oCategoriasCadastroController := TCategoriasCadastroController.Create;
+    oCategoriasCadastroController := TCategoriasCadastroController.Create(MontarGrid);
   iID := oMemTable.FieldByName('idcategorias').AsInteger;
   oCategoriasCadastroController.CreateFormCadastro(frmCategorias, Sender, iID);
 end;
@@ -140,17 +139,12 @@ begin
   end;
 end;
 
-procedure TCategoriasListagemController.Help(Sender: TObject);
+procedure TCategoriasListagemController.MontarGrid;
 begin
-
-end;
-
-procedure TCategoriasListagemController.MontarGrid(oMemTable: TFDMemTable);
-begin
-  oMemTable.Close;
-  if (oCategoriasRegra.MontarGrid(oMemTable, oCategoriasModel)) then
+  frmCategorias.FDMemTable_listagem.Close;
+  if (oCategoriasRegra.MontarGrid(frmCategorias.FDMemTable_listagem, oCategoriasModel)) then
   begin
-    oMemTable.Open;
+    //oMemTable.Open;
     frmCategorias.bClick := true;
     frmCategorias.btnEditar.Enabled := true;
     frmCategorias.btnExcluir.Enabled := true;

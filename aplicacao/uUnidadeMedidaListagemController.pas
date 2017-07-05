@@ -19,11 +19,10 @@ type
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
-    procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemTable: TFDMemTable);
-    procedure Excluir(oMemTable: TFDMemTable);
+    procedure MontarGrid;
+    procedure Excluir(oMemtable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
@@ -57,9 +56,8 @@ end;
 procedure TUnidadeMedidaListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oUnidadeMedidaCadastroController))) then
-    oUnidadeMedidaCadastroController := TUnidadeMedidaCadastroController.Create;
-  oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida,
-    Sender, 0);
+    oUnidadeMedidaCadastroController := TUnidadeMedidaCadastroController.Create(MontarGrid);
+  oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida, Sender, 0);
 end;
 
 constructor TUnidadeMedidaListagemController.Create;
@@ -75,7 +73,7 @@ var
   iID: Integer;
 begin
   if (not(Assigned(oUnidadeMedidaCadastroController))) then
-    oUnidadeMedidaCadastroController := TUnidadeMedidaCadastroController.Create;
+    oUnidadeMedidaCadastroController := TUnidadeMedidaCadastroController.Create(MontarGrid);
   iID := oMemTable.FieldByName('idunidade_medida').AsInteger;
   oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida,
     Sender, iID);
@@ -142,20 +140,14 @@ begin
   end;
 end;
 
-procedure TUnidadeMedidaListagemController.Help(Sender: TObject);
+procedure TUnidadeMedidaListagemController.MontarGrid;
 begin
-
-end;
-
-procedure TUnidadeMedidaListagemController.MontarGrid(oMemTable: TFDMemTable);
-begin
-  oMemTable.Close;
-  if (oUnidadeMedidaRegra.MontarGrid(oMemTable, oUnidadeMedidaModel)) then
+  frmUnidadeMedida.FDMemTable_listagem.Close;
+  if (oUnidadeMedidaRegra.MontarGrid(frmUnidadeMedida.FDMemTable_listagem, oUnidadeMedidaModel)) then
   begin
-    oMemTable.Open;
-    frmUnidadeMedida.bClick := true;
-    frmUnidadeMedida.btnEditar.Enabled := true;
-    frmUnidadeMedida.btnExcluir.Enabled := true;
+    frmUnidadeMedida.bClick := True;
+    frmUnidadeMedida.btnEditar.Enabled := True;
+    frmUnidadeMedida.btnExcluir.Enabled := True;
   end
   else
   begin

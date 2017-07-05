@@ -10,12 +10,15 @@ uses
   uUnidadeMedidaCadastroRegra, uUnidadeMedidaCadastroModel;
 
 type
+  TMontarGrid = procedure of object;
+
   TUnidadeMedidaCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
     oUnidadeMedidaModel: TUnidadeMedidaCadastroModel;
     oUnidadeMedidaRegra: TUnidadeMedidaCadastroRegra;
     oUnidadeMedidaDTO: TUnidadeMedidaDTO;
+    oMontarGrid: TMontarGrid;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -25,7 +28,7 @@ type
     procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 
@@ -45,8 +48,9 @@ begin
   oUnidadeMedidaRegra.LimparDTO(oUnidadeMedidaDTO);
 end;
 
-constructor TUnidadeMedidaCadastroController.Create;
+constructor TUnidadeMedidaCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oUnidadeMedidaDTO := TUnidadeMedidaDTO.Create;
   oUnidadeMedidaModel := TUnidadeMedidaCadastroModel.Create;
   oUnidadeMedidaRegra := TUnidadeMedidaCadastroRegra.Create;
@@ -149,15 +153,15 @@ begin
   if (iSalvar = 1) then
   begin
     MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
+    oMontarGrid;
     exit;
   end;
   // Insert False
   if (iSalvar = 2) then
   begin
-    MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
+    messageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     exit;
   end;
-
   if (iSalvar = 0) then
   begin
     frmUnidadeMedidaCadastro.btnSalvar.Enabled := False;

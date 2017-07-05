@@ -14,6 +14,7 @@ uses
   uSaborListagemModel, uIntensPedidoDTO;
 
 type
+  TMontarGrid = procedure of object;
   TPedidoCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
@@ -23,6 +24,7 @@ type
     oItensPedidoDTO: TItensPedidoDTO;
     iIdEstado, iIDProduto: Integer;
     dEditarValorTotal: Double;
+    oMontarGrid: TMontarGrid;
     procedure SalvarItens(Sender: TObject);
     procedure ExcluirItens(Sender: TObject);
     procedure EditarItens(Sender: TObject);
@@ -43,7 +45,7 @@ type
     procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 
@@ -295,8 +297,9 @@ begin
   end;
 end;
 
-constructor TPedidoCadastroController.Create;
+constructor TPedidoCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oPedidoDTO := TPedidoDTO.Create;
   oPedidoRegra := TPedidoCadastroRegra.Create;
   oPedidoModel := TPedidoCadastroModel.Create;

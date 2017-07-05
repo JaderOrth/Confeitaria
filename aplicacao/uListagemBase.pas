@@ -22,7 +22,6 @@ type
     edtPesquisa: TEdit;
     Panel3: TPanel;
     StatusBar1: TStatusBar;
-    btnAjuda: TSpeedButton;
     src_listagem: TDataSource;
     FDMemTable_listagem: TFDMemTable;
     btnExcluir: TSpeedButton;
@@ -30,7 +29,6 @@ type
     procedure btnNovoClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure btnAjudaClick(Sender: TObject);
     procedure btnEditarClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -41,6 +39,7 @@ type
   private
     { Private declarations }
     bGrid: Boolean;
+
   public
     { Public declarations }
     oListagemBase: IInterfaceListagemController;
@@ -50,11 +49,6 @@ type
 implementation
 
 {$R *.dfm}
-
-procedure TfrmListagemBase.btnAjudaClick(Sender: TObject);
-begin
-  oListagemBase.Help(Sender);
-end;
 
 procedure TfrmListagemBase.btnEditarClick(Sender: TObject);
 begin
@@ -92,7 +86,7 @@ procedure TfrmListagemBase.FormActivate(Sender: TObject);
 begin
   if (bGrid) then
   begin
-    oListagemBase.MontarGrid(FDMemTable_listagem)
+    oListagemBase.MontarGrid;
   end;
   bGrid := true;
 end;
@@ -105,6 +99,11 @@ end;
 procedure TfrmListagemBase.FormCreate(Sender: TObject);
 begin
   bGrid := false;
+  Self.Width := Screen.Width-4;
+  Self.Height := Screen.Height-170;
+  Constraints.MaxWidth := Screen.Width-4;
+  Constraints.MaxHeight := Screen.Height-170;
+  Constraints.MinWidth := Screen.Width-4;
+  Constraints.MinHeight := Screen.Height-170;
 end;
-
 end.

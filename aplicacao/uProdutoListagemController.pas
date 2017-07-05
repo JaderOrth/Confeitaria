@@ -18,10 +18,9 @@ type
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
-    procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure MontarGrid;
     procedure Excluir(oMemTable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
@@ -140,17 +139,12 @@ begin
   end;
 end;
 
-procedure TProdutoListagemController.Help(Sender: TObject);
+procedure TProdutoListagemController.MontarGrid;
 begin
-
-end;
-
-procedure TProdutoListagemController.MontarGrid(oMemTable: TFDMemTable);
-begin
-  oMemTable.Close;
-  if (oProdutoRegra.MontarGrid(oMemTable, oProdutoModel)) then
+  frmProduto.FDMemTable_listagem.Close;
+  if (oProdutoRegra.MontarGrid(frmProduto.FDMemTable_listagem, oProdutoModel)) then
   begin
-    oMemTable.Open;
+   // oMemTable.Open;
     frmProduto.bClick := true;
     frmProduto.btnEditar.Enabled := true;
     frmProduto.btnExcluir.Enabled := true;

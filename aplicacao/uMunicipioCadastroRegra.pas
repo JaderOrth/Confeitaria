@@ -50,18 +50,14 @@ function TMunicipioCadastroRegra.Salvar(var AMunicipio: TMunicipioDTO;
 begin
   if (AMunicipio.IdMunicipio > 0) then
   begin
-    if (AModel.Update(AMunicipio)) then
-      Result := 1
-    else
-      Result := 2;
+    if (not(AModel.Update(AMunicipio))) then
+      Result := 1;
   end
   else
   begin
     AMunicipio.IdMunicipio := AModel.BuscarID;
-    if (AModel.Insert(AMunicipio)) then
-      Result := 3
-    else
-      Result := 4;
+    if (not(AModel.Insert(AMunicipio))) then
+      Result := 2;
   end;
 end;
 

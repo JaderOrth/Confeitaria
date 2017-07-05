@@ -10,12 +10,16 @@ uses
   uEstadoDTO, uEstadoListagemModel;
 
 type
+  TMontarGrid = procedure of object;
+
   TMunicipioCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
     oMunicipioDTO: TMunicipioDTO;
     oMunicipioRegra: TMunicipioCadastroRegra;
     oMunicipioModel: TMunicipioCadastroModel;
+    oEstadoListagemModel: TEstadoListagemModel;
+    oMontarGrid: TMontarGrid;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -25,7 +29,7 @@ type
     procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 
@@ -103,8 +107,9 @@ begiN
   end;
 end;
 
-constructor TMunicipioCadastroController.Create;
+constructor TMunicipioCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oMunicipioDTO := TMunicipioDTO.Create;
   oMunicipioRegra := TMunicipioCadastroRegra.Create;
   oMunicipioModel := TMunicipioCadastroModel.Create;
@@ -186,13 +191,13 @@ begin
   iSalvar := oMunicipioRegra.Salvar(oMunicipioDTO, oMunicipioModel);
 
   // update false
-  if (iSalvar = 2) then
+  if (iSalvar = 1) then
   begin
     MessageDlg('Erro ao ALTERAR o registro!', mtError, [mbOK], 0);
     exit;
   end;
   // insert false
-  if (iSalvar = 4) then
+  if (iSalvar = 2) then
   begin
     MessageDlg('Erro ao SALVAR o registro!', mtError, [mbOK], 0);
     exit;

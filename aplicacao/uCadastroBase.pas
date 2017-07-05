@@ -19,6 +19,7 @@ type
     procedure btnSairClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnNovoClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -64,6 +65,12 @@ end;
 procedure TfrmCadastroBase.btnSalvarClick(Sender: TObject);
 begin
   oInterfaceCadastroController.Salvar(Sender);
+end;
+
+procedure TfrmCadastroBase.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (key = #13) then
+    SelectNext(ActiveControl, True, True);
 end;
 
 end.

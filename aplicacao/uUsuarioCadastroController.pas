@@ -8,12 +8,16 @@ uses
   uUsuarioCadastroModel, uUsuarioDTO;
 
 type
-  TUsuarioCadastroController = class(TInterfacedObject,
-    IInterfaceCadastroController)
+  TMontarGrid = procedure of object;
+
+  TUsuarioCadastroController = class(
+    TInterfacedObject, IInterfaceCadastroController)
   private
     oUsuarioDTO: TUsuarioDTO;
     oUsuarioModel: TUsuarioCadastroModel;
     oUsuarioRegra: TUsuarioCadastroRegra;
+
+    oMontarGrid: TMontarGrid;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
@@ -23,7 +27,7 @@ type
     procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 
@@ -43,8 +47,9 @@ begin
   oUsuarioRegra.LimparDTO(oUsuarioDTO);
 end;
 
-constructor TUsuarioCadastroController.Create;
+constructor TUsuarioCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oUsuarioDTO := TUsuarioDTO.Create;
   oUsuarioModel := TUsuarioCadastroModel.Create;
   oUsuarioRegra := TUsuarioCadastroRegra.Create;
@@ -84,7 +89,6 @@ end;
 procedure TUsuarioCadastroController.Novo(Sender: TObject);
 begin
   oUsuarioRegra.LimparDTO(oUsuarioDTO);
-  frmUsuarioCadastro.edtUsuario.SetFocus;
   frmUsuarioCadastro.btnSalvar.Enabled := True;
   frmUsuarioCadastro.btnNovo.Enabled := False;
 end;
@@ -136,6 +140,9 @@ begin
   if (iSalvar = 1) then
   begin
     MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
+    oMontarGrid;
+    frmUsuarioCadastro.btnSalvar.Enabled := False;
+    frmUsuarioCadastro.btnNovo.Enabled := True;
     exit;
   end;
   // Insert False

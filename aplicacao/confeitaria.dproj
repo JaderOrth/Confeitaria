@@ -228,6 +228,7 @@
         <DCCReference Include="uPedidoListagemModel.pas"/>
         <DCCReference Include="uInterfacePedidoListagem.pas"/>
         <DCCReference Include="uPedidoCadastroRegra.pas"/>
+        <DCCReference Include="uPedidoCadstroModel.pas"/>
         <DCCReference Include="uInterfacePedidoCadastroModel.pas"/>
         <DCCReference Include="uSabor.pas">
             <Form>frmSabor</Form>
@@ -286,6 +287,13 @@
         <DCCReference Include="uProdutoListaHash.pas"/>
         <DCCReference Include="uIntensPedidoDTO.pas"/>
         <DCCReference Include="uITensPedidoListaHash.pas"/>
+        <DCCReference Include="uRel.pas">
+            <Form>frmRel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uInterfaceRel.pas"/>
+        <DCCReference Include="uRelModel.pas"/>
+        <DCCReference Include="uRelController.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

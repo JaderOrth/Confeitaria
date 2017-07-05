@@ -127,7 +127,11 @@ uses
   uPedidoCadastroModel in 'uPedidoCadastroModel.pas',
   uProdutoListaHash in 'uProdutoListaHash.pas',
   uIntensPedidoDTO in 'uIntensPedidoDTO.pas',
-  uITensPedidoListaHash in 'uITensPedidoListaHash.pas';
+  uITensPedidoListaHash in 'uITensPedidoListaHash.pas',
+  uRel in 'uRel.pas' {frmRel},
+  uInterfaceRel in 'uInterfaceRel.pas',
+  uRelModel in 'uRelModel.pas',
+  uRelController in 'uRelController.pas';
 
 {$R *.res}
 
