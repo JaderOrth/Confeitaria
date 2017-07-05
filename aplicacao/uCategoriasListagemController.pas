@@ -6,15 +6,16 @@ uses
   System.Classes, FireDAC.Comp.Client, System.SysUtils, Vcl.Dialogs,
   System.UITypes, Data.DB,
   uCategorias, uInterfaceListagemController, uCategoriasDTO,
-  uCategoriasListagemModel, uCategoriasListagemRegra, uCategoriasCadastroController;
+  uCategoriasListagemModel, uCategoriasListagemRegra,
+  uCategoriasCadastroController;
 
 type
   TCategoriasListagemController = class(TInterfacedObject,
     IInterfaceListagemController)
   private
-    oCategoriasModel : TCategoriasListagemModel;
-    oCategoriasRegra : TCategoriasListagemRegra;
-    oCategoriasDTO : TCategoriasDTO;
+    oCategoriasModel: TCategoriasListagemModel;
+    oCategoriasRegra: TCategoriasListagemRegra;
+    oCategoriasDTO: TCategoriasDTO;
 
   public
     procedure CreateFormListagem(AOwner: TComponent);
@@ -22,8 +23,8 @@ type
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable);
-    procedure Excluir(oMemtable: TFDMemTable);
+    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure Excluir(oMemTable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
@@ -61,7 +62,7 @@ end;
 procedure TCategoriasListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'descricao like ''%'+APesquisa+'%''';
+  aMemTable.Filter := 'descricao like ''%' + APesquisa + '%''';
   aMemTable.Filtered := true;
 end;
 
@@ -69,13 +70,14 @@ procedure TCategoriasListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmCategorias))) then
     exit;
+  oCategoriasCadastroController.CloseFormCadastro(Sender);
   frmCategorias.Close;
   FreeAndNil(frmCategorias);
 end;
 
 procedure TCategoriasListagemController.ControlerCadastro(Sender: TObject);
 begin
-if (not(Assigned(oCategoriasCadastroController))) then
+  if (not(Assigned(oCategoriasCadastroController))) then
     oCategoriasCadastroController := TCategoriasCadastroController.Create;
   oCategoriasCadastroController.CreateFormCadastro(frmCategorias, Sender, 0);
 end;
@@ -100,51 +102,64 @@ begin
   frmCategorias.OnActivate(nil);
 end;
 
-procedure TCategoriasListagemController.Excluir(oMemtable: TFDMemTable);
+procedure TCategoriasListagemController.Excluir(oMemTable: TFDMemTable);
 var
-  iID: Integer;
+  iID, iValidar: Integer;
 begin
   if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
     [mbYes, mbNo], 0) = mrYes) then
   begin
-    iId := oMemTable.FieldByName('idcategorias').AsInteger;
-    if (oCategoriasRegra.Excluir(iId, oCategoriasModel)) then
+    iID := oMemTable.FieldByName('idcategorias').AsInteger;
+    iValidar := oCategoriasRegra.Excluir(iID, oCategoriasModel);
+    if (iValidar = 1) then
     begin
       MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
-      //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
-      oMemTable.Locate('idcategorias', iId);
+      // deleta o registro do mentable sem ir no banco de dados para atualizar a grid
+      oMemTable.Locate('idcategorias', iID);
       oMemTable.Delete;
-    end
-    else
-      raise Exception.Create('Error  ao deletar o Registro');
+    end;
+
+    if (iValidar = 2) then
+    begin
+      MessageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
+      exit;
+    end;
+
+    if (iValidar = 3) then
+    begin
+      MessageDlg('Erro ao deletar este registro, está associado ao PRODUTO',
+        mtWarning, [mbOK], 0);
+      exit;
+    end;
   end;
 
-  if (oMemtable.IsEmpty) then
+  if (oMemTable.IsEmpty) then
   begin
     frmCategorias.btnEditar.Enabled := false;
     frmCategorias.btnExcluir.Enabled := false;
   end;
 end;
+
 procedure TCategoriasListagemController.Help(Sender: TObject);
 begin
 
 end;
 
-procedure TCategoriasListagemController.MontarGrid(oMemtable: TFDMemTable);
+procedure TCategoriasListagemController.MontarGrid(oMemTable: TFDMemTable);
 begin
   oMemTable.Close;
   if (oCategoriasRegra.MontarGrid(oMemTable, oCategoriasModel)) then
   begin
     oMemTable.Open;
-    frmCategorias.bClick := True;
-    frmCategorias.btnEditar.Enabled := True;
-    frmCategorias.btnExcluir.Enabled := True;
+    frmCategorias.bClick := true;
+    frmCategorias.btnEditar.Enabled := true;
+    frmCategorias.btnExcluir.Enabled := true;
   end
   else
   begin
-    frmCategorias.bClick := False;
-    frmCategorias.btnEditar.Enabled := False;
-    frmCategorias.btnExcluir.Enabled := False;
+    frmCategorias.bClick := false;
+    frmCategorias.btnEditar.Enabled := false;
+    frmCategorias.btnExcluir.Enabled := false;
   end;
 end;
 

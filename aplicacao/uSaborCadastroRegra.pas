@@ -31,30 +31,21 @@ end;
 function TSaborCadastroRegra.Salvar(const aSaborDTO: TSaborDTO;
   const aModel: IInterfaceSaborCadastroModel): Integer;
 begin
+  Result := 0;
   if (aSaborDTO.idsabores > 0) then
   begin
-    if (aModel.update(aSaborDTO)) then
+    if (not(aModel.update(aSaborDTO))) then
     begin
       Result := 1;
-      exit;
-    end
-    else
-    begin
-      Result := 2;
       exit;
     end;
   end
   else
   begin
     aSaborDTO.idsabores := aModel.BuscarID;
-    if (aModel.Insert(aSaborDTO)) then
+    if (not(aModel.Insert(aSaborDTO))) then
     begin
-      Result := 3;
-      exit;
-    end
-    else
-    begin
-      Result := 4;
+      Result := 2;
       exit;
     end;
   end;

@@ -3,8 +3,7 @@ unit uEstadoCadastroController;
 interface
 
 uses
-  Vcl.Controls,
-  System.Classes,
+  Vcl.Controls,   System.Classes,
   System.SysUtils, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Dialogs, System.UITypes,
   uEstadoCadastro, uInterfaceCadastroController, uEstadoDTO,
   uEstadoCadastroRegra, uEstadoCadastroModel;
@@ -23,6 +22,7 @@ type
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
+    procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
     constructor Create;
@@ -49,17 +49,21 @@ begin
   frmEstadoCadastro.oInterfaceCadastroController := oEstadoCadastroController;
   frmEstadoCadastro.Show;
 
+  frmEstadoCadastro.edtSigla.OnExit := Pesquisar;
+
+  frmEstadoCadastro.btnSalvar.Enabled := True;
+  frmEstadoCadastro.btnNovo.Enabled := False;
+
   if (iId > 0) then
   begin
     oEstadoDTO.ID := iId;
-    oEstadoRegra.BuscarUpdate(oEstadoDTO, oEstadoModel);
-    frmEstadoCadastro.edtSigla.Enabled := False;
-    frmEstadoCadastro.edtEstado.SetFocus;
-    frmEstadoCadastro.edtEstado.Text := oEstadoDTO.Descricao;
-    frmEstadoCadastro.edtSigla.Text := oEstadoDTO.UF;
+    RetornarValorEdit(Sender);
   end
   else
+  begin
     frmEstadoCadastro.edtSigla.Enabled := True;
+    frmEstadoCadastro.edtSigla.SetFocus
+  end;
 end;
 
 destructor TEstadoCadastroController.Destroy;
@@ -78,13 +82,42 @@ end;
 procedure TEstadoCadastroController.Novo(Sender: TObject);
 begin
   oEstadoRegra.LimparDTO(oEstadoDTO);
-  frmEstadoCadastro.edtSigla.Enabled := true;
+  frmEstadoCadastro.edtSigla.Enabled := True;
   frmEstadoCadastro.edtSigla.SetFocus;
+  frmEstadoCadastro.btnSalvar.Enabled := True;
+  frmEstadoCadastro.btnNovo.Enabled := False;
 end;
 
 procedure TEstadoCadastroController.Pesquisar(Sender: TObject);
 begin
-{}
+  if (oEstadoDTO.ID = 0) then
+  begin
+    oEstadoDTO.UF := frmEstadoCadastro.edtSigla.Text;
+    if (oEstadoRegra.ValidarUF(oEstadoDTO, oEstadoModel)) then
+    begin
+      frmEstadoCadastro.edtEstado.Text := oEstadoDTO.Descricao;
+    end;
+  end;
+end;
+
+procedure TEstadoCadastroController.RetornarValorEdit(Sender: TObject);
+begin
+  frmEstadoCadastro.edtEstado.Clear;
+  frmEstadoCadastro.edtSigla.Clear;
+
+  if (oEstadoRegra.BuscarUpdate(oEstadoDTO, oEstadoModel)) then
+  begin
+    frmEstadoCadastro.edtEstado.Text := oEstadoDTO.Descricao;
+    frmEstadoCadastro.edtSigla.Text := oEstadoDTO.UF;
+    frmEstadoCadastro.edtSigla.Enabled := False;
+    frmEstadoCadastro.edtEstado.SetFocus;
+  end
+  else
+  begin
+    MessageDlg('Erro ao trazer o Registro do banco!', mtError, [mbOK], 0);
+    exit;
+  end;
+
 end;
 
 procedure TEstadoCadastroController.Salvar(Sender: TObject);
@@ -109,35 +142,13 @@ begin
     frmEstadoCadastro.edtEstado.SetFocus;
     exit;
   end;
-  if (oEstadoDTO.ID = 0) then
-  begin
-    //Validar UF
-    if (iValidar = 3) then
-    begin
-      MessageDlg('Estado '+ oEstadoDTO.UF+' já cadastrado!', mtWarning, [mbOK], 0);
-      frmEstadoCadastro.edtSigla.SetFocus;
-      exit;
-    end;
-  end;
 
   iSalvar := oEstadoRegra.Salvar(oEstadoDTO, oEstadoModel);
 
-  // Alterar
-  if (iSalvar = 1) then
-  begin
-    MessageDlg('Registro Alterado com sucesso!', mtInformation, [mbOK], 0);
-    exit;
-  end;
   // Erro ao Alterar
   if (iSalvar = 2) then
   begin
     MessageDlg('Erro ao Alterar o regristro!', mtWarning, [mbOK], 0);
-    exit;
-  end;
-  // Salvar
-  if (iSalvar = 3) then
-  begin
-    MessageDlg('Registro Cadastrado com sucesso!', mtInformation, [mbOK], 0);
     exit;
   end;
   // Erro ao Salvar
@@ -145,6 +156,12 @@ begin
   begin
     MessageDlg('Erro ao Salvar o regristro!', mtWarning, [mbOK], 0);
     exit;
+  end;
+
+  if (iSalvar = 0) then
+  begin
+    frmEstadoCadastro.btnSalvar.Enabled := False;
+    frmEstadoCadastro.btnNovo.Enabled := True;
   end;
 end;
 

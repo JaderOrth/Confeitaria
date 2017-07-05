@@ -50,32 +50,17 @@ end;
 function TBairroCadastroRegra.Salvar(const aBairroDTO: TBairroDTO;
   const aModel: IInterfaceBairroCadastroModel): Integer;
 begin
+  Result := 0;
   if (aBairroDTO.idBairro > 0) then
   begin
-    if (aModel.update(aBairroDTO)) then
-    begin
+    if (not(aModel.update(aBairroDTO))) then
       Result := 1;
-      exit;
-    end
-    else
-    begin
-      Result := 2;
-      exit;
-    end;
   end
   else
   begin
     aBairroDTO.idBairro := aModel.BuscarID;
-    if (aModel.Insert(aBairroDTO)) then
-    begin
-      Result := 3;
-      exit;
-    end
-    else
-    begin
-      Result := 4;
-      exit;
-    end;
+    if (not(aModel.Insert(aBairroDTO))) then
+      Result := 2;
   end;
 end;
 

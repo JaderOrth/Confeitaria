@@ -77,20 +77,17 @@ end;
 function TClienteCadastroRegra.Salvar(const aClienteDTO: TClienteDTO;
   const AModel: IInterfaceClienteCadastroModel): Integer;
 begin
+  Result := 0;
   if (aClienteDTO.IdCliente > 0) then
   begin
-    if (AModel.Update(aClienteDTO)) then
-      Result := 1
-    else
-      Result := 2;
+    if (not(AModel.Update(aClienteDTO))) then
+      Result := 1;
   end
   else
   begin
     aClienteDTO.IdCliente := AModel.BuscarId;
-    if (AModel.Insert(aClienteDTO)) then
-      Result := 3
-    else
-      Result := 4;
+    if (not(AModel.Insert(aClienteDTO))) then
+      Result := 2;
   end;
 end;
 

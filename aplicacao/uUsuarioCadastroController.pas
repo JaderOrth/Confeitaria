@@ -7,10 +7,9 @@ uses
   uUsuarioCadastro, uInterfaceCadastrocontroller, uUsuarioCadastroRegra,
   uUsuarioCadastroModel, uUsuarioDTO;
 
-
 type
-  TUsuarioCadastroController = class(
-    TInterfacedObject, IInterfaceCadastroController)
+  TUsuarioCadastroController = class(TInterfacedObject,
+    IInterfaceCadastroController)
   private
     oUsuarioDTO: TUsuarioDTO;
     oUsuarioModel: TUsuarioCadastroModel;
@@ -21,13 +20,16 @@ type
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
+    procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
     constructor Create;
     destructor Destroy; override;
   end;
+
 var
   oUsuarioCadastroController: IInterfaceCadastroController;
+
 implementation
 
 { TUsuarioCadastroController }
@@ -55,13 +57,13 @@ begin
     frmUsuarioCadastro := TfrmUsuarioCadastro.Create(AOwner);
   frmUsuarioCadastro.oInterfaceCadastroController := oUsuarioCadastroController;
   frmUsuarioCadastro.Show;
+  frmUsuarioCadastro.btnSalvar.Enabled := True;
+  frmUsuarioCadastro.btnNovo.Enabled := False;
 
   if (iId > 0) then
   begin
     oUsuarioDTO.idUsuario := iId;
-    oUsuarioRegra.BuscarUpdate(oUsuarioDTO, oUsuarioModel);
-    frmUsuarioCadastro.edtUsuario.Text := oUsuarioDTO.usuario;
-    frmUsuarioCadastro.edtSenha.Text := oUsuarioDTO.senha;
+    RetornarValorEdit(Sender);
   end;
 
 end;
@@ -82,11 +84,28 @@ end;
 procedure TUsuarioCadastroController.Novo(Sender: TObject);
 begin
   oUsuarioRegra.LimparDTO(oUsuarioDTO);
+  frmUsuarioCadastro.edtUsuario.SetFocus;
+  frmUsuarioCadastro.btnSalvar.Enabled := True;
+  frmUsuarioCadastro.btnNovo.Enabled := False;
 end;
 
 procedure TUsuarioCadastroController.Pesquisar(Sender: TObject);
 begin
 
+end;
+
+procedure TUsuarioCadastroController.RetornarValorEdit(Sender: TObject);
+begin
+  if (oUsuarioRegra.BuscarUpdate(oUsuarioDTO, oUsuarioModel)) then
+  begin
+    frmUsuarioCadastro.edtUsuario.Text := oUsuarioDTO.usuario;
+    frmUsuarioCadastro.edtSenha.Text := oUsuarioDTO.senha;
+  end
+  else
+  begin
+    MessageDlg('Erro ao retornar os valor do banco!', mtError, [mbOK], 0);
+    exit;
+  end;
 end;
 
 procedure TUsuarioCadastroController.Salvar(Sender: TObject);
@@ -97,45 +116,39 @@ begin
   oUsuarioDTO.senha := frmUsuarioCadastro.edtSenha.Text;
 
   iValidar := oUsuarioRegra.Validar(oUsuarioDTO);
-  //usuario
+  // usuario
   if (iValidar = 1) then
   begin
     MessageDlg('Preencha o campo USUÁRIO corretamente!', mtWarning, [mbOK], 0);
     exit;
   end;
-  //senha
+  // senha
   if (iValidar = 2) then
   begin
-    MessageDlg('Preencha o campo SENHA com mais de 6 caracteres!',
-      mtWarning, [mbOK], 0);
+    MessageDlg('Preencha o campo SENHA com mais de 6 caracteres!', mtWarning,
+      [mbOK], 0);
     exit;
   end;
 
-  //iSalvar = oUsuarioRegra
+  // iSalvar = oUsuarioRegra
   iSalvar := oUsuarioRegra.Salvar(oUsuarioDTO, oUsuarioModel);
-  // Update True
+  // Update False
   if (iSalvar = 1) then
   begin
-    messageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
-    exit;
-  end;
-  // Update False
-  if (iSalvar = 2) then
-  begin
-    messageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
-    exit;
-  end;
-  // Insert True
-  if (iSalvar = 3) then
-  begin
-    messageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
+    MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     exit;
   end;
   // Insert False
-  if (iSalvar = 4) then
+  if (iSalvar = 2) then
   begin
-    messageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
+    MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
+  end;
+
+  if (iSalvar = 0) then
+  begin
+    frmUsuarioCadastro.btnSalvar.Enabled := False;
+    frmUsuarioCadastro.btnNovo.Enabled := True;
   end;
 end;
 

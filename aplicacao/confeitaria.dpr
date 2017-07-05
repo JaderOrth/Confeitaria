@@ -88,7 +88,6 @@ uses
   uPedidoListagemModel in 'uPedidoListagemModel.pas',
   uInterfacePedidoListagem in 'uInterfacePedidoListagem.pas',
   uPedidoCadastroRegra in 'uPedidoCadastroRegra.pas',
-  uPedidoCadstroModel in 'uPedidoCadstroModel.pas',
   uInterfacePedidoCadastroModel in 'uInterfacePedidoCadastroModel.pas',
   uSabor in 'uSabor.pas' {frmSabor},
   uSaborListagemController in 'uSaborListagemController.pas',
@@ -110,7 +109,25 @@ uses
   uUnidadeMedidaListagemRegra in 'uUnidadeMedidaListagemRegra.pas',
   uUnidadeMedidaCadastroRegra in 'uUnidadeMedidaCadastroRegra.pas',
   uInterfaceUnidadeMedidaCadastroModel in 'uInterfaceUnidadeMedidaCadastroModel.pas',
-  uUnidadeMedidaCadastroModel in 'uUnidadeMedidaCadastroModel.pas';
+  uUnidadeMedidaCadastroModel in 'uUnidadeMedidaCadastroModel.pas',
+  uProduto in 'uProduto.pas' {frmProduto},
+  uProdutoListagemRegra in 'uProdutoListagemRegra.pas',
+  uProdutoListagemModel in 'uProdutoListagemModel.pas',
+  uInterfaceProdutoListagemModel in 'uInterfaceProdutoListagemModel.pas',
+  uProdutoDTO in 'uProdutoDTO.pas',
+  uProdutoCadastroController in 'uProdutoCadastroController.pas',
+  uProdutoCadastro in 'uProdutoCadastro.pas' {frmProdutoCadastro},
+  uProdutoListagemController in 'uProdutoListagemController.pas',
+  uProdutoCadastroRegra in 'uProdutoCadastroRegra.pas',
+  uProdutoCadastroModel in 'uProdutoCadastroModel.pas',
+  uInterfaceProdutoCadastroModel in 'uInterfaceProdutoCadastroModel.pas',
+  uCategoriaListaHash in 'uCategoriaListaHash.pas',
+  uUnidadeMedidaListaHash in 'uUnidadeMedidaListaHash.pas',
+  uSaborListaHash in 'uSaborListaHash.pas',
+  uPedidoCadastroModel in 'uPedidoCadastroModel.pas',
+  uProdutoListaHash in 'uProdutoListaHash.pas',
+  uIntensPedidoDTO in 'uIntensPedidoDTO.pas',
+  uITensPedidoListaHash in 'uITensPedidoListaHash.pas';
 
 {$R *.res}
 

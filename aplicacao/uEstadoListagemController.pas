@@ -15,8 +15,6 @@ type
     oEstadoModel: TEstadoListagemModel;
     oEstadoDTO: TEstadoDTO;
     oEstadoRegra: TEstadoListagemRegra;
-
-    frmEstado: TfrmEstado;
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
@@ -49,6 +47,7 @@ procedure TEstadoListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmEstado))) then
     exit;
+  oEstadoCadastroController.CloseFormCadastro(Sender);
   frmEstado.Close;
   FreeAndNil(frmEstado);
 end;
@@ -57,7 +56,7 @@ procedure TEstadoListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oEstadoCadastroController))) then
     oEstadoCadastroController := TEstadoCadastroController.Create;
-  // passa 0 porque quando o usuario clicar em editar iá passar o ID
+  // passa 0 porque quando o usuario clicar em editar irá passar o ID
   oEstadoCadastroController.CreateFormCadastro(frmEstado, Sender, 0);
 end;
 
@@ -75,9 +74,14 @@ end;
 
 constructor TEstadoListagemController.Create;
 begin
-  oEstadoModel := TEstadoListagemModel.Create;
-  oEstadoDTO := TEstadoDTO.Create;
-  oEstadoRegra := TEstadoListagemRegra.Create;
+  if (not(Assigned(oEstadoModel))) then
+    oEstadoModel := TEstadoListagemModel.Create;
+
+  if (not(Assigned(oEstadoDTO))) then
+    oEstadoDTO := TEstadoDTO.Create;
+
+  if (not(Assigned(oEstadoRegra))) then
+    oEstadoRegra := TEstadoListagemRegra.Create;
 end;
 
 procedure TEstadoListagemController.CreateFormListagem(AOwner: TComponent);
@@ -99,28 +103,37 @@ begin
 
   if (Assigned(oEstadoRegra)) then
     FreeAndNil(oEstadoRegra);
-
   inherited;
 end;
 
 procedure TEstadoListagemController.Excluir(oMemTable: TFDMemTable);
 var
-  iID: Integer;
+  iID, iValidar: Integer;
 begin
   if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
     [mbYes, mbNo], 0) = mrYes) then
   begin
     iID := oMemTable.FieldByName('iduf').AsInteger;
-    if oEstadoRegra.Excluir(iID, oEstadoModel) then
+    iValidar := oEstadoRegra.Excluir(iID, oEstadoModel);
+
+    if (iValidar = 1) then
     begin
       MessageDlg('Registro deletado com sucesso!', mtInformation, [mbOK], 0);
       //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
       oMemTable.Locate('iduf', iID);
       oMemTable.Delete;
-    end
-    else
+    end;
+
+    if (iValidar = 2) then
     begin
       MessageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
+      exit;
+    end;
+
+     if (iValidar = 3) then
+    begin
+      MessageDlg('Erro ao deletar este registro, está associado ao MUNICÍPIO',
+        mtWarning, [mbOK], 0);
       exit;
     end;
   end;

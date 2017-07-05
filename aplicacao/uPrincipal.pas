@@ -8,7 +8,7 @@ uses
   Vcl.ToolWin, System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.DBCtrls, System.UITypes,
   uClassConexaoSingleton, uEstadoListagemController, uMunicipioListagemController,
   uBairroListagemController, uClienteListagemController, uUsuarioListagemController,
-  uPedidoListagemController, uCategoriasListagemController,
+  uPedidoListagemController, uCategoriasListagemController,uProdutoListagemController,
   uSaborListagemController, uUnidadeMedidaListagemController;
 
 type
@@ -49,6 +49,8 @@ type
     procedure btnPedidosClick(Sender: TObject);
     procedure Sabores1Click(Sender: TObject);
     procedure UnidadedeMedida1Click(Sender: TObject);
+    procedure btnProdutosClick(Sender: TObject);
+    procedure Produtos1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -82,6 +84,13 @@ begin
   if (not(Assigned(oPedidoListagemController))) then
     oPedidoListagemController := TPedidoListagemController.Create;
   oPedidoListagemController.CreateFormListagem(Self);
+end;
+
+procedure TfrmPrincipal.btnProdutosClick(Sender: TObject);
+begin
+  if (not(Assigned(oProdutoListagemController))) then
+    oProdutoListagemController := TProdutoListagemController.Create;
+  oProdutoListagemController.CreateFormListagem(Self);
 end;
 
 procedure TfrmPrincipal.btnSairClick(Sender: TObject);
@@ -137,6 +146,11 @@ end;
 procedure TfrmPrincipal.Pedido1Click(Sender: TObject);
 begin
   btnPedidosClick(Sender);
+end;
+
+procedure TfrmPrincipal.Produtos1Click(Sender: TObject);
+begin
+  btnProdutosClick(Sender);
 end;
 
 procedure TfrmPrincipal.Sabores1Click(Sender: TObject);

@@ -30,30 +30,21 @@ end;
 function TCategoriaCadastroRegra.Salvar(const aCategoriaDTO: TCategoriasDTO;
   const aModel: IInterfaceCategoriaCadastroModel): Integer;
 begin
+  Result :=  0;
   if (aCategoriaDTO.idcategoria > 0) then
   begin
-    if (aModel.update(aCategoriaDTO)) then
+    if (not(aModel.update(aCategoriaDTO))) then
     begin
       Result := 1;
-      exit;
-    end
-    else
-    begin
-      Result := 2;
       exit;
     end;
   end
   else
   begin
     aCategoriaDTO.idcategoria := aModel.BuscarID;
-    if (aModel.Insert(aCategoriaDTO)) then
+    if (not(aModel.Insert(aCategoriaDTO))) then
     begin
-      Result := 3;
-      exit;
-    end
-    else
-    begin
-      Result := 4;
+      Result := 2;
       exit;
     end;
   end;

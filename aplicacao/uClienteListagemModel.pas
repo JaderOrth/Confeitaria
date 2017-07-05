@@ -4,19 +4,50 @@ interface
 
 uses
   FireDAC.Comp.Client, System.SysUtils, Data.DB,
-  uClienteDTO, uInterfaceClienteModel, uClassConexaoSingleton;
+  uClienteDTO, uInterfaceClienteModel, uClassConexaoSingleton, uClienteListaHash;
 
 type
   TClienteListagemModel = class(TInterfacedObject, IInterfaceClienteModel)
   public
     function MontarGrid(aMenTable: TFDMemTable): Boolean;
+    function ValidarExcluir(const aId: Integer): Boolean;
     function Excluir(const iID: Integer): Boolean;
-
+    function ComboBoxCliente(out aLista: TClienteListaHash): Boolean;
   end;
 
 implementation
 
 { TClienteListagemModel }
+
+function TClienteListagemModel.ComboBoxCliente(
+  out aLista: TClienteListaHash): Boolean;
+var
+  oQuery: TFDQuery;
+  oClienteDTO: TClienteDTO;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT idcliente, nome FROM cliente');
+    if (not(oQuery.IsEmpty)) then
+    begin
+      oQuery.First;
+      while (not(oQuery.Eof)) do
+      begin
+        oClienteDTO :=  TClienteDTO.Create;
+        oClienteDTO.IdCliente := oQuery.FieldByName('idcliente').AsInteger;
+        oClienteDTO.Nome := oQuery.FieldByName('nome').AsString;
+        aLista.Add(oClienteDTO.Nome, oClienteDTO);
+        oQuery.Next;
+      end;
+      Result := True;
+    end;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
 
 function TClienteListagemModel.Excluir(const iID: Integer): Boolean;
 var
@@ -45,6 +76,25 @@ begin
       Result := True;
   finally
     if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
+
+function TClienteListagemModel.ValidarExcluir(const aId: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT pe.idpedido FROM pedido as pe'+
+                ' INNER JOIN cliente as cli ON cli.idcliente = pe.idcliente'+
+                ' WHERE cli.idcliente = '+ IntToStr(aId)+' limit 2');
+    if (not(oQuery.IsEmpty)) then
+      Result := True;
+  finally
+    if Assigned(oQuery) then
       FreeAndNil(oQuery);
   end;
 end;

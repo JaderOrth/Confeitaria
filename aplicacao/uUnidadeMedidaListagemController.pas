@@ -6,23 +6,24 @@ uses
   System.Classes, FireDAC.Comp.Client, System.SysUtils, Vcl.Dialogs,
   System.UITypes, Data.DB,
   uUnidadeMedida, uInterfaceListagemController, uUnidadeMedidaDTO,
-  uUnidadeMedidaListagemModel, uUnidadeMedidaListagemRegra, uUnidadeMedidaCadastroController;
+  uUnidadeMedidaListagemModel, uUnidadeMedidaListagemRegra,
+  uUnidadeMedidaCadastroController;
 
 type
   TUnidadeMedidaListagemController = class(TInterfacedObject,
     IInterfaceListagemController)
   private
-    oUnidadeMedidaModel : TUnidadeMedidaListagemModel;
-    oUnidadeMedidaRegra : TUnidadeMedidaListagemRegra;
-    oUnidadeMedidaDTO : TUnidadeMedidaDTO;
+    oUnidadeMedidaModel: TUnidadeMedidaListagemModel;
+    oUnidadeMedidaRegra: TUnidadeMedidaListagemRegra;
+    oUnidadeMedidaDTO: TUnidadeMedidaDTO;
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
     procedure Help(Sender: TObject);
     procedure ControlerCadastro(Sender: TObject);
     procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    procedure MontarGrid(oMemtable: TFDMemTable);
-    procedure Excluir(oMemtable: TFDMemTable);
+    procedure MontarGrid(oMemTable: TFDMemTable);
+    procedure Excluir(oMemTable: TFDMemTable);
     procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
 
     constructor Create;
@@ -39,8 +40,8 @@ implementation
 procedure TUnidadeMedidaListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'descricao like ''%'+APesquisa+'%'''+
-                      ' or sigla like ''%'+APesquisa+'%''';
+  aMemTable.Filter := 'descricao like ''%' + APesquisa + '%''' +
+    ' or sigla like ''%' + APesquisa + '%''';
   aMemTable.Filtered := true;
 end;
 
@@ -48,6 +49,7 @@ procedure TUnidadeMedidaListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmUnidadeMedida))) then
     exit;
+  oUnidadeMedidaCadastroController.CloseFormCadastro(Sender);
   frmUnidadeMedida.Close;
   FreeAndNil(frmUnidadeMedida);
 end;
@@ -56,7 +58,8 @@ procedure TUnidadeMedidaListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oUnidadeMedidaCadastroController))) then
     oUnidadeMedidaCadastroController := TUnidadeMedidaCadastroController.Create;
-  oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida, Sender, 0);
+  oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida,
+    Sender, 0);
 end;
 
 constructor TUnidadeMedidaListagemController.Create;
@@ -74,11 +77,12 @@ begin
   if (not(Assigned(oUnidadeMedidaCadastroController))) then
     oUnidadeMedidaCadastroController := TUnidadeMedidaCadastroController.Create;
   iID := oMemTable.FieldByName('idunidade_medida').AsInteger;
-  oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida, Sender, iID);
+  oUnidadeMedidaCadastroController.CreateFormCadastro(frmUnidadeMedida,
+    Sender, iID);
 end;
 
-procedure TUnidadeMedidaListagemController.CreateFormListagem(
-  AOwner: TComponent);
+procedure TUnidadeMedidaListagemController.CreateFormListagem
+  (AOwner: TComponent);
 begin
   if (not(Assigned(frmUnidadeMedida))) then
     frmUnidadeMedida := TfrmUnidadeMedida.Create(AOwner);
@@ -100,26 +104,38 @@ begin
   inherited;
 end;
 
-procedure TUnidadeMedidaListagemController.Excluir(oMemtable: TFDMemTable);
+procedure TUnidadeMedidaListagemController.Excluir(oMemTable: TFDMemTable);
 var
-  iID: Integer;
+  iID, iValidar: Integer;
 begin
   if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
     [mbYes, mbNo], 0) = mrYes) then
   begin
-    iId := oMemTable.FieldByName('idunidade_medida').AsInteger;
-    if (oUnidadeMedidaRegra.Excluir(iId, oUnidadeMedidaModel)) then
+    iID := oMemTable.FieldByName('idunidade_medida').AsInteger;
+    iValidar := oUnidadeMedidaRegra.Excluir(iID, oUnidadeMedidaModel);
+    if (iValidar = 1) then
     begin
       MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
-      //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
-      oMemTable.Locate('idunidade_medida', iId);
+      // deleta o registro do mentable sem ir no banco de dados para atualizar a grid
+      oMemTable.Locate('idunidade_medida', iID);
       oMemTable.Delete;
-    end
-    else
-      raise Exception.Create('Error  ao deletar o Registro');
+    end;
+
+    if (iValidar = 2) then
+    begin
+      MessageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
+      exit;
+    end;
+
+    if (iValidar = 3) then
+    begin
+      MessageDlg('Erro ao deletar este registro, está associado ao PRODUTO',
+        mtWarning, mbOKCancel, 0);
+      exit;
+    end;
   end;
 
-  if (oMemtable.IsEmpty) then
+  if (oMemTable.IsEmpty) then
   begin
     frmUnidadeMedida.btnEditar.Enabled := false;
     frmUnidadeMedida.btnExcluir.Enabled := false;
@@ -131,21 +147,21 @@ begin
 
 end;
 
-procedure TUnidadeMedidaListagemController.MontarGrid(oMemtable: TFDMemTable);
+procedure TUnidadeMedidaListagemController.MontarGrid(oMemTable: TFDMemTable);
 begin
   oMemTable.Close;
   if (oUnidadeMedidaRegra.MontarGrid(oMemTable, oUnidadeMedidaModel)) then
   begin
     oMemTable.Open;
-    frmUnidadeMedida.bClick := True;
-    frmUnidadeMedida.btnEditar.Enabled := True;
-    frmUnidadeMedida.btnExcluir.Enabled := True;
+    frmUnidadeMedida.bClick := true;
+    frmUnidadeMedida.btnEditar.Enabled := true;
+    frmUnidadeMedida.btnExcluir.Enabled := true;
   end
   else
   begin
-    frmUnidadeMedida.bClick := True;
-    frmUnidadeMedida.btnEditar.Enabled := False;
-    frmUnidadeMedida.btnExcluir.Enabled := False;
+    frmUnidadeMedida.bClick := true;
+    frmUnidadeMedida.btnEditar.Enabled := false;
+    frmUnidadeMedida.btnExcluir.Enabled := false;
   end;
 end;
 

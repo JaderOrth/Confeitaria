@@ -3,8 +3,8 @@ unit uMunicipioListagemController;
 interface
 
 uses
-  System.Classes, FireDAC.Comp.Client,System.SysUtils, Vcl.Dialogs,
-   System.UITypes, Data.DB,
+  System.Classes, FireDAC.Comp.Client, System.SysUtils, Vcl.Dialogs,
+  System.UITypes, Data.DB,
   uInterfaceListagemController, uMunicipio, uMunicipioCadastroController,
   uMunicipioDTO, uMunicipioListagemRegra, uMunicipioListagemModel;
 
@@ -40,9 +40,8 @@ implementation
 procedure TMunicipioListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'descricao like ''%'+APesquisa+
-                      '%'' or estado like ''%'+
-                      AnsiUpperCase(APesquisa)+'%''';
+  aMemTable.Filter := 'descricao like ''%' + APesquisa +
+    '%'' or estado like ''%' + AnsiUpperCase(APesquisa) + '%''';
   aMemTable.Filtered := True;
 end;
 
@@ -50,6 +49,7 @@ procedure TMunicipioListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmMunicipio))) then
     exit;
+  oMunicipioCadastroController.CloseFormCadastro(Sender);
   frmMunicipio.Close;
   FreeAndNil(frmMunicipio);
 end;
@@ -101,24 +101,37 @@ end;
 
 procedure TMunicipioListagemController.Excluir(oMemTable: TFDMemTable);
 var
-  iId: Integer;
+  iId, iValidar: Integer;
 begin
   if (MessageDlg('Deseja realmente Excluir?', mtConfirmation, [mbYes, mbNo], 0)
     = mrYes) then
   begin
     iId := oMemTable.FieldByName('idmunicipio').AsInteger;
-    if (oMunicipioRegra.Excluir(iId, oMunicipioModel)) then
+    iValidar := oMunicipioRegra.Excluir(iId, oMunicipioModel);
+    if (iValidar = 1) then
     begin
       MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
-      //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
+      // deleta o registro do mentable sem ir no banco de dados para atualizar a grid
       oMemTable.Locate('idmunicipio', iId);
       oMemTable.Delete;
-    end
-    else
-      raise Exception.Create('Error  ao deletar o Registro');
+    end;
+
+    if (iValidar = 2) then
+    begin
+      MessageDlg('Erro ao excluir este registro!', mtError, [mbOK], 0);
+      exit;
+    end;
+
+    if (iValidar = 3) then
+    begin
+      MessageDlg('Registro não pode ser excluido, está associado a algum BAIRRO!',
+        mtError, [mbOK], 0);
+      exit;
+    end;
+
   end;
 
-  if (oMemtable.IsEmpty) then
+  if (oMemTable.IsEmpty) then
   begin
     frmMunicipio.btnEditar.Enabled := false;
     frmMunicipio.btnExcluir.Enabled := false;
@@ -128,7 +141,7 @@ end;
 
 procedure TMunicipioListagemController.Help(Sender: TObject);
 begin
-  {  }
+  { }
 end;
 
 procedure TMunicipioListagemController.MontarGrid(oMemTable: TFDMemTable);
@@ -139,13 +152,13 @@ begin
     oMemTable.Open;
     frmMunicipio.btnEditar.Enabled := True;
     frmMunicipio.btnExcluir.Enabled := True;
-    frmMunicipio.bClick := true;
+    frmMunicipio.bClick := True;
   end
   else
   begin
-    frmMunicipio.btnEditar.Enabled := False;
-    frmMunicipio.btnExcluir.Enabled := False;
-    frmMunicipio.bClick := False;
+    frmMunicipio.btnEditar.Enabled := false;
+    frmMunicipio.btnExcluir.Enabled := false;
+    frmMunicipio.bClick := false;
   end;
 end;
 

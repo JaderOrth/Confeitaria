@@ -4,8 +4,7 @@ interface
 
 uses
   System.SysUtils, FireDAC.Comp.Client, Vcl.DBGrids, System.Classes,
-  Vcl.Dialogs,
-  Vcl.Controls, System.UITypes,
+  Vcl.Dialogs, Vcl.Controls, System.UITypes,
   uEstadoDTO, uInterfaceListagemModel;
 
 type
@@ -13,7 +12,8 @@ type
   public
     function MontarGrid(oMemTable: TFDMeMTable;
       const AModel: IInterfaceListagemModel): Boolean;
-    function Excluir(const iId: Integer; const AModel: IInterfaceListagemModel): Boolean;
+    function Excluir(const iId: Integer;
+      const AModel: IInterfaceListagemModel): Integer;
   end;
 
 implementation
@@ -21,11 +21,21 @@ implementation
 { TEstadoListagemRegra }
 
 function TEstadoListagemRegra.Excluir(const iId: Integer;
-  const AModel: IInterfaceListagemModel): Boolean;
+  const AModel: IInterfaceListagemModel): Integer;
 begin
-  Result := False;
+  Result := 0;
   if (iId > 0) then
-    Result := AModel.Excluir(iId);
+  begin
+    if (not(AModel.ValidarExcluir(iId))) then
+    begin
+      if (AModel.Excluir(iId)) then
+        Result := 1
+      else
+        Result := 2;
+    end
+    else
+      Result := 3;
+  end;
 end;
 
 function TEstadoListagemRegra.MontarGrid(oMemTable: TFDMeMTable;

@@ -5,7 +5,8 @@ interface
 uses
   System.Classes, FireDAC.Comp.Client, System.SysUtils, Vcl.Dialogs,
   System.UITypes, Data.DB,
-  uSabor, uInterfaceListagemController, uSaborDTO, uSaborListagemRegra, uSaborListagemModel,
+  uSabor, uInterfaceListagemController, uSaborDTO, uSaborListagemRegra,
+  uSaborListagemModel,
   uSaborCadastroController;
 
 type
@@ -39,8 +40,8 @@ implementation
 procedure TSaborListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'descricao like ''%'+APesquisa+'%'''+
-                      ' or ingredientes like ''%'+APesquisa+'%''';
+  aMemTable.Filter := 'descricao like ''%' + APesquisa + '%''' +
+    ' or ingredientes like ''%' + APesquisa + '%''';
   aMemTable.Filtered := true;
 end;
 
@@ -48,6 +49,7 @@ procedure TSaborListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmSabor))) then
     exit;
+  oSaborCadastroController.CloseFormCadastro(Sender);
   frmSabor.Close;
   FreeAndNil(frmSabor);
 end;
@@ -101,24 +103,36 @@ end;
 
 procedure TSaborListagemController.Excluir(oMemTable: TFDMemTable);
 var
-  iID: Integer;
+  iID, iValidar: Integer;
 begin
   if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
     [mbYes, mbNo], 0) = mrYes) then
   begin
-    iId := oMemTable.FieldByName('idsabores').AsInteger;
-    if (oSaborRegra.Excluir(iId, oSaborModel)) then
+    iID := oMemTable.FieldByName('idsabores').AsInteger;
+    iValidar := oSaborRegra.Excluir(iID, oSaborModel);
+    if (iValidar = 1) then
     begin
       MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
-      //deleta o registro do mentable sem ir no banco de dados para atualizar a grid
-      oMemTable.Locate('idsabores', iId);
+      // deleta o registro do mentable sem ir no banco de dados para atualizar a grid
+      oMemTable.Locate('idsabores', iID);
       oMemTable.Delete;
-    end
-    else
-      raise Exception.Create('Error  ao deletar o Registro');
+    end;
+
+    if (iValidar = 2) then
+    begin
+      MessageDlg('Erro ao deletar este Registro', mtWarning, mbOKCancel, 0);
+      exit;
+    end;
+
+    if (iValidar = 3) then
+    begin
+      MessageDlg('Erro ao deletar este registro, está associado ao PRODUTO ou PEDIDO',
+        mtWarning, mbOKCancel, 0);
+      exit;
+    end;
   end;
 
-  if (oMemtable.IsEmpty) then
+  if (oMemTable.IsEmpty) then
   begin
     frmSabor.btnEditar.Enabled := false;
     frmSabor.btnExcluir.Enabled := false;
@@ -136,15 +150,15 @@ begin
   if (oSaborRegra.MontarGrid(oMemTable, oSaborModel)) then
   begin
     oMemTable.Open;
-    frmSabor.bClick := True;
-    frmSabor.btnEditar.Enabled := True;
-    frmSabor.btnExcluir.Enabled := True;
+    frmSabor.bClick := true;
+    frmSabor.btnEditar.Enabled := true;
+    frmSabor.btnExcluir.Enabled := true;
   end
   else
   begin
-    frmSabor.bClick := False;
-    frmSabor.btnEditar.Enabled := False;
-    frmSabor.btnExcluir.Enabled := False;
+    frmSabor.bClick := false;
+    frmSabor.btnEditar.Enabled := false;
+    frmSabor.btnExcluir.Enabled := false;
   end;
 end;
 

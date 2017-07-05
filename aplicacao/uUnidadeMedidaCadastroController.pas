@@ -3,9 +3,11 @@ unit uUnidadeMedidaCadastroController;
 interface
 
 uses
-  System.Classes, System.SysUtils, System.StrUtils, Vcl.StdCtrls, System.UITypes, Vcl.Dialogs,
+  System.Classes, System.SysUtils, System.StrUtils, Vcl.StdCtrls,
+  System.UITypes, Vcl.Dialogs,
   System.Generics.Collections,
-  uInterfaceCadastroController, uUnidadeMedidaCadastro, uUnidadeMedidaDTO, uUnidadeMedidaCadastroRegra, uUnidadeMedidaCadastroModel;
+  uInterfaceCadastroController, uUnidadeMedidaCadastro, uUnidadeMedidaDTO,
+  uUnidadeMedidaCadastroRegra, uUnidadeMedidaCadastroModel;
 
 type
   TUnidadeMedidaCadastroController = class(TInterfacedObject,
@@ -14,13 +16,13 @@ type
     oUnidadeMedidaModel: TUnidadeMedidaCadastroModel;
     oUnidadeMedidaRegra: TUnidadeMedidaCadastroRegra;
     oUnidadeMedidaDTO: TUnidadeMedidaDTO;
-    iIdAlterar: Integer;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;
       const iId: Integer);
     procedure CloseFormCadastro(Sender: TObject);
     procedure Salvar(Sender: TObject);
     procedure Novo(Sender: TObject);
+    procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
     constructor Create;
@@ -50,31 +52,21 @@ begin
   oUnidadeMedidaRegra := TUnidadeMedidaCadastroRegra.Create;
 end;
 
-procedure TUnidadeMedidaCadastroController.CreateFormCadastro(AOwner: TComponent;
-  Sender: TObject; const iId: Integer);
+procedure TUnidadeMedidaCadastroController.CreateFormCadastro
+  (AOwner: TComponent; Sender: TObject; const iId: Integer);
 begin
   if (not(Assigned(frmUnidadeMedidaCadastro))) then
     frmUnidadeMedidaCadastro := TfrmUnidadeMedidaCadastro.Create(AOwner);
-  frmUnidadeMedidaCadastro.oInterfaceCadastroController := oUnidadeMedidaCadastroController;
-
+  frmUnidadeMedidaCadastro.oInterfaceCadastroController :=
+    oUnidadeMedidaCadastroController;
   frmUnidadeMedidaCadastro.Show;
+  frmUnidadeMedidaCadastro.btnSalvar.Enabled := True;
+  frmUnidadeMedidaCadastro.btnNovo.Enabled := False;
 
   if (iId > 0) then
   begin
     oUnidadeMedidaDTO.idunidade_medida := iId;
-    iIdAlterar := iId;
-    oUnidadeMedidaRegra.SelectUpdate(oUnidadeMedidaDTO, oUnidadeMedidaModel);
-    frmUnidadeMedidaCadastro.edtDescricao.Text := oUnidadeMedidaDTO.descricao;
-    frmUnidadeMedidaCadastro.edtSigla.Text := oUnidadeMedidaDTO.sigla;
-
-    if oUnidadeMedidaRegra.CheckBox(oUnidadeMedidaDTO.permite_decimal) then
-    begin
-      frmUnidadeMedidaCadastro.chkbDecimal.State := cbChecked;
-    end
-    else
-    begin
-      frmUnidadeMedidaCadastro.chkbDecimal.State := cbUnchecked;
-    end;
+    RetornarValorEdit(Sender);
   end;
 end;
 
@@ -94,11 +86,37 @@ end;
 procedure TUnidadeMedidaCadastroController.Novo(Sender: TObject);
 begin
   oUnidadeMedidaRegra.LimparDTO(oUnidadeMedidaDTO);
+  frmUnidadeMedidaCadastro.btnSalvar.Enabled := True;
+  frmUnidadeMedidaCadastro.btnNovo.Enabled := False;
 end;
 
 procedure TUnidadeMedidaCadastroController.Pesquisar(Sender: TObject);
 begin
 
+end;
+
+procedure TUnidadeMedidaCadastroController.RetornarValorEdit(Sender: TObject);
+begin
+  if (oUnidadeMedidaRegra.SelectUpdate(oUnidadeMedidaDTO, oUnidadeMedidaModel))
+  then
+  begin
+    frmUnidadeMedidaCadastro.edtDescricao.Text := oUnidadeMedidaDTO.descricao;
+    frmUnidadeMedidaCadastro.edtSigla.Text := oUnidadeMedidaDTO.sigla;
+
+    if oUnidadeMedidaRegra.CheckBox(oUnidadeMedidaDTO.permite_decimal) then
+    begin
+      frmUnidadeMedidaCadastro.chkbDecimal.State := cbChecked;
+    end
+    else
+    begin
+      frmUnidadeMedidaCadastro.chkbDecimal.State := cbUnchecked;
+    end;
+  end
+  else
+  begin
+    MessageDlg('Erro ao retornar os valor do banco!', mtError, [mbOK], 0);
+    exit;
+  end;
 end;
 
 procedure TUnidadeMedidaCadastroController.Salvar(Sender: TObject);
@@ -107,50 +125,43 @@ var
 begin
   oUnidadeMedidaDTO.descricao := frmUnidadeMedidaCadastro.edtDescricao.Text;
   oUnidadeMedidaDTO.sigla := frmUnidadeMedidaCadastro.edtSigla.Text;
-  oUnidadeMedidaDTO.permite_decimal := ifthen(frmUnidadeMedidaCadastro.chkbDecimal.Checked, 'S', 'N');
+  oUnidadeMedidaDTO.permite_decimal :=
+    ifthen(frmUnidadeMedidaCadastro.chkbDecimal.Checked, 'S', 'N');
   iValidar := oUnidadeMedidaRegra.ValidarEdit(oUnidadeMedidaDTO);
   // descrição
   if (iValidar = 1) then
   begin
-    messageDlg('Preencha o campo Unidade Medida corretamente!', mtWarning,
+    MessageDlg('Preencha o campo Unidade Medida corretamente!', mtWarning,
       [mbOK], 0);
     frmUnidadeMedidaCadastro.edtDescricao.SetFocus;
     exit;
   end;
-
-  //sigla
+  // sigla
   if (iValidar = 2) then
   begin
-    messageDlg('Preencha o campo Sigla corretamente!', mtWarning,
-      [mbOK], 0);
+    MessageDlg('Preencha o campo Sigla corretamente!', mtWarning, [mbOK], 0);
     frmUnidadeMedidaCadastro.edtSigla.SetFocus;
     exit;
   end;
 
   iSalvar := oUnidadeMedidaRegra.Salvar(oUnidadeMedidaDTO, oUnidadeMedidaModel);
-  // Update True
+  // Update False
   if (iSalvar = 1) then
   begin
-    messageDlg('Registro alterado com sucesso!', mtInformation, [mbOK], 0);
-    exit;
-  end;
-  // Update False
-  if (iSalvar = 2) then
-  begin
-    messageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
-    exit;
-  end;
-  // Insert True
-  if (iSalvar = 3) then
-  begin
-    messageDlg('Registro salvo com sucesso!', mtInformation, [mbOK], 0);
+    MessageDlg('Erro ao alterar o registro!', mtError, [mbOK], 0);
     exit;
   end;
   // Insert False
-  if (iSalvar = 4) then
+  if (iSalvar = 2) then
   begin
-    messageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
+    MessageDlg('Erro ao salvar o registro!', mtError, [mbOK], 0);
     exit;
+  end;
+
+  if (iSalvar = 0) then
+  begin
+    frmUnidadeMedidaCadastro.btnSalvar.Enabled := False;
+    frmUnidadeMedidaCadastro.btnNovo.Enabled := True;
   end;
 end;
 

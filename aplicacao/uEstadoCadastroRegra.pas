@@ -8,8 +8,6 @@ uses
 
 type
   TEstadoCadastroRegra = class
-  private
-
   public
     function BuscarUpdate(var AEstado: TEstadoDTO;
       const AEstadoModel: IIntrefaceCadastroModel): boolean;
@@ -17,7 +15,9 @@ type
       const AEstadoModel: IIntrefaceCadastroModel): Integer;
     function Salvar(const AEstado: TEstadoDTO;
       const AEstadoModel: IIntrefaceCadastroModel): Integer;
-    procedure LimparDTO(const AEstadoDTO: TEstadoDTO);
+    function ValidarUF(var aEstadoDTO: TEstadoDTO;
+      const aModel: IIntrefaceCadastroModel): boolean;
+    procedure LimparDTO(const aEstadoDTO: TEstadoDTO);
   end;
 
 implementation
@@ -30,30 +30,27 @@ begin
   Result := AEstadoModel.BuscarUpdate(AEstado);
 end;
 
-procedure TEstadoCadastroRegra.LimparDTO(const AEstadoDTO: TEstadoDTO);
+procedure TEstadoCadastroRegra.LimparDTO(const aEstadoDTO: TEstadoDTO);
 begin
-  AEstadoDTO.ID := 0;
-  AEstadoDTO.UF := EmptyStr;
-  AEstadoDTO.Descricao := EmptyStr;
+  aEstadoDTO.ID := 0;
+  aEstadoDTO.UF := EmptyStr;
+  aEstadoDTO.Descricao := EmptyStr;
 end;
 
 function TEstadoCadastroRegra.Salvar(const AEstado: TEstadoDTO;
   const AEstadoModel: IIntrefaceCadastroModel): Integer;
 begin
+  Result := 0;
   if (AEstado.ID > 0) then
   begin
-    if (AEstadoModel.Update(AEstado)) then
+    if (not(AEstadoModel.Update(AEstado))) then
       Result := 1
-    else
-      Result := 2;
   end
   else
   begin
     AEstado.ID := AEstadoModel.BuscarID;
-   if (AEstadoModel.Salvar(AEstado)) then
-    Result := 3
-   else
-    Result := 4;
+    if (not(AEstadoModel.Salvar(AEstado))) then
+      Result := 2;
   end;
 end;
 
@@ -61,7 +58,7 @@ function TEstadoCadastroRegra.ValidarCampos(const AEstado: TEstadoDTO;
   const AEstadoModel: IIntrefaceCadastroModel): Integer;
 begin
   Result := 0;
-    if (Length(Trim(AEstado.UF)) <> 2) then
+  if (Length(Trim(AEstado.UF)) <> 2) then
   begin
     Result := 1;
     exit;
@@ -71,11 +68,14 @@ begin
     Result := 2;
     exit;
   end;
-  if (AEstadoModel.ValidarUF(AEstado)) then
-  begin
-    Result := 3;
-    exit;
-  end;
+end;
+
+function TEstadoCadastroRegra.ValidarUF(var aEstadoDTO: TEstadoDTO;
+  const aModel: IIntrefaceCadastroModel): boolean;
+begin
+  Result := False;
+  if (Length(aEstadoDTO.UF) = 2) then
+    Result := aModel.ValidarUF(aEstadoDTO);
 end;
 
 end.

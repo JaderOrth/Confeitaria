@@ -13,7 +13,7 @@ type
     function Excluir(const iID: Integer): Boolean;
     function MontarGrid(oMemTable: TFDMemTable): Boolean;
     function ComboBox(var ALista: TEstadoListaHash): Boolean;
-
+    function ValidarExcluir(const iID: Integer): Boolean;
   end;
 
 implementation
@@ -54,8 +54,7 @@ function TEstadoListagemModel.Excluir(const iID: Integer): Boolean;
 var
   sSql: string;
 begin
-  sSql := 'DELETE FROM uf WHERE iduf = ' + IntToStr(iID);
-
+  sSql := 'DELETE FROM uf WHERE iduf = '+IntToStr(iID);
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
 end;
 
@@ -70,6 +69,25 @@ begin
     oQuery.Connection := TConexaoSingleton.GetInstancia;
     oQuery.Open('SELECT iduf, descricao, sigla_uf FROM uf');
     oMemTable.Data := oQuery.Data;
+    if (not(oQuery.IsEmpty)) then
+      Result := True;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
+
+function TEstadoListagemModel.ValidarExcluir(const iID: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('select uf.iduf from uf inner join municipio as mu'+
+                ' on mu.iduf = uf.iduf where uf.iduf = '+
+                IntToStr(iID)+' limit 2');
     if (not(oQuery.IsEmpty)) then
       Result := True;
   finally

@@ -11,6 +11,9 @@ inherited frmEstadoCadastro: TfrmEstadoCadastro
   inherited Panel1: TPanel
     Left = 544
     ExplicitLeft = 544
+    inherited btnNovo: TSpeedButton
+      Enabled = False
+    end
   end
   inherited panelCadastro: TPanel
     Width = 544

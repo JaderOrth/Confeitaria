@@ -215,6 +215,20 @@
         <DCCReference Include="uCategoriasCadastro.pas">
             <Form>frmCategoriasCadastro</Form>
         </DCCReference>
+        <DCCReference Include="uPedido.pas">
+            <Form>frmPedido</Form>
+        </DCCReference>
+        <DCCReference Include="uPedidoListagemController.pas"/>
+        <DCCReference Include="uPedidoCadastro.pas">
+            <Form>frmPedidoCadastro</Form>
+        </DCCReference>
+        <DCCReference Include="uPedidoCadastroController.pas"/>
+        <DCCReference Include="uPedidoDTO.pas"/>
+        <DCCReference Include="uPedidoListagemRegra.pas"/>
+        <DCCReference Include="uPedidoListagemModel.pas"/>
+        <DCCReference Include="uInterfacePedidoListagem.pas"/>
+        <DCCReference Include="uPedidoCadastroRegra.pas"/>
+        <DCCReference Include="uInterfacePedidoCadastroModel.pas"/>
         <DCCReference Include="uSabor.pas">
             <Form>frmSabor</Form>
             <FormType>dfm</FormType>
@@ -248,6 +262,30 @@
         <DCCReference Include="uUnidadeMedidaCadastroRegra.pas"/>
         <DCCReference Include="uInterfaceUnidadeMedidaCadastroModel.pas"/>
         <DCCReference Include="uUnidadeMedidaCadastroModel.pas"/>
+        <DCCReference Include="uProduto.pas">
+            <Form>frmProduto</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uProdutoListagemRegra.pas"/>
+        <DCCReference Include="uProdutoListagemModel.pas"/>
+        <DCCReference Include="uInterfaceProdutoListagemModel.pas"/>
+        <DCCReference Include="uProdutoDTO.pas"/>
+        <DCCReference Include="uProdutoCadastroController.pas"/>
+        <DCCReference Include="uProdutoCadastro.pas">
+            <Form>frmProdutoCadastro</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="uProdutoListagemController.pas"/>
+        <DCCReference Include="uProdutoCadastroRegra.pas"/>
+        <DCCReference Include="uProdutoCadastroModel.pas"/>
+        <DCCReference Include="uInterfaceProdutoCadastroModel.pas"/>
+        <DCCReference Include="uCategoriaListaHash.pas"/>
+        <DCCReference Include="uUnidadeMedidaListaHash.pas"/>
+        <DCCReference Include="uSaborListaHash.pas"/>
+        <DCCReference Include="uPedidoCadastroModel.pas"/>
+        <DCCReference Include="uProdutoListaHash.pas"/>
+        <DCCReference Include="uIntensPedidoDTO.pas"/>
+        <DCCReference Include="uITensPedidoListaHash.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

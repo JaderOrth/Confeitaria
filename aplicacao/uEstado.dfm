@@ -29,7 +29,6 @@ inherited frmEstado: TfrmEstado
         FieldName = 'iduf'
         Title.Alignment = taCenter
         Title.Caption = 'ID'
-        Width = -1
         Visible = False
       end
       item

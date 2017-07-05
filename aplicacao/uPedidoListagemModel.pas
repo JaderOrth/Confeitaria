@@ -33,7 +33,10 @@ begin
   try
     oquery := TFDQuery.Create(nil);
     oquery.Connection := TConexaoSingleton.GetInstancia;
-    oquery.Open('select * from pedido');
+    oquery.Open('SELECT pe.idpedido, pe.data_entrega, pe.total_pedido,'+
+                ' pe.entrega_endereco, pe.entrega_numero, pe.hora_entrega,'+
+                ' pe.responsavel_pedido, ba.descricao FROM pedido as pe'+
+                ' inner join bairro as ba on ba.idbairro = pe.idbairro');
     AMemTable.Data := oquery.Data;
     if (not(oquery.IsEmpty)) then
       Result := true;
