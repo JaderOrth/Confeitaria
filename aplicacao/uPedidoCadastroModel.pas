@@ -19,6 +19,8 @@ type
     function BuscarUpdate(out aPedidoDTO: TPedidoDTO; const aId: Integer): Boolean;
     function BuscarEstadoMunicipio(const aBairo: Integer;
       out aEstado, aMunicipio: Integer): Boolean;
+    function BuscarItensPedido(const aId: Integer; out aPedidoDTO: TPedidoDTO): Boolean;
+
     //function InsertSabores(const aPedido: TPedidoDTO): Boolean;
   end;
 
@@ -44,10 +46,7 @@ begin
       FreeAndNil(oQuery);
   end;
 end;
-      {SELECT  mu.idmunicipio, uf.iduf from bairro as ba
- INNER JOIN municipio mu ON mu.idmunicipio = ba.idmunicipio
- INNER JOIN uf ON uf.iduf = mu.iduf
-WHERE ba.idbairro = }
+
 function TPedidoCadastroModel.BuscarEstadoMunicipio(const aBairo: Integer;
   out aEstado, aMunicipio: Integer): Boolean;
 var
@@ -71,6 +70,12 @@ begin
     if (assigned(oQuery)) then
       FreeandNil(oQuery);
   end;
+end;
+
+function TPedidoCadastroModel.BuscarItensPedido(const aId: Integer;
+  out aPedidoDTO: TPedidoDTO): Boolean;
+begin
+
 end;
 
 function TPedidoCadastroModel.BuscarUpdate(out aPedidoDTO: TPedidoDTO;

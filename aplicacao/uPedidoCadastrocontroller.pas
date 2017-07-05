@@ -656,9 +656,6 @@ begin
   if (iIDProduto > 0) then
   begin
     frmPedidoCadastro.fdMemTable.Edit;
-    // oPedidoDTO.ItensPedido.ExtractPair(oItensPedidoDTO.idProduto);
-    // oPedidoDTO.ItensPedido.Remove(oItensPedidoDTO.idProduto);
-
     oPedidoDTO.totalPedido := oPedidoDTO.totalPedido - dEditarValorTotal;
     frmPedidoCadastro.edtTotalPedido.Text := FloatToStr(oPedidoDTO.totalPedido);
   end

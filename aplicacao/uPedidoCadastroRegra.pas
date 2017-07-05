@@ -37,6 +37,8 @@ type
     function BuscarEstadoMunicipio(const aBairo: Integer;
       out aEstado, aMunicipio: Integer;
       const aModel: IInterfacePedidoCadastroModel): Boolean;
+    function BuscarItensPedido(const aId: Integer; out aPedido: TPedidoDTO;
+      const aModel: IInterfacePedidoCadastroModel): Boolean;
   end;
 
 implementation
@@ -49,6 +51,13 @@ function TPedidoCadastroRegra.BuscarEstadoMunicipio(const aBairo: Integer;
   const aModel: IInterfacePedidoCadastroModel): Boolean;
 begin
   Result := aModel.BuscarEstadoMunicipio(aBairo, aEstado, aMunicipio);
+end;
+
+function TPedidoCadastroRegra.BuscarItensPedido(const aId: Integer;
+  out aPedido: TPedidoDTO;
+  const aModel: IInterfacePedidoCadastroModel): Boolean;
+begin
+  Result := aModel.BuscarItensPedido(aId, aPedido);
 end;
 
 function TPedidoCadastroRegra.BuscarUpdate(out aPedidoDTO: TPedidoDTO;

@@ -16,6 +16,7 @@ type
     function BuscarUpdate(out aPedidoDTO: TPedidoDTO; const aId: Integer): Boolean;
     function BuscarEstadoMunicipio(const aBairo: Integer;
       out aEstado, aMunicipio: Integer): Boolean;
+    function BuscarItensPedido(const aId: Integer; out aPedidoDTO: TPedidoDTO): Boolean;
   end;
 
 implementation

@@ -1,5 +1,5 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
-  ActiveControl = cbEstado
+  ActiveControl = cbProduto
   Caption = 'Cadastro do pedido'
   ClientHeight = 512
   ClientWidth = 834
@@ -52,7 +52,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       Top = 0
       Width = 731
       Height = 493
-      ActivePage = tsPedido
+      ActivePage = tsItensPedido
       Align = alClient
       TabOrder = 0
       object tsPedido: TTabSheet
@@ -73,7 +73,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Width = 376
           Height = 280
           Caption = '  Endere'#231'o de Entrega  '
-          TabOrder = 0
+          TabOrder = 1
           object Label3: TLabel
             Left = 18
             Top = 25
@@ -159,7 +159,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
           Width = 376
           Height = 134
           Caption = '  Cliente  '
-          TabOrder = 1
+          TabOrder = 0
           object Label10: TLabel
             Left = 18
             Top = 23
@@ -175,7 +175,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
             EditLabel.Width = 149
             EditLabel.Height = 16
             EditLabel.Caption = 'Responsavel pelo pedido*'
-            TabOrder = 0
+            TabOrder = 1
           end
           object cbCliente: TComboBox
             Left = 18
@@ -184,7 +184,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
             Height = 22
             Style = csOwnerDrawFixed
             Sorted = True
-            TabOrder = 1
+            TabOrder = 0
           end
         end
         object GroupBox3: TGroupBox
