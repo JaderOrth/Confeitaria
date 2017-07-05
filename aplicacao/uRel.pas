@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   Data.DB, Vcl.Grids, Vcl.DBGrids, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  Vcl.StdCtrls;
+  Vcl.StdCtrls, frxClass, frxDBSet, uInterfaceRel;
 
 type
   TfrmRel = class(TForm)
@@ -20,22 +20,38 @@ type
     btnSair: TSpeedButton;
     s: TPageControl;
     tsFitro: TTabSheet;
-    tsGrid: TTabSheet;
     src_listagem: TDataSource;
     FDMemTable_listagem: TFDMemTable;
-    DBGridListagem: TDBGrid;
     Panel3: TPanel;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
+    Label3: TLabel;
     dtInicio: TDateTimePicker;
     dtFim: TDateTimePicker;
-    Label3: TLabel;
+    GroupBox3: TGroupBox;
+    Label4: TLabel;
+    GroupBox4: TGroupBox;
+    DBGridListagem: TDBGrid;
+    cbEstado: TComboBox;
+    cbMunicipio: TComboBox;
+    Label5: TLabel;
+    Label6: TLabel;
+    cbProduto: TComboBox;
+    Label7: TLabel;
+    cbCliente: TComboBox;
+    frxReport1: TfrxReport;
+    frxDBDataset1: TfrxDBDataset;
+    procedure btnSairClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cbClienteEnter(Sender: TObject);
+    procedure cbEstadoEnter(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    oBase: IInterfaceRel;
   end;
 
 var
@@ -44,5 +60,25 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmRel.btnSairClick(Sender: TObject);
+begin
+  oBase.CloseForm(Sender);
+end;
+
+procedure TfrmRel.cbClienteEnter(Sender: TObject);
+begin
+  //
+end;
+
+procedure TfrmRel.cbEstadoEnter(Sender: TObject);
+begin
+  oBase.ComboBoxEstado(Sender);
+end;
+
+procedure TfrmRel.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+end;
 
 end.

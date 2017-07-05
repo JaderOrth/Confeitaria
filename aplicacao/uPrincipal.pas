@@ -11,7 +11,7 @@ uses
   uPedidoListagemController, uCategoriasListagemController,
   uSaborListagemController, uUnidadeMedidaListagemController,
   Vcl.Imaging.pngimage, frxClass, frxDBSet,
-  uRelListagemController;
+  uRelController;
 
 type
   TfrmPrincipal = class(TForm)
@@ -150,9 +150,9 @@ end;
 
 procedure TfrmPrincipal.Relatrios1Click(Sender: TObject);
 begin
-  if (not(Assigned(TRelListagemController))) then
-    TRelListagemController := TRelListagemController.Create;
-  TRelListagemController.CreateFormListagem(Self);
+  if (not(Assigned(oRelController))) then
+    oRelController := TRelController.Create;
+  oRelController.CreateFormListagem(Self);
 end;
 
 procedure TfrmPrincipal.Sabores1Click(Sender: TObject);

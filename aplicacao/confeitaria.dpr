@@ -111,9 +111,10 @@ uses
   uUnidadeMedidaCadastroRegra in 'uUnidadeMedidaCadastroRegra.pas',
   uInterfaceUnidadeMedidaCadastroModel in 'uInterfaceUnidadeMedidaCadastroModel.pas',
   uUnidadeMedidaCadastroModel in 'uUnidadeMedidaCadastroModel.pas',
-  uRelListagemController in 'uRelListagemController.pas',
-  uRelListagemModel in 'uRelListagemModel.pas',
-  uRel in 'uRel.pas' {frmRel};
+  uRel in 'uRel.pas' {frmRel},
+  uInterfaceRel in 'uInterfaceRel.pas',
+  uRelModel in 'uRelModel.pas',
+  uRelController in 'uRelController.pas';
 
 {$R *.res}
 
