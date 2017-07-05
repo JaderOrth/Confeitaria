@@ -56,7 +56,6 @@ object frmRel: TfrmRel
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitTop = -2
           object GroupBox1: TGroupBox
             Left = 0
             Top = 0
@@ -68,9 +67,6 @@ object frmRel: TfrmRel
             ParentBackground = False
             ParentColor = False
             TabOrder = 0
-            ExplicitLeft = 5
-            ExplicitTop = 6
-            ExplicitHeight = 301
             object GroupBox2: TGroupBox
               Left = 19
               Top = 27
@@ -166,11 +162,12 @@ object frmRel: TfrmRel
               end
               object cbMunicipio: TComboBox
                 Left = 17
-                Top = 119
+                Top = 121
                 Width = 226
                 Height = 21
                 Cursor = crHandPoint
                 TabOrder = 1
+                OnEnter = cbMunicipioEnter
               end
               object cbProduto: TComboBox
                 Left = 17
@@ -203,10 +200,6 @@ object frmRel: TfrmRel
             Padding.Right = 7
             Padding.Bottom = 7
             TabOrder = 1
-            ExplicitLeft = 376
-            ExplicitTop = 63
-            ExplicitWidth = 185
-            ExplicitHeight = 105
             object DBGridListagem: TDBGrid
               Left = 9
               Top = 22

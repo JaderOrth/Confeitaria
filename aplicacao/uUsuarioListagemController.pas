@@ -47,7 +47,8 @@ procedure TUsuarioListagemController.CloseForm(Sender: TObject);
 begin
   if (not(Assigned(frmUsuario))) then
     Exit;
-  oUsuarioCadastroController.CloseFormCadastro(Sender);
+  if (Assigned(oUsuarioCadastroController)) then
+    oUsuarioCadastroController.CloseFormCadastro(Sender);
   frmUsuario.Close;
   FreeAndNil(frmUsuario);
 end;

@@ -47,6 +47,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cbClienteEnter(Sender: TObject);
     procedure cbEstadoEnter(Sender: TObject);
+    procedure cbMunicipioEnter(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,12 +69,17 @@ end;
 
 procedure TfrmRel.cbClienteEnter(Sender: TObject);
 begin
-  //
+  oBase.ComboBoxCliente(Sender);
 end;
 
 procedure TfrmRel.cbEstadoEnter(Sender: TObject);
 begin
   oBase.ComboBoxEstado(Sender);
+end;
+
+procedure TfrmRel.cbMunicipioEnter(Sender: TObject);
+begin
+  oBase.ComboBoxMunicipio(Sender);
 end;
 
 procedure TfrmRel.FormClose(Sender: TObject; var Action: TCloseAction);
