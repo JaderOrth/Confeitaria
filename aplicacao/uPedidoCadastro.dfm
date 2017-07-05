@@ -1,8 +1,8 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
-  ActiveControl = cbProduto
+  ActiveControl = cbEstado
   Caption = 'Cadastro do pedido'
-  ClientHeight = 502
-  ClientWidth = 824
+  ClientHeight = 512
+  ClientWidth = 834
   Constraints.MaxHeight = 540
   Constraints.MaxWidth = 840
   Constraints.MinHeight = 540
@@ -18,29 +18,29 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     Height = 22
   end
   inherited StatusBar1: TStatusBar
-    Top = 483
-    Width = 824
+    Top = 493
+    Width = 834
     Panels = <
       item
         Text = ' * Campos obrigat'#243'rios.'
         Width = 50
       end>
-    ExplicitTop = 483
-    ExplicitWidth = 824
+    ExplicitTop = 493
+    ExplicitWidth = 834
   end
   inherited Panel1: TPanel
-    Left = 721
-    Height = 483
-    ExplicitLeft = 721
-    ExplicitHeight = 483
+    Left = 731
+    Height = 493
+    ExplicitLeft = 731
+    ExplicitHeight = 493
   end
   inherited panelCadastro: TPanel
-    Width = 721
-    Height = 483
+    Width = 731
+    Height = 493
     BevelInner = bvNone
     BevelOuter = bvNone
-    ExplicitWidth = 721
-    ExplicitHeight = 483
+    ExplicitWidth = 731
+    ExplicitHeight = 493
     object TLabel
       Left = 33
       Top = 10
@@ -50,9 +50,9 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     object PageControlPedido: TPageControl
       Left = 0
       Top = 0
-      Width = 721
-      Height = 483
-      ActivePage = tsItensPedido
+      Width = 731
+      Height = 493
+      ActivePage = tsPedido
       Align = alClient
       TabOrder = 0
       object tsPedido: TTabSheet

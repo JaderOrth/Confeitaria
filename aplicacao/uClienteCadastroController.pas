@@ -301,13 +301,16 @@ begin
   //validação dos campos obrigatórios
   iValidar := oClienteRegra.Validar(oClienteDTO);
   sCpfCnopj := CurrToStr(oClienteDTO.CPF_CNPJ);
-  if (not(oClienteRegra.ValidarCPF(sCpfCnopj))) then
+  if (Length(sCpfCnopj) > 4) then
   begin
-    if (not(oClienteRegra.ValidarCNPJ(sCpfCnopj))) then
+    if (not(oClienteRegra.ValidarCPF(sCpfCnopj))) then
     begin
-      MessageDlg('CPF_CNPJ inválido!', mtWarning, [mbOK], 0);
-      frmCadastroCliente.edtCPFCNPJ.SetFocus;
-      exit;
+      if (not(oClienteRegra.ValidarCNPJ(sCpfCnopj))) then
+      begin
+        MessageDlg('CPF_CNPJ inválido!', mtWarning, [mbOK], 0);
+        frmCadastroCliente.edtCPFCNPJ.SetFocus;
+        exit;
+      end;
     end;
   end;
   // Nome

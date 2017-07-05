@@ -31,16 +31,30 @@ type
     function ValidarSalvar(const aPedidoDTO: TPedidoDTO): Integer;
     function SalvarPedido(const aPedidoDTO: TPedidoDTO; 
       const aModel: IInterfacePedidoCadastroModel): Integer;
+    procedure LimparDTO(const aPedido: TPedidoDTO);
+    function BuscarUpdate(out aPedidoDTO: TPedidoDTO; const aId: Integer;
+      const aModel: IInterfacePedidoCadastroModel): Boolean;
+    function BuscarEstadoMunicipio(const aBairo: Integer;
+      out aEstado, aMunicipio: Integer;
+      const aModel: IInterfacePedidoCadastroModel): Boolean;
   end;
 
 implementation
 
 { TPedidoCadastroRegra }
 
-function TPedidoCadastroRegra.ComboBoxMunicipio(out aLista: TMunicipioListaHash;
-  const aId: Integer; const aModel: IInterfaceMunicipioListagemModel): Boolean;
+
+function TPedidoCadastroRegra.BuscarEstadoMunicipio(const aBairo: Integer;
+  out aEstado, aMunicipio: Integer;
+  const aModel: IInterfacePedidoCadastroModel): Boolean;
 begin
-  Result := aModel.ComboBox(aLista, aId);
+  Result := aModel.BuscarEstadoMunicipio(aBairo, aEstado, aMunicipio);
+end;
+
+function TPedidoCadastroRegra.BuscarUpdate(out aPedidoDTO: TPedidoDTO;
+  const aId: Integer; const aModel: IInterfacePedidoCadastroModel): Boolean;
+begin
+  Result := aModel.BuscarUpdate(aPedidoDTO, aId);
 end;
 
 function TPedidoCadastroRegra.CheckSabor(var aLista: TSaborListaHash;
@@ -67,10 +81,31 @@ begin
   Result := aModel.ComboBox(aLista);
 end;
 
+function TPedidoCadastroRegra.ComboBoxMunicipio(out aLista: TMunicipioListaHash;
+  const aId: Integer; const aModel: IInterfaceMunicipioListagemModel): Boolean;
+begin
+  Result := aModel.ComboBox(aLista, aId);
+end;
+
 function TPedidoCadastroRegra.ComboBoxProduto(out aLista: TProdutoListaHash;
   const aModel: IInterfaceProdutoListagemModel): Boolean;
 begin
   Result := aModel.ComboBoxProduto(aLista);
+end;
+
+procedure TPedidoCadastroRegra.LimparDTO(const aPedido: TPedidoDTO);
+begin
+  aPedido.idPedido := 0;
+  aPedido.observacao := EmptyStr;
+  aPedido.totalPedido := 0;
+  aPedido.idCliente := -1;
+  aPedido.entregaEndereco := EmptyStr;
+  aPedido.entregaNumero := EmptyStr;
+  aPedido.entregaComplemento := EmptyStr;
+  aPedido.idBairro := -1;
+  aPedido.responsavelPedido := EmptyStr;
+  aPedido.idUsuario := 0;
+  aPedido.ItensPedido.Clear;
 end;
 
 function TPedidoCadastroRegra.SalvarPedido(const aPedidoDTO: TPedidoDTO;
@@ -79,14 +114,21 @@ begin
   Result := 0;
   if (aPedidoDTO.idPedido > 0) then
   begin
-  
+     if (aModel.DeleteItensPedido(aPedidoDTO.idPedido)) then
+     begin
+       if (not(aModel.InsertItensPedido(aPedidoDTO))) then
+         result := 1;
+     end
+     else
+      Result := 2
   end
   else
   begin
     aPedidoDTO.idPedido := aModel.BurscarIdPedido;
     if (aModel.InsertPedido(aPedidoDTO)) then
     begin
-    
+      if (not(aModel.InsertItensPedido(aPedidoDTO))) then
+        result := 3;
     end
     else
       Result := 4;

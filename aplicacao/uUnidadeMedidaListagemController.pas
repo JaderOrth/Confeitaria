@@ -39,8 +39,8 @@ implementation
 procedure TUnidadeMedidaListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'descricao like ''%' + APesquisa + '%''' +
-    ' or sigla like ''%' + APesquisa + '%''';
+  aMemTable.Filter := 'descricao like ''%' + AnsiUpperCase(APesquisa) + '%''' +
+    ' or sigla like ''%' + AnsiUpperCase(APesquisa) + '%''';
   aMemTable.Filtered := true;
 end;
 

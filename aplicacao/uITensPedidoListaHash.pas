@@ -6,7 +6,7 @@ uses
   System.Generics.Collections, uIntensPedidoDTO;
 
 type
-  TItensPedidoListaHash = TObjectDictionary<Integer ,TItensPedidoDTO>;
+  TItensPedidoListaHash = TObjectDictionary<Double ,TItensPedidoDTO>;
 
 implementation
 

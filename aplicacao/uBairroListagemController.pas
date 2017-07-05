@@ -38,8 +38,8 @@ implementation
 procedure TBairroListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
-  aMemTable.Filter := 'descricao like ''%'+APesquisa+'%'''+
-                      ' or municipio like ''%'+APesquisa+'%''';
+  aMemTable.Filter := 'descricao like ''%'+ AnsiUpperCase(APesquisa)+'%'''+
+                      ' or municipio like ''%'+ AnsiUpperCase(APesquisa)+'%''';
   aMemTable.Filtered := true;
 end;
 
