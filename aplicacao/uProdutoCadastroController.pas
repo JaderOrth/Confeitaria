@@ -293,7 +293,7 @@ begin
   if (oProdutoRegra.BuscarUpdate(oProdutoDTO, oProdutoModel)) then
   begin
     frmProdutoCadastro.edtProduto.Text := oProdutoDTO.descricao;
-    frmProdutoCadastro.edtPreco.Text := oProdutoDTO.preco;
+    frmProdutoCadastro.edtPreco.Text := CurrToStr(oProdutoDTO.preco);
 
     if (oProdutoRegra.ValidarSabor(oProdutoDTO.sabor)) then
       frmProdutoCadastro.ckbSabor.State := cbChecked
@@ -340,8 +340,7 @@ var
   sValor: String;
 begin
   oProdutoDTO.descricao := frmProdutoCadastro.edtProduto.Text;
-  oProdutoDTO.preco := StringReplace(frmProdutoCadastro.edtPreco.Text,
-    ',', '.', [rfReplaceAll]);
+  oProdutoDTO.preco := StrToCurr(frmProdutoCadastro.edtPreco.Text);
   oProdutoDTO.sabor := ifthen(frmProdutoCadastro.ckbSabor.Checked, 'S', 'N');
   if (frmProdutoCadastro.cbCategoria.ItemIndex <> -1) then
   begin

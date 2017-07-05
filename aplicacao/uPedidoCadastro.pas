@@ -63,7 +63,7 @@ type
     btnExcluiItens: TSpeedButton;
     edtValorUnitario: TLabeledEdit;
     edtQuantidade: TLabeledEdit;
-    fdMemTablesabores: TArrayField;
+    fdMemTablevalor: TCurrencyField;
     procedure clkSaboresClick(Sender: TObject);
   private
     { Private declarations }

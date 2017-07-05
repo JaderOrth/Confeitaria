@@ -6,7 +6,7 @@ type
   TProdutoDTO = class
   private
     Fsabor: String;
-    Fpreco: String;
+    Fpreco: Currency;
     Fdescricao: string;
     FunidadeMedida: Integer;
     FidProduto: Integer;
@@ -14,13 +14,13 @@ type
     procedure Setdescricao(const Value: string);
     procedure SetidCategoria(const Value: Integer);
     procedure SetidProduto(const Value: Integer);
-    procedure Setpreco(const Value: String);
+    procedure Setpreco(const Value: Currency);
     procedure Setsabor(const Value: String);
     procedure SetunidadeMedida(const Value: Integer);
   public
     property idProduto: Integer read FidProduto write SetidProduto;
     property descricao: string read Fdescricao write Setdescricao;
-    property preco: String read Fpreco write Setpreco;
+    property preco: Currency read Fpreco write Setpreco;
     property sabor: String read Fsabor write Setsabor;
     property idCategoria: Integer read FidCategoria write SetidCategoria;
     property unidadeMedida: Integer read FunidadeMedida write SetunidadeMedida;
@@ -46,7 +46,7 @@ begin
   FidProduto := Value;
 end;
 
-procedure TProdutoDTO.Setpreco(const Value: String);
+procedure TProdutoDTO.Setpreco(const Value: Currency);
 begin
   Fpreco := Value;
 end;

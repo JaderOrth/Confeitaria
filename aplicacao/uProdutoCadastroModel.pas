@@ -59,7 +59,7 @@ begin
     if (not(oQuery.IsEmpty)) then
     begin
       aProdutoDTO.descricao := oQuery.FieldByName('descricao').AsString;
-      aProdutoDTO.preco := oQuery.FieldByName('preco').AsString;
+      aProdutoDTO.preco := oQuery.FieldByName('preco').AsCurrency;
       aProdutoDTO.sabor := oQuery.FieldByName('sabor').AsString;
       aProdutoDTO.idCategoria := oQuery.FieldByName('idcategorias').AsInteger;
       aProdutoDTO.unidadeMedida := oQuery.FieldByName('idunidade_medida')
@@ -85,7 +85,8 @@ begin
   sSql := 'INSERT INTO produtos(idprodutos, descricao, preco, sabor,' +
     ' idcategorias, idunidade_medida) VALUES(' + IntToStr(aProdutoDTO.idProduto)
     + ', ' + QuotedStr(aProdutoDTO.descricao) + ', ' +
-    (aProdutoDTO.preco) + ', ' + QuotedStr(aProdutoDTO.sabor) + ', ' +
+    StringReplace(CurrToStr(aProdutoDTO.preco), ',', '.', [rfReplaceAll, rfIgnoreCase]) + ', ' +
+     QuotedStr(aProdutoDTO.sabor) + ', ' +
     IntToStr(aProdutoDTO.idCategoria) + ', ' +
     IntToStr(aProdutoDTO.unidadeMedida) + ')';
 
@@ -146,7 +147,7 @@ var
 begin
 
   sSql := 'UPDATE produtos SET descricao = ' + QuotedStr(aProdutoDTO.descricao)
-    + ', preco = ' + aProdutoDTO.preco + ', sabor = ' +
+    + ', preco = ' + CurrToStr(aProdutoDTO.preco) + ', sabor = ' +
     QuotedStr(aProdutoDTO.sabor) + ', idcategorias = ' +
     IntToStr(aProdutoDTO.idCategoria) + ', idunidade_medida = ' +
     IntToStr(aProdutoDTO.unidadeMedida) + ' WHERE idprodutos = ' +

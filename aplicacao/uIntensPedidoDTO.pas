@@ -22,6 +22,7 @@ type
     property observacao: String read Fobservacao write Setobservacao;
     property valorTotal: Double read FvalorTotal write SetvalorTotal;
     property sabores: TArray<Integer> read Fsabores write Setsabores;
+
   end;
 
 implementation
@@ -52,5 +53,6 @@ procedure TItensPedidoDTO.SetvalorTotal(const Value: Double);
 begin
   FvalorTotal := Value;
 end;
+
 
 end.

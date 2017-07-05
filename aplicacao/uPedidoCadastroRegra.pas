@@ -136,11 +136,6 @@ begin
     Result := 5;
     exit;
   end;
-  if (aPedidoDTO.totalPedido = 0) then
-  begin
-    Result := 6;
-    exit;
-  end;
 
 end;
 

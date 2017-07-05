@@ -72,7 +72,7 @@ procedure TProdutoCadastroRegra.LimparDTO(aProdutoDTO: TProdutoDTO);
 begin
   aProdutoDTO.idProduto := 0;
   aProdutoDTO.descricao := EmptyStr;
-  aProdutoDTO.preco := EmptyStr;
+  aProdutoDTO.preco := 0;
   aProdutoDTO.Sabor := EmptyStr;
   aProdutoDTO.idCategoria := 0;
   aProdutoDTO.unidadeMedida := 0;
@@ -159,7 +159,7 @@ begin
     exit;
   end;
 
-  if (aProdutoDTO.preco = '') then
+  if (aProdutoDTO.preco = 0) then
   begin
     Result := 4;
     exit;

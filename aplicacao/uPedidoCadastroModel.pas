@@ -50,14 +50,13 @@ begin
           ' entrega_endereco, entrega_numero, entrega_complemento,'+
           ' idbairro, responsavel_pedido, idusuario) VALUES('+
           IntToStr(aPedidoDTO.idPedido)+', '+
-          DateToStr(aPedidoDTO.dataPedido)+', '+
-          DateToStr(aPedidoDTO.dataEntrega)+', '+
-          TimeToStr(aPedidoDTO.horaEntrega)+', '+
+          QuotedStr(DateToStr(aPedidoDTO.dataPedido))+', '+
+          QuotedStr(DateToStr(aPedidoDTO.dataEntrega))+', '+
+          QuotedStr(FormatDateTime('hh:mm:ss', aPedidoDTO.horaEntrega)) +', '+
           QuotedStr(aPedidoDTO.observacao)+', '+
           CurrToStr(aPedidoDTO.totalPedido)+', '+
           IntToStr(aPedidoDTO.idCliente)+', '+
           QuotedStr(aPedidoDTO.entregaEndereco)+', '+
-          QuotedStr(aPedidoDTO.entregaNumero)+', '+
           QuotedStr(aPedidoDTO.entregaNumero)+', '+
           QuotedStr(aPedidoDTO.entregaComplemento)+', '+
           IntToStr(aPedidoDTO.idBairro)+', '+

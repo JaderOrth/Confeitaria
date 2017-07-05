@@ -1,5 +1,5 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
-  ActiveControl = cbEstado
+  ActiveControl = cbProduto
   Caption = 'Cadastro do pedido'
   ClientHeight = 502
   ClientWidth = 824
@@ -52,7 +52,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       Top = 0
       Width = 721
       Height = 483
-      ActivePage = tsPedido
+      ActivePage = tsItensPedido
       Align = alClient
       TabOrder = 0
       object tsPedido: TTabSheet
@@ -304,6 +304,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
             Height = 45
             Cursor = crHandPoint
             Caption = 'Novo'
+            Enabled = False
             Flat = True
             Glyph.Data = {
               36060000424D3606000000000000360000002800000020000000100000000100
@@ -569,8 +570,6 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
               Sorted = True
               TabOrder = 0
               OnClick = clkSaboresClick
-              ExplicitLeft = 72
-              ExplicitTop = -6
             end
           end
           object dbItensListagem: TDBGrid
@@ -611,6 +610,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
               end
               item
                 Alignment = taCenter
+                Expanded = False
                 FieldName = 'sabores'
                 Title.Alignment = taCenter
                 Visible = False
@@ -628,6 +628,11 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
                 FieldName = 'observacao'
                 Title.Alignment = taCenter
                 Title.Caption = 'Observa'#231#227'o'
+                Visible = False
+              end
+              item
+                Expanded = False
+                FieldName = 'valor'
                 Visible = False
               end>
           end
@@ -684,8 +689,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     object fdMemTablevalorTotal: TCurrencyField
       FieldName = 'valorTotal'
     end
-    object fdMemTablesabores: TArrayField
-      FieldName = 'sabores'
+    object fdMemTablevalor: TCurrencyField
+      FieldName = 'valor'
     end
   end
   object DataSource: TDataSource
