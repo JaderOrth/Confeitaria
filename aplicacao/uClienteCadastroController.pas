@@ -270,6 +270,7 @@ end;
 procedure TClienteCadastroController.Salvar(Sender: TObject);
 var
   iValidar, iSalvar, iIdEstadoValidar: Integer;
+  sCpfCnopj: String;
 begin
   oClienteDTO.Endereco := frmCadastroCliente.edtEndereco.Text;
   oClienteDTO.Numero := frmCadastroCliente.edtNumero.Text;
@@ -279,8 +280,11 @@ begin
   oClienteDTO.CPF_CNPJ := StrToCurrDef(frmCadastroCliente.edtCPFCNPJ.Text, 0);
   oClienteDTO.Telefone := StrToCurrDef(frmCadastroCliente.edtTelefone.Text, 0);
   oClienteDTO.Celular := StrToCurrDef(frmCadastroCliente.edtCelular.Text, 0);
-  iIdEstadoValidar := Integer(frmCadastroCliente.cbEstado.Items.Objects
-    [frmCadastroCliente.cbEstado.ItemIndex]);
+  iIdEstadoValidar := 0;
+  if (frmCadastroCliente.cbEstado.ItemIndex <> -1) then
+    iIdEstadoValidar := Integer(frmCadastroCliente.cbEstado.Items.Objects
+      [frmCadastroCliente.cbEstado.ItemIndex]);
+
   if (iIdEstado <> iIdEstadoValidar) then
   begin
     frmCadastroCliente.cbMunicipio.Items.Clear;
@@ -294,8 +298,18 @@ begin
   else
     oClienteDTO.idBairro := Integer(frmCadastroCliente.cbBairro.Items.Objects
       [frmCadastroCliente.cbBairro.ItemIndex]);
-
+  //validação dos campos obrigatórios
   iValidar := oClienteRegra.Validar(oClienteDTO);
+  sCpfCnopj := CurrToStr(oClienteDTO.CPF_CNPJ);
+  if (not(oClienteRegra.ValidarCPF(sCpfCnopj))) then
+  begin
+    if (not(oClienteRegra.ValidarCNPJ(sCpfCnopj))) then
+    begin
+      MessageDlg('CPF_CNPJ inválido!', mtWarning, [mbOK], 0);
+      frmCadastroCliente.edtCPFCNPJ.SetFocus;
+      exit;
+    end;
+  end;
   // Nome
   if (iValidar = 2) then
   begin

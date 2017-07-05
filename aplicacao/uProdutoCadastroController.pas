@@ -12,7 +12,7 @@ uses
   uSaborListaHash, uSaborDTO, uSaborListagemModel;
 
 type
-  TBairroCadastroController = class(TInterfacedObject,
+  TProdutoCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
     oProdutoDTO: TProdutoDTO;
@@ -42,7 +42,7 @@ implementation
 
 { TBairroCadastroController }
 
-procedure TBairroCadastroController.CheckSabor(Sender: TObject);
+procedure TProdutoCadastroController.CheckSabor(Sender: TObject);
 var
   oSaborLista: TSaborListaHash;
   oSaborModel: TSaborListagemModel;
@@ -106,7 +106,7 @@ begin
   end;
 end;
 
-procedure TBairroCadastroController.CloseFormCadastro(Sender: TObject);
+procedure TProdutoCadastroController.CloseFormCadastro(Sender: TObject);
 begin
   if (not(Assigned(frmProdutoCadastro))) then
     Exit;
@@ -115,7 +115,7 @@ begin
   oProdutoRegra.LimparDTO(oProdutoDTO);
 end;
 
-procedure TBairroCadastroController.ComboBoxCategoria(Sender: TObject);
+procedure TProdutoCadastroController.ComboBoxCategoria(Sender: TObject);
 var
   oCategoriaLista: TCategoriaListaHash;
   oCategoriaModel: TCategoriasListagemModel;
@@ -160,7 +160,7 @@ begin
   end;
 end;
 
-procedure TBairroCadastroController.ComboBoxUnidadeMedida(Sender: TObject);
+procedure TProdutoCadastroController.ComboBoxUnidadeMedida(Sender: TObject);
 var
   oUnidadeMedidaLista: TUnidadeMedidaListaHash;
   oUnidadeMedidaModel: TUnidadeMedidaListagemModel;
@@ -208,14 +208,14 @@ begin
   end;
 end;
 
-constructor TBairroCadastroController.Create;
+constructor TProdutoCadastroController.Create;
 begin
   oProdutoDTO := TProdutoDTO.Create;
   oProdutoModel := TProdutoCadastroModel.Create;
   oProdutoRegra := TProdutoCadastroRegra.Create;
 end;
 
-procedure TBairroCadastroController.CreateFormCadastro(AOwner: TComponent;
+procedure TProdutoCadastroController.CreateFormCadastro(AOwner: TComponent;
   Sender: TObject; const iId: Integer);
 var
   I: Integer;
@@ -241,7 +241,7 @@ begin
   end;
 end;
 
-destructor TBairroCadastroController.Destroy;
+destructor TProdutoCadastroController.Destroy;
 begin
   if (Assigned(oProdutoDTO)) then
     FreeAndNil(oProdutoDTO);
@@ -254,7 +254,7 @@ begin
   inherited;
 end;
 
-procedure TBairroCadastroController.EnableCheck(Sender: TObject);
+procedure TProdutoCadastroController.EnableCheck(Sender: TObject);
 begin
   if (frmProdutoCadastro.GroupSabores.Enabled <> True) then
     frmProdutoCadastro.GroupSabores.Enabled := True
@@ -262,7 +262,7 @@ begin
     frmProdutoCadastro.GroupSabores.Enabled := False;
 end;
 
-procedure TBairroCadastroController.Novo(Sender: TObject);
+procedure TProdutoCadastroController.Novo(Sender: TObject);
 var
   I: Integer;
 begin
@@ -275,7 +275,7 @@ begin
   end;
 end;
 
-procedure TBairroCadastroController.Pesquisar(Sender: TObject);
+procedure TProdutoCadastroController.Pesquisar(Sender: TObject);
 begin
   // monta o ComboBox Categoria no  onActivate
   ComboBoxCategoria(Sender);
@@ -285,7 +285,7 @@ begin
   CheckSabor(Sender);
 end;
 
-procedure TBairroCadastroController.RetornarValorEdit(Sender: TObject);
+procedure TProdutoCadastroController.RetornarValorEdit(Sender: TObject);
 var
   aIdSabor: TArray<Integer>;
   iCount, I, J, iValor, iValorArray: Integer;
@@ -333,14 +333,14 @@ begin
   end;
 end;
 
-procedure TBairroCadastroController.Salvar(Sender: TObject);
+procedure TProdutoCadastroController.Salvar(Sender: TObject);
 var
   iValidar, iSalvar, I, iCont: Integer;
   aCheck: array of Integer;
   sValor: String;
 begin
   oProdutoDTO.descricao := frmProdutoCadastro.edtProduto.Text;
-  oProdutoDTO.preco := StrToCurr(frmProdutoCadastro.edtPreco.Text);
+  oProdutoDTO.preco := StrToCurrDef(frmProdutoCadastro.edtPreco.Text, 0);
   oProdutoDTO.sabor := ifthen(frmProdutoCadastro.ckbSabor.Checked, 'S', 'N');
   if (frmProdutoCadastro.cbCategoria.ItemIndex <> -1) then
   begin

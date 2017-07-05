@@ -2,8 +2,8 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   Caption = 'Cadastro de Cliente'
   ClientHeight = 469
   ClientWidth = 649
-  ExplicitWidth = 665
-  ExplicitHeight = 507
+  ExplicitWidth = 655
+  ExplicitHeight = 497
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
@@ -158,8 +158,6 @@ inherited frmCadastroCliente: TfrmCadastroCliente
       Height = 59
       DoubleBuffered = False
       DragCursor = crHelp
-      Lines.Strings = (
-        'edtObservacao')
       ParentDoubleBuffered = False
       TabOrder = 10
     end

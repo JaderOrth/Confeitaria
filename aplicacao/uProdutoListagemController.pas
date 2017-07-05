@@ -56,7 +56,7 @@ end;
 procedure TProdutoListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oProdutoCadastrocontroller))) then
-    oProdutoCadastrocontroller := TBairroCadastroController.Create;
+    oProdutoCadastrocontroller := TProdutoCadastroController.Create;
   oProdutoCadastrocontroller.CreateFormCadastro(frmProduto, Sender, 0);
 end;
 
@@ -73,7 +73,7 @@ var
   iID: Integer;
 begin
   if (not(Assigned(oProdutoCadastrocontroller))) then
-    oProdutoCadastrocontroller := TBairroCadastroController.Create;
+    oProdutoCadastrocontroller := TProdutoCadastroController.Create;
   iID := oMemTable.FieldByName('idprodutos').AsInteger;
   oProdutoCadastrocontroller.CreateFormCadastro(frmProduto, Sender, iID);
 
