@@ -15,8 +15,7 @@ type
     procedure ComboBoxProduto(Sender: TObject);
     //procedure ControlerCadastro(Sender: TObject);
     //procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
-    //procedure MontarGrid;
-    //procedure BuscarGrid(aMemTable: TFDMemTable; const APesquisa: String);
+    procedure MontarGrid(Sender: TObject);
   end;
 
 implementation

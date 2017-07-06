@@ -16,7 +16,6 @@ type
     Panel2: TPanel;
     Panel1: TPanel;
     btnImprimir: TSpeedButton;
-    btnProcessar: TSpeedButton;
     btnSair: TSpeedButton;
     s: TPageControl;
     tsFitro: TTabSheet;
@@ -43,11 +42,28 @@ type
     cbCliente: TComboBox;
     frxReport1: TfrxReport;
     frxDBDataset1: TfrxDBDataset;
+    FDMemTable_listagemidpedido: TIntegerField;
+    FDMemTable_listagemdata_pedido: TDateField;
+    FDMemTable_listagemtotal_pedido: TFloatField;
+    FDMemTable_listagemquantidade: TIntegerField;
+    FDMemTable_listagemvalor_total_itens: TFloatField;
+    FDMemTable_listagemproduto: TStringField;
+    FDMemTable_listagempreco: TFloatField;
+    FDMemTable_listagemcategoria: TStringField;
+    FDMemTable_listagemsigla: TStringField;
+    FDMemTable_listagemnome: TStringField;
+    FDMemTable_listagemcpf_cnpj: TFloatField;
+    FDMemTable_listagemtelefone: TStringField;
+    FDMemTable_listagemcelular: TStringField;
+    FDMemTable_listagemmunicipio: TStringField;
+    FDMemTable_listagemestado: TStringField;
+    btnProcessar: TSpeedButton;
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cbClienteEnter(Sender: TObject);
     procedure cbEstadoEnter(Sender: TObject);
     procedure cbMunicipioEnter(Sender: TObject);
+    procedure btnProcessarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -61,6 +77,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmRel.btnProcessarClick(Sender: TObject);
+begin
+  oBase.MontarGrid(Sender);
+end;
 
 procedure TfrmRel.btnSairClick(Sender: TObject);
 begin

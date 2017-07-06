@@ -4,21 +4,28 @@ interface
 
 uses
    System.Classes, System.SysUtils, Vcl.StdCtrls, System.UITypes, Vcl.Dialogs,
-  System.Generics.Collections, Vcl.Controls,
+  System.Generics.Collections, Vcl.Controls, FireDAC.Comp.Client,
   uInterfaceRel, uRel, uEstadoListaHash, uEstadoDTO, uEstadoListagemModel,
   uclienteDTO, uClienteListaHash, uClienteListagemModel, uMunicipioDTO,
   uMunicipioListaHash, uMunicipioListagemModel, uProdutoDTO, uProdutoListaHash,
-  uProdutoListagemModel;
+  uProdutoListagemModel, uRelModel;
 
 type
   TRelController = class(TInterfacedObject, IInterfaceRel)
+  private
+    oModel : TRelModel;
   public
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
+    procedure MontarGrid(Sender: TObject);
     procedure ComboBoxCliente(Sender: TObject);
     procedure ComboBoxEstado(Sender: TObject);
     procedure ComboBoxMunicipio(Sender: TObject);
     procedure ComboBoxProduto(Sender: TObject);
+
+    constructor Create;
+    destructor Destroy; override;
+
   end;
 
 var
@@ -167,6 +174,11 @@ begin
   end;
 end;
 
+constructor TRelController.Create;
+begin
+  oModel := TRelModel.Create;
+end;
+
 procedure TRelController.CreateFormListagem(AOwner: TComponent);
 begin
   if (not(Assigned(frmRel))) then
@@ -174,6 +186,33 @@ begin
 
   frmRel.oBase := oRelController;
   frmRel.Show;
+end;
+
+destructor TRelController.Destroy;
+begin
+  if Assigned(oModel) then
+  FreeAndNil(oModel);
+  inherited;
+end;
+
+procedure TRelController.MontarGrid(Sender: TObject);
+var
+  iIdEstado: Integer;
+begin
+  if (frmRel.cbEstado.ItemIndex <> -1) then
+  begin
+    iIdEstado := Integer(frmRel.cbEstado.Items.Objects
+      [frmRel.cbEstado.ItemIndex]);
+  end
+  else
+  begin
+    iIdEstado := -1;
+  end;
+  oModel.SelectUpdate(-1,-1,-1,-1, frmRel.FDMemTable_listagem, '','' );
+  {AidCliente, AidEstado, AidMunicipio,
+  AidProduto: Integer; Amemtable: TFDMemTable; AdataInicio,
+  AdataFim: String
+  }
 end;
 
 end.
