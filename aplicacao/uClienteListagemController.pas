@@ -128,7 +128,7 @@ begin
 
     if (iValidar = 3) then
     begin
-      MessageDlg('Erro ao deletar este registro, está associado ao MUNICÍPIO',
+      MessageDlg('Erro ao deletar este registro, está associado ao PEDIDO',
         mtWarning, mbOKCancel, 0);
       exit;
     end;

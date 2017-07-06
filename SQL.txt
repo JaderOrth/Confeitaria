@@ -1,0 +1,133 @@
+----------------------- UF -------------------------------------
+
+INSERT INTO uf (iduf, descricao, sigla_uf) VALUES (1, 'SANTA CATARINA', 'SC');
+INSERT INTO uf (iduf, descricao, sigla_uf) VALUES (2, 'MATO GROSSO', 'MT');
+INSERT INTO uf (iduf, descricao, sigla_uf) VALUES (3, 'RIO DE JANEIRO', 'RJ');
+INSERT INTO uf (iduf, descricao, sigla_uf) VALUES (4, 'RIO GRANDE DO SUL', 'RS');
+
+
+
+-----------------------------MUNICÍPIO-------------------------
+
+INSERT INTO municipio (idmunicipio, descricao, iduf) VALUES (1, 'SÃO JOÃO DO OESTE', 1);
+INSERT INTO municipio (idmunicipio, descricao, iduf) VALUES (2, 'IPORÂ DO OESTE', 1);
+INSERT INTO municipio (idmunicipio, descricao, iduf) VALUES (3, 'ITAPIRANGA', 1);
+INSERT INTO municipio (idmunicipio, descricao, iduf) VALUES (4, 'SÃO MIGUEL DO OESTE', 1);
+INSERT INTO municipio (idmunicipio, descricao, iduf) VALUES (5, 'CAXIAS DO SUL', 4);
+INSERT INTO municipio (idmunicipio, descricao, iduf) VALUES (6, 'BARRACÃO', 4);
+INSERT INTO municipio (idmunicipio, descricao, iduf) VALUES (7, 'BOA VISTA DO BURICÁ', 4);
+INSERT INTO municipio (idmunicipio, descricao, iduf) VALUES (7, 'CUIABÁ', 2);
+
+
+
+--------------- BAIRROS ---------------------------------------
+
+INSERT INTO bairro (idbairro, descricao, idmunicipio) VALUES (1, 'ALVORADA', 8);
+INSERT INTO bairro (idbairro, descricao, idmunicipio) VALUES (2, 'CENTRO', 7);
+INSERT INTO bairro (idbairro, descricao, idmunicipio) VALUES (3, 'CENTRO', 6);
+INSERT INTO bairro (idbairro, descricao, idmunicipio) VALUES (4, 'CENTRO', 5);
+INSERT INTO bairro (idbairro, descricao, idmunicipio) VALUES (5, 'CENTRO', 4);
+INSERT INTO bairro (idbairro, descricao, idmunicipio) VALUES (6, 'CENTRO', 3);
+INSERT INTO bairro (idbairro, descricao, idmunicipio) VALUES (7, 'CENTRO', 2);
+INSERT INTO bairro (idbairro, descricao, idmunicipio) VALUES (8, 'CENTRO', 1);
+
+
+-------------------------------------------cliente --------------
+INSERT INTO cliente (idcliente, nome, endereco, numero, observacao, cpf_cnpj, telefone, idbairro) VALUES (1, 'ana', 'rua do comercio', '255', 'ao lado do supermercado','85285474183','36363328', '1');
+INSERT INTO cliente (idcliente, nome, endereco, numero, observacao, cpf_cnpj, telefone, idbairro) VALUES (2, 'carla', 'rua do comercio', '255', 'ao lado do supermercado','85285474183','36363328', '2');
+INSERT INTO cliente (idcliente, nome, endereco, numero, observacao, cpf_cnpj, telefone, idbairro) VALUES (3, 'jessica', 'rua do comercio', '255', 'ao lado do supermercado','85285474183','36363328', '3');
+INSERT INTO cliente (idcliente, nome, endereco, numero, observacao, cpf_cnpj, telefone, idbairro) VALUES (4, 'ronaldo', 'rua do comercio', '255', 'ao lado do supermercado','60576171000195','36363328', '4');
+INSERT INTO cliente (idcliente, nome, endereco, numero, observacao, cpf_cnpj, telefone, idbairro) VALUES (5, 'fernando', 'rua do comercio', '255', 'ao lado do supermercado','60576171000195','36363328', '5');
+INSERT INTO cliente (idcliente, nome, endereco, numero, observacao, cpf_cnpj, celular, idbairro) VALUES (6, 'sebastião', 'rua do comercio', '255', 'ao lado do supermercado','60576171000195','98068091', '6');
+
+
+
+-------------------------------categorias
+INSERT INTO categorias (idcategorias, descricao) VALUES (1, 'doce');
+INSERT INTO categorias (idcategorias, descricao) VALUES (2, 'salgado');
+
+
+---------------------------unidadde medida-------------------
+
+INSERT INTO unidade_medida (idunidade_medida, descricao, sigla, permite_decimal) VALUES (1, 'QUILOGRAMA', 'KG', 'S');
+INSERT INTO unidade_medida (idunidade_medida, descricao, sigla, permite_decimal) VALUES (2, 'QUANTIDADE', 'QU', 'S');
+
+
+--------------------------------SABORES -------------------
+
+INSERT INTO sabores (idsabores, descricao, ingredientes) VALUES (1 , 'chocolate', 'chocolate');
+INSERT INTO sabores (idsabores, descricao, ingredientes) VALUES (2 , 'carne', 'carne moida');
+INSERT INTO sabores (idsabores, descricao, ingredientes) VALUES (3 , 'frango', 'peito de frango');
+INSERT INTO sabores (idsabores, descricao, ingredientes) VALUES (4 , 'chocolate branco', 'chocolate branco');
+INSERT INTO sabores (idsabores, descricao, ingredientes) VALUES (5 , 'leite condensado', 'leite condensado');
+INSERT INTO sabores (idsabores, descricao, ingredientes) VALUES (6 , 'creme de morango', 'suco de morango, açucar');
+INSERT INTO sabores (idsabores, descricao, ingredientes) VALUES (7 , 'frutas diversas', 'frutas diversas');
+
+
+----------------------usuario ----------------------------
+
+INSERT INTO usuario (idusuario, usuario, senha) VALUES (1, 'BIANCA', '123456');
+
+
+
+-------------------------produto---------------------------
+
+INSERT INTO produtos (idprodutos, descricao, preco, sabor, idunidade_medida, idcategorias)VALUES (1, 'cuca', '10', 'S', 2, 1);
+INSERT INTO produtos (idprodutos, descricao, preco, sabor, idunidade_medida, idcategorias)VALUES (2, 'salgados', '10', 'S', 2, 2);
+INSERT INTO produtos (idprodutos, descricao, preco, sabor, idunidade_medida, idcategorias)VALUES (3, 'bolo', '20', 'S', 1, 1);
+INSERT INTO produtos (idprodutos, descricao, preco, sabor, idunidade_medida, idcategorias)VALUES (4, 'torta', '20', 'S', 1, 1);
+INSERT INTO produtos (idprodutos, descricao, preco, sabor, idunidade_medida, idcategorias)VALUES (5, 'pastel de carne', '5', 'S', 2, 2);
+
+
+
+---------------------------- sabores_produto--------------
+
+INSERT INTO sabores_produto (idprodutos, idsabores, id) VALUES (1, 1, 1) ;                          
+INSERT INTO sabores_produto (idprodutos, idsabores, id) VALUES (2, 2, 2) ;                          
+INSERT INTO sabores_produto (idprodutos, idsabores, id) VALUES (3, 5, 3) ;                          
+INSERT INTO sabores_produto (idprodutos, idsabores, id) VALUES (4, 1, 4) ;                          
+INSERT INTO sabores_produto (idprodutos, idsabores, id) VALUES (4, 4, 5) ;                          
+INSERT INTO sabores_produto (idprodutos, idsabores, id) VALUES (5, 2, 6) ;  
+
+
+
+----------------------------- pedido -------------------
+INSERT INTO pedido (idpedido, data_pedido, data_entrega, hora_entrega, observacao,
+ total_pedido, idcliente, entrega_endereco, entrega_numero, entrega_complemento, idbairro, responsavel_pedido, idusuario)
+ VALUES (1, '2017-07-06', '2017-07-06', '06:18:19', NULL, '20', 1 , 'rua do comercio', '299', NULL, 1, 'carlos', 1);
+INSERT INTO pedido (idpedido, data_pedido, data_entrega, hora_entrega, observacao,
+ total_pedido, idcliente, entrega_endereco, entrega_numero, entrega_complemento, idbairro, responsavel_pedido, idusuario)
+ VALUES (2, '2017-07-06', '2017-07-06', '20:18:19', NULL, '20', 2 , 'rua do comercio', '299', NULL, 2, 'joão', 1);
+ INSERT INTO pedido (idpedido, data_pedido, data_entrega, hora_entrega, observacao,
+ total_pedido, idcliente, entrega_endereco, entrega_numero, entrega_complemento, idbairro, responsavel_pedido, idusuario)
+ VALUES (3, '2017-07-06', '2017-07-06', '22:18:19', NULL, '20', 3 , 'rua do comercio', '299', NULL, 3, 'neimar', 1);
+ INSERT INTO pedido (idpedido, data_pedido, data_entrega, hora_entrega, observacao,
+ total_pedido, idcliente, entrega_endereco, entrega_numero, entrega_complemento, idbairro, responsavel_pedido, idusuario)
+ VALUES (4, '2017-07-06', '2017-07-06', '21:18:19', NULL, '20', 4 , 'rua do comercio', '299', NULL, 4, 'beatriz', 1);
+
+
+
+---------------------itens pedido ---------------------------
+
+INSERT INTO itens_pedido (iditens_pedido, pedido_idpedido, idprodutos, quantidade, observacao, valor_total) VALUES (1, 1, 1, 1, NULL, 10);
+INSERT INTO itens_pedido (iditens_pedido, pedido_idpedido, idprodutos, quantidade, observacao, valor_total) VALUES (2, 1, 2, 1, NULL, 10);
+INSERT INTO itens_pedido (iditens_pedido, pedido_idpedido, idprodutos, quantidade, observacao, valor_total) VALUES (3, 2, 2, 1, NULL, 20);
+INSERT INTO itens_pedido (iditens_pedido, pedido_idpedido, idprodutos, quantidade, observacao, valor_total) VALUES (4, 3, 4, 1, NULL, 20);
+INSERT INTO itens_pedido (iditens_pedido, pedido_idpedido, idprodutos, quantidade, observacao, valor_total) VALUES (5, 4, 5, 4, NULL, 5);
+INSERT INTO itens_pedido (iditens_pedido, pedido_idpedido, idprodutos, quantidade, observacao, valor_total) VALUES (6, 4, 4, 1, NULL, 20);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
