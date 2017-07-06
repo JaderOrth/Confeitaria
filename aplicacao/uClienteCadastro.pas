@@ -9,21 +9,23 @@ uses
 
 type
   TfrmCadastroCliente = class(TfrmCadastroBase)
-    edtNome: TLabeledEdit;
-    edtCPFCNPJ: TLabeledEdit;
-    edtEndereco: TLabeledEdit;
-    edtNumero: TLabeledEdit;
-    edtComplemento: TLabeledEdit;
-    edtCelular: TLabeledEdit;
-    cbEstado: TComboBox;
-    cbMunicipio: TComboBox;
-    cbBairro: TComboBox;
-    edtTelefone: TLabeledEdit;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
     Label4: TLabel;
     edtObservacao: TMemo;
+    GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    edtEndereco: TLabeledEdit;
+    cbEstado: TComboBox;
+    Label1: TLabel;
+    cbMunicipio: TComboBox;
+    Label2: TLabel;
+    cbBairro: TComboBox;
+    Label3: TLabel;
+    edtNumero: TLabeledEdit;
+    edtComplemento: TLabeledEdit;
+    edtNome: TLabeledEdit;
+    edtCPFCNPJ: TLabeledEdit;
+    edtTelefone: TLabeledEdit;
+    edtCelular: TLabeledEdit;
   private
     { Private declarations }
   public
