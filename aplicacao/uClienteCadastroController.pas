@@ -375,6 +375,7 @@ begin
   begin
     frmCadastroCliente.btnSalvar.Enabled := False;
     frmCadastroCliente.btnNovo.Enabled := True;
+    oMontarGrid;
   end;
 
 end;

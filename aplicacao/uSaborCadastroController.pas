@@ -152,7 +152,8 @@ begin
   if (iSalvar = 0) then
   begin
     frmSaborCadastro.btnSalvar.Enabled := False;
-    frmSaborCadastro.btnNovo.Enabled := True;;
+    frmSaborCadastro.btnNovo.Enabled := True;
+    oMontarGrid;
   end;
 
 end;

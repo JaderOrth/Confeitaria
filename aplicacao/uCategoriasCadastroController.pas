@@ -147,6 +147,7 @@ begin
   begin
     frmCategoriasCadastro.btnSalvar.Enabled := False;
     frmCategoriasCadastro.btnNovo.Enabled := True;
+    oMontarGrid;
   end;
 end;
 

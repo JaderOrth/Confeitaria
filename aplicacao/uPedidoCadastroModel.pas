@@ -19,14 +19,12 @@ type
     function BuscarUpdate(out aPedidoDTO: TPedidoDTO; const aId: Integer): Boolean;
     function BuscarEstadoMunicipio(const aBairo: Integer;
       out aEstado, aMunicipio: Integer): Boolean;
-    function BuscarItensPedido(const aId: Integer; out aPedidoDTO: TPedidoDTO): Boolean;
-
-    //function InsertSabores(const aPedido: TPedidoDTO): Boolean;
+    function BuscarItensPedido(const aId: Integer;
+      out aPedidoDTO: TPedidoDTO): Boolean;
+    function BuscarNomeEstado(const aID: Integer; out aNome: String): Boolean;
   end;
 
 implementation
-
-{ TPedidoCadastroModel }
 
 { TPedidoCadastroModel }
 
@@ -74,8 +72,57 @@ end;
 
 function TPedidoCadastroModel.BuscarItensPedido(const aId: Integer;
   out aPedidoDTO: TPedidoDTO): Boolean;
+var
+  oQuery: TFDQuery;
+  oItens: TItensPedidoDTO;
 begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT idprodutos, quantidade, observacao, valor_total'+
+                ' FROM itens_pedido WHERE pedido_idpedido = '+ IntToStr(aId));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      oQuery.First;
+      while (not(oQuery.Eof)) do
+      begin
+        oItens := TItensPedidoDTO.Create;
+        oItens.idProduto := oQuery.FieldByName('idproduto').AsInteger;
+        oItens.quantidade := oQuery.FieldByName('quantidade').AsFloat;
+        oItens.valorTotal := oQuery.FieldByName('valor_total').AsFloat;
 
+        aPedidoDTO.ItensPedido.Add(oItens.valorTotal, oItens);
+      end;
+      Result := True;
+    end;
+  finally
+    if (assigned(oQuery)) then
+      FreeandNil(oQuery);
+  end;
+end;
+
+function TPedidoCadastroModel.BuscarNomeEstado(const aID: Integer;
+  out aNome: String): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT p.descricao as nome FROM itens_pedido as ip'+
+                ' inner join produtos as p on p.idprodutos = ip.idprodutos'+
+                ' WHERE p.idprodutos = '+ IntToStr(aId));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      aNome := oQuery.FieldByName('nome').AsString;
+      Result := True;
+    end;
+  finally
+    if (assigned(oQuery)) then
+      FreeandNil(oQuery);
+  end;
 end;
 
 function TPedidoCadastroModel.BuscarUpdate(out aPedidoDTO: TPedidoDTO;
@@ -127,6 +174,7 @@ var
   sSql: String;
   aItensDTO: TItensPedidoDTO;
 begin
+  Result := False;
   aItensDTO := TItensPedidoDTO.Create;
   try
      for aItensDTO in aPedido.ItensPedido.Values do

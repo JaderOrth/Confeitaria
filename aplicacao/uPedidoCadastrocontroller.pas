@@ -352,8 +352,12 @@ begin
   if (Assigned(oPedidoModel)) then
     FreeAndNil(oPedidoModel);
 
-  if (Assigned(oItensPedidoDTO)) then
-    FreeAndNil(oItensPedidoDTO);
+//  if (Assigned(oItensPedidoDTO)) then
+//    oItensPedidoDTO.Free;
+
+  if assigned(oPedidoCadastroController) then
+    FreeAndNil(oPedidoCadastroController);
+
   inherited;
 end;
 
@@ -490,6 +494,8 @@ end;
 procedure TPedidoCadastroController.RetornarValorEdit(Sender: TObject);
 var
   iEstado, iMunicipio, iId: Integer;
+  sNome: String;
+  oItensDTO: TItensPedidoDTO;
 begin
   iId := oPedidoDTO.idPedido;
   if (oPedidoRegra.BuscarUpdate(oPedidoDTO, iId, oPedidoModel)) then
@@ -520,7 +526,22 @@ begin
       frmPedidoCadastro.cbBairro.Items.IndexOfObject(TObject(oPedidoDTO.idBairro));
   end;
 
-
+  if (oPedidoRegra.BuscarItensPedido(oPedidoDTO.idPedido, oPedidoDTO,
+    oPedidoModel)) then
+  begin
+    with frmPedidoCadastro do
+    begin
+      for oItensDTO in oPedidoDTO.ItensPedido.Values do
+      begin
+        fdMemTableidproduto.AsInteger := oItensDTO.idProduto;
+        fdMemTablequantidade.AsFloat := oItensDTO.quantidade;
+        fdMemTableobservacao.AsString := oItensDTO.observacao;
+        oPedidoRegra.buscarNomeProduto(oItensDTO.idProduto, sNome, oPedidoModel);
+        fdMemTableproduto.AsString := sNome;
+        fdMemTablevalorTotal.AsFloat := oItensDTO.valorTotal;
+      end;
+    end;
+  end;
 end;
 
 procedure TPedidoCadastroController.Salvar(Sender: TObject);
@@ -570,9 +591,6 @@ begin
   end;
   // observações do pedido
   oPedidoDTO.observacao := frmPedidoCadastro.mObservacao.Text;
-  // Valor total do pedido
-  // oPedidoDTO.totalPedido :=
-  // StrToCurrDef(frmPedidoCadastro.edtTotalPedido.Text, 0);
   // id usuario
   oPedidoDTO.idUsuario := 1;
   // Endereço de entrega
@@ -620,6 +638,7 @@ begin
     exit;
   end;
 
+  oPedidoDTO.ItensPedido.Clear;
   if (not(frmPedidoCadastro.fdMemTable.IsEmpty)) then
   begin
     with frmPedidoCadastro.fdMemTable do
@@ -639,6 +658,24 @@ begin
 
   iSalvar := oPedidoRegra.SalvarPedido(oPedidoDTO, oPedidoModel);
 
+  if (iSalvar = 1) then
+  begin
+    MessageDlg('Erro ao Inserir o Itens Pedido!', mtWarning,
+      [mbOK], 0);
+    exit;
+  end;
+  if (iSalvar = 2) then
+  begin
+    MessageDlg('Erro ao Fazer Update do Itens Pedido!', mtWarning,
+      [mbOK], 0);
+    exit;
+  end;
+   if (iSalvar = 3) then
+  begin
+    MessageDlg('Erro ao Inserir o Pedido!', mtWarning,
+      [mbOK], 0);
+    exit;
+  end;
 
   if (iSalvar = 0) then
   begin
@@ -649,8 +686,8 @@ end;
 
 procedure TPedidoCadastroController.SalvarItens(Sender: TObject);
 var
-  dValorUnitario, dValorTotal, dEditarValor: Double;
   I, iCont: Integer;
+  vSabores: TSaboresItens;
 begin
   // adiciona valor no memTable e irá mostrar na grid
   if (iIDProduto > 0) then
@@ -708,19 +745,20 @@ begin
   frmPedidoCadastro.fdMemTableobservacao.AsString := oItensPedidoDTO.observacao;
 
   // inserção dos sabores num array
-  // if (frmPedidoCadastro.GroupSabores.Enabled = True) then
-  // begin
-  // //SetLength(oItensPedidoDTO.sabores, 0);
-  // for I := 0 to frmPedidoCadastro.clkSabores.Items.Count - 1 do
-  // begin
-  // if (frmPedidoCadastro.clkSabores.Checked[I]) then
-  // begin
-  // iCont := Length(oItensPedidoDTO.sabores);
-  // //SetLength(oItensPedidoDTO.sabores, iCont + 1);
-  // oItensPedidoDTO.sabores[iCont] := Integer(frmPedidoCadastro.clkSabores.Items.Objects[I]);
-  // end;
-  // end;
-  // end; [
+   if (frmPedidoCadastro.GroupSabores.Enabled = True) then
+   begin
+     SetLength(vSabores, 0);
+     for I := 0 to frmPedidoCadastro.clkSabores.Items.Count - 1 do
+     begin
+       if (frmPedidoCadastro.clkSabores.Checked[I]) then
+       begin
+         iCont := Length(vSabores);
+         SetLength(vSabores, iCont + 1);
+         vSabores[iCont] := Integer(frmPedidoCadastro.clkSabores.Items.Objects[I]);
+       end;
+     end;
+     oItensPedidoDTO.sabores := vSabores;
+   end;
 
 
   // oPedidoDTO.ItensPedido.Add(oItensPedidoDTO.idProduto, oItensPedidoDTO);

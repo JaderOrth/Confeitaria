@@ -10,20 +10,11 @@ type
   TPedidoListagemModel = class(TInterfacedObject, IInterfacePedidoListagem)
   public
     function MontarGrid(AMemTable: TFDMemTable): Boolean;
-    function Excluir(const iID: Integer): Boolean;
   end;
 
 implementation
 
 { TPedidoListagemModel }
-
-function TPedidoListagemModel.Excluir(const iID: Integer): Boolean;
-var
-  sSql: String;
-begin
-  sSql := 'DELETE FROM pedido WHERE idpedido = '+ IntToStr(iID);
-  Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
-end;
 
 function TPedidoListagemModel.MontarGrid(AMemTable: TFDMemTable): Boolean;
 var

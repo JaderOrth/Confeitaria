@@ -166,6 +166,7 @@ begin
   begin
     frmUnidadeMedidaCadastro.btnSalvar.Enabled := False;
     frmUnidadeMedidaCadastro.btnNovo.Enabled := True;
+    oMontarGrid;
   end;
 end;
 

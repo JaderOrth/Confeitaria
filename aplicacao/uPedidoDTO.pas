@@ -75,8 +75,8 @@ end;
 
 destructor TPedidoDTO.Destroy;
 begin
-  if (Assigned(FitensPedido)) then
-    FreeAndNil(FitensPedido);
+//  if (Assigned(FitensPedido)) then
+//    FreeAndNil(FitensPedido);
   inherited;
 end;
 

@@ -203,8 +203,12 @@ begin
     exit;
   end;
 
-  frmMunicipioCadastro.btnSalvar.Enabled := False;
-  frmMunicipioCadastro.btnNovo.Enabled := True;
+  if (iSalvar = 0) then
+  begin
+    frmMunicipioCadastro.btnSalvar.Enabled := False;
+    frmMunicipioCadastro.btnNovo.Enabled := True;
+    oMontarGrid;
+  end;
 end;
 
 end.

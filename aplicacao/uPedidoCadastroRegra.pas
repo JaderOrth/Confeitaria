@@ -39,6 +39,8 @@ type
       const aModel: IInterfacePedidoCadastroModel): Boolean;
     function BuscarItensPedido(const aId: Integer; out aPedido: TPedidoDTO;
       const aModel: IInterfacePedidoCadastroModel): Boolean;
+    function buscarNomeProduto(const aId: Integer; out aNome: String;
+      const aModel: IInterfacePedidoCadastroModel): boolean;
   end;
 
 implementation
@@ -58,6 +60,12 @@ function TPedidoCadastroRegra.BuscarItensPedido(const aId: Integer;
   const aModel: IInterfacePedidoCadastroModel): Boolean;
 begin
   Result := aModel.BuscarItensPedido(aId, aPedido);
+end;
+
+function TPedidoCadastroRegra.buscarNomeProduto(const aId: Integer; out aNome: String;
+  const aModel: IInterfacePedidoCadastroModel): boolean;
+begin
+  Result := aModel.BuscarNomeEstado(aId, aNome);
 end;
 
 function TPedidoCadastroRegra.BuscarUpdate(out aPedidoDTO: TPedidoDTO;
@@ -137,10 +145,10 @@ begin
     if (aModel.InsertPedido(aPedidoDTO)) then
     begin
       if (not(aModel.InsertItensPedido(aPedidoDTO))) then
-        result := 3;
+        result := 1;
     end
     else
-      Result := 4;
+      Result := 3;
   end;
 end;
 

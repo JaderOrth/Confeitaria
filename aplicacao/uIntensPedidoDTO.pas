@@ -4,25 +4,26 @@ interface
 
 
 type
+  TSaboresItens = array of integer;
+
   TItensPedidoDTO = class
   private
     Fobservacao: String;
-    Fsabores: TArray<Integer>;
+    Fsabores: TSaboresItens;
     FidProduto: Integer;
     FvalorTotal: Double;
     Fquantidade: Double;
     procedure SetidProduto(const Value: Integer);
     procedure Setobservacao(const Value: String);
     procedure Setquantidade(const Value: Double);
-    procedure Setsabores(const Value: TArray<Integer>);
+    procedure Setsabores(const Value: TSaboresItens);
     procedure SetvalorTotal(const Value: Double);
   public
     property idProduto: Integer read FidProduto write SetidProduto;
     property quantidade: Double read Fquantidade write Setquantidade;
     property observacao: String read Fobservacao write Setobservacao;
     property valorTotal: Double read FvalorTotal write SetvalorTotal;
-    property sabores: TArray<Integer> read Fsabores write Setsabores;
-
+    property sabores: TSaboresItens read Fsabores write Setsabores;
   end;
 
 implementation
@@ -44,7 +45,7 @@ begin
   Fquantidade := Value;
 end;
 
-procedure TItensPedidoDTO.Setsabores(const Value: TArray<Integer>);
+procedure TItensPedidoDTO.Setsabores(const Value: TSaboresItens);
 begin
   Fsabores := Value;
 end;

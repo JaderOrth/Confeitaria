@@ -270,6 +270,7 @@ begin
   begin
     frmBairroCadastro.btnSalvar.Enabled := False;
     frmBairroCadastro.btnNovo.Enabled := True;
+    oMontarGrid;
   end;
 end;
 

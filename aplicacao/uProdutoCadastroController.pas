@@ -452,6 +452,7 @@ begin
   begin
     frmProdutoCadastro.btnSalvar.Enabled := False;
     frmProdutoCadastro.btnNovo.Enabled := True;
+    //oMontarGrid;
   end;
 
 end;

@@ -38,7 +38,8 @@ procedure TPedidoListagemController.BuscarGrid(aMemTable: TFDMemTable;
   const APesquisa: String);
 begin
   aMemTable.Filter := 'total_pedido like ''%'+ APesquisa +'%'''+
-                      ' or datahora_entrega like ''%'+ APesquisa +'%'''+
+                      ' or data_entrega like ''%'+ APesquisa +'%'''+
+                      ' or hora_entrega like ''%'+ APesquisa +'%'''+
                       ' or descricao like ''%'+ APesquisa +'%'''+
                       ' or entrega_endereco like ''%'+ APesquisa +'%'''+
                       ' or entrega_numero like ''%'+ APesquisa +'%'''+
@@ -107,26 +108,6 @@ end;
 
 procedure TPedidoListagemController.Excluir(oMemtable: TFDMemTable);
 begin
-//var
-//  iId: Integer;
-//begin
-//  if (MessageDlg('Deseja realmente excluir este registro?', mtConfirmation,
-//    [mbYes, mbNo], 0) = mrYes) then
-//  begin
-//    iId := oMemTable.FieldByName('idbairro').AsInteger;
-//    if (oPedidoRegra.Excluir(iId, oPedidoModel)) then
-//    begin
-//      MessageDlg('Excluido com sucesso!', mtInformation, [mbOK], 0);
-//      oMemTable.Locate('idpedido', iId);
-//      oMemTable.Delete;
-//    end;
-//  end;
-//
-//  if (oMemtable.IsEmpty) then
-//  begin
-//    frmPedido.btnEditar.Enabled := false;
-//    frmPedido.btnExcluir.Enabled := false;
-//  end;
 
 end;
 
@@ -137,7 +118,7 @@ begin
   begin
     frmPedido.bClick := True;
     frmPedido.btnEditar.Enabled := True;
-    frmPedido.btnExcluir.Enabled := True;
+    frmPedido.btnExcluir.Enabled := False;
   end
   else
   begin

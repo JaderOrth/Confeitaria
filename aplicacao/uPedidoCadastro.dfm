@@ -668,8 +668,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
-    Left = 742
-    Top = 277
+    Left = 782
+    Top = 293
     object fdMemTableidproduto: TIntegerField
       FieldName = 'idproduto'
     end
@@ -695,7 +695,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
   end
   object DataSource: TDataSource
     DataSet = fdMemTable
-    Left = 734
-    Top = 232
+    Left = 782
+    Top = 216
   end
 end

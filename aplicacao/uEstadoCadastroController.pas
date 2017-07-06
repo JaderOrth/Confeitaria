@@ -168,6 +168,7 @@ begin
   begin
     frmEstadoCadastro.btnSalvar.Enabled := False;
     frmEstadoCadastro.btnNovo.Enabled := True;
+    oMontarGrid;
   end;
 end;
 
