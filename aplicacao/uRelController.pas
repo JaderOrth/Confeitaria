@@ -197,8 +197,19 @@ end;
 
 procedure TRelController.MontarGrid(Sender: TObject);
 var
-  iIdEstado: Integer;
+  iIdCliente, iIdEstado, iIdMunicipio, iIdProduto: Integer;
 begin
+  frmRel.FDMemTable_listagem.Close;
+  if (frmRel.cbCliente.ItemIndex <> -1) then
+  begin
+    iIdCliente := Integer(frmRel.cbCliente.Items.Objects
+      [frmRel.cbCliente.ItemIndex]);
+  end
+  else
+  begin
+    iIdCliente := -1;
+  end;
+
   if (frmRel.cbEstado.ItemIndex <> -1) then
   begin
     iIdEstado := Integer(frmRel.cbEstado.Items.Objects
@@ -208,7 +219,29 @@ begin
   begin
     iIdEstado := -1;
   end;
-  oModel.SelectUpdate(-1,-1,-1,-1, frmRel.FDMemTable_listagem, '','' );
+
+  if (frmRel.cbMunicipio.ItemIndex <> -1) then
+  begin
+    iIdMunicipio := Integer(frmRel.cbMunicipio.Items.Objects
+      [frmRel.cbMunicipio.ItemIndex]);
+  end
+  else
+  begin
+    iIdMunicipio := -1;
+  end;
+
+  if (frmRel.cbProduto.ItemIndex <> -1) then
+  begin
+    iIdProduto := Integer(frmRel.cbProduto.Items.Objects
+      [frmRel.cbProduto.ItemIndex]);
+  end
+  else
+  begin
+    iIdProduto := -1;
+  end;
+
+  oModel.SelectUpdate(iIdCliente,iIdEstado,iIdMunicipio,iIdProduto, frmRel.FDMemTable_listagem);
+
   {AidCliente, AidEstado, AidMunicipio,
   AidProduto: Integer; Amemtable: TFDMemTable; AdataInicio,
   AdataFim: String

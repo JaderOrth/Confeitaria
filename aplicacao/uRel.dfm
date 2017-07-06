@@ -3,7 +3,7 @@ object frmRel: TfrmRel
   Top = 0
   BorderIcons = []
   Caption = 'Relat'#243'rio Pedido'
-  ClientHeight = 462
+  ClientHeight = 461
   ClientWidth = 834
   Color = clBtnFace
   Constraints.MaxHeight = 500
@@ -22,58 +22,51 @@ object frmRel: TfrmRel
   TextHeight = 13
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 443
+    Top = 442
     Width = 834
     Height = 19
     Panels = <>
-    ExplicitTop = 393
   end
   object Panel2: TPanel
     Left = 0
     Top = 56
     Width = 834
-    Height = 387
+    Height = 386
     Align = alClient
     BevelOuter = bvNone
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitHeight = 337
     object s: TPageControl
       Left = 0
       Top = 0
       Width = 834
-      Height = 387
+      Height = 386
       ActivePage = tsFitro
       Align = alClient
       MultiLine = True
       TabOrder = 0
-      ExplicitHeight = 337
       object tsFitro: TTabSheet
         Caption = 'Filtros'
-        ExplicitHeight = 309
         object Panel3: TPanel
           Left = 0
           Top = 0
           Width = 826
-          Height = 359
+          Height = 358
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitHeight = 309
           object GroupBox1: TGroupBox
             Left = 0
             Top = 0
             Width = 307
-            Height = 359
+            Height = 358
             Align = alLeft
             Caption = '  Informe os dados para o filtro  '
             Color = clWhite
             ParentBackground = False
             ParentColor = False
             TabOrder = 0
-            ExplicitLeft = 3
-            ExplicitTop = -2
             object btnProcessar: TSpeedButton
               Left = 19
               Top = 303
@@ -311,7 +304,7 @@ object frmRel: TfrmRel
             Left = 307
             Top = 0
             Width = 519
-            Height = 359
+            Height = 358
             Align = alClient
             Caption = '  Dados  '
             Padding.Left = 7
@@ -319,16 +312,14 @@ object frmRel: TfrmRel
             Padding.Right = 7
             Padding.Bottom = 7
             TabOrder = 1
-            ExplicitHeight = 309
             object DBGridListagem: TDBGrid
               Left = 9
               Top = 22
               Width = 501
-              Height = 328
+              Height = 327
               Cursor = crHandPoint
               Align = alClient
               BorderStyle = bsNone
-              DataSource = src_listagem
               Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
               ReadOnly = True
               TabOrder = 0
@@ -794,12 +785,11 @@ object frmRel: TfrmRel
     end
     object FDMemTable_listagemtotal_pedido: TFloatField
       FieldName = 'total_pedido'
-    end
-    object FDMemTable_listagemquantidade: TIntegerField
-      FieldName = 'quantidade'
+      currency = True
     end
     object FDMemTable_listagemvalor_total_itens: TFloatField
       FieldName = 'valor_total_itens'
+      currency = True
     end
     object FDMemTable_listagemproduto: TStringField
       FieldName = 'produto'
@@ -807,6 +797,7 @@ object frmRel: TfrmRel
     end
     object FDMemTable_listagempreco: TFloatField
       FieldName = 'preco'
+      currency = True
     end
     object FDMemTable_listagemcategoria: TStringField
       FieldName = 'categoria'
@@ -819,9 +810,6 @@ object frmRel: TfrmRel
     object FDMemTable_listagemnome: TStringField
       FieldName = 'nome'
       Size = 100
-    end
-    object FDMemTable_listagemcpf_cnpj: TFloatField
-      FieldName = 'cpf_cnpj'
     end
     object FDMemTable_listagemtelefone: TStringField
       FieldName = 'telefone'

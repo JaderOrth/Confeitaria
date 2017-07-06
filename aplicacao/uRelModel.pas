@@ -9,7 +9,7 @@ uses
 type
   TRelModel = class
   public
-    function SelectUpdate(const AidCliente, AidEstado, AidMunicipio, AidProduto:Integer; Amemtable:TFDMemTable; AdataInicio, AdataFim:String):Boolean;
+    function SelectUpdate(const AidCliente, AidEstado, AidMunicipio, AidProduto:Integer; Amemtable:TFDMemTable):Boolean;
   end;
 
 implementation
@@ -17,8 +17,7 @@ implementation
 { TRelModel }
 
 function TRelModel.SelectUpdate(const AidCliente, AidEstado, AidMunicipio,
-  AidProduto: Integer; Amemtable: TFDMemTable; AdataInicio,
-  AdataFim: String): Boolean;
+  AidProduto: Integer; Amemtable: TFDMemTable): Boolean;
 var
   oQuery: TFDQuery;
 begin
@@ -43,7 +42,7 @@ begin
 
     //oQuery.SQL.Add('');
 
-    AMemTable.Data := oQuery.Data;
+    Amemtable.Data := oQuery.Data;
     if (not(oQuery.IsEmpty)) then
       Result := True;
   finally
