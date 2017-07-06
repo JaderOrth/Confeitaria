@@ -56,6 +56,7 @@ type
     FDMemTable_listagemestado: TStringField;
     btnProcessar: TSpeedButton;
     DBGridListagem: TDBGrid;
+    FDMemTable_listagemquantidade: TFloatField;
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cbClienteEnter(Sender: TObject);
