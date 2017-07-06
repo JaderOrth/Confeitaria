@@ -409,10 +409,26 @@ begin
 end;
 
 procedure TPedidoCadastroController.Novo(Sender: TObject);
+var
+  iId: Integer;
 begin
   oPedidoRegra.LimparDTO(oPedidoDTO);
   frmPedidoCadastro.btnSalvar.Enabled := True;
   frmPedidoCadastro.btnNovo.Enabled := False;
+  with frmPedidoCadastro.fdMemTable do
+  begin
+    if (not(IsEmpty)) then
+    begin
+      First;
+      while (not(Eof)) do
+      begin
+        iId := FieldByName('idproduto').AsInteger;
+        Locate('idproduto', iId);
+        Delete;
+        Next;
+      end;
+    end;
+  end;
 end;
 
 procedure TPedidoCadastroController.NovoItens(Sender: TObject);
@@ -677,7 +693,8 @@ begin
   if (iSalvar = 0) then
   begin
     frmPedidoCadastro.btnSalvar.Enabled := False;
-    frmPedidoCadastro.btnNovo.Enabled := True;;
+    frmPedidoCadastro.btnNovo.Enabled := True;
+    oMontarGrid;
   end;
 end;
 

@@ -3,7 +3,7 @@ object frmRel: TfrmRel
   Top = 0
   BorderIcons = []
   Caption = 'Relat'#243'rio Pedido'
-  ClientHeight = 461
+  ClientHeight = 462
   ClientWidth = 834
   Color = clBtnFace
   Constraints.MaxHeight = 500
@@ -22,7 +22,7 @@ object frmRel: TfrmRel
   TextHeight = 13
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 442
+    Top = 443
     Width = 834
     Height = 19
     Panels = <>
@@ -31,7 +31,7 @@ object frmRel: TfrmRel
     Left = 0
     Top = 56
     Width = 834
-    Height = 386
+    Height = 387
     Align = alClient
     BevelOuter = bvNone
     Color = clWhite
@@ -41,7 +41,7 @@ object frmRel: TfrmRel
       Left = 0
       Top = 0
       Width = 834
-      Height = 386
+      Height = 387
       ActivePage = tsFitro
       Align = alClient
       MultiLine = True
@@ -52,7 +52,7 @@ object frmRel: TfrmRel
           Left = 0
           Top = 0
           Width = 826
-          Height = 358
+          Height = 359
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 0
@@ -60,7 +60,7 @@ object frmRel: TfrmRel
             Left = 0
             Top = 0
             Width = 307
-            Height = 358
+            Height = 359
             Align = alLeft
             Caption = '  Informe os dados para o filtro  '
             Color = clWhite
@@ -304,7 +304,7 @@ object frmRel: TfrmRel
             Left = 307
             Top = 0
             Width = 519
-            Height = 358
+            Height = 359
             Align = alClient
             Caption = '  Dados  '
             Padding.Left = 7
@@ -316,7 +316,7 @@ object frmRel: TfrmRel
               Left = 9
               Top = 22
               Width = 501
-              Height = 327
+              Height = 328
               Cursor = crHandPoint
               Align = alClient
               BorderStyle = bsNone

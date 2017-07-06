@@ -57,7 +57,7 @@ end;
 procedure TProdutoListagemController.ControlerCadastro(Sender: TObject);
 begin
   if (not(Assigned(oProdutoCadastrocontroller))) then
-    oProdutoCadastrocontroller := TProdutoCadastroController.Create;
+    oProdutoCadastrocontroller := TProdutoCadastroController.Create(MontarGrid);
   oProdutoCadastrocontroller.CreateFormCadastro(frmProduto, Sender, 0);
 end;
 
@@ -74,7 +74,7 @@ var
   iID: Integer;
 begin
   if (not(Assigned(oProdutoCadastrocontroller))) then
-    oProdutoCadastrocontroller := TProdutoCadastroController.Create;
+    oProdutoCadastrocontroller := TProdutoCadastroController.Create(MontarGrid);
   iID := oMemTable.FieldByName('idprodutos').AsInteger;
   oProdutoCadastrocontroller.CreateFormCadastro(frmProduto, Sender, iID);
 
@@ -145,7 +145,7 @@ begin
   frmProduto.FDMemTable_listagem.Close;
   if (oProdutoRegra.MontarGrid(frmProduto.FDMemTable_listagem, oProdutoModel)) then
   begin
-   // oMemTable.Open;
+    frmProduto.FDMemTable_listagem.Open;
     frmProduto.bClick := true;
     frmProduto.btnEditar.Enabled := true;
     frmProduto.btnExcluir.Enabled := true;

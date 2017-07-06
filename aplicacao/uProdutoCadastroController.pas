@@ -12,12 +12,17 @@ uses
   uSaborListaHash, uSaborDTO, uSaborListagemModel;
 
 type
+  TMontarGrid = procedure of object;
+
   TProdutoCadastroController = class(TInterfacedObject,
     IInterfaceCadastroController)
   private
     oProdutoDTO: TProdutoDTO;
     oProdutoModel: TProdutoCadastroModel;
     oProdutoRegra: TProdutoCadastroRegra;
+
+    oMontarGrid: TMontarGrid;
+
     procedure ComboBoxCategoria(Sender: TObject);
     procedure CheckSabor(Sender: TObject);
     procedure ComboBoxUnidadeMedida(Sender: TObject);
@@ -31,7 +36,7 @@ type
     procedure RetornarValorEdit(Sender: TObject);
     procedure Pesquisar(Sender: TObject);
 
-    constructor Create;
+    constructor Create(const AProcedimentoMontarGrid: TMontarGrid);
     destructor Destroy; override;
   end;
 
@@ -208,8 +213,9 @@ begin
   end;
 end;
 
-constructor TProdutoCadastroController.Create;
+constructor TProdutoCadastroController.Create(const AProcedimentoMontarGrid: TMontarGrid);
 begin
+  oMontarGrid := AProcedimentoMontarGrid;
   oProdutoDTO := TProdutoDTO.Create;
   oProdutoModel := TProdutoCadastroModel.Create;
   oProdutoRegra := TProdutoCadastroRegra.Create;
@@ -417,10 +423,6 @@ begin
     end;
   end;
 
-
- // sValor := CurrToStr(oProdutoDTO.preco);
-  //if (oProdutoRegra.ValidarPreco(sValor)) then
-   // oProdutoDTO.preco := StrToFloat(sValor);
   iSalvar := oProdutoRegra.Salvar(oProdutoDTO, aCheck, oProdutoModel);
   // Update False
   if (iSalvar = 1) then
@@ -451,7 +453,7 @@ begin
   begin
     frmProdutoCadastro.btnSalvar.Enabled := False;
     frmProdutoCadastro.btnNovo.Enabled := True;
-    //oMontarGrid;
+    oMontarGrid;
   end;
 
 end;

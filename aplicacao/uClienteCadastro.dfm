@@ -3,7 +3,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
   ClientHeight = 540
   ClientWidth = 757
   ExplicitWidth = 763
-  ExplicitHeight = 569
+  ExplicitHeight = 568
   PixelsPerInch = 96
   TextHeight = 16
   inherited StatusBar1: TStatusBar
@@ -65,6 +65,7 @@ inherited frmCadastroCliente: TfrmCadastroCliente
         EditLabel.Width = 55
         EditLabel.Height = 16
         EditLabel.Caption = 'CPF/CNPJ'
+        NumbersOnly = True
         TabOrder = 1
       end
       object edtTelefone: TLabeledEdit

@@ -3,7 +3,6 @@ inherited frmSaborCadastro: TfrmSaborCadastro
   Caption = 'Cadastro Sabor'
   ClientHeight = 233
   ClientWidth = 519
-  KeyPreview = True
   ExplicitWidth = 525
   ExplicitHeight = 261
   PixelsPerInch = 96
@@ -11,20 +10,22 @@ inherited frmSaborCadastro: TfrmSaborCadastro
   inherited StatusBar1: TStatusBar
     Top = 214
     Width = 519
-    ExplicitTop = 418
-    ExplicitWidth = 894
+    ExplicitTop = 214
+    ExplicitWidth = 519
   end
   inherited Panel1: TPanel
     Left = 416
     Height = 214
-    ExplicitLeft = 791
-    ExplicitHeight = 418
+    ExplicitLeft = 416
+    ExplicitHeight = 214
   end
   inherited panelCadastro: TPanel
     Width = 416
     Height = 214
-    ExplicitWidth = 791
-    ExplicitHeight = 418
+    ExplicitLeft = -4
+    ExplicitTop = -6
+    ExplicitWidth = 416
+    ExplicitHeight = 214
     object Label1: TLabel
       Left = 22
       Top = 73

@@ -88,11 +88,12 @@ begin
   oQuery := TFDQuery.Create(nil);
   try
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT descricao FROM uf where sigla_uf = ' +
+    oQuery.Open('SELECT iduf, descricao FROM uf where sigla_uf = ' +
       QuotedStr(aEstado.UF));
     if (not(oQuery.IsEmpty)) then
     begin
       aEstado.Descricao := oQuery.FieldByName('descricao').AsString;
+      aEstado.ID := oQuery.FieldByName('iduf').AsInteger;
       Result := true;
     end;
   finally

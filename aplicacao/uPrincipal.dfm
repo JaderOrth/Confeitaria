@@ -55264,6 +55264,7 @@ object frmPrincipal: TfrmPrincipal
       end
       object Produtos1: TMenuItem
         Caption = '&Produtos'
+        OnClick = Produtos1Click
       end
       object UnidadedeMedida1: TMenuItem
         Caption = 'U&nidade de Medida'

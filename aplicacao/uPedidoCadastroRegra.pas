@@ -122,7 +122,6 @@ begin
   aPedido.idBairro := -1;
   aPedido.responsavelPedido := EmptyStr;
   aPedido.idUsuario := 0;
-  aPedido.ItensPedido.Clear;
 end;
 
 function TPedidoCadastroRegra.SalvarPedido(const aPedidoDTO: TPedidoDTO;
