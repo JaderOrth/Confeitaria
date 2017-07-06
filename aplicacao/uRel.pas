@@ -16,7 +16,6 @@ type
     Panel2: TPanel;
     Panel1: TPanel;
     btnImprimir: TSpeedButton;
-    btnProcessar: TSpeedButton;
     btnSair: TSpeedButton;
     s: TPageControl;
     tsFitro: TTabSheet;
@@ -33,7 +32,6 @@ type
     GroupBox3: TGroupBox;
     Label4: TLabel;
     GroupBox4: TGroupBox;
-    DBGridListagem: TDBGrid;
     cbEstado: TComboBox;
     cbMunicipio: TComboBox;
     Label5: TLabel;
@@ -41,13 +39,31 @@ type
     cbProduto: TComboBox;
     Label7: TLabel;
     cbCliente: TComboBox;
-    frxReport1: TfrxReport;
+    frxReport: TfrxReport;
     frxDBDataset1: TfrxDBDataset;
+    FDMemTable_listagemidpedido: TIntegerField;
+    FDMemTable_listagemdata_pedido: TDateField;
+    FDMemTable_listagemtotal_pedido: TFloatField;
+    FDMemTable_listagemvalor_total_itens: TFloatField;
+    FDMemTable_listagemproduto: TStringField;
+    FDMemTable_listagempreco: TFloatField;
+    FDMemTable_listagemcategoria: TStringField;
+    FDMemTable_listagemsigla: TStringField;
+    FDMemTable_listagemnome: TStringField;
+    FDMemTable_listagemtelefone: TStringField;
+    FDMemTable_listagemcelular: TStringField;
+    FDMemTable_listagemmunicipio: TStringField;
+    FDMemTable_listagemestado: TStringField;
+    btnProcessar: TSpeedButton;
+    DBGridListagem: TDBGrid;
+    FDMemTable_listagemquantidade: TFloatField;
     procedure btnSairClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure cbClienteEnter(Sender: TObject);
     procedure cbEstadoEnter(Sender: TObject);
     procedure cbMunicipioEnter(Sender: TObject);
+    procedure btnProcessarClick(Sender: TObject);
+    procedure btnImprimirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -61,6 +77,16 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmRel.btnImprimirClick(Sender: TObject);
+begin
+  oBase.Relatorio(Sender);
+end;
+
+procedure TfrmRel.btnProcessarClick(Sender: TObject);
+begin
+  oBase.MontarGrid(Sender);
+end;
 
 procedure TfrmRel.btnSairClick(Sender: TObject);
 begin
