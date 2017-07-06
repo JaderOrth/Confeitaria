@@ -16,6 +16,7 @@ type
     //procedure ControlerCadastro(Sender: TObject);
     //procedure CreateFormEdit(Sender: TObject; oMemTable: TFDMemTable);
     procedure MontarGrid(Sender: TObject);
+    procedure Relatorio(Sender: TObject);
   end;
 
 implementation

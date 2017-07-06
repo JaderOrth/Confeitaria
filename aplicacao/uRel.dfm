@@ -201,7 +201,7 @@ object frmRel: TfrmRel
                 Caption = 'Fim'
               end
               object Label3: TLabel
-                Left = 119
+                Left = 121
                 Top = 36
                 Width = 16
                 Height = 13
@@ -320,6 +320,7 @@ object frmRel: TfrmRel
               Cursor = crHandPoint
               Align = alClient
               BorderStyle = bsNone
+              DataSource = src_listagem
               Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
               ReadOnly = True
               TabOrder = 0
@@ -546,6 +547,7 @@ object frmRel: TfrmRel
         F5F2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       ParentShowHint = False
       ShowHint = True
+      OnClick = btnImprimirClick
       ExplicitLeft = 57
     end
     object btnSair: TSpeedButton
@@ -765,7 +767,68 @@ object frmRel: TfrmRel
     Top = 118
   end
   object FDMemTable_listagem: TFDMemTable
-    FieldDefs = <>
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'idpedido'
+        DataType = ftInteger
+      end
+      item
+        Name = 'data_pedido'
+        DataType = ftDate
+      end
+      item
+        Name = 'total_pedido'
+        DataType = ftFloat
+      end
+      item
+        Name = 'valor_total_itens'
+        DataType = ftFloat
+      end
+      item
+        Name = 'produto'
+        DataType = ftString
+        Size = 255
+      end
+      item
+        Name = 'preco'
+        DataType = ftFloat
+      end
+      item
+        Name = 'categoria'
+        DataType = ftString
+        Size = 255
+      end
+      item
+        Name = 'sigla'
+        DataType = ftString
+        Size = 2
+      end
+      item
+        Name = 'nome'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'telefone'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'celular'
+        DataType = ftString
+        Size = 50
+      end
+      item
+        Name = 'municipio'
+        DataType = ftString
+        Size = 255
+      end
+      item
+        Name = 'estado'
+        DataType = ftString
+        Size = 255
+      end>
     IndexDefs = <>
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
@@ -828,7 +891,7 @@ object frmRel: TfrmRel
       Size = 255
     end
   end
-  object frxReport1: TfrxReport
+  object frxReport: TfrxReport
     Version = '5.3.14'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -4730,7 +4793,7 @@ object frmRel: TfrmRel
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
         Height = 22.677180000000000000
-        Top = 551.811380000000000000
+        Top = 510.236550000000000000
         Width = 718.110700000000000000
         object SysMemo3: TfrxSysMemoView
           Left = 627.401980000000000000
@@ -4757,7 +4820,7 @@ object frmRel: TfrmRel
       object GroupHeader1: TfrxGroupHeader
         FillType = ftBrush
         Height = 142.842610000000000000
-        Top = 215.433210000000000000
+        Top = 173.858380000000000000
         Width = 718.110700000000000000
         Condition = 'frxDBDataset1."idpedido"'
         object frxDBDataset1idpedido: TfrxMemoView
@@ -5003,16 +5066,10 @@ object frmRel: TfrmRel
           ParentFont = False
         end
       end
-      object PageHeader1: TfrxPageHeader
-        FillType = ftBrush
-        Height = 18.897650000000000000
-        Top = 136.063080000000000000
-        Width = 718.110700000000000000
-      end
       object MasterData1: TfrxMasterData
         FillType = ftBrush
         Height = 19.897650000000000000
-        Top = 427.086890000000000000
+        Top = 385.512060000000000000
         Width = 718.110700000000000000
         DataSet = frxDBDataset1
         DataSetName = 'frxDBDataset1'
@@ -5061,7 +5118,7 @@ object frmRel: TfrmRel
       object Header1: TfrxHeader
         FillType = ftBrush
         Height = 22.677180000000000000
-        Top = 381.732530000000000000
+        Top = 340.157700000000000000
         Width = 718.110700000000000000
         object Memo9: TfrxMemoView
           Width = 464.882190000000000000
@@ -5118,7 +5175,7 @@ object frmRel: TfrmRel
       object Footer1: TfrxFooter
         FillType = ftBrush
         Height = 22.677180000000000000
-        Top = 468.661720000000000000
+        Top = 427.086890000000000000
         Width = 718.110700000000000000
         object Memo14: TfrxMemoView
           Left = 498.897960000000000000

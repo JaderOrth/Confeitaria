@@ -18,6 +18,7 @@ type
     procedure CreateFormListagem(AOwner: TComponent);
     procedure CloseForm(Sender: TObject);
     procedure MontarGrid(Sender: TObject);
+    procedure Relatorio(Sender: TObject);
     procedure ComboBoxCliente(Sender: TObject);
     procedure ComboBoxEstado(Sender: TObject);
     procedure ComboBoxMunicipio(Sender: TObject);
@@ -25,7 +26,6 @@ type
 
     constructor Create;
     destructor Destroy; override;
-
   end;
 
 var
@@ -242,10 +242,12 @@ begin
 
   oModel.SelectUpdate(iIdCliente,iIdEstado,iIdMunicipio,iIdProduto, frmRel.FDMemTable_listagem);
 
-  {AidCliente, AidEstado, AidMunicipio,
-  AidProduto: Integer; Amemtable: TFDMemTable; AdataInicio,
-  AdataFim: String
-  }
+end;
+
+procedure TRelController.Relatorio(Sender: TObject);
+begin
+  //frmRel.FDMemTable_listagem.Open;
+  frmRel.frxReport.ShowReport;
 end;
 
 end.

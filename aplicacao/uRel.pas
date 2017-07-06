@@ -39,7 +39,7 @@ type
     cbProduto: TComboBox;
     Label7: TLabel;
     cbCliente: TComboBox;
-    frxReport1: TfrxReport;
+    frxReport: TfrxReport;
     frxDBDataset1: TfrxDBDataset;
     FDMemTable_listagemidpedido: TIntegerField;
     FDMemTable_listagemdata_pedido: TDateField;
@@ -62,6 +62,7 @@ type
     procedure cbEstadoEnter(Sender: TObject);
     procedure cbMunicipioEnter(Sender: TObject);
     procedure btnProcessarClick(Sender: TObject);
+    procedure btnImprimirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -75,6 +76,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmRel.btnImprimirClick(Sender: TObject);
+begin
+  oBase.Relatorio(Sender);
+end;
 
 procedure TfrmRel.btnProcessarClick(Sender: TObject);
 begin
