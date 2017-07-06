@@ -3,7 +3,7 @@ unit uInterfacePedidoCadastroModel;
 interface
 
 uses
-  uPedidoDTO;
+  uPedidoDTO, FireDAC.Comp.Client;
 
 type
   IInterfacePedidoCadastroModel = interface

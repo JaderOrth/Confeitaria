@@ -337,7 +337,6 @@ procedure TProdutoCadastroController.Salvar(Sender: TObject);
 var
   iValidar, iSalvar, I, iCont: Integer;
   aCheck: array of Integer;
-  sValor: String;
 begin
   oProdutoDTO.descricao := frmProdutoCadastro.edtProduto.Text;
   oProdutoDTO.preco := StrToCurrDef(frmProdutoCadastro.edtPreco.Text, 0);

@@ -48,6 +48,7 @@ end;
 function TMunicipioCadastroRegra.Salvar(var AMunicipio: TMunicipioDTO;
   const AModel: IInterfaceMunicipioModel): Integer;
 begin
+  Result := 0;
   if (AMunicipio.IdMunicipio > 0) then
   begin
     if (not(AModel.Update(AMunicipio))) then

@@ -143,7 +143,6 @@ end;
 function TProdutoCadastroModel.Update(const aProdutoDTO: TProdutoDTO): Boolean;
 var
   sSql: String;
-  sValor: String;
 begin
 
   sSql := 'UPDATE produtos SET descricao = ' + QuotedStr(aProdutoDTO.descricao)

@@ -18,7 +18,6 @@ type
     oMunicipioDTO: TMunicipioDTO;
     oMunicipioRegra: TMunicipioCadastroRegra;
     oMunicipioModel: TMunicipioCadastroModel;
-    oEstadoListagemModel: TEstadoListagemModel;
     oMontarGrid: TMontarGrid;
   public
     procedure CreateFormCadastro(AOwner: TComponent; Sender: TObject;

@@ -137,7 +137,7 @@ end;
 function TClienteCadastroRegra.ValidarCNPJ(var aCnpj: String): Boolean;
 var
   iContador1, iContador2, iSoma, iDigito: Integer;
-  iControlador, iMultiplicacao, iPosicao: Integer;
+  iMultiplicacao, iPosicao: Integer;
   sCNPJ, sCNPJValidado: string;
 
 begin
@@ -159,7 +159,6 @@ begin
   begin
     iSoma := 0;
     iMultiplicacao := 6 - iContador1;
-    iControlador := 0;
     iPosicao := 1;
     for iContador2 := 1 to (12 + iContador1) do
     begin

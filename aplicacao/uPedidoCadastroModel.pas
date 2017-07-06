@@ -88,10 +88,10 @@ begin
       while (not(oQuery.Eof)) do
       begin
         oItens := TItensPedidoDTO.Create;
-        oItens.idProduto := oQuery.FieldByName('idproduto').AsInteger;
+        oItens.idProduto := oQuery.FieldByName('idprodutos').AsInteger;
         oItens.quantidade := oQuery.FieldByName('quantidade').AsFloat;
         oItens.valorTotal := oQuery.FieldByName('valor_total').AsFloat;
-
+        oItens.observacao := oQuery.FieldByName('observacao').AsString;
         aPedidoDTO.ItensPedido.Add(oItens.valorTotal, oItens);
       end;
       Result := True;

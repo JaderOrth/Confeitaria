@@ -1,5 +1,5 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
-  ActiveControl = cbProduto
+  ActiveControl = cbCliente
   Caption = 'Cadastro do pedido'
   ClientHeight = 512
   ClientWidth = 834
@@ -52,7 +52,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       Top = 0
       Width = 731
       Height = 493
-      ActivePage = tsItensPedido
+      ActivePage = tsPedido
       Align = alClient
       TabOrder = 0
       object tsPedido: TTabSheet

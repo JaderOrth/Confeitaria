@@ -494,8 +494,6 @@ end;
 procedure TPedidoCadastroController.RetornarValorEdit(Sender: TObject);
 var
   iEstado, iMunicipio, iId: Integer;
-  sNome: String;
-  oItensDTO: TItensPedidoDTO;
 begin
   iId := oPedidoDTO.idPedido;
   if (oPedidoRegra.BuscarUpdate(oPedidoDTO, iId, oPedidoModel)) then
@@ -510,6 +508,7 @@ begin
       dtDataEntrega.DateTime := oPedidoDTO.dataEntrega;
       dtDataPedido.DateTime := oPedidoDTO.dataPedido;
       dtHoraEntrega.DateTime := oPedidoDTO.horaEntrega;
+      edtTotalPedido.Text := CurrToStr(oPedidoDTO.totalPedido);
     end;
   end;
 
@@ -525,23 +524,21 @@ begin
     frmPedidoCadastro.cbBairro.ItemIndex :=
       frmPedidoCadastro.cbBairro.Items.IndexOfObject(TObject(oPedidoDTO.idBairro));
   end;
-
-  if (oPedidoRegra.BuscarItensPedido(oPedidoDTO.idPedido, oPedidoDTO,
-    oPedidoModel)) then
-  begin
-    with frmPedidoCadastro do
-    begin
-      for oItensDTO in oPedidoDTO.ItensPedido.Values do
-      begin
-        fdMemTableidproduto.AsInteger := oItensDTO.idProduto;
-        fdMemTablequantidade.AsFloat := oItensDTO.quantidade;
-        fdMemTableobservacao.AsString := oItensDTO.observacao;
-        oPedidoRegra.buscarNomeProduto(oItensDTO.idProduto, sNome, oPedidoModel);
-        fdMemTableproduto.AsString := sNome;
-        fdMemTablevalorTotal.AsFloat := oItensDTO.valorTotal;
-      end;
-    end;
-  end;
+//  if (oPedidoRegra.BuscarItensPedido(oPedidoDTO.idPedido, oPedidoDTO, oPedidoModel)) then
+//  begin
+//    with frmPedidoCadastro do
+//    begin
+//      for oItensDTO in oPedidoDTO.ItensPedido.Values do
+//      begin
+//        fdMemTableidproduto.AsInteger := oItensDTO.idProduto;
+//        fdMemTablequantidade.AsFloat := oItensDTO.quantidade;
+//        fdMemTableobservacao.AsString := oItensDTO.observacao;
+//        oPedidoRegra.buscarNomeProduto(oItensDTO.idProduto, sNome, oPedidoModel);
+//        fdMemTableproduto.AsString := sNome;
+//        fdMemTablevalorTotal.AsFloat := oItensDTO.valorTotal;
+//      end;
+//    end;
+//  end;
 end;
 
 procedure TPedidoCadastroController.Salvar(Sender: TObject);

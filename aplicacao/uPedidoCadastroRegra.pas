@@ -3,7 +3,7 @@ unit uPedidoCadastroRegra;
 interface
 
 uses
-  System.SysUtils, System.Classes,
+  System.SysUtils, System.Classes, FireDAC.Comp.Client,
   uInterfacePedidoCadastroModel, uProdutoListaHash, uPedidoDTO,
   uInterfaceProdutoListagemModel, uInterfaceListagemModel, uEstadoListaHash,
   uMunicipioListaHash, uInterfaceMunicipioListagemModel, uBairroListaHash,
