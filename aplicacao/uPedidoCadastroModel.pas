@@ -171,12 +171,16 @@ end;
 function TPedidoCadastroModel.InsertItensPedido(
   const aPedido: TPedidoDTO): Boolean;
 var
-  sSql: String;
+  sSql, sSqlItensPedido: String;
   aItensDTO: TItensPedidoDTO;
+  oQuery: TFDQuery;
+  I, idItensPedido, iTamanho: Integer;
 begin
   Result := False;
   aItensDTO := TItensPedidoDTO.Create;
   try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
      for aItensDTO in aPedido.ItensPedido.Values do
   begin
     sSql := 'INSERT INTO itens_pedido(pedido_idpedido, idprodutos, quantidade, '+
@@ -186,11 +190,26 @@ begin
           FloatToStr(aItensDTO.quantidade)+', '+
           QuotedStr(aItensDTO.observacao)+', '+
           FloatToStr(aItensDTO.valorTotal)+')';
-    Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+    Result := oQuery.ExecSQL(sSql) > 0;
+    oQuery.Close;
+    oQuery.Open('SELECT MAX(iditens_pedido) as id FROM itens_pedido');
+    idItensPedido := oQuery.FieldByName('id').AsInteger;
+    iTamanho := Length(aItensDTO.sabores) - 1;
+    for I := 0 to iTamanho do
+    begin
+      sSqlItensPedido := 'INSERT INTO itemPedido_sabores(idItens_pedido,'+
+                         ' idsabores) VALUES('
+                         + IntToStr(idItensPedido)+', '
+                         +IntToStr(aItensDTO.sabores[I])+')';
+      Result := oQuery.ExecSQL(sSqlItensPedido) > 0;
+    end;
   end;
   finally
     if (Assigned(aItensDTO)) then
       FreeAndNil(aItensDTO);
+
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
   end;
 end;
 
