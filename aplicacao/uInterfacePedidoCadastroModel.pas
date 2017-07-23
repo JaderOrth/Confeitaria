@@ -17,7 +17,7 @@ type
     function BuscarEstadoMunicipio(const aBairo: Integer;
       out aEstado, aMunicipio: Integer): Boolean;
     function BuscarItensPedido(const aId: Integer; out aPedidoDTO: TPedidoDTO): Boolean;
-    function BuscarNomeEstado(const aID: Integer; out aNome: String): Boolean;
+    function BuscarNomeProduto(const aID: Integer; out aNome: String): Boolean;
   end;
 
 implementation

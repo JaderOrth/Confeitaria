@@ -21,7 +21,7 @@ type
       out aEstado, aMunicipio: Integer): Boolean;
     function BuscarItensPedido(const aId: Integer;
       out aPedidoDTO: TPedidoDTO): Boolean;
-    function BuscarNomeEstado(const aID: Integer; out aNome: String): Boolean;
+    function BuscarNomeProduto(const aID: Integer; out aNome: String): Boolean;
   end;
 
 implementation
@@ -76,6 +76,7 @@ var
   oQuery: TFDQuery;
   oItens: TItensPedidoDTO;
 begin
+  aPedidoDTO.ItensPedido.Clear;
   Result := False;
   try
     oQuery := TFDQuery.Create(nil);
@@ -93,6 +94,7 @@ begin
         oItens.valorTotal := oQuery.FieldByName('valor_total').AsFloat;
         oItens.observacao := oQuery.FieldByName('observacao').AsString;
         aPedidoDTO.ItensPedido.Add(oItens.valorTotal, oItens);
+        oQuery.Next;
       end;
       Result := True;
     end;
@@ -102,7 +104,7 @@ begin
   end;
 end;
 
-function TPedidoCadastroModel.BuscarNomeEstado(const aID: Integer;
+function TPedidoCadastroModel.BuscarNomeProduto(const aID: Integer;
   out aNome: String): Boolean;
 var
   oQuery: TFDQuery;
