@@ -23,7 +23,7 @@ type
     oPedidoRegra: TPedidoCadastroRegra;
     oPedidoModel: TPedidoCadastroModel;
     oItensPedidoDTO: TItensPedidoDTO;
-    iIdEstado, iIDProduto: Integer;
+    iIdEstado, iIDProduto, idItensPedido: Integer;
     dEditarValorTotal: Double;
     oMontarGrid: TMontarGrid;
     procedure SalvarItens(Sender: TObject);
@@ -127,6 +127,7 @@ begin
     exit;
   frmPedidoCadastro.Close;
   FreeAndNil(frmPedidoCadastro);
+  oPedidoRegra.LimparDTO(oPedidoDTO);
 end;
 
 procedure TPedidoCadastroController.ComboBoxBairro(Sender: TObject);
@@ -363,7 +364,7 @@ end;
 
 procedure TPedidoCadastroController.EditarItens(Sender: TObject);
 var
-  iId: Integer;
+  iId, I, iCont, J, idSabores: Integer;
 begin
   if (not(frmPedidoCadastro.fdMemTable.IsEmpty)) then
   begin
@@ -384,23 +385,29 @@ begin
       .AsFloat);
     frmPedidoCadastro.mObservacaoItensPedido.Text :=
       frmPedidoCadastro.fdMemTable.FieldByName('observacao').AsString;
+    oItensPedidoDTO.id := frmPedidoCadastro.fdMemTable.FieldByName('id').AsInteger;
+    oPedidoDTO.ItensPedido.TryGetValue(oItensPedidoDTO.id, oItensPedidoDTO);
+
+    ValidarCamposItensPedido(Sender);
+    if (frmPedidoCadastro.GroupSabores.Enabled = True) then
+    begin
+      for I := 0 to frmPedidoCadastro.clkSabores.Items.Count - 1 do
+      begin
+        iCont := Length(oItensPedidoDTO.sabores);
+        iCont := Pred(iCont);
+        idSabores := Integer(frmPedidoCadastro.clkSabores.Items.Objects[I]);
+        for J := 0 to iCont do
+        begin
+          if (oItensPedidoDTO.sabores[J] = idSabores ) then
+          begin
+            frmPedidoCadastro.clkSabores.Checked[I] := True;
+          end;
+        end;
+      end;
+    end;
 
     frmPedidoCadastro.fdMemTable.Post;
     iIDProduto := iId;
-  //  if (frmPedidoCadastro.GroupSabores.Enabled = True) then
-   // begin
-   //   for I := 0 to frmPedidoCadastro.clkSabores.Items.Count - 1 do
-   //   begin
-//      if (frmPedidoCadastro.clkSabores.Checked[I]) then
-//      begin
-//        iCont := Length(vSabores);
-//        SetLength(vSabores, iCont + 1);
-//        vSabores[iCont] :=
-//          Integer(frmPedidoCadastro.clkSabores.Items.Objects[I]);
-//      end;
-    //  end;
-   // oItensPedidoDTO.sabores
- // end;
   end;
   frmPedidoCadastro.btnNovoItens.Enabled := False;
   frmPedidoCadastro.btnSalvarItens.Enabled := True;
@@ -427,6 +434,7 @@ var
   iId: Integer;
 begin
   oPedidoRegra.LimparDTO(oPedidoDTO);
+  idItensPedido := 0;
   frmPedidoCadastro.btnSalvar.Enabled := True;
   frmPedidoCadastro.btnNovo.Enabled := False;
   with frmPedidoCadastro.fdMemTable do
@@ -573,6 +581,7 @@ begin
           oPedidoModel);
         fdMemTableproduto.AsString := sNome;
         fdMemTablevalorTotal.AsFloat := oItensDTO.valorTotal;
+        fdMemTableid.AsInteger := oItensDTO.id;
         fdMemTable.Post;
       end;
     end;
@@ -673,23 +682,23 @@ begin
     exit;
   end;
 
-  oPedidoDTO.ItensPedido.Clear;
-  if (not(frmPedidoCadastro.fdMemTable.IsEmpty)) then
-  begin
-    with frmPedidoCadastro.fdMemTable do
-    begin
-      First;
-      while (not(Eof)) do
-      begin
-        oItensPedidoDTO.idProduto := FieldByName('idproduto').AsInteger;
-        oItensPedidoDTO.quantidade := FieldByName('quantidade').AsFloat;
-        oItensPedidoDTO.observacao := FieldByName('observacao').AsString;
-        oItensPedidoDTO.valorTotal := FieldByName('valorTotal').AsFloat;
-        oPedidoDTO.ItensPedido.Add(oItensPedidoDTO.valorTotal, oItensPedidoDTO);
-        Next;
-      end;
-    end;
-  end;
+//  oPedidoDTO.ItensPedido.Clear;
+//  if (not(frmPedidoCadastro.fdMemTable.IsEmpty)) then
+//  begin
+//    with frmPedidoCadastro.fdMemTable do
+//    begin
+//      First;
+//      while (not(Eof)) do
+//      begin
+//        oItensPedidoDTO.idProduto := FieldByName('idproduto').AsInteger;
+//        oItensPedidoDTO.quantidade := FieldByName('quantidade').AsFloat;
+//        oItensPedidoDTO.observacao := FieldByName('observacao').AsString;
+//        oItensPedidoDTO.valorTotal := FieldByName('valorTotal').AsFloat;
+//        oPedidoDTO.ItensPedido.Add(oItensPedidoDTO.valorTotal, oItensPedidoDTO);
+//        Next;
+//      end;
+//    end;
+//  end;
 
   iSalvar := oPedidoRegra.SalvarPedido(oPedidoDTO, oPedidoModel);
 
@@ -726,11 +735,13 @@ begin
   if (iIDProduto > 0) then
   begin
     frmPedidoCadastro.fdMemTable.Edit;
+//    oPedidoDTO.ItensPedido.AddOrSetValue(idItensPedido, oItensPedidoDTO);
     oPedidoDTO.totalPedido := oPedidoDTO.totalPedido - dEditarValorTotal;
     frmPedidoCadastro.edtTotalPedido.Text := FloatToStr(oPedidoDTO.totalPedido);
   end
   else
   begin
+    idItensPedido := idItensPedido + 1;
     frmPedidoCadastro.fdMemTable.insert;
   end;
   iIDProduto := 0;
@@ -759,8 +770,7 @@ begin
     frmPedidoCadastro.cbProduto.Items.Strings
     [frmPedidoCadastro.cbProduto.ItemIndex];
   // calculo de valor do produto
-  oItensPedidoDTO.quantidade :=
-    StrToFloatDef(frmPedidoCadastro.edtQuantidade.Text, 0);
+  oItensPedidoDTO.quantidade := StrToFloatDef(frmPedidoCadastro.edtQuantidade.Text, 0);
   oItensPedidoDTO.valorTotal := oItensPedidoDTO.quantidade *
     StrToFloatDef(frmPedidoCadastro.edtValorUnitario.Text, 0);
   frmPedidoCadastro.edtValor.Text := FloatToStr(oItensPedidoDTO.valorTotal);
@@ -779,6 +789,10 @@ begin
   frmPedidoCadastro.fdMemTablevalor.AsCurrency :=
     StrToCurr(frmPedidoCadastro.edtValorUnitario.Text);
 
+
+  // salva no MemTable
+  frmPedidoCadastro.fdMemTable.Post;
+
   // inserção dos sabores num array
   if (frmPedidoCadastro.GroupSabores.Enabled = True) then
   begin
@@ -795,8 +809,25 @@ begin
     end;
     oItensPedidoDTO.sabores := vSabores;
   end;
-// salva no MemTable
-  frmPedidoCadastro.fdMemTable.Post;
+
+    oItensPedidoDTO.idProduto := Integer(frmPedidoCadastro.cbProduto.Items.Objects
+      [frmPedidoCadastro.cbProduto.ItemIndex]);
+    oItensPedidoDTO.quantidade := StrToFloatDef(frmPedidoCadastro.edtQuantidade.Text, 0);
+    oItensPedidoDTO.observacao := frmPedidoCadastro.mObservacaoItensPedido.Text;
+    oItensPedidoDTO.valorTotal := StrToFloatDef(frmPedidoCadastro.edtValor.Text, 0);
+
+    if (iIDProduto > 0) then
+    begin
+      oPedidoDTO.ItensPedido.AddOrSetValue(idItensPedido, oItensPedidoDTO);
+    end
+    else
+    begin
+      oItensPedidoDTO.id := idItensPedido;
+      oPedidoDTO.ItensPedido.Add(idItensPedido, oItensPedidoDTO);
+    end;
+
+
+
   frmPedidoCadastro.btnNovoItens.Enabled := True;
   frmPedidoCadastro.btnSalvarItens.Enabled := False;
 end;

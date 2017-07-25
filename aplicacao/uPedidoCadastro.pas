@@ -64,6 +64,7 @@ type
     edtValorUnitario: TLabeledEdit;
     edtQuantidade: TLabeledEdit;
     fdMemTablevalor: TCurrencyField;
+    fdMemTableid: TIntegerField;
     procedure clkSaboresClick(Sender: TObject);
   private
     { Private declarations }

@@ -13,6 +13,7 @@ type
     function InsertPedido(const aPedidoDTO: TPedidoDTO): Boolean;
     function InsertItensPedido(const aPedido: TPedidoDTO): Boolean;
     function DeleteItensPedido(const aId: Integer): Boolean;
+    function DeleteItemPedidoSabores(const aId: Integer): Boolean;
     function BuscarUpdate(out aPedidoDTO: TPedidoDTO; const aId: Integer): Boolean;
     function BuscarEstadoMunicipio(const aBairo: Integer;
       out aEstado, aMunicipio: Integer): Boolean;

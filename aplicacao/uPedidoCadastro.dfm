@@ -1,5 +1,5 @@
 inherited frmPedidoCadastro: TfrmPedidoCadastro
-  ActiveControl = cbProduto
+  ActiveControl = cbCliente
   Caption = 'Cadastro do pedido'
   ClientHeight = 512
   ClientWidth = 834
@@ -52,9 +52,11 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
       Top = 0
       Width = 731
       Height = 493
-      ActivePage = tsItensPedido
+      ActivePage = tsPedido
       Align = alClient
       TabOrder = 0
+      ExplicitLeft = -4
+      ExplicitTop = 2
       object tsPedido: TTabSheet
         Caption = '   &Pedido    '
         DoubleBuffered = False
@@ -528,7 +530,7 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
             TabOrder = 0
           end
           object edtValor: TLabeledEdit
-            Left = 486
+            Left = 487
             Top = 41
             Width = 85
             Height = 24
@@ -570,6 +572,8 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
               Sorted = True
               TabOrder = 0
               OnClick = clkSaboresClick
+              ExplicitLeft = 11
+              ExplicitTop = 20
             end
           end
           object dbItensListagem: TDBGrid
@@ -634,10 +638,15 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
                 Expanded = False
                 FieldName = 'valor'
                 Visible = False
+              end
+              item
+                Expanded = False
+                FieldName = 'id'
+                Visible = False
               end>
           end
           object edtValorUnitario: TLabeledEdit
-            Left = 402
+            Left = 404
             Top = 41
             Width = 76
             Height = 24
@@ -691,6 +700,9 @@ inherited frmPedidoCadastro: TfrmPedidoCadastro
     end
     object fdMemTablevalor: TCurrencyField
       FieldName = 'valor'
+    end
+    object fdMemTableid: TIntegerField
+      FieldName = 'id'
     end
   end
   object DataSource: TDataSource

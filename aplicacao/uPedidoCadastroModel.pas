@@ -16,6 +16,7 @@ type
     function InsertPedido(const aPedidoDTO: TPedidoDTO): Boolean;
     function InsertItensPedido(const aPedido: TPedidoDTO): Boolean;
     function DeleteItensPedido(const aId: Integer): Boolean;
+    function DeleteItemPedidoSabores(const aId: Integer): Boolean;
     function BuscarUpdate(out aPedidoDTO: TPedidoDTO; const aId: Integer): Boolean;
     function BuscarEstadoMunicipio(const aBairo: Integer;
       out aEstado, aMunicipio: Integer): Boolean;
@@ -75,6 +76,7 @@ function TPedidoCadastroModel.BuscarItensPedido(const aId: Integer;
 var
   oQuery: TFDQuery;
   oItens: TItensPedidoDTO;
+  iID: Integer;
 begin
   aPedidoDTO.ItensPedido.Clear;
   Result := False;
@@ -86,6 +88,7 @@ begin
     if (not(oQuery.IsEmpty)) then
     begin
       oQuery.First;
+      iID := 1;
       while (not(oQuery.Eof)) do
       begin
         oItens := TItensPedidoDTO.Create;
@@ -93,8 +96,10 @@ begin
         oItens.quantidade := oQuery.FieldByName('quantidade').AsFloat;
         oItens.valorTotal := oQuery.FieldByName('valor_total').AsFloat;
         oItens.observacao := oQuery.FieldByName('observacao').AsString;
-        aPedidoDTO.ItensPedido.Add(oItens.valorTotal, oItens);
+        oItens.id := iID;
+        aPedidoDTO.ItensPedido.Add(iID, oItens);
         oQuery.Next;
+        iID := iID + 1;
       end;
       Result := True;
     end;
@@ -162,6 +167,41 @@ begin
   end;
 end;
 
+function TPedidoCadastroModel.DeleteItemPedidoSabores(
+  const aId: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+  sSql: String;
+  iId: Integer;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('select iditens_pedido from itens_pedido'+
+                ' where pedido_idpedido = '+ IntToStr(aId));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      while (not(oQuery.Eof)) do
+      begin
+        iId := oQuery.FieldByName('iditens_pedido').AsInteger;
+        oQuery.Close;
+        oQuery.Open('SELECT id FROM itemPedido_sabores '+
+                  ' where iditens_pedido = '+ IntToStr(iId));
+        if (not(oQuery.IsEmpty)) then
+        begin
+          sSql := 'DELETE FROM itemPedido_sabores where id = '+
+                  IntToStr(oQuery.FieldByName('id').AsInteger);
+          Result := oQuery.ExecSQL(sSql) > 0;
+        end;
+      end;
+    end;
+  finally
+    if (Assigned(oQuery)) then
+      FreeAndNil(oQuery);
+  end;
+end;
+
 function TPedidoCadastroModel.DeleteItensPedido(const aId: Integer): Boolean;
 var
   sSql: String;
@@ -183,28 +223,28 @@ begin
   try
     oQuery := TFDQuery.Create(nil);
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-     for aItensDTO in aPedido.ItensPedido.Values do
-  begin
-    sSql := 'INSERT INTO itens_pedido(pedido_idpedido, idprodutos, quantidade, '+
-          'observacao, valor_total) VALUES('+
-          IntToStr(aPedido.idPedido)+', '+
-          IntToStr(aItensDTO.idProduto)+', '+
-          FloatToStr(aItensDTO.quantidade)+', '+
-          QuotedStr(aItensDTO.observacao)+', '+
-          FloatToStr(aItensDTO.valorTotal)+')';
-    Result := oQuery.ExecSQL(sSql) > 0;
-    oQuery.Close;
-    oQuery.Open('SELECT MAX(iditens_pedido) as id FROM itens_pedido');
-    idItensPedido := oQuery.FieldByName('id').AsInteger;
-    iTamanho := Length(aItensDTO.sabores) - 1;
-    for I := 0 to iTamanho do
+    for aItensDTO in aPedido.ItensPedido.Values do
     begin
-      sSqlItensPedido := 'INSERT INTO itemPedido_sabores(idItens_pedido,'+
-                         ' idsabores) VALUES('
-                         + IntToStr(idItensPedido)+', '
-                         +IntToStr(aItensDTO.sabores[I])+')';
-      Result := oQuery.ExecSQL(sSqlItensPedido) > 0;
-    end;
+      sSql := 'INSERT INTO itens_pedido(pedido_idpedido, idprodutos, quantidade, '+
+            'observacao, valor_total) VALUES('+
+            IntToStr(aPedido.idPedido)+', '+
+            IntToStr(aItensDTO.idProduto)+', '+
+            FloatToStr(aItensDTO.quantidade)+', '+
+            QuotedStr(aItensDTO.observacao)+', '+
+            FloatToStr(aItensDTO.valorTotal)+')';
+      Result := oQuery.ExecSQL(sSql) > 0;
+      oQuery.Close;
+      oQuery.Open('SELECT MAX(iditens_pedido) as id FROM itens_pedido');
+      idItensPedido := oQuery.FieldByName('id').AsInteger;
+      iTamanho := Length(aItensDTO.sabores) - 1;
+      for I := 0 to iTamanho do
+      begin
+        sSqlItensPedido := 'INSERT INTO itemPedido_sabores(idItens_pedido,'+
+                           ' idsabores) VALUES('
+                           + IntToStr(idItensPedido)+', '
+                           +IntToStr(aItensDTO.sabores[I])+')';
+        Result := oQuery.ExecSQL(sSqlItensPedido) > 0;
+      end;
   end;
   finally
     if (Assigned(aItensDTO)) then
