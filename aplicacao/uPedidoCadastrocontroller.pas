@@ -425,6 +425,7 @@ begin
       iId := frmPedidoCadastro.fdMemTable.FieldByName('idproduto').AsInteger;
       frmPedidoCadastro.fdMemTable.Locate('idproduto', iId);
       frmPedidoCadastro.fdMemTable.Delete;
+      oPedidoDTO.ItensPedido.Remove(idItensPedido);
     end
   end;
 end;
@@ -744,7 +745,6 @@ begin
     idItensPedido := idItensPedido + 1;
     frmPedidoCadastro.fdMemTable.insert;
   end;
-  iIDProduto := 0;
 
   // Validação se o usuário preencheu o campo produto
   if (frmPedidoCadastro.cbProduto.ItemIndex <> -1) then
@@ -819,6 +819,7 @@ begin
     if (iIDProduto > 0) then
     begin
       oPedidoDTO.ItensPedido.AddOrSetValue(idItensPedido, oItensPedidoDTO);
+      iIDProduto := 0;
     end
     else
     begin
