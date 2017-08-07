@@ -189,7 +189,7 @@ function TPedidoCadastroModel.DeleteItemPedidoSabores(
 var
   oQuery, oQueryItens: TFDQuery;
   sSql: String;
-  iId: Integer;
+  //iId: Integer;
 begin
   Result := False;
   try
@@ -204,22 +204,17 @@ begin
       oQuery.First;
       while (not(oQuery.Eof)) do
       begin
-        iId := oQuery.FieldByName('iditens_pedido').AsInteger;
-        oQueryItens.Open('SELECT id FROM itemPedido_sabores '+
-                  ' where iditens_pedido = '+ IntToStr(iId));
-        if (not(oQueryItens.IsEmpty)) then
-        begin
-          sSql := 'DELETE FROM itemPedido_sabores where id = '+
-                  IntToStr(oQueryItens.FieldByName('id').AsInteger);
-          Result := oQueryItens.ExecSQL(sSql) > 0;
-        end;
+        sSql := 'DELETE FROM itemPedido_sabores where iditens_pedido = '+
+                oQuery.FieldByName('iditens_pedido').AsString;
+        Result := oQueryItens.ExecSQL(sSql) > 0;
         oQuery.Next;
       end;
-      Result := True;
     end;
+    Result := True;
   finally
     if (Assigned(oQuery)) then
-      FreeAndNil(oQuery);
+      FreeAndNil(oQuery); 
+      
     if (Assigned(oQueryItens)) then
       FreeAndNil(oQueryItens);
   end;
