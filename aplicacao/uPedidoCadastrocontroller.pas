@@ -550,7 +550,7 @@ begin
       dtDataEntrega.DateTime := oPedidoDTO.dataEntrega;
       dtDataPedido.DateTime := oPedidoDTO.dataPedido;
       dtHoraEntrega.DateTime := oPedidoDTO.horaEntrega;
-      edtTotalPedido.Text := CurrToStr(oPedidoDTO.totalPedido);
+      edtTotalPedido.Text := CurrToStrF(oPedidoDTO.totalPedido, ffCurrency, 2);
     end;
   end;
 
@@ -583,6 +583,7 @@ begin
         fdMemTableproduto.AsString := sNome;
         fdMemTablevalorTotal.AsFloat := oItensDTO.valorTotal;
         fdMemTableid.AsInteger := oItensDTO.id;
+        idItensPedido := oItensDTO.id;
         fdMemTable.Post;
       end;
     end;
@@ -742,6 +743,7 @@ begin
   end
   else
   begin
+    oItensPedidoDTO := TItensPedidoDTO.Create;
     idItensPedido := idItensPedido + 1;
     frmPedidoCadastro.fdMemTable.insert;
   end;

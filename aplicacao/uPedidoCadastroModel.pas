@@ -74,16 +74,19 @@ end;
 function TPedidoCadastroModel.BuscarItensPedido(const aId: Integer;
   out aPedidoDTO: TPedidoDTO): Boolean;
 var
-  oQuery: TFDQuery;
+  oQuery, oQueryItens: TFDQuery;
   oItens: TItensPedidoDTO;
-  iID: Integer;
+  iID, idItemPedido, iCont: Integer;
+  vSabores: TSaboresItens;
 begin
   aPedidoDTO.ItensPedido.Clear;
   Result := False;
   try
     oQuery := TFDQuery.Create(nil);
+    oQueryItens := TFDQuery.Create(nil);
     oQuery.Connection := TConexaoSingleton.GetInstancia;
-    oQuery.Open('SELECT idprodutos, quantidade, observacao, valor_total'+
+    oQueryItens.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT iditens_pedido, idprodutos, quantidade, observacao, valor_total'+
                 ' FROM itens_pedido WHERE pedido_idpedido = '+ IntToStr(aId));
     if (not(oQuery.IsEmpty)) then
     begin
@@ -92,20 +95,34 @@ begin
       while (not(oQuery.Eof)) do
       begin
         oItens := TItensPedidoDTO.Create;
+        idItemPedido := oQuery.FieldByName('iditens_pedido').AsInteger;
         oItens.idProduto := oQuery.FieldByName('idprodutos').AsInteger;
         oItens.quantidade := oQuery.FieldByName('quantidade').AsFloat;
         oItens.valorTotal := oQuery.FieldByName('valor_total').AsFloat;
         oItens.observacao := oQuery.FieldByName('observacao').AsString;
         oItens.id := iID;
+        oQueryItens.Open('SELECT idsabores FROM itemPedido_sabores'+
+                    ' where iditens_pedido = '+ IntToStr(idItemPedido));
+        oQueryItens.First;
+        while (not(oQueryItens.Eof)) do
+        begin
+          iCont := Length(vSabores);
+          SetLength(vSabores, iCont + 1);
+          vSabores[iCont] := oQueryItens.FieldByName('idsabores').AsInteger;
+          oQueryItens.Next;
+        end;
+        oItens.sabores := vSabores;
         aPedidoDTO.ItensPedido.Add(iID, oItens);
-        oQuery.Next;
         iID := iID + 1;
+         oQuery.Next;
       end;
       Result := True;
     end;
   finally
     if (assigned(oQuery)) then
       FreeandNil(oQuery);
+    if (Assigned(oQueryItens)) then
+      FreeAndNil(oQueryItens);
   end;
 end;
 
@@ -170,35 +187,41 @@ end;
 function TPedidoCadastroModel.DeleteItemPedidoSabores(
   const aId: Integer): Boolean;
 var
-  oQuery: TFDQuery;
+  oQuery, oQueryItens: TFDQuery;
   sSql: String;
   iId: Integer;
 begin
   Result := False;
   try
     oQuery := TFDQuery.Create(nil);
+    oQueryItens := TFDQuery.Create(nil);
     oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQueryItens.Connection := TConexaoSingleton.GetInstancia;
     oQuery.Open('select iditens_pedido from itens_pedido'+
                 ' where pedido_idpedido = '+ IntToStr(aId));
     if (not(oQuery.IsEmpty)) then
     begin
+      oQuery.First;
       while (not(oQuery.Eof)) do
       begin
         iId := oQuery.FieldByName('iditens_pedido').AsInteger;
-        oQuery.Close;
-        oQuery.Open('SELECT id FROM itemPedido_sabores '+
+        oQueryItens.Open('SELECT id FROM itemPedido_sabores '+
                   ' where iditens_pedido = '+ IntToStr(iId));
-        if (not(oQuery.IsEmpty)) then
+        if (not(oQueryItens.IsEmpty)) then
         begin
           sSql := 'DELETE FROM itemPedido_sabores where id = '+
-                  IntToStr(oQuery.FieldByName('id').AsInteger);
-          Result := oQuery.ExecSQL(sSql) > 0;
+                  IntToStr(oQueryItens.FieldByName('id').AsInteger);
+          Result := oQueryItens.ExecSQL(sSql) > 0;
         end;
+        oQuery.Next;
       end;
+      Result := True;
     end;
   finally
     if (Assigned(oQuery)) then
       FreeAndNil(oQuery);
+    if (Assigned(oQueryItens)) then
+      FreeAndNil(oQueryItens);
   end;
 end;
 
