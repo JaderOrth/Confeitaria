@@ -23,6 +23,8 @@ type
     function BuscarItensPedido(const aId: Integer;
       out aPedidoDTO: TPedidoDTO): Boolean;
     function BuscarNomeProduto(const aID: Integer; out aNome: String): Boolean;
+    function BuscarCliente(var aProduto: TPedidoDTO; out aMunicipio,
+  aEstado: Integer): Boolean;
   end;
 
 implementation
@@ -43,6 +45,34 @@ begin
   finally
     if (Assigned(oQuery)) then
       FreeAndNil(oQuery);
+  end;
+end;
+
+function TPedidoCadastroModel.BuscarCliente(var aProduto: TPedidoDTO; out aMunicipio,
+  aEstado: Integer): Boolean;
+var
+  oQuery: TFDQuery;
+begin
+  Result := False;
+  try
+    oQuery := TFDQuery.Create(nil);
+    oQuery.Connection := TConexaoSingleton.GetInstancia;
+    oQuery.Open('SELECT bai.idbairro, mun.idmunicipio, est.iduf'+
+                ' FROM cliente as cli INNER JOIN bairro as bai'+
+                ' ON bai.idbairro = cli.idbairro INNER JOIN municipio as mun'+
+                ' ON mun.idmunicipio = bai.idmunicipio INNER JOIN uf as est'+
+                ' ON est.iduf = mun.iduf '+
+                ' where cli.idcliente = '+ IntToStr(aProduto.idCliente));
+    if (not(oQuery.IsEmpty)) then
+    begin
+      aProduto.idBairro := oQuery.FieldByName('idbairro').AsInteger;
+      aMunicipio := oQuery.FieldByName('idmunicipio').AsInteger;
+      aEstado := oQuery.FieldByName('iduf').AsInteger;
+      Result := True;
+    end;
+  finally
+    if (assigned(oQuery)) then
+      FreeandNil(oQuery);
   end;
 end;
 
@@ -189,9 +219,7 @@ function TPedidoCadastroModel.DeleteItemPedidoSabores(
 var
   oQuery, oQueryItens: TFDQuery;
   sSql: String;
-  //iId: Integer;
 begin
-  Result := False;
   try
     oQuery := TFDQuery.Create(nil);
     oQueryItens := TFDQuery.Create(nil);
@@ -237,7 +265,6 @@ var
   I, idItensPedido, iTamanho: Integer;
 begin
   Result := False;
-  aItensDTO := TItensPedidoDTO.Create;
   try
     oQuery := TFDQuery.Create(nil);
     oQuery.Connection := TConexaoSingleton.GetInstancia;
@@ -265,8 +292,6 @@ begin
       end;
   end;
   finally
-    if (Assigned(aItensDTO)) then
-      FreeAndNil(aItensDTO);
 
     if (Assigned(oQuery)) then
       FreeAndNil(oQuery);

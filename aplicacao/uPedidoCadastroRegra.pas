@@ -41,12 +41,20 @@ type
       const aModel: IInterfacePedidoCadastroModel): Boolean;
     function BuscarNomeProduto(const aId: Integer; out aNome: String;
       const aModel: IInterfacePedidoCadastroModel): boolean;
+    function BuscarCliente(var aProduto: TPedidoDTO; out aMunicipio,
+  aEstado: Integer; const aModel: IInterfacePedidoCadastroModel): Boolean;
   end;
 
 implementation
 
 { TPedidoCadastroRegra }
 
+
+function TPedidoCadastroRegra.BuscarCliente(var aProduto: TPedidoDTO; out aMunicipio,
+  aEstado: Integer; const aModel: IInterfacePedidoCadastroModel): Boolean;
+begin
+  Result := aModel.BuscarCliente(aProduto, aMunicipio, aEstado);
+end;
 
 function TPedidoCadastroRegra.BuscarEstadoMunicipio(const aBairo: Integer;
   out aEstado, aMunicipio: Integer;

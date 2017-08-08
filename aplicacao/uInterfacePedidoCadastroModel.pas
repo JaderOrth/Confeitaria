@@ -19,6 +19,8 @@ type
       out aEstado, aMunicipio: Integer): Boolean;
     function BuscarItensPedido(const aId: Integer; out aPedidoDTO: TPedidoDTO): Boolean;
     function BuscarNomeProduto(const aID: Integer; out aNome: String): Boolean;
+    function BuscarCliente(var aProduto: TPedidoDTO; out aMunicipio,
+    aEstado: Integer): Boolean;
   end;
 
 implementation
