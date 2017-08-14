@@ -334,7 +334,7 @@ begin
   oPedidoDTO := TPedidoDTO.Create;
   oPedidoRegra := TPedidoCadastroRegra.Create;
   oPedidoModel := TPedidoCadastroModel.Create;
-  // oItensPedidoDTO := TItensPedidoDTO.Create;
+  oItensPedidoDTO := TItensPedidoDTO.Create;
 end;
 
 procedure TPedidoCadastroController.CreateFormCadastro(AOwner: TComponent;
@@ -445,6 +445,7 @@ end;
 
 procedure TPedidoCadastroController.ExcluirItens(Sender: TObject);
 var
+  cValor: Currency;
   iId: Integer;
 begin
   if (not(frmPedidoCadastro.fdMemTable.IsEmpty)) then
@@ -454,6 +455,10 @@ begin
     begin
       iId := frmPedidoCadastro.fdMemTable.FieldByName('idproduto').AsInteger;
       frmPedidoCadastro.fdMemTable.Locate('idproduto', iId);
+      cValor := frmPedidoCadastro.fdMemTable.FieldByName('valorTotal').AsCurrency;
+      oItensPedidoDTO.valorTotal := oItensPedidoDTO.valorTotal -  cValor;
+      frmPedidoCadastro.edtTotalPedido.Text := FloatToStrF((oPedidoDTO.totalPedido),
+        ffCurrency, 15, 2);
       frmPedidoCadastro.fdMemTable.Delete;
       oPedidoDTO.ItensPedido.Remove(idItensPedido);
     end
@@ -762,6 +767,7 @@ procedure TPedidoCadastroController.SalvarItens(Sender: TObject);
 var
   I, iCont: Integer;
   vSabores: TSaboresItens;
+  iContador: Integer;
 begin
   // adiciona valor no memTable e irá mostrar na grid
   if (iIDProduto > 0) then
@@ -774,7 +780,14 @@ begin
   else
   begin
     oItensPedidoDTO := TItensPedidoDTO.Create;
-    idItensPedido := idItensPedido + 1;
+
+    idItensPedido := 1;
+
+    while oPedidoDTO.ItensPedido.ContainsKey(idItensPedido) do
+    begin
+      idItensPedido := idItensPedido + 1;
+    end;
+
     frmPedidoCadastro.fdMemTable.Insert;
   end;
 
