@@ -15,6 +15,9 @@ type
     function BurscarIdPedido: Integer;
     function InsertPedido(const aPedidoDTO: TPedidoDTO): Boolean;
     function InsertItensPedido(const aPedido: TPedidoDTO): Boolean;
+    function UpdateItensPedido(const aPedido: TPedidoDTO): Boolean;
+
+
     function DeleteItensPedido(const aId: Integer): Boolean;
     function DeleteItemPedidoSabores(const aId: Integer): Boolean;
     function BuscarUpdate(out aPedidoDTO: TPedidoDTO; const aId: Integer): Boolean;
@@ -322,6 +325,19 @@ begin
           IntToStr(aPedidoDTO.idUsuario)+')';
 
   Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+end;
+
+function TPedidoCadastroModel.UpdateItensPedido(
+  const aPedido: TPedidoDTO): Boolean;
+var
+  aItensDTO: TItensPedidoDTO;
+  sSql: String;
+begin
+  for aItensDTO in aPedido.ItensPedido.Values do
+  begin
+    sSql := 'UPDATE itens_pedido SET ()';
+    Result := TConexaoSingleton.GetInstancia.ExecSQL(sSql) > 0;
+  end;
 end;
 
 function TPedidoCadastroModel.ValidarCamposItensPedido

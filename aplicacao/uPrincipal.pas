@@ -11,7 +11,8 @@ uses
   uPedidoListagemController, uCategoriasListagemController, uProdutoListagemController,
   uSaborListagemController, uUnidadeMedidaListagemController,
   Vcl.Imaging.pngimage, frxClass, frxDBSet,
-  uRelController;
+  uRelController,
+  uLogin;
 
 type
   TfrmPrincipal = class(TForm)

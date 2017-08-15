@@ -1,5 +1,5 @@
 unit uPedidoCadastroRegra;
-
+             //desbravador
 interface
 
 uses
@@ -140,13 +140,13 @@ begin
   begin
     if (aModel.DeleteItemPedidoSabores(aPedidoDTO.idPedido)) then
     begin
-     if (aModel.DeleteItensPedido(aPedidoDTO.idPedido)) then
-     begin
+      if (aModel.DeleteItensPedido(aPedidoDTO.idPedido)) then
+      begin
        if (not(aModel.InsertItensPedido(aPedidoDTO))) then
          result := 1;
-     end
-     else
-      Result := 2;
+      end
+      else
+        Result := 2;
     end
   end
   else

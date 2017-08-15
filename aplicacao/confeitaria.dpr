@@ -131,13 +131,24 @@ uses
   uRel in 'uRel.pas' {frmRel},
   uInterfaceRel in 'uInterfaceRel.pas',
   uRelModel in 'uRelModel.pas',
-  uRelController in 'uRelController.pas';
+  uRelController in 'uRelController.pas',
+  uLogin in 'uLogin.pas' {frmLogin},
+  System.SysUtils,
+  Vcl.Controls {frmLogin};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.Run;
+  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
+  Application.CreateForm(TFrmLogin, FrmLogin);
+  if FrmLogin.ShowModal = mrOk then
+   begin
+      FreeAndNil(FrmLogin);
+//      Application.CreateForm(TFrmPrincipal, FrmPrincipal);
+      Application.Run;
+   end
+   else
+      Application.Terminate;
 end.

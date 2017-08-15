@@ -12,6 +12,11 @@ type
     function BurscarIdPedido: Integer;
     function InsertPedido(const aPedidoDTO: TPedidoDTO): Boolean;
     function InsertItensPedido(const aPedido: TPedidoDTO): Boolean;
+    function UpdateItensPedido(const aPedido: TPedidoDTO): Boolean;
+
+
+
+
     function DeleteItensPedido(const aId: Integer): Boolean;
     function DeleteItemPedidoSabores(const aId: Integer): Boolean;
     function BuscarUpdate(out aPedidoDTO: TPedidoDTO; const aId: Integer): Boolean;
