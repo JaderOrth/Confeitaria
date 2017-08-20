@@ -37,7 +37,7 @@ object frmLogin: TfrmLogin
     Left = 8
     Top = 40
     Width = 235
-    Height = 26
+    Height = 21
     EditLabel.Width = 61
     EditLabel.Height = 13
     EditLabel.Caption = 'LabeledEdit1'
@@ -47,7 +47,7 @@ object frmLogin: TfrmLogin
     Left = 8
     Top = 88
     Width = 235
-    Height = 26
+    Height = 21
     EditLabel.Width = 61
     EditLabel.Height = 13
     EditLabel.Caption = 'LabeledEdit1'
