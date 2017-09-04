@@ -4,16 +4,16 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Buttons;
 
 type
   TfrmLogin = class(TForm)
-    Button1: TButton;
-    Button2: TButton;
-    LabeledEdit1: TLabeledEdit;
-    LabeledEdit2: TLabeledEdit;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    edtNome: TLabeledEdit;
+    edtSenha: TLabeledEdit;
+    btnSair: TSpeedButton;
+    btnLogin: TSpeedButton;
+    procedure btnSairClick(Sender: TObject);
+    procedure btnLoginClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,14 +27,14 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmLogin.Button1Click(Sender: TObject);
+procedure TfrmLogin.btnSairClick(Sender: TObject);
 begin
-  ModalResult := mrOk;
+ ModalResult := mrCancel;
 end;
 
-procedure TfrmLogin.Button2Click(Sender: TObject);
+procedure TfrmLogin.btnLoginClick(Sender: TObject);
 begin
-  ModalResult := mrCancel;
+  ModalResult := mrOk;
 end;
 
 end.
