@@ -13,11 +13,13 @@ object frmLogin: TfrmLogin
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object btnSair: TSpeedButton
     Left = 8
-    Top = 115
+    Top = 113
     Width = 105
     Height = 59
     Cursor = crHandPoint
@@ -226,7 +228,7 @@ object frmLogin: TfrmLogin
   end
   object btnLogin: TSpeedButton
     Left = 136
-    Top = 115
+    Top = 113
     Width = 107
     Height = 59
     Cursor = crHandPoint
@@ -284,7 +286,7 @@ object frmLogin: TfrmLogin
     Left = 8
     Top = 26
     Width = 235
-    Height = 28
+    Height = 21
     EditLabel.Width = 27
     EditLabel.Height = 13
     EditLabel.Caption = 'Nome'
@@ -294,10 +296,11 @@ object frmLogin: TfrmLogin
     Left = 8
     Top = 74
     Width = 235
-    Height = 27
+    Height = 21
     EditLabel.Width = 30
     EditLabel.Height = 13
     EditLabel.Caption = 'Senha'
+    PasswordChar = '*'
     TabOrder = 1
   end
 end

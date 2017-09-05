@@ -134,7 +134,12 @@ uses
   uRelController in 'uRelController.pas',
   uLogin in 'uLogin.pas' {frmLogin},
   System.SysUtils,
-  Vcl.Controls {frmLogin};
+  Vcl.Controls {frmLogin},
+  uLoginController in 'uLoginController.pas',
+  uLoginModel in 'uLoginModel.pas',
+  uInterfaceLogin in 'uInterfaceLogin.pas',
+  uLoginDto in 'uLoginDto.pas',
+  uSingletonUsuario in 'uSingletonUsuario.pas';
 
 {$R *.res}
 
